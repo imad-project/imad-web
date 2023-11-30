@@ -1,9 +1,37 @@
 import { ChangeEvent, useState } from "react";
 import LoginPageUI from "./login_presenter";
 import axios from "axios";
+import { useRouter } from "next/router";
+import { setCookie } from "../../../commons/cookies/cookie";
+
 export default function LoginContainer() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const router = useRouter();
+  const LOGINIMAD = async () => {
+    await axios
+      .post("https://ncookie.site/api/login", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res.data);
+          const accessToken = res.headers["authorization"];
+          setCookie("Authorization", accessToken, {
+            path: "/",
+            secure: true,
+            sameSite: "none",
+          });
+          if (process.browser) {
+            router.push("/login/success");
+          }
+        }
+
+        return res.data;
+      });
+  };
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -14,21 +42,16 @@ export default function LoginContainer() {
   };
 
   const onClickLogin = () => {
-    // if (email === "" || password === "") {
-    //   alert("아이디와 비밀번호를 입력해주세요.");
-    //   return;
-    // }
-    const LOGINIMAD = () => {
-      axios
-        .post("https://ncookie.site/api/login", {
-          email: email,
-          password: password,
-        })
-        .then((res) => {
-          console.log(res.data);
-        });
-    };
+    if (email === "" || password === "") {
+      alert("아이디와 비밀번호를 입력해주세요.");
+      return;
+    }
+
     LOGINIMAD();
+
+    if (process.browser) {
+      router.push("/login/success");
+    }
   };
 
   return (
