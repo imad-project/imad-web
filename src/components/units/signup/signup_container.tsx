@@ -1,14 +1,31 @@
+import SignupUI from "./signup_presenter";
 import { ChangeEvent, useState } from "react";
-import LoginPageUI from "./login_presenter";
+
 import axios from "axios";
 import { useRouter } from "next/router";
 import { setCookie } from "../../../commons/cookies/cookie";
 
-export default function LoginContainer() {
+export default function SignupContainer(): JSX.Element {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const router = useRouter();
+
+  const SIGNUPIMAD = async () => {
+    await axios
+      .post("https://ncookie.site/api/signup", {
+        email: email,
+        password: password,
+        auth_provider: "IMAD",
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          LOGINIMAD();
+        } else {
+          alert(res.data.message);
+        }
+      });
+  };
   const LOGINIMAD = async () => {
     await axios
       .post("https://ncookie.site/api/login", {
@@ -17,23 +34,25 @@ export default function LoginContainer() {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data.message);
+          console.log(res.data);
           const accessToken = res.headers["authorization"];
           setCookie("Authorization", accessToken, {
             path: "/",
             secure: true,
             sameSite: "none",
           });
-          if (process.browser) {
-            router.push("/login/success");
+          if (res.data.data.role === "GUEST") {
+            console.log(res.data.data.role);
+            router.push("/SetUserData");
+          } else {
+            if (res.data.data.role === "USER") {
+              console.log(res.data.data.role);
+              router.push("/login/success");
+            }
           }
         }
 
         return res.data;
-      })
-      .catch((res) => {
-        alert(res.data.data.message);
-        console.log(res.data.data.message);
       });
   };
 
@@ -45,26 +64,19 @@ export default function LoginContainer() {
     setPassword(event.target.value);
   };
 
-  const onClickLogin = () => {
+  const onClickSignUp = () => {
     if (email === "" || password === "") {
-      alert("아이디와 비밀번호를 입력해주세요.");
+      alert("회원가입에 사용할 아이디와 비밀번호를 입력해주세요.");
       return;
     }
-
-    LOGINIMAD();
-
-    // if (process.browser) {
-    //   router.push("/login/success");
-    // }
+    SIGNUPIMAD();
   };
 
   return (
-    <>
-      <LoginPageUI
-        onChangeEmail={onChangeEmail}
-        onChangePassWord={onChangePassWord}
-        onClickLogin={onClickLogin}
-      />
-    </>
+    <SignupUI
+      onChangeEmail={onChangeEmail}
+      onChangePassWord={onChangePassWord}
+      onClickSignUp={onClickSignUp}
+    />
   );
 }
