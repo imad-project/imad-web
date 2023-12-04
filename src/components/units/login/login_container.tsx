@@ -32,8 +32,8 @@ export default function LoginContainer() {
         return res.data;
       })
       .catch((res) => {
-        alert(res.data.data.message);
-        console.log(res.data.data.message);
+        alert(res?.response?.data.message);
+        console.log(res?.response?.data.message);
       });
   };
 
