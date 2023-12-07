@@ -43,16 +43,18 @@ export default function SignupContainer(): JSX.Element {
           });
           if (res.data.data.role === "GUEST") {
             console.log(res.data.data.role);
-            router.push("/SetUserData");
-          } else {
-            if (res.data.data.role === "USER") {
-              console.log(res.data.data.role);
-              router.push("/login/success");
-            }
+            router.push("/signup/SetUserData");
+          } else if (res.data.data.role === "USER") {
+            console.log(res.data.data.role);
+            router.push("/login/success");
           }
         }
 
         return res.data;
+      })
+      .catch((res) => {
+        alert(res?.response.data.message);
+        return;
       });
   };
 
