@@ -1,4 +1,6 @@
-import { ChangeEvent, useCallback, useState } from "react";
+import { getCookie } from "../../../commons/cookies/cookiev";
+import axios from "axios";
+import { ChangeEvent, useCallback, useState, useEffect } from "react";
 
 const age = [
   { value: 1, name: "10~19" },
@@ -101,7 +103,7 @@ export default function SetUserData_container() {
   // 나이 변경부
   const onChangeAge = (e) => {
     setUserAge(e.target.value);
-    console.log(userAge);
+    console.log(e.target.value);
     return;
   };
 
@@ -129,14 +131,22 @@ export default function SetUserData_container() {
     checkedItemHandler(value, e.target.checked);
   };
 
-  const onSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+  const onSubmit = () => {};
 
-      console.log("checkedList:", checkedList);
-    },
-    [checkedList]
-  );
+  const years = [];
+  const year = new Date().getFullYear();
+
+  for (var y = 1900; y <= year; y++) {
+    years.push(y);
+  }
+
+  const PATCHUSER = async () => {
+    await axios.patch("https://ncookie.site/api/user", {
+      headers: {
+        Authorization: `Bearer ${getCookie("Authorization")}`,
+      },
+    });
+  };
 
   return (
     <>
@@ -147,16 +157,16 @@ export default function SetUserData_container() {
       </div>
 
       <div>
-        <span>나이:</span>
-        <select onChange={onChangeAge} value={userAge}>
-          {age.map((el) => (
-            <option key={el.value} value={el.value} defaultValue={el.value}>
-              {el.name}
-            </option>
+        <span>출생년도:</span>
+        <select id="year" onChange={onChangeAge}>
+          {years.map((el) => (
+            <option key={el}>{el}</option>
           ))}
         </select>
       </div>
+
       <div>
+        <h1>좋아하는 영화장르</h1>
         {movie_genres?.map((el) => (
           <div key={el.id}>
             <input
