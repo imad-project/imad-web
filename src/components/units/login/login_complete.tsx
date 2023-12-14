@@ -4,11 +4,11 @@ import { useState } from "react";
 
 import { useEffect } from "react";
 export default function LoginCompletePage(): JSX.Element {
-  const [userData, setUserData] = useState("");
+  const [userData, setUserData] = useState();
   const aaa = [];
   const FETCHUSER = async () =>
     await axios
-      .get("https://ncookie.site/api/user", {
+      .get("https://api.iimad.com/api/user", {
         headers: {
           Authorization: `Bearer ${getCookie("Authorization")}`,
         },

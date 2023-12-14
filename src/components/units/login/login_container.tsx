@@ -11,7 +11,7 @@ export default function LoginContainer() {
   const router = useRouter();
   const LOGINIMAD = async () => {
     await axios
-      .post("https://ncookie.site/api/login", {
+      .post("https://api.iimad.com/api/login", {
         email: email,
         password: password,
       })

@@ -1,4 +1,4 @@
-import { getCookie } from "../../../commons/cookies/cookiev";
+import { getCookie } from "../../../commons/cookies/cookie";
 import axios from "axios";
 import { ChangeEvent, useCallback, useState, useEffect } from "react";
 
