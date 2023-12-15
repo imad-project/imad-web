@@ -9,7 +9,7 @@ env:
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: deploy-group-front
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout source code. # Repo checkout
         uses: actions/checkout@v2
