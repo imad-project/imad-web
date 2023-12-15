@@ -101,7 +101,7 @@ export default function SetUserData_container() {
   };
 
   // 나이 변경부
-  const onChangeAge = (e) => {
+  const onChangeAge = (e: any) => {
     setUserAge(e.target.value);
     console.log(e.target.value);
     return;
@@ -141,7 +141,7 @@ export default function SetUserData_container() {
   }
 
   const PATCHUSER = async () => {
-    await axios.patch("https://ncookie.site/api/user", {
+    await axios.patch("https://api.iimad.com/api/user", {
       headers: {
         Authorization: `Bearer ${getCookie("Authorization")}`,
       },

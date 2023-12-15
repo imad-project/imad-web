@@ -13,7 +13,7 @@ export default function SignupContainer(): JSX.Element {
 
   const SIGNUPIMAD = async () => {
     await axios
-      .post("https://ncookie.site/api/signup", {
+      .post("https://api.iimad.com/api/signup", {
         email: email,
         password: password,
         auth_provider: "IMAD",
@@ -28,7 +28,7 @@ export default function SignupContainer(): JSX.Element {
   };
   const LOGINIMAD = async () => {
     await axios
-      .post("https://ncookie.site/api/login", {
+      .post("https://api.iimad.com/api/login", {
         email: email,
         password: password,
       })
