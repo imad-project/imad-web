@@ -40,7 +40,7 @@ jobs:
       # 빌드 결과물을 S3 버킷에 업로드
       - name: Upload to AWS S3
         run: |
-          aws s3 cp --region ap-northeast-2 ./build-fe.zip s3://bongbong-github-actions-tutorial/build-fe.zip
+          aws s3 cp --region ap-northeast-2 ./build-fe.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
 
       - name: Deploy # Deploy to EC2
         run: |
@@ -48,4 +48,4 @@ jobs:
             --application-name ${{ env.CODE_DEPLOY_APP_NAME }} \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
             --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
-            --s3-location bucket=$S3_BUCKET_NAME,key=build-fe.zip,bundleType=zip
+            --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
