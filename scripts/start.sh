@@ -10,4 +10,4 @@ TIME_NOW=$(date +%c)
 
 nohup yarn start > $APP_LOG 2> $ERROR_LOG
 
-echo "$TIME_NOW > yarn 실행 중 >> $DEPLOY_LOG
+echo "$TIME_NOW > yarn 실행 중" >> $DEPLOY_LOG
