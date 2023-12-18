@@ -1,5 +1,5 @@
 cd /home/ec2-user/apps/imad-web
-var=$(ps -ef|grep yarn|grep -v 'grep'|grep -v $0)
+var=$(ps -ef | grep yarn)
 pid=$(echo ${var} | cut -d " " -f2)
  
 if [ -n "${pid}" ]
