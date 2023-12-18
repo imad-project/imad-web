@@ -100,7 +100,7 @@ export default function SetUserData_container() {
     setNickName(event.target.value);
   };
 
-  // 나이 변경부
+  // 나이 변경부ㅇㅇ
   const onChangeAge = (e: any) => {
     setUserAge(e.target.value);
     console.log(e.target.value);
