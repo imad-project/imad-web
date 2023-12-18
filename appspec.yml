@@ -17,6 +17,6 @@ hooks:
       timeout: 60
       runas: ec2-user
   ApplicationStart:
-    - location: nohup scripts/start.sh
+    - location: scripts/start.sh
       timeout: 60
       runas: ec2-user
