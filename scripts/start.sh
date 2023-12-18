@@ -1,3 +1,3 @@
 cd /home/ec2-user/apps/imad-web
 nohup yarn start
-end
+echo 실행완료
