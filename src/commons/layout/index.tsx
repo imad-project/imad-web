@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import NavigationContainer from "./navigation/navigation.container";
 
 const Body = styled.div`
-  margin-top: 50px;
   height: 500px;
   display: flex;
   flex-direction: column;
