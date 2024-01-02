@@ -27,12 +27,13 @@ const mainBannerItems = [
 ];
 
 export default function MainPageUI(): JSX.Element {
-  const mainSettings = {
+  const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    useTransform: false,
   };
 
   const subSettings = {
@@ -46,14 +47,14 @@ export default function MainPageUI(): JSX.Element {
   return (
     <S.Wrapper>
       <S.MainBannerWrapper>
-        <Slider {...mainSettings}>
-          {/* {mainBannerItems.map((el) => (
+        <Slider {...settings}>
+          {mainBannerItems.map((el) => (
             <div key={el.name}>
               <S.MainSliderItem id={el.src} src={el.src} />
             </div>
-          ))} */}
+          ))}
 
-          <div>
+          {/* <div>
             <S.MainSliderItem src="/img/banner/main/1.webp" />
           </div>
           <div>
@@ -67,9 +68,10 @@ export default function MainPageUI(): JSX.Element {
           </div>
           <div>
             <S.MainSliderItem src="/img/banner/main/5.jpg" />
-          </div>
+          </div> */}
         </Slider>
       </S.MainBannerWrapper>
+      <div>==========================</div>
     </S.Wrapper>
   );
 }
