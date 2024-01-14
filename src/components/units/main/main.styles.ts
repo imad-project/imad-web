@@ -3,6 +3,10 @@ import styled from "@emotion/styled";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1600px;
+  background-color: red;
 `;
 
 export const title = styled.div`
@@ -22,11 +26,22 @@ export const SubSliderItem = styled.img`
 `;
 
 export const MainBannerWrapper = styled.div`
-  height: 400px;
   background-color: #666;
+  width: 600px;
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+
+  align-content: center;
 `;
 
 export const MainSliderItem = styled.img`
   height: 350px;
   margin: auto;
+`;
+
+export const testItem = styled.div`
+  margin: auto;
+  background-color: red;
+  font-size: 30px;
 `;
