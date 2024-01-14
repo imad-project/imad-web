@@ -7,6 +7,7 @@ export default function LoginPageUI(props: any): JSX.Element {
       <div>비밀번호</div>
       <input type="password" onChange={props.onChangePassWord} />
       <button onClick={props.onClickLogin}>로그인</button>
+      <div>==========================</div>
     </>
   );
 }
