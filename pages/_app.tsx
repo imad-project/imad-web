@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Global styles={globalStyles} />
-      <LayoutBanner />
+
       <Layout>
         <Component {...pageProps}></Component>
       </Layout>

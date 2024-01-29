@@ -3,40 +3,50 @@ import styled from "@emotion/styled";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 1600px;
-  background-color: red;
+  width: 100%;
+  height: 100%;
 `;
 
 export const title = styled.div`
-  font-size: 18px;
+  font-size: 30px;
   color: #0b0537;
+  margin-left: 35px;
+  margin-top: 30px;
 `;
 
 export const SubBannerWrapper = styled.div`
-  height: 100px;
-  background-color: #666;
+  width: 100%;
+  height: 100%;
 `;
 export const SubSliderItem = styled.img`
-  height: 85px;
-  width: 50px;
+  height: 400px;
+  width: 250px;
   margin: auto;
   border-radius: 10px;
 `;
 
 export const MainBannerWrapper = styled.div`
   background-color: #666;
-  width: 600px;
-  height: 800px;
+  width: 100%;
+  height: 500px;
   display: flex;
   flex-direction: column;
 
   align-content: center;
 `;
 
+export const ImgBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+`;
+
 export const MainSliderItem = styled.img`
-  height: 350px;
+  height: 500px;
+  width: auto;
   margin: auto;
 `;
 
