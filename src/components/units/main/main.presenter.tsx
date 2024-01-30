@@ -135,19 +135,6 @@ export default function MainPageUI(): JSX.Element {
               <S.MainSliderItem src={el.src} />
             </S.ImgBox>
           ))}
-
-          {/* <div>
-            <S.testItem>dddd</S.testItem>
-          </div>
-          <div>
-            <h1>2</h1>
-          </div>
-          <div>
-            <h1>3</h1>
-          </div>
-          <div>
-            <h1>4</h1>
-          </div> */}
         </StyledSlider>
       </S.MainBannerWrapper>
       <S.title>액션</S.title>
@@ -161,6 +148,16 @@ export default function MainPageUI(): JSX.Element {
         </StyledSlider>
       </S.SubBannerWrapper>
       <S.title>로맨스</S.title>
+      <S.SubBannerWrapper>
+        <StyledSlider {...subsettings}>
+          {subBannerItems.map((el) => (
+            <S.ImgBox key={el.name}>
+              <S.SubSliderItem src={el.src} />
+            </S.ImgBox>
+          ))}
+        </StyledSlider>
+      </S.SubBannerWrapper>
+      <S.title>애니메이션</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {subBannerItems.map((el) => (

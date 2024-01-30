@@ -12,6 +12,6 @@ export const globalStyles = css`
 
   @font-face {
     font-family: "myfont";
-    src: url("/fonts/Galmuri9.ttf");
+    src: url("/fonts/SCDream6.otf");
   }
 `;
