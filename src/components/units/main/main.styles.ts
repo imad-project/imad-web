@@ -55,3 +55,20 @@ export const testItem = styled.div`
   background-color: red;
   font-size: 30px;
 `;
+
+export const ModalWrapper = styled.div`
+  width: 800px;
+  height: 1000px;
+`;
+
+export const ModalImg = styled.img`
+  height: 400px;
+  width: 250px;
+  margin: auto;
+  border-radius: 10px;
+`;
+
+export const ModalCancel = styled.img`
+  height: 30px;
+  width: 30px;
+`;
