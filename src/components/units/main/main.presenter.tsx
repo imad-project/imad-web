@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "@emotion/styled";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { Modal } from "antd";
+import Modal from "react-modal";
 import { useState } from "react";
 
 const StyledSlider = styled(Slider)`
@@ -178,7 +178,14 @@ export default function MainPageUI(): JSX.Element {
               <S.ImgBox key={el.name} onClick={onClickImg}>
                 <S.SubSliderItem src={el.poster_path} />
               </S.ImgBox>
-              <Modal key={el.name} open={isOpen}>
+              <Modal
+                isOpen={isOpen}
+                onRequestClose={() => setIsOpen(false)}
+                style={S.customModalStyles}
+                ariaHideApp={false}
+                contentLabel="Pop up Message"
+                shouldCloseOnOverlayClick={false}
+              >
                 <S.ModalWrapper>
                   <S.ModalImg src={el.poster_path} />
 
