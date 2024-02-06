@@ -4,6 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "@emotion/styled";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import Modal from "react-modal";
+import { useState } from "react";
 
 const StyledSlider = styled(Slider)`
   position: relative;
@@ -60,32 +62,53 @@ const mainBannerItems = [
 
 const subBannerItems = [
   {
-    name: "1",
-    src: "/img/banner/sub/데스노트.jpg",
+    name: "데스노트",
+    poster_path: "/img/banner/sub/데스노트.jpg",
+    contents_type: "애니메이션",
+    overview:
+      "데스노트를 주운소년이 어쩌구저쩌구 인생피나싶엇는데 어쩌구 개망하고 잡혀가고 ㅅㄱ",
   },
   {
-    name: "2",
-    src: "/img/banner/sub/목소리의형태.png",
+    name: "목소리의형태",
+    poster_path: "/img/banner/sub/목소리의형태.png",
+    contents_type: "애니메이션",
+    overview:
+      "목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태",
   },
   {
-    name: "3",
-    src: "/img/banner/sub/소아온.jpg",
+    name: "소드아트온라인",
+    poster_path: "/img/banner/sub/소아온.jpg",
+    contents_type: "애니메이션",
+    overview:
+      "소드아트온라인소드아트온라인소드아트온라인소드아트온라인소드아트온라인소드아트온라인소드아트온라인소드아트온라인소드아트온라인소드아트온라인",
   },
   {
-    name: "4",
-    src: "/img/banner/sub/스즈메.jpg",
+    name: "스즈메의문단속",
+    poster_path: "/img/banner/sub/스즈메.jpg",
+    contents_type: "애니메이션",
+    overview:
+      "스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속",
   },
   {
-    name: "5",
-    src: "/img/banner/sub/오빠는끝.webp",
+    name: "오빠는끝!",
+    poster_path: "/img/banner/sub/오빠는끝.webp",
+    contents_type: "애니메이션",
+    overview:
+      "오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝ㅍ",
   },
   {
-    name: "6",
-    src: "/img/banner/sub/주술회전.png",
+    name: "주술회전",
+    poster_path: "/img/banner/sub/주술회전.png",
+    contents_type: "애니메이션",
+    overview:
+      "주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전",
   },
   {
-    name: "7",
-    src: "/img/banner/sub/푸르름.jpg",
+    name: "하늘의 푸르름을 아는사람이여",
+    poster_path: "/img/banner/sub/푸르름.jpg",
+    contents_type: "애니메이션",
+    overview:
+      "주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전",
   },
 ];
 
@@ -126,6 +149,16 @@ export default function MainPageUI(): JSX.Element {
     ),
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClickImg = () => {
+    setIsOpen(true);
+  };
+
+  const onClickCancel = () => {
+    setIsOpen(false);
+  };
+
   return (
     <S.Wrapper>
       <S.MainBannerWrapper>
@@ -141,9 +174,29 @@ export default function MainPageUI(): JSX.Element {
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {subBannerItems.map((el) => (
-            <S.ImgBox key={el.name}>
-              <S.SubSliderItem src={el.src} />
-            </S.ImgBox>
+            <>
+              <S.ImgBox key={el.name} onClick={onClickImg}>
+                <S.SubSliderItem src={el.poster_path} />
+              </S.ImgBox>
+              <Modal
+                isOpen={isOpen}
+                onRequestClose={() => setIsOpen(false)}
+                style={S.customModalStyles}
+                ariaHideApp={false}
+                contentLabel="Pop up Message"
+                shouldCloseOnOverlayClick={false}
+              >
+                <S.ModalWrapper>
+                  <S.ModalImg src={el.poster_path} />
+
+                  <S.ModalCancel
+                    src="/img/icon/cancel.png"
+                    onClick={onClickCancel}
+                  />
+                  <h2>{el.overview}</h2>
+                </S.ModalWrapper>
+              </Modal>
+            </>
           ))}
         </StyledSlider>
       </S.SubBannerWrapper>
@@ -152,7 +205,7 @@ export default function MainPageUI(): JSX.Element {
         <StyledSlider {...subsettings}>
           {subBannerItems.map((el) => (
             <S.ImgBox key={el.name}>
-              <S.SubSliderItem src={el.src} />
+              <S.SubSliderItem src={el.poster_path} />
             </S.ImgBox>
           ))}
         </StyledSlider>
@@ -162,7 +215,7 @@ export default function MainPageUI(): JSX.Element {
         <StyledSlider {...subsettings}>
           {subBannerItems.map((el) => (
             <S.ImgBox key={el.name}>
-              <S.SubSliderItem src={el.src} />
+              <S.SubSliderItem src={el.poster_path} />
             </S.ImgBox>
           ))}
         </StyledSlider>
