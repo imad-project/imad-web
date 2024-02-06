@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "@emotion/styled";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+
 import Modal from "react-modal";
 import { useState } from "react";
 
@@ -149,15 +149,22 @@ export default function MainPageUI(): JSX.Element {
     ),
   };
 
+  const [isOpenList, setIsOpenList] = useState(
+    Array(subBannerItems.length).fill(false)
+  );
+
+  const onClickImg = (index: number) => {
+    const updatedIsOpenList = [...isOpenList];
+    updatedIsOpenList[index] = true;
+    setIsOpenList(updatedIsOpenList);
+  };
+  const onClickCancel = (index: number) => {
+    const updatedIsOpenList = [...isOpenList];
+    updatedIsOpenList[index] = false;
+    setIsOpenList(updatedIsOpenList);
+  };
+
   const [isOpen, setIsOpen] = useState(false);
-
-  const onClickImg = () => {
-    setIsOpen(true);
-  };
-
-  const onClickCancel = () => {
-    setIsOpen(false);
-  };
 
   return (
     <S.Wrapper>
@@ -173,14 +180,14 @@ export default function MainPageUI(): JSX.Element {
       <S.title>액션</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
-          {subBannerItems.map((el) => (
+          {subBannerItems.map((el, index) => (
             <>
-              <S.ImgBox key={el.name} onClick={onClickImg}>
+              <S.ImgBox key={el.name} onClick={() => onClickImg(index)}>
                 <S.SubSliderItem src={el.poster_path} />
               </S.ImgBox>
               <Modal
-                isOpen={isOpen}
-                onRequestClose={() => setIsOpen(false)}
+                isOpen={isOpenList[index]}
+                onRequestClose={() => onClickCancel(index)}
                 style={S.customModalStyles}
                 ariaHideApp={false}
                 contentLabel="Pop up Message"
@@ -191,7 +198,7 @@ export default function MainPageUI(): JSX.Element {
 
                   <S.ModalCancel
                     src="/img/icon/cancel.png"
-                    onClick={onClickCancel}
+                    onClick={() => onClickCancel(index)}
                   />
                   <h2>{el.overview}</h2>
                 </S.ModalWrapper>

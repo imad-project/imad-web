@@ -76,7 +76,7 @@ export const ModalCancel = styled.img`
 
 export const customModalStyles: ReactModal.Styles = {
   overlay: {
-    backgroundColor: "rgba(52,52,52,0.05)",
+    backgroundColor: "rgba(52,52,52,0.3)",
     width: "100%",
     height: "100vh",
     zIndex: "10",
