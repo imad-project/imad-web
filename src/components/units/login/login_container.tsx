@@ -64,7 +64,7 @@ export default function LoginContainer() {
   const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   const onClickLoginHandler = async () => {
-    window.location.href = `https://api.iimad.com/oauth2/authorization/kakao`;
+    window.location.href = `https://www.ncookie.site/oauth2/authorization/kakao`;
     //   axios
     //     .post("https://api.iimad.com/oauth2/authorization/kakao", {})
     //     .then((res) => {
