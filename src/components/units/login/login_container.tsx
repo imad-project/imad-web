@@ -63,15 +63,24 @@ export default function LoginContainer() {
   const REDIRECT_URI = "후입력2";
   const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
-  const onClickLoginHandler = async () => {
-    window.location.href = `https://www.ncookie.site/oauth2/authorization/kakao`;
-    //   axios
-    //     .post("https://api.iimad.com/oauth2/authorization/kakao", {})
-    //     .then((res) => {
-    //       if (res.status == 200) {
-    //         console.log(res.data.message);
-    //       }
-    //     });
+  const onClickLoginKakao = async () => {
+    window.location.href = `https://ncookie.site/oauth2/authorization/kakao`;
+  };
+
+  const onClickLoginGoogle = async () => {
+    window.location.href = `https://ncookie.site/oauth2/authorization/google`;
+  };
+
+  const onClickLoginNaver = async () => {
+    window.location.href = `https://ncookie.site/oauth2/authorization/naver`;
+  };
+
+  const onClickLoginApple = async () => {
+    window.location.href = `https://appleid.apple.com/auth/authorize?client_id=quarang.IMAD-Project&redirect_uri=https://api.iimad.com/callback/apple&response_type=code id_token&scope=name email&response_mode=form_post`;
+  };
+
+  const onClickLoginAWS = async () => {
+    window.location.href = `https://api.iimad.com/oauth2/authorization/kakao`;
   };
 
   return (
@@ -80,7 +89,11 @@ export default function LoginContainer() {
         onChangeEmail={onChangeEmail}
         onChangePassWord={onChangePassWord}
         onClickLogin={onClickLogin}
-        onClickLoginHandler={onClickLoginHandler}
+        onClickLoginKakao={onClickLoginKakao}
+        onClickLoginGoogle={onClickLoginGoogle}
+        onClickLoginNaver={onClickLoginNaver}
+        onClickLoginApple={onClickLoginApple}
+        onClickLoginAWS={onClickLoginAWS}
       />
     </>
   );
