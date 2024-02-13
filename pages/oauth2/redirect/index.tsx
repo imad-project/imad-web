@@ -9,7 +9,7 @@ export default function KakaoRedirect(): JSX.Element {
 
   const PATCHUSER = async () => {
     await axios
-      .patch("https://ncookie.site/api/user", {
+      .get("https://ncookie.site/api/user", {
         headers: {
           Authorization: `Bearer ${getCookie("Authorization")}`,
         },
