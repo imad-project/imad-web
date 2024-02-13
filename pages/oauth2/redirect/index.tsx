@@ -18,7 +18,7 @@ export default function KakaoRedirect(): JSX.Element {
         if (res.status === 200) {
           if (res.data.data.role === "GUEST") {
             console.log(res.data.data.role);
-            router.push("/signup/SetUserData");
+            router.push("/signup/setuserdata");
           } else if (res.data.data.role === "USER") {
             console.log(res.data.data.role);
             router.push("/login/success");

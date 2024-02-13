@@ -9,7 +9,7 @@ export default function LoginCompletePage(): JSX.Element {
   const aaa = [];
   const FETCHUSER = async () =>
     await axios
-      .get("https://api.iimad.com/api/user", {
+      .get("https://ncookie.site/api/user", {
         headers: {
           Authorization: `Bearer ${getCookie("Authorization")}`,
         },
