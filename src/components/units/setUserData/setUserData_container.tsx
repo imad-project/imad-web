@@ -146,14 +146,19 @@ export default function SetUserData_container() {
   }
 
   const PATCHUSER = async () => {
-    await axios.patch("https://ncookie.site/api/user", {
-      headers: {
-        Authorization: `Bearer ${getCookie("Authorization")}`,
+    await axios.patch(
+      "https://ncookie.site/api/user",
+      {
+        age: userAge,
+        preferred_movie_genres: checkedList,
+        nickname: nickName,
       },
-      age: userAge,
-      preferred_movie_genres: checkedList,
-      nickname: nickName,
-    });
+      {
+        headers: {
+          Authorization: `Bearer ${getCookie("Authorization")}`,
+        },
+      }
+    );
   };
 
   return (
