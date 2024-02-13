@@ -17,13 +17,6 @@ export default function KakaoRedirect(): JSX.Element {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data);
-          const accessToken = res.headers["authorization"];
-          setCookie("Authorization", accessToken, {
-            path: "/",
-            secure: true,
-            sameSite: "none",
-          });
           if (res.data.data.role === "GUEST") {
             console.log(res.data.data.role);
             router.push("/signup/SetUserData");
