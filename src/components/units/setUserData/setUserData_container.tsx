@@ -152,6 +152,7 @@ export default function SetUserData_container() {
       },
       age: userAge,
       preferred_movie_genres: checkedList,
+      nickname: nickName,
     });
   };
 
