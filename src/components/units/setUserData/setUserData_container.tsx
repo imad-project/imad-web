@@ -149,7 +149,7 @@ export default function SetUserData_container() {
     await axios.patch(
       "https://ncookie.site/api/user",
       {
-        age: userAge,
+        birth_year: userAge,
         preferred_movie_genres: checkedList,
         nickname: nickName,
       },
