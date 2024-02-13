@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function KakaoRedirect(): JSX.Element {
-  const params = useParams();
   const router = useRouter();
 
   const PATCHUSER = async () => {
@@ -35,7 +34,9 @@ export default function KakaoRedirect(): JSX.Element {
   };
 
   useEffect(() => {
-    setCookie("Authorization", params.token, {
+    const params = new URLSearchParams(location.search);
+    const token = params.get("token");
+    setCookie("Authorization", token, {
       path: "/",
       secure: true,
       sameSite: "none",
