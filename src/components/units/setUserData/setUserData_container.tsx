@@ -1,5 +1,6 @@
 import { getCookie } from "../../../commons/cookies/cookie";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { ChangeEvent, useCallback, useState, useEffect } from "react";
 
 const age = [
@@ -94,6 +95,7 @@ export default function SetUserData_container() {
   const [checkedList, setCheckedList] = useState<number[]>([]);
   const [isChecked, setIsChecked] = useState(false);
   const [userAge, setUserAge] = useState(Number);
+  const router = useRouter();
 
   // 닉네임 변경부
   const onChangeNickName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -131,7 +133,10 @@ export default function SetUserData_container() {
     checkedItemHandler(value, e.target.checked);
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    PATCHUSER();
+    router.push("/login/success");
+  };
 
   const years = [];
   const year = new Date().getFullYear();
@@ -141,10 +146,12 @@ export default function SetUserData_container() {
   }
 
   const PATCHUSER = async () => {
-    await axios.patch("https://api.iimad.com/api/user", {
+    await axios.patch("https://ncookie.site/api/user", {
       headers: {
         Authorization: `Bearer ${getCookie("Authorization")}`,
       },
+      age: userAge,
+      preferred_movie_genres: checkedList,
     });
   };
 
