@@ -17,7 +17,7 @@ export default function LoginCompletePage(): JSX.Element {
           },
         });
         if (response.status === 200) {
-          setUserData(response.data);
+          setUserData((prevUserData) => response.data);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
