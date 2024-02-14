@@ -28,11 +28,11 @@ export default function LoginCompletePage(): JSX.Element {
 
   return (
     <>
-      <div>{userData?.data?.nickname}님 환영합니다!</div>
-      <div>나이 : {userData?.data?.age_range}</div>
-      <div>성별 : {userData?.data?.gender}</div>
-      <div>회원종류 : {userData?.data?.auth_provider}</div>
-      <div>email : {userData?.data?.email}</div>
+      <div>{userData ? userData.data.nickname : "???"}님 환영합니다!</div>
+      <div>나이 : {userData ? userData.data.age_range : "???"}</div>
+      <div>성별 : {userData ? userData.data.gender : "???"}</div>
+      <div>회원종류 : {userData ? userData.data.auth_provider : "???"}</div>
+      <div>email : {userData ? userData.data.email : "???"}</div>
     </>
   );
 }
