@@ -68,11 +68,11 @@ export default function LoginContainer() {
   };
 
   const onClickLoginGoogle = async () => {
-    window.location.href = `https://ncookie.site/oauth2/authorization/google`;
+    window.location.href = `https://ncookie.site/oauth2/authorization/google?redirect_uri=https://iimad.com/oauth2/redirect`;
   };
 
   const onClickLoginNaver = async () => {
-    window.location.href = `https://ncookie.site/oauth2/authorization/naver`;
+    window.location.href = `https://ncookie.site/oauth2/authorization/naver?redirect_uri=https://iimad.com/oauth2/redirect`;
   };
 
   const onClickLoginApple = async () => {
@@ -80,7 +80,7 @@ export default function LoginContainer() {
   };
 
   const onClickLoginAWS = async () => {
-    window.location.href = `https://api.iimad.com/oauth2/authorization/kakao`;
+    window.location.href = `https://api.iimad.com/oauth2/authorization/kakao?redirect_uri=https://iimad.com/oauth2/redirect`;
   };
 
   return (
