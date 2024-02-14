@@ -9,7 +9,7 @@ const NAVIGATION_MENUS = [
 export default function NavigationUI(props: INavigationUIProps): JSX.Element {
   return (
     <S.Wrapper>
-      <S.Logo src="/img/logo.png" id="/main" onClick={props.onClickMenu} />
+      <S.Logo src="/img/logo.png" id="/" onClick={props.onClickMenu} />
 
       <S.ItemBox>
         {NAVIGATION_MENUS.map((el) => (
