@@ -7,24 +7,25 @@ import { IUserData } from "./login_complete_type";
 export default function LoginCompletePage(): JSX.Element {
   const [userData, setUserData] = useState<IUserData | null>(null);
   const aaa = [];
-  const FETCHUSER = async () =>
-    await axios
-      .get("https://ncookie.site/api/user", {
-        headers: {
-          Authorization: `Bearer ${getCookie("Authorization")}`,
-        },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setUserData(res.data);
-          console.log(userData);
-          return res.data;
-        }
-      });
 
   useEffect(() => {
+    const FETCHUSER = async () => {
+      try {
+        const response = await axios.get("https://ncookie.site/api/user", {
+          headers: {
+            Authorization: `Bearer ${getCookie("Authorization")}`,
+          },
+        });
+        if (response.status === 200) {
+          setUserData(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
     FETCHUSER();
-  }, [userData]);
+  }, []);
 
   return (
     <>
