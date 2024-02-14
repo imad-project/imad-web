@@ -16,6 +16,7 @@ export default function LoginCompletePage(): JSX.Element {
       })
       .then((res) => {
         if (res.status === 200) {
+          setUserData(null);
           setUserData(res.data);
           console.log(userData);
           return res.data;
@@ -24,7 +25,6 @@ export default function LoginCompletePage(): JSX.Element {
 
   useEffect(() => {
     FETCHUSER();
-    setUserData(userData);
   }, []);
 
   return (
