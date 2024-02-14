@@ -24,6 +24,7 @@ export default function LoginCompletePage(): JSX.Element {
 
   useEffect(() => {
     FETCHUSER();
+    setUserData(userData);
   }, []);
 
   return (
