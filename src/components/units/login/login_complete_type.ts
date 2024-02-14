@@ -9,5 +9,6 @@ export interface IUserData {
     auth_provider: string;
     role: string;
     email: string;
+    birth_year: number;
   };
 }
