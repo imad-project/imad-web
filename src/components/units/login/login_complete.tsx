@@ -6,10 +6,10 @@ import { useEffect } from "react";
 import { IUserData } from "./login_complete_type";
 export default function LoginCompletePage(): JSX.Element {
   const [userData, setUserData] = useState<IUserData | null>(null);
-  const [event, setEvent] = useState(1);
+  const [event, setEvent] = useState(true);
 
   const eventHandler = () => {
-    setEvent((prevSetEvent) => +1);
+    setEvent(!event);
   };
   useEffect(() => {
     const FETCHUSER = async () => {
