@@ -1,5 +1,5 @@
-import LoginContainer from "../../src/components/units/login/login_container";
+import LoginCompletePage from "../../src/components/units/login/login_complete";
 
-export default function LoginPageUI() {
-  return <LoginContainer />;
+export default function UserDataPage(): JSX.Element {
+  return <LoginCompletePage />;
 }
