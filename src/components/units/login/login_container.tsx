@@ -26,7 +26,7 @@ export default function LoginContainer() {
             sameSite: "none",
           });
           if (process.browser) {
-            router.push("/login/success");
+            router.push("/user");
           }
         }
 

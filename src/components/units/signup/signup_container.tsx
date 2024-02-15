@@ -43,10 +43,10 @@ export default function SignupContainer(): JSX.Element {
           });
           if (res.data.data.role === "GUEST") {
             console.log(res.data.data.role);
-            router.push("/signup/SetUserData");
+            router.push("/user/edit");
           } else if (res.data.data.role === "USER") {
             console.log(res.data.data.role);
-            router.push("/login/success");
+            router.push("/user");
           }
         }
 

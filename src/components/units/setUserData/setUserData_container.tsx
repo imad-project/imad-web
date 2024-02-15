@@ -267,7 +267,7 @@ export default function SetUserData_container() {
 
   const onSubmit = () => {
     PATCHUSER();
-    router.push("/login/success");
+    router.push("/user");
   };
 
   return (
