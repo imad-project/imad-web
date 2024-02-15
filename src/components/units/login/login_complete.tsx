@@ -4,9 +4,15 @@ import { useState } from "react";
 
 import { useEffect } from "react";
 import { IUserData } from "./login_complete_type";
+import { useRouter } from "next/router";
 export default function LoginCompletePage(): JSX.Element {
   const [userData, setUserData] = useState<IUserData | null>(null);
   const [event, setEvent] = useState(true);
+  const router = useRouter();
+
+  const onClickEdit = () => {
+    router.push("/user/edit");
+  };
 
   const eventHandler = () => {
     setEvent(!event);
@@ -39,6 +45,7 @@ export default function LoginCompletePage(): JSX.Element {
       <div>회원종류 : {userData ? userData.data.auth_provider : "???"}</div>
       <div>email : {userData ? userData.data.email : "???"}</div>
       <button onClick={eventHandler}>새로고침</button>
+      <button onClick={onClickEdit}>회원정보수정</button>
     </>
   );
 }
