@@ -76,7 +76,7 @@ export default function LoginContainer() {
   };
 
   const onClickLoginApple = async () => {
-    window.location.href = `https://appleid.apple.com/auth/authorize?client_id=quarang.IMAD-Project&redirect_uri=https://api.iimad.com/callback/apple&response_type=code id_token&scope=name email&response_mode=form_post`;
+    window.location.href = `https://appleid.apple.com/auth/authorize?client_id=com.iimad.api&redirect_uri=https://www.ncookie.site/api/callback/apple&response_type=code%20id_token&scope=name%20email&response_mode=form_post`;
   };
 
   const onClickLoginAWS = async () => {
