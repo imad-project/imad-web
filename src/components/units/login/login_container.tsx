@@ -59,6 +59,12 @@ export default function LoginContainer() {
     // }
   };
 
+  //회원가입 버튼
+  const onClickSignUp = () => {
+    router.push("/signup");
+  };
+
+  //소셜로그인 선택부
   const onClickLoginKakao = async () => {
     window.location.href = `https://api.iimad.com/oauth2/authorization/kakao?redirect_uri=https://iimad.com/oauth2/redirect`;
   };
@@ -85,6 +91,7 @@ export default function LoginContainer() {
         onClickLoginGoogle={onClickLoginGoogle}
         onClickLoginNaver={onClickLoginNaver}
         onClickLoginApple={onClickLoginApple}
+        onClickSignUp={onClickSignUp}
       />
     </>
   );
