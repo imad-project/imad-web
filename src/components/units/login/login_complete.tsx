@@ -108,7 +108,7 @@ export default function LoginCompletePage(): JSX.Element {
       const DELAPPLEUSER = async () => {
         try {
           const response = await axios.delete(
-            "https://api.iimad.com/api/oauth2/revoke/APPLE",
+            "https://api.iimad.com/api/oauth2/revoke/apple",
             {
               headers: {
                 Authorization: `Bearer ${getCookie("Authorization")}`,
