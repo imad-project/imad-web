@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { setCookie, getCookie } from "../../../src/commons/cookies/cookie";
+import { setCookie, getCookie } from "../../../../src/commons/cookies/cookie";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -35,7 +35,13 @@ export default function KakaoRedirect(): JSX.Element {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
+    const refresh_token = params.get("refresh_token");
     const token = params.get("token");
+    setCookie("Authorization_refresh", refresh_token, {
+      path: "/",
+      secure: true,
+      sameSite: "none",
+    });
     setCookie("Authorization", token, {
       path: "/",
       secure: true,
