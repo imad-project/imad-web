@@ -59,28 +59,20 @@ export default function LoginContainer() {
     // }
   };
 
-  const REST_API_KEY = "후입력1";
-  const REDIRECT_URI = "후입력2";
-  const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
   const onClickLoginKakao = async () => {
-    window.location.href = `https://ncookie.site/oauth2/authorization/kakao?redirect_uri=https://iimad.com/oauth2/redirect`;
+    window.location.href = `https://api.iimad.com/oauth2/authorization/kakao?redirect_uri=https://iimad.com/oauth2/redirect`;
   };
 
   const onClickLoginGoogle = async () => {
-    window.location.href = `https://ncookie.site/oauth2/authorization/google?redirect_uri=https://iimad.com/oauth2/redirect`;
+    window.location.href = `https://api.iimad.com/oauth2/authorization/google?redirect_uri=https://iimad.com/oauth2/redirect`;
   };
 
   const onClickLoginNaver = async () => {
-    window.location.href = `https://ncookie.site/oauth2/authorization/naver?redirect_uri=https://iimad.com/oauth2/redirect`;
+    window.location.href = `https://api.iimad.com/oauth2/authorization/naver?redirect_uri=https://iimad.com/oauth2/redirect`;
   };
 
   const onClickLoginApple = async () => {
-    window.location.href = `https://ncookie.site/oauth2/login/apple?redirect_uri=https://iimad.com/oauth2/redirect`;
-  };
-
-  const onClickLoginAWS = async () => {
-    window.location.href = `https://api.iimad.com/oauth2/authorization/kakao?redirect_uri=https://iimad.com/oauth2/redirect`;
+    window.location.href = `https://api.iimad.com/oauth2/login/apple?redirect_uri=https://iimad.com/oauth2/redirect`;
   };
 
   return (
@@ -93,7 +85,6 @@ export default function LoginContainer() {
         onClickLoginGoogle={onClickLoginGoogle}
         onClickLoginNaver={onClickLoginNaver}
         onClickLoginApple={onClickLoginApple}
-        onClickLoginAWS={onClickLoginAWS}
       />
     </>
   );
