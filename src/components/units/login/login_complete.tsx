@@ -28,6 +28,8 @@ export default function LoginCompletePage(): JSX.Element {
             }
           );
           if (response.status === 200) {
+            alert("아이매드 회원탈퇴가 정상적으로 진행되었습니다.");
+            router.push("/");
           }
         } catch (error) {
           console.error("Error delete user", error);
@@ -48,6 +50,8 @@ export default function LoginCompletePage(): JSX.Element {
             }
           );
           if (response.status === 200) {
+            alert("아이매드 카카오 회원탈퇴가 정상적으로 진행되었습니다.");
+            router.push("/");
           }
         } catch (error) {
           console.error("Error delete user", error);
@@ -68,6 +72,8 @@ export default function LoginCompletePage(): JSX.Element {
             }
           );
           if (response.status === 200) {
+            alert("아이매드 네이버 회원탈퇴가 정상적으로 진행되었습니다.");
+            router.push("/");
           }
         } catch (error) {
           console.error("Error delete user", error);
@@ -88,6 +94,8 @@ export default function LoginCompletePage(): JSX.Element {
             }
           );
           if (response.status === 200) {
+            alert("아이매드 구글 회원탈퇴가 정상적으로 진행되었습니다.");
+            router.push("/");
           }
         } catch (error) {
           console.error("Error delete user", error);
@@ -108,6 +116,8 @@ export default function LoginCompletePage(): JSX.Element {
             }
           );
           if (response.status === 200) {
+            alert("아이매드 애플 회원탈퇴가 정상적으로 진행되었습니다.");
+            router.push("/");
           }
         } catch (error) {
           console.error("Error delete user", error);
