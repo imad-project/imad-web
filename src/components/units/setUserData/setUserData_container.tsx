@@ -249,7 +249,7 @@ export default function SetUserData_container() {
   // 수정요청 API 요청부
   const PATCHUSER = async () => {
     await axios.patch(
-      "https://ncookie.site/api/user",
+      "https://api.iimad.com/api/user",
       {
         birth_year: userAge,
         gender: gender,

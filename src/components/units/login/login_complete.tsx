@@ -19,11 +19,14 @@ export default function LoginCompletePage(): JSX.Element {
     if (userData?.data.auth_provider === "IMAD") {
       const DELIMADUSER = async () => {
         try {
-          const response = await axios.delete("https://ncookie.site/api/user", {
-            headers: {
-              Authorization: `Bearer ${getCookie("Authorization")}`,
-            },
-          });
+          const response = await axios.delete(
+            "https://api.iimad.com/api/user",
+            {
+              headers: {
+                Authorization: `Bearer ${getCookie("Authorization")}`,
+              },
+            }
+          );
           if (response.status === 200) {
           }
         } catch (error) {
@@ -37,7 +40,7 @@ export default function LoginCompletePage(): JSX.Element {
       const DELKAKAOUSER = async () => {
         try {
           const response = await axios.delete(
-            "https://ncookie.site/api/oauth2/revoke/kakao",
+            "https://api.iimad.com/api/oauth2/revoke/kakao",
             {
               headers: {
                 Authorization: `Bearer ${getCookie("Authorization")}`,
@@ -57,7 +60,7 @@ export default function LoginCompletePage(): JSX.Element {
       const DELNAVERUSER = async () => {
         try {
           const response = await axios.delete(
-            "https://ncookie.site/api/oauth2/revoke/naver",
+            "https://api.iimad.com/api/oauth2/revoke/naver",
             {
               headers: {
                 Authorization: `Bearer ${getCookie("Authorization")}`,
@@ -77,7 +80,7 @@ export default function LoginCompletePage(): JSX.Element {
       const DELGOOGLEUSER = async () => {
         try {
           const response = await axios.delete(
-            "https://ncookie.site/api/oauth2/revoke/google",
+            "https://api.iimad.com/api/oauth2/revoke/google",
             {
               headers: {
                 Authorization: `Bearer ${getCookie("Authorization")}`,
@@ -97,7 +100,7 @@ export default function LoginCompletePage(): JSX.Element {
       const DELAPPLEUSER = async () => {
         try {
           const response = await axios.delete(
-            "https://ncookie.site/api/oauth2/revoke/APPLE",
+            "https://api.iimad.com/api/oauth2/revoke/APPLE",
             {
               headers: {
                 Authorization: `Bearer ${getCookie("Authorization")}`,
@@ -120,7 +123,7 @@ export default function LoginCompletePage(): JSX.Element {
   useEffect(() => {
     const FETCHUSER = async () => {
       try {
-        const response = await axios.get("https://ncookie.site/api/user", {
+        const response = await axios.get("https://api.iimad.com/api/user", {
           headers: {
             Authorization: `Bearer ${getCookie("Authorization")}`,
           },
