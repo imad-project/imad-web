@@ -7,6 +7,7 @@ import axios from "axios";
 export default function KakaoRedirect(): JSX.Element {
   const router = useRouter();
 
+  // 유저 정보 불러오기
   const PATCHUSER = async () => {
     await axios
       .get("https://api.iimad.com/api/user", {
@@ -33,6 +34,7 @@ export default function KakaoRedirect(): JSX.Element {
       });
   };
 
+  //페이지가 렌더링될때 URL의 쿼리를 읽어 토큰과 리프레쉬 토큰을 쿠키에 저장한다.
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const refresh_token = params.get("refresh_token");
@@ -47,6 +49,7 @@ export default function KakaoRedirect(): JSX.Element {
       secure: true,
       sameSite: "none",
     });
+    //쿠키에 저장된 토큰값으로 유저 정보 PATCHUSER 실행
     PATCHUSER();
   }, []);
 
