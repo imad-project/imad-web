@@ -2,9 +2,9 @@ import { Fragment } from "react";
 import * as S from "./navigation.styles";
 import { INavigationUIProps } from "./navigation.types";
 const NAVIGATION_MENUS = [
-  { name: "장르추천", page: "/main/genre" },
-  { name: "리뷰", page: "/main/review" },
-  { name: "검색", page: "/main/search" },
+  { name: "장르추천", page: "/genre" },
+  { name: "리뷰", page: "/review" },
+  { name: "검색", page: "/search" },
 ];
 export default function NavigationUI(props: INavigationUIProps): JSX.Element {
   return (
