@@ -1,11 +1,19 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import * as S from "../search/search_styles";
+import Modal from "react-modal";
+import { useRouter } from "next/router";
+
+interface IDetail {
+  poster_path: string;
+  overview: string;
+}
 
 export default function SearchPage() {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showSearch, setShowSearch] = useState(false);
+  const router = useRouter();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
@@ -41,6 +49,10 @@ export default function SearchPage() {
     }
   };
 
+  const onClickImg = (resultId: String, media_type: String) => {
+    router.push(`/search/${media_type}/${resultId}`);
+  };
+
   return (
     <div>
       <h1>작품 검색</h1>
@@ -55,8 +67,11 @@ export default function SearchPage() {
       </form>
       {showSearch && searchResults && searchResults.length > 0 && (
         <>
-          {searchResults.map((result: any) => (
-            <div key={result.id}>
+          {searchResults.map((result: any, index) => (
+            <div
+              key={result.id}
+              onClick={() => onClickImg(result.id, result.media_type)}
+            >
               {result.poster_path && (
                 <S.ImgBox
                   src={`https://image.tmdb.org/t/p/original/${result.poster_path}`}
