@@ -17,6 +17,14 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
 
         <span>----------------------------------------------</span>
         <h3>{props?.data?.overview}</h3>
+        <span>----------------------------------------------</span>
+        {props.review?.details_list.map((el) => (
+          <div key={el.review_id}>
+            <h1>{el.user_nickname}</h1>
+            <h2>{el.title}</h2>
+            <h2>{el.content}</h2>
+          </div>
+        ))}
       </S.Wrapper>
     </>
   );
