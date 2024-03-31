@@ -6,6 +6,9 @@ export interface IDetailUIProps {
     overview: string;
     poster_path: string;
     contents_type: string;
+    imad_score: number;
+    original_title: string;
+    release_date: string;
   } | null;
 
   review?: {
