@@ -89,12 +89,12 @@ export const ImgBox = styled.img`
 export const Line = styled.div`
   border-top: 1px solid #bdbdbd;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 export const reviewWrapper = styled.div`
   width: 1000px;
-  height: 150px;
+  height: auto;
   /* height: 1847px; */
   border: 1px solid black;
   border-radius: 10px;
@@ -112,9 +112,44 @@ export const avatar = styled.img`
   height: 30px;
 `;
 
+export const reviewBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 10px;
+`;
+
+export const likeCntBox = styled.div`
+  font-size: 15px;
+  margin-right: 10px;
+`;
+
 export const reviewContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
   margin-left: 80px;
+`;
+
+export const likeWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  margin-bottom: 10px;
+`;
+
+export const likeButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 50px;
+  cursor: pointer;
+
+  font-size: 20px;
+  color: gray;
 `;
