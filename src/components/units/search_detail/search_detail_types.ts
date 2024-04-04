@@ -1,4 +1,6 @@
 export interface IDetailUIProps {
+  onClickLike: (id: number) => void;
+  onClickDisLike: (id: number) => void;
   data?: {
     title: string;
     name: string;
