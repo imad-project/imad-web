@@ -26,7 +26,7 @@ export default function TvDetail_Page(): JSX.Element {
         const reviewSearch = async () => {
           try {
             const reviewRES = await axios.get(
-              `http://api.iimad.com/api/review/list?page=1&sort=createdDate&order=0&contents_id=${detailRES.data.data.contents_id}`,
+              `https://api.iimad.com/api/review/list?page=1&sort=createdDate&order=0&contents_id=${detailRES.data.data.contents_id}`,
               {
                 headers: {
                   Authorization: "GUEST",
@@ -53,7 +53,9 @@ export default function TvDetail_Page(): JSX.Element {
       try {
         const likeReview = await axios.patch(
           `https://api.iimad.com/api/review/like/${id}`,
-          {},
+          {
+            like_status: 1,
+          },
           {
             headers: {
               Authorization: `Bearer ${getCookie("Authorization")}`,
@@ -75,8 +77,10 @@ export default function TvDetail_Page(): JSX.Element {
     if (getCookie("Authorization") !== undefined) {
       try {
         const likeReview = await axios.patch(
-          `https://api.iimad.com/api/review/dislike/${id}`,
-          {},
+          `https://api.iimad.com/api/review/like/${id}`,
+          {
+            like_status: -1,
+          },
           {
             headers: {
               Authorization: `Bearer ${getCookie("Authorization")}`,
