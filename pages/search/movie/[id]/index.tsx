@@ -54,7 +54,9 @@ export default function TvDetail_Page(): JSX.Element {
       try {
         const likeReview = await axios.patch(
           `https://api.iimad.com/api/review/like/${id}`,
-          {},
+          {
+            like_status: 1,
+          },
           {
             headers: {
               Authorization: `Bearer ${getCookie("Authorization")}`,
@@ -76,8 +78,10 @@ export default function TvDetail_Page(): JSX.Element {
     if (getCookie("Authorization") !== undefined) {
       try {
         const likeReview = await axios.patch(
-          `https://api.iimad.com/api/review/dislike/${id}`,
-          {},
+          `https://api.iimad.com/api/review/like/${id}`,
+          {
+            like_status: -1,
+          },
           {
             headers: {
               Authorization: `Bearer ${getCookie("Authorization")}`,
