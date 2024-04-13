@@ -1,6 +1,8 @@
 export interface IDetailUIProps {
   onClickLike: (id: number) => void;
   onClickDisLike: (id: number) => void;
+  setLike: (liked: boolean) => void;
+  like: boolean;
   data?: {
     title: string;
     name: string;
@@ -11,6 +13,7 @@ export interface IDetailUIProps {
     imad_score: number;
     original_title: string;
     release_date: string;
+    contents_id: number;
   } | null;
 
   review?: {
