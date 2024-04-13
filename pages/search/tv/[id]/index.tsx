@@ -112,6 +112,8 @@ export default function TvDetail_Page(): JSX.Element {
       review={review}
       onClickLike={onClickLike}
       onClickDisLike={onClickDisLike}
+      setLike={setLike}
+      like={like}
     />
   );
 }
