@@ -100,11 +100,13 @@ export const reviewWrapper = styled.div`
   border-radius: 10px;
   padding-left: 20px;
   padding-top: 10px;
+  padding-right: 20px;
   display: flex;
   flex-direction: column;
 
   border: none;
   box-shadow: 0px 0px 10px gray;
+  margin-bottom: 10px;
 `;
 
 export const avatar = styled.img`
@@ -130,6 +132,8 @@ export const reviewContentsWrapper = styled.div`
   flex-direction: column;
   margin-top: 20px;
   margin-left: 80px;
+
+  width: 100%;
 `;
 
 export const likeWrapper = styled.div`
@@ -152,4 +156,39 @@ export const likeButton = styled.div`
 
   font-size: 20px;
   color: gray;
+`;
+
+export const reviewInput = styled.input`
+  border: 0px;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 10px;
+`;
+
+export const reviewTextArea = styled.textarea`
+  height: 100px;
+  resize: none;
+`;
+
+export const reviewSubmitButton = styled.div`
+  height: 50px;
+  width: 100px;
+  border-radius: 15px;
+
+  box-shadow: 0px 0px 10px gray;
+  cursor: pointer;
+  margin-right: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
+
+export const buttonBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
 `;
