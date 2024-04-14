@@ -3,8 +3,8 @@ import * as S from "./navigation.styles";
 import { INavigationUIProps } from "./navigation.types";
 const NAVIGATION_MENUS = [
   { name: "장르추천", page: "/genre" },
-  { name: "리뷰", page: "/review" },
-  { name: "검색", page: "/search" },
+  { name: "리뷰 검색", page: "/review" },
+  { name: "작품 검색", page: "/search" },
 ];
 export default function NavigationUI(props: INavigationUIProps): JSX.Element {
   return (

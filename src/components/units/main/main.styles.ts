@@ -24,6 +24,7 @@ export const SubSliderItem = styled.img`
   width: 250px;
   margin: auto;
   border-radius: 10px;
+  box-shadow: 1px 1px 10px gray;
 `;
 
 export const MainBannerWrapper = styled.div`
