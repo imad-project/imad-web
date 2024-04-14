@@ -1,3 +1,5 @@
+import * as S from "./login_styles";
+
 export default function LoginPageUI(props: any): JSX.Element {
   return (
     <>
@@ -8,10 +10,25 @@ export default function LoginPageUI(props: any): JSX.Element {
       <input type="password" onChange={props.onChangePassWord} />
       <button onClick={props.onClickLogin}>로그인</button>
       <button onClick={props.onClickSignUp}>회원가입</button>
-      <button onClick={props.onClickLoginKakao}>카카오 로그인</button>
-      <button onClick={props.onClickLoginGoogle}>구글 로그인</button>
-      <button onClick={props.onClickLoginNaver}>네이버 로그인</button>
-      <button onClick={props.onClickLoginApple}>애플 로그인</button>
+      <S.SocialLoginBtn
+        onClick={props.onClickLoginKakao}
+        src="/img/icon/kakao.png"
+      />
+      <S.SocialLoginBtn
+        onClick={props.onClickLoginNaver}
+        src="/img/icon/naver.png"
+      />
+
+      <S.SocialLoginBtn
+        onClick={props.onClickLoginGoogle}
+        src="/img/icon/google2.png"
+      />
+
+      <S.SocialLoginBtn
+        onClick={props.onClickLoginApple}
+        src="/img/icon/apple.png"
+      />
+
       <div>==========================</div>
     </>
   );
