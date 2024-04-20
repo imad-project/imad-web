@@ -19,6 +19,18 @@ export default function SearchPage() {
     setQuery(event.target.value);
   };
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (query) {
+      timer = setTimeout(() => {
+        search();
+      }, 500);
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [query]);
+
   const search = async () => {
     try {
       const response = await axios.get(
@@ -40,15 +52,6 @@ export default function SearchPage() {
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (query !== "") {
-      await search();
-    } else {
-      alert("검색어를 입력해주세요.");
-    }
-  };
-
   const onClickImg = (resultId: String, media_type: String) => {
     router.push(`/search/${media_type}/${resultId}`);
   };
@@ -56,15 +59,14 @@ export default function SearchPage() {
   return (
     <div>
       <h1>작품 검색</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={query}
-          onChange={handleInputChange}
-          placeholder="작품명을 입력해주세요..."
-        />
-        <button type="submit">Search</button>
-      </form>
+
+      <input
+        type="text"
+        value={query}
+        onChange={handleInputChange}
+        placeholder="작품명을 입력해주세요..."
+      />
+
       {showSearch && searchResults && searchResults.length > 0 && (
         <>
           {searchResults.map((result: any, index) => (
