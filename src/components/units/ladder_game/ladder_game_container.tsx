@@ -2,55 +2,38 @@ import React, { useState } from "react";
 import * as S from "./ladder_game_styles";
 import { motion } from "framer-motion";
 
-// 플레이어 이름 배열을 상수로 정의
-const players = ["윤원", "천영", "승우", "영웅"];
+export default function LadderGameContainer() {
+  // 플레이어 이름 배열을 상수로 정의
+  const players = ["윤원", "천영", "승우", "영웅"];
+  const all = [
+    ["천영", "영웅", "승우", "윤원"],
+    ["천영", "승우", "윤원", "영웅"],
+    ["영웅", "윤원", "승우", "천영"],
+    ["영웅", "승우", "천영", "윤원"],
+    ["승우", "윤원", "천영", "영웅"],
+    ["승우", "영웅", "윤원", "천영"],
+  ];
+  const [isAct, setIsAct] = useState(false);
+  const [randomTable, setRandomTable] = useState<string[]>([]);
 
-// 할당 결과를 저장할 타입 정의
-interface Assignments {
-  [key: string]: string;
-}
+  let randomArr: number[] = [];
 
-// Fisher-Yates 알고리즘을 사용하여 배열을 무작위로 섞는 함수
-const shuffleArray = (array: string[]): string[] => {
-  const result = [...array];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-};
-
-// 무작위로 할당된 이름들을 반환하는 함수
-const getRandomizedAssignments = (players: string[]): Assignments => {
-  let shuffledNames = shuffleArray(players);
-  const assignments: Assignments = {};
-
-  // 자기 자신에게 당첨되지 않도록 재할당
-  for (let i = 0; i < players.length; i++) {
-    if (players[i] === shuffledNames[i]) {
-      return getRandomizedAssignments(players); // 다시 할당 시도
-    }
-    assignments[players[i]] = shuffledNames[i];
-  }
-
-  return assignments;
-};
-
-const LadderGame: React.FC = () => {
-  const [assignments, setAssignments] = useState<Assignments>({});
-  const [isAssigned, setIsAssigned] = useState<boolean>(false);
+  const getRandom = () => {
+    let randomIndex = Math.floor(Math.random() * 6);
+    return randomIndex;
+  };
 
   // 게임 시작 버튼 클릭 시 호출되는 함수
   const handleAssign = () => {
-    const newAssignments = getRandomizedAssignments(players);
-    setAssignments(newAssignments);
-    setIsAssigned(true);
+    const newRandom = getRandom();
+    setRandomTable(all[newRandom]);
+    setIsAct(true);
   };
 
   // 초기화 버튼 클릭 시 호출되는 함수
   const handleReset = () => {
-    setAssignments({});
-    setIsAssigned(false);
+    setRandomTable([]);
+    setIsAct(false);
   };
 
   return (
@@ -126,11 +109,10 @@ const LadderGame: React.FC = () => {
         }}
       >
         <S.RowWrapper>
-          {players.map((player) => (
-            <S.NameBox key={player}>
-              {isAssigned ? assignments[player] : player}
-            </S.NameBox>
-          ))}
+          <S.NameBox>{isAct ? randomTable[0] : "윤원"}</S.NameBox>
+          <S.NameBox>{isAct ? randomTable[1] : "천영"}</S.NameBox>
+          <S.NameBox>{isAct ? randomTable[2] : "영웅"}</S.NameBox>
+          <S.NameBox>{isAct ? randomTable[3] : "승우"}</S.NameBox>
         </S.RowWrapper>
       </motion.div>
       <motion.div
@@ -147,7 +129,7 @@ const LadderGame: React.FC = () => {
         }}
       >
         <S.RowWrapper>
-          <S.Button onClick={handleAssign} disabled={isAssigned}>
+          <S.Button onClick={handleAssign} disabled={isAct}>
             상대 고르기
           </S.Button>
           <S.Button onClick={handleReset}>맘에 안듬!</S.Button>
@@ -155,6 +137,4 @@ const LadderGame: React.FC = () => {
       </motion.div>
     </S.Wrapper>
   );
-};
-
-export default LadderGame;
+}
