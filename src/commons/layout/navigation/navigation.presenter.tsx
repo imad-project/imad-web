@@ -5,6 +5,7 @@ const NAVIGATION_MENUS = [
   { name: "장르추천", page: "/genre" },
   { name: "리뷰 검색", page: "/review" },
   { name: "작품 검색", page: "/search" },
+  { name: "막고라", page: "/ladder" },
 ];
 export default function NavigationUI(props: INavigationUIProps): JSX.Element {
   return (

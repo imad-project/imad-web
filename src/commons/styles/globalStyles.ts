@@ -14,4 +14,8 @@ export const globalStyles = css`
     font-family: "myfont";
     src: url("/fonts/SCDream6.otf");
   }
+  @font-face {
+    font-family: "dot";
+    src: url("/fonts/Galmuri9.ttf");
+  }
 `;
