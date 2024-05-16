@@ -10,26 +10,27 @@ interface Assignments {
   [key: string]: string;
 }
 
+// Fisher-Yates 알고리즘을 사용하여 배열을 무작위로 섞는 함수
+const shuffleArray = (array: string[]): string[] => {
+  const result = [...array];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+};
+
 // 무작위로 할당된 이름들을 반환하는 함수
 const getRandomizedAssignments = (players: string[]): Assignments => {
-  let availableNames = [...players];
+  let shuffledNames = shuffleArray(players);
   const assignments: Assignments = {};
 
-  for (const player of players) {
-    let randomIndex = Math.floor(Math.random() * availableNames.length);
-    let chosenName = availableNames[randomIndex];
-
-    // 자기 자신에게 당첨되거나 중복 당첨이 발생하지 않도록 처리
-    while (
-      chosenName === player ||
-      Object.values(assignments).includes(chosenName)
-    ) {
-      randomIndex = Math.floor(Math.random() * availableNames.length);
-      chosenName = availableNames[randomIndex];
+  // 자기 자신에게 당첨되지 않도록 재할당
+  for (let i = 0; i < players.length; i++) {
+    if (players[i] === shuffledNames[i]) {
+      return getRandomizedAssignments(players); // 다시 할당 시도
     }
-
-    assignments[player] = chosenName;
-    availableNames = availableNames.filter((name) => name !== chosenName);
+    assignments[players[i]] = shuffledNames[i];
   }
 
   return assignments;
