@@ -107,6 +107,10 @@ export default function TvDetail_Page(): JSX.Element {
     detailSearch();
   }, []);
 
+  const WritePush = () => {
+    const { id } = router.query;
+    router.push(`/search/movie/${id}/write`);
+  };
   return (
     <SearchDetailUI
       data={detail}
@@ -115,6 +119,7 @@ export default function TvDetail_Page(): JSX.Element {
       onClickDisLike={onClickDisLike}
       setLike={setLike}
       like={like}
+      onClickWrite={WritePush}
     />
   );
 }

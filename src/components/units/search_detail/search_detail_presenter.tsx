@@ -4,6 +4,8 @@ import { ChangeEvent, useState } from "react";
 import ReactStars from "react-stars";
 import { getCookie } from "../../../commons/cookies/cookie";
 import axios from "axios";
+import { useRouter } from "next/router";
+
 export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
   const MAX_TITLE_BYTES = 50; // 리뷰 제목 최대 바이트 수
   const MAX_CONTENT_BYTES = 1000; // 리뷰 본문 최대 바이트 수
@@ -16,6 +18,7 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
   const [selectedRating, setSelectdRating] = useState<number>(0);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const router = useRouter();
 
   const onInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     // 입력된 문자열을 UTF-8로 인코딩하여 바이트 수 계산
@@ -88,6 +91,11 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
     } else {
       alert("리뷰 포스팅은 회원만 가능합니다!");
     }
+  };
+
+  const writePush = () => {
+    const { category, id } = router.query;
+    router.push(`/search/${category}/${id}/write`);
   };
 
   return (
@@ -218,6 +226,13 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
             </S.reviewWrapper>
           </div>
         ))}
+        <S.reviewWrapper>
+          <S.buttonBox>
+            <S.reviewSubmitButton onClick={props.onClickWrite}>
+              게시물 작성
+            </S.reviewSubmitButton>
+          </S.buttonBox>
+        </S.reviewWrapper>
       </S.Wrapper>
     </>
   );

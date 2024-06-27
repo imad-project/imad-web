@@ -5,7 +5,9 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "@emotion/styled";
 
 import Modal from "react-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { delay } from "framer-motion";
 
 const StyledSlider = styled(Slider)`
   position: relative;
@@ -112,7 +114,7 @@ const subBannerItems = [
   },
 ];
 
-export default function MainPageUI(): JSX.Element {
+export default function MainPageUI(props: any): JSX.Element {
   const settings = {
     dots: true,
     infinite: true,
@@ -135,7 +137,7 @@ export default function MainPageUI(): JSX.Element {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 2,
     swipeToSlide: true,
     nextArrow: (
       <NextTo>
@@ -177,13 +179,15 @@ export default function MainPageUI(): JSX.Element {
           ))}
         </StyledSlider>
       </S.MainBannerWrapper>
-      <S.title>액션</S.title>
+      <S.title>월간 작품 랭킹</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
-          {subBannerItems.map((el, index) => (
+          {props?.month?.map((el: any, index: any) => (
             <>
-              <S.ImgBox key={el.name} onClick={() => onClickImg(index)}>
-                <S.SubSliderItem src={el.poster_path} />
+              <S.ImgBox key={el.title} onClick={() => onClickImg(index)}>
+                <S.SubSliderItem
+                  src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                />
               </S.ImgBox>
               <Modal
                 isOpen={isOpenList[index]}
@@ -194,7 +198,9 @@ export default function MainPageUI(): JSX.Element {
                 shouldCloseOnOverlayClick={false}
               >
                 <S.ModalWrapper>
-                  <S.ModalImg src={el.poster_path} />
+                  <S.ModalImg
+                    src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                  />
 
                   <S.ModalCancel
                     src="/img/icon/cancel.png"

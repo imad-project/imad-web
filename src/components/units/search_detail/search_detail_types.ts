@@ -2,6 +2,7 @@ export interface IDetailUIProps {
   onClickLike: (id: number) => void;
   onClickDisLike: (id: number) => void;
   setLike: (liked: boolean) => void;
+  onClickWrite: () => void;
   like: boolean;
   data?: {
     title: string;
