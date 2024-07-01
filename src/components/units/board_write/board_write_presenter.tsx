@@ -28,7 +28,10 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
           type="text"
           placeholder="제목을 작성해주세요."
         />
-        <S.ErrorLog></S.ErrorLog>
+        <p>
+          <S.BytesSpan>{props.titleCount} /50 bytes</S.BytesSpan>
+        </p>
+        <S.ErrorLog>{props.titleError}</S.ErrorLog>
       </S.InputWrapper>
 
       <S.InputWrapper>
@@ -37,7 +40,10 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
           onChange={props.handleContentsChange}
           placeholder="내용을 작성해주세요."
         />
-        <S.ErrorLog></S.ErrorLog>
+        <p>
+          <S.BytesSpan>{props.contentsCount} /5000 bytes</S.BytesSpan>
+        </p>
+        <S.ErrorLog>{props.contentsError}</S.ErrorLog>
         <S.Label>작성글에 스포일러가 포함되어 있나요?</S.Label>
         <S.RadioBox>
           <S.RadioBtn>
