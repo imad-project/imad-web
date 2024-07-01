@@ -8,4 +8,8 @@ export interface IBoardWriteProps {
   onClickSubmit: () => void;
   handleSpoiler: (event: ChangeEvent<HTMLInputElement>) => void;
   x: number;
+  titleCount: number;
+  contentsCount: number;
+  titleError: string;
+  contentsError: string;
 }

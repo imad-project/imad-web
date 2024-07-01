@@ -200,3 +200,8 @@ export const Label2 = styled.div`
   font-size: 16px;
   font-weight: 500;
 `;
+
+export const BytesSpan = styled.span`
+  color: gray;
+  font-size: 16px;
+`;
