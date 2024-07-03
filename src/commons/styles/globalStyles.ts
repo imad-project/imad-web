@@ -12,7 +12,7 @@ export const globalStyles = css`
 
   @font-face {
     font-family: "myfont";
-    src: url("/fonts/SCDream6.otf");
+    src: url("/fonts/GmarketSansTTFMedium.ttf");
   }
   @font-face {
     font-family: "dot";
