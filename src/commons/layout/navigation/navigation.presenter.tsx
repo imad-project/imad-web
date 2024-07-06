@@ -24,7 +24,7 @@ export default function NavigationUI(props: INavigationUIProps): JSX.Element {
       </S.ItemBox>
       {getCookie("Authorization") ? (
         <S.MenuItem id="/user" onClick={props.onClickMenu}>
-          {props.userData.nickname}
+          {props.userData?.nickname}
         </S.MenuItem>
       ) : null}
 

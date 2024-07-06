@@ -18,18 +18,7 @@ interface IUserData {
 }
 
 export default function NavigationContainer(): JSX.Element {
-  const [userData, setUserData] = useState<IUserData>({
-    gender: "",
-    age_range: 0,
-    profile_image: 1,
-    nickname: "",
-    preferred_tv_genres: [],
-    preferred_movie_genres: [],
-    auth_provider: "",
-    role: "",
-    email: "",
-    birth_year: 0,
-  });
+  const [userData, setUserData] = useState<IUserData | null>(null);
   const [userName, setUserName] = useState("");
   const router = useRouter();
 
