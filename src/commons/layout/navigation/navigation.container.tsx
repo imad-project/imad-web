@@ -30,6 +30,7 @@ export default function NavigationContainer(): JSX.Element {
     email: "",
     birth_year: 0,
   });
+  const [userName, setUserName] = useState("");
   const router = useRouter();
 
   const onClickMenu = (event: MouseEvent<HTMLDivElement>): void => {
@@ -50,7 +51,7 @@ export default function NavigationContainer(): JSX.Element {
       });
       if (response.status === 200) {
         setUserData(response.data.data);
-        console.log("fetchUser");
+        return response.data.data;
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -58,9 +59,15 @@ export default function NavigationContainer(): JSX.Element {
   };
 
   useEffect(() => {
-    if (getCookie("Authorization")) {
-      FETCHUSER();
-    }
+    const fetchUserData = async () => {
+      if (getCookie("Authorization")) {
+        const data = await FETCHUSER(); // 비동기 함수 호출 후 기다림
+        if (data) {
+          setUserName(data.nickname);
+        }
+      }
+    };
+    fetchUserData();
   }, []);
 
   return (
