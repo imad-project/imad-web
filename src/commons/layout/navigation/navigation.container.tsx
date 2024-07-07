@@ -29,9 +29,13 @@ export default function NavigationContainer(): JSX.Element {
     void router.push(event.currentTarget.id);
   };
 
-  const onClickLogout = (event: MouseEvent<HTMLDivElement>): void => {
+  const onClickLogout = async (
+    event: MouseEvent<HTMLDivElement>
+  ): Promise<void> => {
     removeCookie("Authorization");
-    void router.push(event.currentTarget.id);
+    removeCookie("Authorization_refresh");
+    setAuthToken(null);
+    await router.push(event.currentTarget.id);
   };
 
   const FETCHUSER = async () => {
@@ -53,6 +57,8 @@ export default function NavigationContainer(): JSX.Element {
   useEffect(() => {
     if (authToken) {
       FETCHUSER();
+    } else {
+      setUserData(null);
     }
   }, [authToken]);
 
