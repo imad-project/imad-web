@@ -19,6 +19,9 @@ interface IUserData {
 
 export default function NavigationContainer(): JSX.Element {
   const [userData, setUserData] = useState<IUserData | null>(null);
+  const [authToken, setAuthToken] = useState<string | null>(
+    getCookie("Authorization")
+  );
   const [userName, setUserName] = useState("");
   const router = useRouter();
 
@@ -48,16 +51,22 @@ export default function NavigationContainer(): JSX.Element {
   };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      if (getCookie("Authorization")) {
-        const data = await FETCHUSER(); // 비동기 함수 호출 후 기다림
-        if (data) {
-          setUserName(data.nickname);
-        }
+    if (authToken) {
+      FETCHUSER();
+    }
+  }, [authToken]);
+
+  // Add a useEffect to update authToken when the cookie changes
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const token = getCookie("Authorization");
+      if (token !== authToken) {
+        setAuthToken(token);
       }
-    };
-    fetchUserData();
-  }, []);
+    }, 1000); // Check every second
+
+    return () => clearInterval(intervalId);
+  }, [authToken]);
 
   return (
     <NavigationUI
