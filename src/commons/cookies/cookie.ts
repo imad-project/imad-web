@@ -11,6 +11,11 @@ export const getCookie = (name: string) => {
   return cookies.get(name);
 };
 //쿠키를 지울때
-export const removeCookie = (name: string) => {
-  return cookies.remove(name);
+export const removeCookie = (name: string, options?: any) => {
+  return cookies.remove(name, {
+    path: "/",
+    secure: true,
+    sameSite: "none",
+    ...options,
+  });
 };
