@@ -17,7 +17,6 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.div`
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 34px;
   font-weight: bold;
 `;
