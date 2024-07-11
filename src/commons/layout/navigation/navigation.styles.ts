@@ -13,8 +13,8 @@ export const Wrapper = styled.div`
 
 export const Logo = styled.img`
   margin-left: 20px;
-  height: 50px;
-  width: 75px;
+  height: 48px;
+  width: 150px;
   cursor: pointer;
 `;
 
