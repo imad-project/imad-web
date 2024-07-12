@@ -16,6 +16,18 @@ export const Wrapper = styled.div`
   box-shadow: 0px 0px 10px gray;
 `;
 
+export const Title = styled.div`
+  color: #0b0537;
+  font-size: 20px;
+`;
+
+export const RowWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const Profile_image = styled.img`
   width: 100px;
   height: 100px;
@@ -24,11 +36,13 @@ export const Profile_image = styled.img`
 
 export const Box_wrapper = styled.div`
   width: 500px;
-  height: 200px;
+  height: 150px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+
+  border-radius: 40px;
 `;
 
 export const Box = styled.div`
@@ -38,6 +52,8 @@ export const Box = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 40px;
+  box-shadow: 0px 0px 10px gray;
 `;
 
 export const Span_box = styled.div`
