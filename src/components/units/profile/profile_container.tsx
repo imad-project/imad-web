@@ -23,8 +23,22 @@ interface IData {
   };
 }
 
+interface IData2 {
+  email: string;
+  nickname: string;
+  auth_provider: string;
+  gender: string;
+  birth_year: number;
+  age_range: number;
+  profile_image: string;
+  role: string;
+  preferred_tv_genres: [number];
+  preferred_movie_genres: [number];
+}
+
 export default function ProfileContainer() {
   const [userData, setUserData] = useState<IData | null>(null);
+  const [userData2, setUserData2] = useState<IData2 | null>(null);
 
   const FETCH_PROFILE = async () => {
     try {
@@ -41,9 +55,25 @@ export default function ProfileContainer() {
     }
   };
 
+  const FETCH_USER = async () => {
+    try {
+      const response2 = await axios.get("http://api.iimad.com/api/user", {
+        headers: {
+          Authorization: `Bearer ${getCookie("Authorization")}`,
+        },
+      });
+      if (response2.status === 200) {
+        setUserData2(response2.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     FETCH_PROFILE();
+    FETCH_USER();
   }, []);
 
-  return <Profile_UI data={userData} />;
+  return <Profile_UI data={userData} data2={userData2} />;
 }

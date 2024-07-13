@@ -16,7 +16,20 @@ interface IData {
     sort_property: number;
   };
 }
+interface IData2 {
+  email: string;
+  nickname: string;
+  auth_provider: string;
+  gender: string;
+  birth_year: number;
+  age_range: number;
+  profile_image: string;
+  role: string;
+  preferred_tv_genres: [number];
+  preferred_movie_genres: [number];
+}
 
 export interface IProfileProps {
   data: IData | null;
+  data2: IData2 | null;
 }
