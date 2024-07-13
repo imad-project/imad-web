@@ -16,9 +16,64 @@ export const Wrapper = styled.div`
   box-shadow: 0px 0px 10px gray;
 `;
 
+export const ColumnWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const GenresBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: center;
+  width: 500px;
+  box-shadow: 0px 0px 10px gray;
+  border-radius: 10px;
+`;
+
+export const GenreTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #0b0537;
+  margin-top: 3px;
+`;
+
+export const GenreItem = styled.div`
+  font-size: 18px;
+  color: #0b0537;
+`;
+
+export const DividedLine = styled.div`
+  width: 100%;
+  border: 1px solid gray;
+  margin-top: 3px;
+  margin-bottom: 3px;
+`;
+
 export const Title = styled.div`
   color: #0b0537;
-  font-size: 20px;
+  font-size: 25px;
+  margin-bottom: 5px;
+  font-weight: bold;
+`;
+
+export const SubTitle = styled.div`
+  color: #0b0537;
+  font-size: 18px;
+  margin-bottom: 5px;
+`;
+
+export const GrayLabel = styled.div`
+  color: gray;
+  font-size: 18px;
+  margin-bottom: 5px;
 `;
 
 export const RowWrapper = styled.div`
