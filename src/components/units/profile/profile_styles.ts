@@ -52,7 +52,7 @@ export const GenreItem = styled.div`
 
 export const DividedLine = styled.div`
   width: 100%;
-  border: 1px solid gray;
+  border-bottom: 1px solid gray;
   margin-top: 3px;
   margin-bottom: 3px;
 `;
@@ -83,10 +83,71 @@ export const RowWrapper = styled.div`
   align-items: center;
 `;
 
+export const ImgBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+  position: relative;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  cursor: pointer;
+
+  :hover .profile_span {
+    opacity: 1;
+    bottom: 20%;
+  }
+
+  :hover .profile_img {
+    filter: brightness(0.8);
+    filter: blur(3px);
+    background-color: gray;
+  }
+  :hover .camera_icon {
+    opacity: 1;
+    bottom: 45%;
+  }
+`;
+
+export const ImgSpan = styled.div`
+  position: absolute;
+
+  bottom: -70%;
+  font-size: 15px;
+  opacity: 0;
+  color: #fff;
+  transition: 0.35s;
+  & .profile_span {
+  }
+`;
+
 export const Profile_image = styled.img`
   width: 100px;
   height: 100px;
-  border-radius: 25px;
+  border-radius: 100px;
+  border: 1px solid gray;
+
+  filter: brightness(1);
+  filter: blur(0);
+
+  transition: 0.35s;
+  & .profile_img {
+  }
+`;
+
+export const Camera_icon = styled.img`
+  position: absolute;
+
+  width: 40px;
+  height: 30px;
+  opacity: 0;
+  bottom: -70%;
+  transition: 0.35s;
+  & .camera_icon {
+  }
 `;
 
 export const Box_wrapper = styled.div`

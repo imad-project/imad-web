@@ -171,9 +171,18 @@ export default function Profile_UI(props: IProfileProps) {
     <>
       <S.Wrapper>
         <S.RowWrapper>
-          <S.Profile_image
-            src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props?.data?.user_profile_image}`}
-          />
+          <S.ImgBox>
+            <S.Profile_image
+              src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props?.data?.user_profile_image}`}
+              className="profile_img"
+            />
+            <S.ImgSpan className="profile_span">이미지변경</S.ImgSpan>
+            <S.Camera_icon
+              src="/img/icon/icons/camera.png"
+              className="camera_icon"
+            />
+          </S.ImgBox>
+
           <S.ColumnWrapper>
             <S.Title>{props?.data?.user_nickname}</S.Title>
             <S.GrayLabel>{authLabel}</S.GrayLabel>
