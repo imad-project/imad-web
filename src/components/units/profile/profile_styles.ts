@@ -150,6 +150,24 @@ export const Camera_icon = styled.img`
   }
 `;
 
+export const Icon_box = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: middle;
+`;
+
+export const BigIcon = styled.img`
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  text-align: middle;
+  left: 100%;
+  bottom: 3px;
+`;
+
 export const Box_wrapper = styled.div`
   width: 500px;
   height: 150px;

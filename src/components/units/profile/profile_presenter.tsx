@@ -184,7 +184,11 @@ export default function Profile_UI(props: IProfileProps) {
           </S.ImgBox>
 
           <S.ColumnWrapper>
-            <S.Title>{props?.data?.user_nickname}</S.Title>
+            <S.Icon_box>
+              <S.Title>{props?.data?.user_nickname}</S.Title>
+              <S.BigIcon src="/img/icon/icons/male.png" />
+            </S.Icon_box>
+
             <S.GrayLabel>{authLabel}</S.GrayLabel>
             <S.SubTitle>{props?.data2?.birth_year}년생</S.SubTitle>
           </S.ColumnWrapper>
@@ -216,7 +220,7 @@ export default function Profile_UI(props: IProfileProps) {
 
           <S.GenreTitle>선호 TV 장르</S.GenreTitle>
 
-          {preferredMovieGenres?.map((genre, index) => (
+          {preferredTVGenres?.map((genre, index) => (
             <>
               <S.DividedLine />
               <S.GenreItem key={index}>{genre}</S.GenreItem>

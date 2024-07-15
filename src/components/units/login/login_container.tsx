@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { setCookie } from "../../../commons/cookies/cookie";
 import { useParams } from "react-router-dom";
+import { SHA256 } from "crypto-js";
 
 export default function LoginContainer() {
   const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ export default function LoginContainer() {
     await axios
       .post("https://api.iimad.com/api/login", {
         email: email,
-        password: password,
+        password: SHA256(password).toString(),
       })
       .then((res) => {
         if (res.status === 200) {
