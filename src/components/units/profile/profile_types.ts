@@ -44,4 +44,7 @@ interface IData2 {
 export interface IProfileProps {
   data: IData | null;
   data2: IData2 | null;
+  onClickMyReview: () => void;
+  onClickMyWrite: () => void;
+  onClickMyScrap: () => void;
 }

@@ -194,16 +194,16 @@ export default function Profile_UI(props: IProfileProps) {
           </S.ColumnWrapper>
         </S.RowWrapper>
         <S.Box_wrapper>
-          <S.Box>
-            <S.Span_box>리뷰글</S.Span_box>
+          <S.Box onClick={props.onClickMyReview}>
+            <S.Span_box>내 리뷰</S.Span_box>
             <S.Span_box>{props?.data?.my_review_cnt}</S.Span_box>
           </S.Box>
-          <S.Box>
-            <S.Span_box>게시글</S.Span_box>
+          <S.Box onClick={props.onClickMyWrite}>
+            <S.Span_box>내 게시물</S.Span_box>
             <S.Span_box>{props?.data?.my_posting_cnt}</S.Span_box>
           </S.Box>
-          <S.Box>
-            <S.Span_box>스크랩</S.Span_box>
+          <S.Box onClick={props.onClickMyScrap}>
+            <S.Span_box>내 스크랩</S.Span_box>
             <S.Span_box>{props?.data?.my_scrap_cnt}</S.Span_box>
           </S.Box>
         </S.Box_wrapper>
