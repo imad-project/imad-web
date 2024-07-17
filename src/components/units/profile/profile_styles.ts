@@ -31,6 +31,7 @@ export const GenresBox = styled.div`
   width: 500px;
   box-shadow: 0px 0px 10px gray;
   border-radius: 10px;
+  margin-bottom: 20px;
 `;
 
 export const GenreTitle = styled.div`
@@ -193,4 +194,52 @@ export const Box = styled.div`
 export const Span_box = styled.div`
   font-size: 18px;
   color: #0b0537;
+  margin-top: 5px;
+`;
+
+export const BookMark_box = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  box-shadow: 0px 0px 10px gray;
+  border-radius: 10px;
+  padding: 20px;
+`;
+
+export const BookMark_title = styled.div`
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #0b0537;
+  margin-bottom: 10px;
+  margin-left: 60px;
+`;
+
+export const Movie_box = styled.div`
+  flex: 1 1 calc(33% - 10px);
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const Movie_poster = styled.img`
+  width: 200px;
+  height: 300px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+`;
+
+export const Movie_title = styled.div`
+  font-size: 20px;
+  color: #0b0537;
+  text-align: center;
+`;
+export const NoBookmarks = styled.div`
+  width: 100%;
+  font-size: 20px;
+  color: gray;
+  text-align: center;
+  margin-top: 20px;
 `;

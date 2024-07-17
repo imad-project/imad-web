@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 interface IData {
   user_id: number;
   user_nickname: string;
@@ -6,7 +7,18 @@ interface IData {
   my_posting_cnt: number;
   my_scrap_cnt: number;
   bookmark_list_response: {
-    details_list: [];
+    details_list:
+      | [
+          {
+            bookmark_id: number;
+            user_id: number;
+            contents_id: number;
+            contents_title: string;
+            contents_poster_path: string;
+            created_date: string;
+          }
+        ]
+      | null;
     total_elements: number;
     total_pages: number;
     page_number: number;

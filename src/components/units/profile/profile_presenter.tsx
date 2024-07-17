@@ -208,7 +208,7 @@ export default function Profile_UI(props: IProfileProps) {
           </S.Box>
         </S.Box_wrapper>
         <S.GenresBox>
-          <S.GenreTitle>선호 영화 장르</S.GenreTitle>
+          <S.GenreTitle>내 영화 장르</S.GenreTitle>
 
           {preferredMovieGenres?.map((genre, index) => (
             <>
@@ -216,9 +216,9 @@ export default function Profile_UI(props: IProfileProps) {
               <S.GenreItem key={index}>{genre}</S.GenreItem>
             </>
           ))}
-          <S.DividedLine />
-
-          <S.GenreTitle>선호 TV 장르</S.GenreTitle>
+        </S.GenresBox>
+        <S.GenresBox>
+          <S.GenreTitle>내 TV 장르</S.GenreTitle>
 
           {preferredTVGenres?.map((genre, index) => (
             <>
@@ -227,6 +227,28 @@ export default function Profile_UI(props: IProfileProps) {
             </>
           ))}
         </S.GenresBox>
+        <S.BookMark_box>
+          <S.BookMark_title>내가 찜한 작품</S.BookMark_title>
+
+          {props?.data?.bookmark_list_response?.details_list ? (
+            props.data.bookmark_list_response.details_list.length > 0 ? (
+              props.data.bookmark_list_response.details_list.map(
+                (el, index) => (
+                  <S.Movie_box key={el.bookmark_id}>
+                    <S.Movie_poster
+                      src={`https://image.tmdb.org/t/p/original/${el.contents_poster_path}`}
+                    />
+                    <S.Movie_title>{el.contents_title}</S.Movie_title>
+                  </S.Movie_box>
+                )
+              )
+            ) : (
+              <S.NoBookmarks>현재 북마크한 작품이 없습니다.</S.NoBookmarks>
+            )
+          ) : (
+            <S.NoBookmarks>북마크 데이터를 불러오는 중입니다.</S.NoBookmarks>
+          )}
+        </S.BookMark_box>
       </S.Wrapper>
     </>
   );
