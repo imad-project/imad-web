@@ -41,7 +41,7 @@ export default function MyReview_Container() {
   const FETCH_MYREVIEW = async () => {
     try {
       const response = await axios.get(
-        "http://api.iimad.com/api/profile/review/list?/page=1",
+        "http://api.iimad.com/api/profile/review/list?page=1",
         {
           headers: {
             Authorization: `Bearer ${getCookie("Authorization")}`,
