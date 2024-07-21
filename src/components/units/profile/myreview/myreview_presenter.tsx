@@ -1,6 +1,7 @@
 import { IMyReviewProps } from "./myreview_types";
 import * as S from "./myreview_styles";
 import ReactStars from "react-stars";
+import { elapsedTime } from "../../../../commons/date/date";
 
 export default function MyReview_UI(props: IMyReviewProps) {
   return (
@@ -28,7 +29,8 @@ export default function MyReview_UI(props: IMyReviewProps) {
                     <h2>{el.title}</h2>
                     <S.DividedLine />
                     <h2>{el.content}</h2>
-                    <h3>평점: {el.score}</h3>
+                    <S.DividedLine />
+                    <h3>평점: {Math.floor(el.score * 10) / 10}</h3>
                     <ReactStars
                       count={5}
                       value={el.score / 2}
@@ -41,6 +43,7 @@ export default function MyReview_UI(props: IMyReviewProps) {
                     좋아요:{el.like_cnt}
                     싫어요:{el.dislike_cnt}
                   </S.likeCntBox>
+                  <S.Date_span>{elapsedTime(el.created_at)}</S.Date_span>
                 </S.reviewBox>
               </S.ColumnBox>
             </S.RowWrapper>

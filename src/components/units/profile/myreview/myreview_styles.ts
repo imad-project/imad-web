@@ -92,3 +92,8 @@ export const DividedLine = styled.div`
   margin-top: 10px;
   margin-bottom: 10px;
 `;
+
+export const Date_span = styled.div`
+  color: gray;
+  font-size: 15px;
+`;
