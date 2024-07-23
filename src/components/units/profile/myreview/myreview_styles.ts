@@ -1,7 +1,17 @@
 import styled from "@emotion/styled";
 
+export const MainWrapper = styled.div`
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px gray;
+`;
+
 export const reviewWrapper = styled.div`
-  width: 1000px;
+  width: 100%;
   height: auto;
   /* height: 1847px; */
   border: 1px solid black;
@@ -21,7 +31,8 @@ export const avatar = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 1px solid black;
+  box-shadow: 0px 0px 5px gray;
+  margin-right: 10px;
 `;
 
 export const reviewBox = styled.div`
@@ -35,6 +46,18 @@ export const reviewBox = styled.div`
 export const likeCntBox = styled.div`
   font-size: 15px;
   margin-right: 10px;
+`;
+
+export const likeDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-right: 10px;
+`;
+
+export const LittleIcon = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 `;
 
 export const reviewContentsWrapper = styled.div`
@@ -96,4 +119,31 @@ export const DividedLine = styled.div`
 export const Date_span = styled.div`
   color: gray;
   font-size: 15px;
+  width: 70px;
+  height: auto;
+`;
+
+export const title_span = styled.div`
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: baseline;
+  align-items: baseline;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 5%;
+  color: #0b0537;
+`;
+
+export const Review_title = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+`;
+
+export const Review_contents = styled.div`
+  font-size: 20px;
+
+  color: black;
 `;

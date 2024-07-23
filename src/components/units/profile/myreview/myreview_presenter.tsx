@@ -5,8 +5,8 @@ import { elapsedTime } from "../../../../commons/date/date";
 
 export default function MyReview_UI(props: IMyReviewProps) {
   return (
-    <>
-      <div>내리뷰</div>
+    <S.MainWrapper>
+      <S.title_span>내리뷰</S.title_span>
       {props.reviewData?.details_list.map((el) => (
         <div key={el.review_id}>
           <S.reviewWrapper>
@@ -26,9 +26,9 @@ export default function MyReview_UI(props: IMyReviewProps) {
                 </S.RowWrapper>
                 <S.reviewBox>
                   <S.reviewContentsWrapper>
-                    <h2>{el.title}</h2>
+                    <S.Review_title>{el.title}</S.Review_title>
                     <S.DividedLine />
-                    <h2>{el.content}</h2>
+                    <S.Review_contents>{el.content}</S.Review_contents>
                     <S.DividedLine />
                     <h3>평점: {Math.floor(el.score * 10) / 10}</h3>
                     <ReactStars
@@ -40,8 +40,16 @@ export default function MyReview_UI(props: IMyReviewProps) {
                     />
                   </S.reviewContentsWrapper>
                   <S.likeCntBox>
-                    좋아요:{el.like_cnt}
-                    싫어요:{el.dislike_cnt}
+                    <S.RowWrapper>
+                      <S.likeDiv>
+                        <S.LittleIcon src="/img/icon/icons/arrowshape.up.png" />
+                        {el.like_cnt}
+                      </S.likeDiv>
+                      <S.likeDiv>
+                        <S.LittleIcon src="/img/icon/icons/arrowshape.down.png" />
+                        {el.dislike_cnt}
+                      </S.likeDiv>
+                    </S.RowWrapper>
                   </S.likeCntBox>
                   <S.Date_span>{elapsedTime(el.created_at)}</S.Date_span>
                 </S.reviewBox>
@@ -50,6 +58,6 @@ export default function MyReview_UI(props: IMyReviewProps) {
           </S.reviewWrapper>
         </div>
       ))}
-    </>
+    </S.MainWrapper>
   );
 }
