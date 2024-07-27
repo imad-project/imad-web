@@ -65,7 +65,7 @@ export const reviewContentsWrapper = styled.div`
   flex-direction: column;
   margin-top: 20px;
 
-  width: 100%;
+  width: 300px;
 `;
 
 export const likeWrapper = styled.div`
@@ -88,6 +88,7 @@ export const PosterBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 150px;
 `;
 
 export const Poster_img = styled.img`
@@ -119,8 +120,9 @@ export const DividedLine = styled.div`
 export const Date_span = styled.div`
   color: gray;
   font-size: 15px;
-  width: 70px;
+  width: 100px;
   height: auto;
+  margin-left: 50px;
 `;
 
 export const title_span = styled.div`

@@ -2,6 +2,7 @@ import { IMyReviewProps } from "./myreview_types";
 import * as S from "./myreview_styles";
 import ReactStars from "react-stars";
 import { elapsedTime } from "../../../../commons/date/date";
+import CircularProgressChart from "@/src/commons/rate_view/rate_view";
 
 export default function MyReview_UI(props: IMyReviewProps) {
   return (
@@ -30,16 +31,6 @@ export default function MyReview_UI(props: IMyReviewProps) {
                     <S.DividedLine />
                     <S.Review_contents>{el.content}</S.Review_contents>
                     <S.DividedLine />
-                    <h3>평점: {Math.floor(el.score * 10) / 10}</h3>
-                    <ReactStars
-                      count={5}
-                      value={el.score / 2}
-                      size={24}
-                      edit={false}
-                      half={true}
-                    />
-                  </S.reviewContentsWrapper>
-                  <S.likeCntBox>
                     <S.RowWrapper>
                       <S.likeDiv>
                         <S.LittleIcon src="/img/icon/icons/arrowshape.up.png" />
@@ -49,11 +40,12 @@ export default function MyReview_UI(props: IMyReviewProps) {
                         <S.LittleIcon src="/img/icon/icons/arrowshape.down.png" />
                         {el.dislike_cnt}
                       </S.likeDiv>
+                      <S.Date_span>{elapsedTime(el.created_at)}</S.Date_span>
                     </S.RowWrapper>
-                  </S.likeCntBox>
-                  <S.Date_span>{elapsedTime(el.created_at)}</S.Date_span>
+                  </S.reviewContentsWrapper>
                 </S.reviewBox>
               </S.ColumnBox>
+              <CircularProgressChart value={Math.floor(el.score * 10) / 10} />
             </S.RowWrapper>
           </S.reviewWrapper>
         </div>
