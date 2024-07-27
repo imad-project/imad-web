@@ -58,7 +58,7 @@ export default function MyReview_Container() {
 
   useEffect(() => {
     FETCH_MYREVIEW();
-  });
+  }, []);
 
   return <MyReview_UI reviewData={reviewData} />;
 }
