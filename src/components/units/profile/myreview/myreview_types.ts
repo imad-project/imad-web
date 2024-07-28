@@ -1,3 +1,5 @@
+import { MouseEvent } from "react";
+
 interface IReviewData {
   details_list: [
     {
@@ -32,4 +34,5 @@ interface IReviewData {
 
 export interface IMyReviewProps {
   reviewData: IReviewData | null;
+  onClickPoster: (event: MouseEvent<HTMLImageElement>) => void;
 }

@@ -1,6 +1,5 @@
 import { IMyReviewProps } from "./myreview_types";
 import * as S from "./myreview_styles";
-import ReactStars from "react-stars";
 import { elapsedTime } from "../../../../commons/date/date";
 import CircularProgressChart from "@/src/commons/rate_view/rate_view";
 
@@ -14,7 +13,9 @@ export default function MyReview_UI(props: IMyReviewProps) {
             <S.RowWrapper>
               <S.PosterBox>
                 <S.Poster_img
+                  id={el.contents_id.toString()}
                   src={`https://image.tmdb.org/t/p/original/${el.contents_poster_path}`}
+                  onClick={props.onClickPoster}
                 />
                 <S.Poster_title>{el.contents_title}</S.Poster_title>
               </S.PosterBox>

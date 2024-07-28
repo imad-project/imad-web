@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { getCookie } from "../../../../commons/cookies/cookie";
 import axios from "axios";
 import MyReview_UI from "./myreview_presenter";
+import { useRouter } from "next/router";
 
 interface IReviewData {
   details_list: [
@@ -36,6 +37,7 @@ interface IReviewData {
 }
 
 export default function MyReview_Container() {
+  const router = useRouter();
   const [reviewData, setReviewData] = useState<IReviewData | null>(null);
 
   const FETCH_MYREVIEW = async () => {
@@ -60,5 +62,9 @@ export default function MyReview_Container() {
     FETCH_MYREVIEW();
   }, []);
 
-  return <MyReview_UI reviewData={reviewData} />;
+  const onClickPoster = (event: MouseEvent<HTMLImageElement>): void => {
+    void router.push(`/search/contents/${event.currentTarget.id}`);
+  };
+
+  return <MyReview_UI reviewData={reviewData} onClickPoster={onClickPoster} />;
 }
