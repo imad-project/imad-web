@@ -46,7 +46,7 @@ export default function MyWrite_container() {
   const FETCH_MYWRITE = async () => {
     try {
       const response = await axios.get(
-        "http://api.iimad.com/api/profile/review/list?page=1",
+        "http://api.iimad.com/api/profile/posting/list?page=1",
         {
           headers: {
             Authorization: `Bearer ${getCookie("Authorization")}`,
