@@ -6,7 +6,7 @@ import CircularProgressChart from "@/src/commons/rate_view/rate_view";
 export default function MyReview_UI(props: IMyReviewProps) {
   return (
     <S.MainWrapper>
-      <S.title_span>내리뷰</S.title_span>
+      <S.title_span>내 리뷰</S.title_span>
       {props.reviewData?.details_list.map((el) => (
         <div key={el.review_id}>
           <S.reviewWrapper>

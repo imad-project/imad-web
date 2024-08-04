@@ -3,6 +3,7 @@ import MyWritePage_UI from "./mywrite_presenter";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getCookie } from "../../../../../src/commons/cookies/cookie";
+import PaginationComponent from "@/src/commons/pagination/pagination";
 
 interface IWriteData {
   details_list: [
@@ -40,6 +41,8 @@ interface IWriteData {
 }
 
 export default function MyWrite_container() {
+  const [pageCount, setPageCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
   const [writeData, setWriteData] = useState<IWriteData | null>(null);
 
@@ -61,9 +64,44 @@ export default function MyWrite_container() {
     }
   };
 
+  const FETCH_MYWRITE_PAGES = async (currentPage: number) => {
+    try {
+      const response = await axios.get(
+        `http://api.iimad.com/api/profile/posting/list?page=${currentPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie("Authorization")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setWriteData(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    FETCH_MYWRITE_PAGES(currentPage);
+  }, [currentPage]);
+
   useEffect(() => {
     FETCH_MYWRITE();
   }, []);
 
-  return <MyWritePage_UI writeData={writeData} />;
+  if (!writeData) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <>
+      <MyWritePage_UI writeData={writeData} />
+      <PaginationComponent
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+        pageCount={writeData.total_pages || 1}
+      />
+    </>
+  );
 }

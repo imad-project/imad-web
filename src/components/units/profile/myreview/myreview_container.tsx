@@ -3,6 +3,7 @@ import { getCookie } from "../../../../commons/cookies/cookie";
 import axios from "axios";
 import MyReview_UI from "./myreview_presenter";
 import { useRouter } from "next/router";
+import PaginationComponent from "@/src/commons/pagination/pagination";
 
 interface IReviewData {
   details_list: [
@@ -38,6 +39,7 @@ interface IReviewData {
 
 export default function MyReview_Container() {
   const router = useRouter();
+  const [currentPage, setCurrentPage] = useState(1);
   const [reviewData, setReviewData] = useState<IReviewData | null>(null);
 
   const FETCH_MYREVIEW = async () => {
@@ -58,6 +60,28 @@ export default function MyReview_Container() {
     }
   };
 
+  const FETCH_MYREVIEW_PAGES = async (currentPage: number) => {
+    try {
+      const response = await axios.get(
+        `http://api.iimad.com/api/profile/review/list?page=${currentPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie("Authorization")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setReviewData(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    FETCH_MYREVIEW_PAGES(currentPage);
+  }, [currentPage]);
+
   useEffect(() => {
     FETCH_MYREVIEW();
   }, []);
@@ -66,5 +90,18 @@ export default function MyReview_Container() {
     void router.push(`/search/contents/${event.currentTarget.id}`);
   };
 
-  return <MyReview_UI reviewData={reviewData} onClickPoster={onClickPoster} />;
+  if (!reviewData) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <>
+      <MyReview_UI reviewData={reviewData} onClickPoster={onClickPoster} />
+      <PaginationComponent
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+        pageCount={reviewData.total_pages || 1}
+      />
+    </>
+  );
 }
