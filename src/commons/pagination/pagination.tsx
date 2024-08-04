@@ -15,12 +15,19 @@ const StyledPagination = styled(Pagination)`
     color: white; // 페이지 아이템 색상
     background-color: #8b89c2; // 선택되지 않은 페이지 배경색
   }
+
   .MuiPaginationItem-previousNext {
     color: #0b0537; // 이전 및 다음 아이콘 색상
   }
 
   .Mui-selected {
     background-color: #0b0537; // 선택된 페이지 배경색
+    color: white; // 선택된 페이지 아이템 텍스트 색상
+  }
+
+  .MuiPaginationItem-previousNext.Mui-selected {
+    background-color: #0b0537; // 선택된 이전 및 다음 아이콘 배경색
+    color: white; // 선택된 이전 및 다음 아이콘 텍스트 색상
   }
 `;
 

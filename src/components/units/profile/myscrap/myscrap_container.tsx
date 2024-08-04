@@ -3,6 +3,7 @@ import MyScrap_UI from "./myscrap_presenter";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getCookie } from "@/src/commons/cookies/cookie";
+import PaginationComponent from "@/src/commons/pagination/pagination";
 
 interface IScrapData {
   details_list: [
@@ -85,5 +86,14 @@ export default function MyScrap_container() {
     return <div>Loading...</div>;
   }
 
-  return <MyScrap_UI scrapData={scrapData} />;
+  return (
+    <>
+      <MyScrap_UI scrapData={scrapData} />
+      <PaginationComponent
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+        pageCount={scrapData.total_pages || 1}
+      />
+    </>
+  );
 }
