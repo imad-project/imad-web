@@ -186,7 +186,7 @@ export default function Profile_UI(props: IProfileProps) {
           <S.ColumnWrapper>
             <S.Icon_box>
               <S.Title>{props?.data?.user_nickname}</S.Title>
-              <S.BigIcon src="/img/icon/icons/male.png" />
+              <S.BigIcon src={`/img/icon/icons/${props.data2?.gender}.png`} />
             </S.Icon_box>
 
             <S.GrayLabel>{authLabel}</S.GrayLabel>

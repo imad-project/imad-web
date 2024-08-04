@@ -100,7 +100,7 @@ export const Poster_img = styled.img`
 export const Poster_title = styled.div`
   font-size: 15px;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   color: #0b0537;
   margin-top: 10px;
 `;
