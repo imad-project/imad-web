@@ -82,6 +82,10 @@ export default function MyWrite_container() {
     }
   };
 
+  const onClickWrite = (id: number) => {
+    router.push(`/write/${id}`);
+  };
+
   useEffect(() => {
     FETCH_MYWRITE_PAGES(currentPage);
   }, [currentPage]);
@@ -96,7 +100,7 @@ export default function MyWrite_container() {
 
   return (
     <>
-      <MyWritePage_UI writeData={writeData} />
+      <MyWritePage_UI writeData={writeData} onClickWrite={onClickWrite} />
       <PaginationComponent
         currentPage={currentPage}
         onPageChange={setCurrentPage}

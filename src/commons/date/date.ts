@@ -1,4 +1,7 @@
-export const elapsedTime = (date: string): string => {
+export const elapsedTime = (date: string | undefined): string => {
+  if (date == undefined) {
+    return "error";
+  }
   const start = new Date(date);
   const end = new Date();
 

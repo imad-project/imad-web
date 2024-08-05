@@ -25,7 +25,9 @@ export default function MyWritePage_UI(props: IMyWriteProps) {
                 <S.WriteBox>
                   <S.reviewContentsWrapper>
                     <S.Poster_title>{el.contents_title}</S.Poster_title>
-                    <S.Write_title>
+                    <S.Write_title
+                      onClick={() => props.onClickWrite(el.posting_id)}
+                    >
                       {el.title} [{el.comment_cnt}]
                     </S.Write_title>
                     <S.DividedLine />

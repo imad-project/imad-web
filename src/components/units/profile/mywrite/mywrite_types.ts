@@ -35,4 +35,5 @@ interface IWriteData {
 
 export interface IMyWriteProps {
   writeData: IWriteData | null;
+  onClickWrite: (id: number) => void;
 }
