@@ -41,7 +41,7 @@ export default function MyScrap_container() {
   const FETCH_MYSCRAP = async () => {
     try {
       const response = await axios.get(
-        "http://api.iimad.com/api/profile/scrap/list?page=1",
+        "https://api.iimad.com/api/profile/scrap/list?page=1",
         {
           headers: {
             Authorization: `Bearer ${getCookie("Authorization")}`,
@@ -59,7 +59,7 @@ export default function MyScrap_container() {
   const FETCH_MYSCRAP_PAGES = async (currentPage: number) => {
     try {
       const response = await axios.get(
-        `http://api.iimad.com/api/profile/scrap/list?page=${currentPage}`,
+        `https://api.iimad.com/api/profile/scrap/list?page=${currentPage}`,
         {
           headers: {
             Authorization: `Bearer ${getCookie("Authorization")}`,

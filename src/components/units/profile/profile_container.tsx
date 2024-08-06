@@ -53,7 +53,7 @@ export default function ProfileContainer() {
 
   const FETCH_PROFILE = async () => {
     try {
-      const response = await axios.get("http://api.iimad.com/api/profile", {
+      const response = await axios.get("https://api.iimad.com/api/profile", {
         headers: {
           Authorization: `Bearer ${getCookie("Authorization")}`,
         },
@@ -68,7 +68,7 @@ export default function ProfileContainer() {
 
   const FETCH_USER = async () => {
     try {
-      const response2 = await axios.get("http://api.iimad.com/api/user", {
+      const response2 = await axios.get("https://api.iimad.com/api/user", {
         headers: {
           Authorization: `Bearer ${getCookie("Authorization")}`,
         },

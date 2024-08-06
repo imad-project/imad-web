@@ -49,7 +49,7 @@ export default function MyWrite_container() {
   const FETCH_MYWRITE = async () => {
     try {
       const response = await axios.get(
-        "http://api.iimad.com/api/profile/posting/list?page=1",
+        "https://api.iimad.com/api/profile/posting/list?page=1",
         {
           headers: {
             Authorization: `Bearer ${getCookie("Authorization")}`,
@@ -67,7 +67,7 @@ export default function MyWrite_container() {
   const FETCH_MYWRITE_PAGES = async (currentPage: number) => {
     try {
       const response = await axios.get(
-        `http://api.iimad.com/api/profile/posting/list?page=${currentPage}`,
+        `https://api.iimad.com/api/profile/posting/list?page=${currentPage}`,
         {
           headers: {
             Authorization: `Bearer ${getCookie("Authorization")}`,
