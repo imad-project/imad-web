@@ -73,6 +73,9 @@ export default function MyScrap_container() {
       console.log(error);
     }
   };
+  const onClickScrap = (id: number) => {
+    router.push(`/write/${id}`);
+  };
 
   useEffect(() => {
     FETCH_MYSCRAP();
@@ -88,7 +91,7 @@ export default function MyScrap_container() {
 
   return (
     <>
-      <MyScrap_UI scrapData={scrapData} />
+      <MyScrap_UI scrapData={scrapData} onClickScrap={onClickScrap} />
       <PaginationComponent
         currentPage={currentPage}
         onPageChange={setCurrentPage}

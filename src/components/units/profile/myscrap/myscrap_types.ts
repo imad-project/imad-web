@@ -27,5 +27,6 @@ interface IScrapData {
 }
 
 export interface IMyScrapProps {
+  onClickScrap: (id: number) => void;
   scrapData: IScrapData | null;
 }

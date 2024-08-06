@@ -26,7 +26,11 @@ export default function MyScrap_UI(props: IMyScrapProps) {
                 <S.WriteBox>
                   <S.reviewContentsWrapper>
                     <S.Poster_title>{el.contents_title}</S.Poster_title>
-                    <S.Write_title>{el.posting_title}</S.Write_title>
+                    <S.Write_title
+                      onClick={() => props.onClickScrap(el.posting_id)}
+                    >
+                      {el.posting_title}
+                    </S.Write_title>
                     <S.DividedLine />
                     <S.RowWrapper>
                       <S.Date_span>{elapsedTime(el.created_date)}</S.Date_span>
