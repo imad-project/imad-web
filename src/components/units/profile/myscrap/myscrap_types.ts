@@ -27,6 +27,7 @@ interface IScrapData {
 }
 
 export interface IMyScrapProps {
+  onClickPoster: (id: number) => void;
   onClickScrap: (id: number) => void;
   scrapData: IScrapData | null;
 }

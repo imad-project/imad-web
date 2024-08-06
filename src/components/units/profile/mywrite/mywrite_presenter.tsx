@@ -9,7 +9,7 @@ export default function MyWritePage_UI(props: IMyWriteProps) {
         <div key={el.posting_id}>
           <S.writeWrapper>
             <S.RowWrapper>
-              <S.PosterBox>
+              <S.PosterBox onClick={() => props.onClickPoster(el.contents_id)}>
                 <S.Poster_img
                   id={el.contents_id.toString()}
                   src={`https://image.tmdb.org/t/p/original/${el.contents_poster_path}`}

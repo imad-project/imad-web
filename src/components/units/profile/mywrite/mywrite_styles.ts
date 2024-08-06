@@ -88,6 +88,7 @@ export const PosterBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const Poster_img = styled.img`

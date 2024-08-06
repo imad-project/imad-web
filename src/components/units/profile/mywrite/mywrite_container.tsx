@@ -86,6 +86,10 @@ export default function MyWrite_container() {
     router.push(`/write/${id}`);
   };
 
+  const onClickPoster = (id: number): void => {
+    void router.push(`/search/contents/${id}`);
+  };
+
   useEffect(() => {
     FETCH_MYWRITE_PAGES(currentPage);
   }, [currentPage]);
@@ -100,7 +104,11 @@ export default function MyWrite_container() {
 
   return (
     <>
-      <MyWritePage_UI writeData={writeData} onClickWrite={onClickWrite} />
+      <MyWritePage_UI
+        writeData={writeData}
+        onClickWrite={onClickWrite}
+        onClickPoster={onClickPoster}
+      />
       <PaginationComponent
         currentPage={currentPage}
         onPageChange={setCurrentPage}

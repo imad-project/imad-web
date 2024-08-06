@@ -77,6 +77,10 @@ export default function MyScrap_container() {
     router.push(`/write/${id}`);
   };
 
+  const onClickPoster = (id: number): void => {
+    void router.push(`/search/contents/${id}`);
+  };
+
   useEffect(() => {
     FETCH_MYSCRAP();
   }, []);
@@ -91,7 +95,11 @@ export default function MyScrap_container() {
 
   return (
     <>
-      <MyScrap_UI scrapData={scrapData} onClickScrap={onClickScrap} />
+      <MyScrap_UI
+        scrapData={scrapData}
+        onClickScrap={onClickScrap}
+        onClickPoster={onClickPoster}
+      />
       <PaginationComponent
         currentPage={currentPage}
         onPageChange={setCurrentPage}
