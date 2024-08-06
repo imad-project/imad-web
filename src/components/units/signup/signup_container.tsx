@@ -1,6 +1,6 @@
 import SignupUI from "./signup_presenter";
 import { ChangeEvent, useState } from "react";
-
+import { SHA256 } from "crypto-js";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { setCookie } from "../../../commons/cookies/cookie";
@@ -15,7 +15,7 @@ export default function SignupContainer(): JSX.Element {
     await axios
       .post("https://api.iimad.com/api/signup", {
         email: email,
-        password: password,
+        password: SHA256(password).toString(),
         auth_provider: "IMAD",
       })
       .then((res) => {
@@ -30,7 +30,7 @@ export default function SignupContainer(): JSX.Element {
     await axios
       .post("https://api.iimad.com/api/login", {
         email: email,
-        password: password,
+        password: SHA256(password).toString(),
       })
       .then((res) => {
         if (res.status === 200) {
