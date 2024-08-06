@@ -151,6 +151,10 @@ export const Write_title = styled.div`
   font-size: 20px;
   font-weight: bold;
   color: black;
+  cursor: pointer;
+  :hover {
+    color: #1e90ff;
+  }
 `;
 
 export const Write_contents = styled.div`
