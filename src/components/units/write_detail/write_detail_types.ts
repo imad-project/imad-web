@@ -61,4 +61,5 @@ export interface IWriteDetailProps {
   onClickMoreComments: (posting_id: number, parent_id: number) => void;
   onClickContentsLike: (id: number) => void;
   onClickContentsDisLike: (id: number) => void;
+  onClickPoster: (id: number) => void;
 }

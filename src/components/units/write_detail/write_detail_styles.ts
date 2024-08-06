@@ -190,3 +190,11 @@ export const likeDiv = styled.div`
   flex-direction: row;
   margin-right: 10px;
 `;
+
+export const PosterBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;

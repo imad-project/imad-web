@@ -94,12 +94,18 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
               </S.ContentsBox>
             </S.ColumnWrapper>
 
-            <S.ColumnWrapper>
+            <S.PosterBox
+              onClick={() => {
+                if (props.detail?.contents_id !== undefined) {
+                  props.onClickPoster(props.detail.contents_id);
+                }
+              }}
+            >
               <S.Poster_img
                 src={`https://image.tmdb.org/t/p/original/${props.detail?.contents_poster_path}`}
               />
               <S.Poster_title>{props.detail?.contents_title}</S.Poster_title>
-            </S.ColumnWrapper>
+            </S.PosterBox>
           </S.RowWrapper>
           <S.DividedLine />
           <S.LikeBox>

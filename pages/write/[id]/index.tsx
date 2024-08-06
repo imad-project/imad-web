@@ -160,6 +160,10 @@ export default function WriteDetail_Page(): JSX.Element {
     }
   };
 
+  const onClickPoster = (id: number): void => {
+    void router.push(`/search/contents/${id}`);
+  };
+
   useEffect(() => {
     WRITE_DETAIL();
   }, [contentsLike]);
@@ -183,6 +187,7 @@ export default function WriteDetail_Page(): JSX.Element {
       onClickMoreComments={onClickMoreComments}
       onClickContentsLike={onClickContentsLike}
       onClickContentsDisLike={onClickContentsDisLike}
+      onClickPoster={onClickPoster}
     />
   );
 }
