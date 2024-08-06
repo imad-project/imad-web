@@ -57,4 +57,8 @@ interface Data {
 
 export interface IWriteDetailProps {
   detail: Data | null;
+  commentsDetail: Record<number, CommentListResponse>; // 자식 댓글 목록
+  onClickMoreComments: (posting_id: number, parent_id: number) => void;
+  onClickContentsLike: (id: number) => void;
+  onClickContentsDisLike: (id: number) => void;
 }

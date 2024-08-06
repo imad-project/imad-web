@@ -63,8 +63,11 @@ interface Data {
 
 export default function WriteDetail_Page(): JSX.Element {
   const router = useRouter();
+  const [contentsLike, setContentsLike] = useState(true);
   const [detail, setDetail] = useState<Data | null>(null);
-  const [comments, setComments] = useState(null);
+  const [commentsDetail, setCommentsDetail] = useState<
+    Record<number, CommentListResponse>
+  >({});
 
   const WRITE_DETAIL = async () => {
     try {
@@ -80,29 +83,89 @@ export default function WriteDetail_Page(): JSX.Element {
       if (detailRES.status === 200) {
         setDetail(detailRES.data.data);
         console.log(detail);
-        const WRITE_COMMENTS = async () => {
-          try {
-            const commentsRES = await axios.get(
-              `https://api.iimad.com/api/posting/comment/${router.query.id}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${getCookie("Authorization")}`,
-                },
-              }
-            );
-            if (commentsRES.status === 200) {
-              setComments(commentsRES.data.data);
-              console.log(comments);
-            }
-          } catch (error) {
-            console.error("Error occurred while review searching:", error);
-          }
-        };
-        WRITE_COMMENTS();
       }
     } catch (error) {
       console.error("Error occurred while searching:", error);
     }
+  };
+
+  const COMMENTS_DETAIL = async (posting_id: number, parent_id: number) => {
+    try {
+      const commentsRES = await axios.get(
+        `https://api.iimad.com/api/posting/comment/list?posting_id=${posting_id}&comment_type=1&parent_id=${parent_id}&page=1&sort=createdDate&order=0`,
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie("Authorization")}`,
+          },
+        }
+      );
+      if (commentsRES.status === 200) {
+        setCommentsDetail((prev) => ({
+          ...prev,
+          [parent_id]: commentsRES.data.data,
+        }));
+      }
+    } catch (error) {
+      console.error("Error occurred while searching:", error);
+    }
+  };
+
+  const onClickContentsLike = async (id: number) => {
+    if (getCookie("Authorization") !== undefined) {
+      try {
+        const likeReview = await axios.patch(
+          `https://api.iimad.com/api/posting/like/${id}`,
+          {
+            like_status: 1,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${getCookie("Authorization")}`,
+            },
+          }
+        );
+        if (likeReview.status === 200) {
+          setContentsLike(!contentsLike);
+        }
+      } catch (error) {
+        console.error("Error occurred while liking review:", error);
+      }
+    } else {
+      alert("리뷰 좋아요/싫어요 는 회원만 가능합니다!");
+    }
+  };
+
+  const onClickContentsDisLike = async (id: number) => {
+    if (getCookie("Authorization") !== undefined) {
+      try {
+        const likeReview = await axios.patch(
+          `https://api.iimad.com/api/posting/like/${id}`,
+          {
+            like_status: -1,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${getCookie("Authorization")}`,
+            },
+          }
+        );
+        if (likeReview.status === 200) {
+          setContentsLike(!setContentsLike);
+        }
+      } catch (error) {
+        console.error("Error occurred while liking review:", error);
+      }
+    } else {
+      alert("리뷰 좋아요/싫어요 는 회원만 가능합니다!");
+    }
+  };
+
+  useEffect(() => {
+    WRITE_DETAIL();
+  }, [contentsLike]);
+
+  const onClickMoreComments = (posting_id: number, parent_id: number) => {
+    COMMENTS_DETAIL(posting_id, parent_id);
   };
 
   useEffect(() => {
@@ -113,5 +176,13 @@ export default function WriteDetail_Page(): JSX.Element {
     return <div>Loading...</div>;
   }
 
-  return <Write_Detail_UI detail={detail} />;
+  return (
+    <Write_Detail_UI
+      detail={detail}
+      commentsDetail={commentsDetail}
+      onClickMoreComments={onClickMoreComments}
+      onClickContentsLike={onClickContentsLike}
+      onClickContentsDisLike={onClickContentsDisLike}
+    />
+  );
 }
