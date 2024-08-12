@@ -42,15 +42,19 @@ interface IWriteData {
 }
 
 export default function Board_container() {
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState("createdDate");
+  const [order, setOrder] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
   const [writeData, setWriteData] = useState<IWriteData | null>(null);
+  const [category, setCategory] = useState(0);
 
   const FETCH_MYWRITE = async () => {
     try {
       const response = await axios.get(
-        "https://api.iimad.com/api/profile/posting/list?page=1",
+        "https://api.iimad.com/api/posting/list?page=1&category=0",
         {
           headers: {
             Authorization: `Bearer ${getCookie("Authorization")}`,
@@ -68,7 +72,7 @@ export default function Board_container() {
   const FETCH_MYWRITE_PAGES = async (currentPage: number) => {
     try {
       const response = await axios.get(
-        `https://api.iimad.com/api/profile/posting/list?page=${currentPage}`,
+        `https://api.iimad.com/api/posting/list/search?search_type=0&query=${query}page=${currentPage}&sort=${sort}&order=${order}&category=${category}`,
         {
           headers: {
             Authorization: `Bearer ${getCookie("Authorization")}`,
