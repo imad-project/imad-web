@@ -41,6 +41,51 @@ interface IWriteData {
   search_type: any | null; // 'any'를 사용하여 어떤 형식도 올 수 있음을 표시, 타입이 특정되면 더 정확하게 작성 가능
 }
 
+const categoryList = [
+  {
+    id: 0,
+    class: "전체",
+  },
+  {
+    id: 1,
+    class: "자유글",
+  },
+  {
+    id: 0,
+    class: "질문글",
+  },
+  {
+    id: 0,
+    class: "토론글",
+  },
+];
+
+const orderList = [
+  {
+    id: 0,
+    class: "오름차순",
+  },
+  {
+    id: 1,
+    class: "내림차순",
+  },
+];
+
+const sortList = [
+  {
+    id: 0,
+    class: "createdDate",
+  },
+  {
+    id: 1,
+    class: "likeCnt",
+  },
+  {
+    id: 2,
+    class: "dislikeCnt",
+  },
+];
+
 export default function Board_container() {
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("createdDate");
