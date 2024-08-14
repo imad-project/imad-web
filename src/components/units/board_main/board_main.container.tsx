@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { getCookie } from "../../../../src/commons/cookies/cookie";
 import PaginationComponent from "@/src/commons/pagination/pagination";
@@ -95,8 +95,9 @@ export default function Board_container() {
   const router = useRouter();
   const [writeData, setWriteData] = useState<IWriteData | null>(null);
   const [category, setCategory] = useState(0);
+  const [currentCategory, setCurrentCategory] = useState("전체");
 
-  const FETCH_MYWRITE = async () => {
+  const FETCH_BOARD_FIRST = async () => {
     try {
       const response = await axios.get(
         "https://api.iimad.com/api/posting/list?page=1&category=0",
@@ -114,7 +115,26 @@ export default function Board_container() {
     }
   };
 
-  const FETCH_MYWRITE_PAGES = async (currentPage: number) => {
+  const FETCH_BOARD_VALUECHANGE = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.iimad.com/api/posting/list/search?search_type=0&page=1&sort=${sort}&order=${order}&category=${category}`,
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie("Authorization")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setWriteData(response.data.data);
+        setCurrentPage(1);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const FETCH_BOARD_PAGES = async (currentPage: number) => {
     try {
       const response = await axios.get(
         `https://api.iimad.com/api/posting/list/search?search_type=0&query=${query}page=${currentPage}&sort=${sort}&order=${order}&category=${category}`,
@@ -132,6 +152,18 @@ export default function Board_container() {
     }
   };
 
+  const onChangeCategory = (e: React.MouseEvent<HTMLLIElement>) => {
+    const value = (e.target as HTMLLIElement).getAttribute("value");
+    const id = (e.target as HTMLLIElement).id;
+    if (value) {
+      setCurrentCategory(value);
+    }
+    if (id) {
+      setCategory(Number(id));
+    }
+    FETCH_BOARD_VALUECHANGE();
+  };
+
   const onClickWrite = (id: number) => {
     router.push(`/write/${id}`);
   };
@@ -141,11 +173,11 @@ export default function Board_container() {
   };
 
   useEffect(() => {
-    FETCH_MYWRITE_PAGES(currentPage);
+    FETCH_BOARD_PAGES(currentPage);
   }, [currentPage]);
 
   useEffect(() => {
-    FETCH_MYWRITE();
+    FETCH_BOARD_FIRST();
   }, []);
 
   if (!writeData) {
@@ -158,6 +190,8 @@ export default function Board_container() {
         writeData={writeData}
         onClickWrite={onClickWrite}
         onClickPoster={onClickPoster}
+        currentCategory={currentCategory}
+        onChangeCategory={onChangeCategory}
       />
       <PaginationComponent
         currentPage={currentPage}

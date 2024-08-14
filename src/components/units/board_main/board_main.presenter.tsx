@@ -1,10 +1,51 @@
 import { IBoardProps } from "./board_main.types";
 import * as S from "./board_main.styles";
 import { elapsedTime } from "@/src/commons/date/date";
+import { useState } from "react";
+
+const categoryList = [
+  {
+    id: 0,
+    class: "전체",
+  },
+  {
+    id: 1,
+    class: "자유글",
+  },
+  {
+    id: 0,
+    class: "질문글",
+  },
+  {
+    id: 0,
+    class: "토론글",
+  },
+];
+
 export default function Board_Page_UI(props: IBoardProps) {
+  const [showCategory, setShowCategory] = useState(false);
+
   return (
     <S.MainWrapper>
       <S.title_span>내 게시물</S.title_span>
+      <S.SelectBox onClick={() => setShowCategory((prev) => !prev)}>
+        <S.Label>{props.currentCategory}</S.Label>
+        <div>
+          {showCategory && (
+            <S.SelectOptions>
+              {categoryList.map((el) => (
+                <S.Option
+                  key={el.id}
+                  value={el.class}
+                  onClick={props.onChangeCategory}
+                >
+                  {el.class}
+                </S.Option>
+              ))}
+            </S.SelectOptions>
+          )}
+        </div>
+      </S.SelectBox>
       {props.writeData?.details_list.map((el) => (
         <div key={el.posting_id}>
           <S.writeWrapper>

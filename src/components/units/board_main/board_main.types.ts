@@ -37,4 +37,6 @@ export interface IBoardProps {
   writeData: IBoardData | null;
   onClickWrite: (id: number) => void;
   onClickPoster: (id: number) => void;
+  currentCategory: string;
+  onChangeCategory: (e: React.MouseEvent<HTMLLIElement>) => void;
 }
