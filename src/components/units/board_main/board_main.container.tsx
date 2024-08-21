@@ -51,11 +51,11 @@ const categoryList = [
     class: "자유글",
   },
   {
-    id: 0,
+    id: 2,
     class: "질문글",
   },
   {
-    id: 0,
+    id: 3,
     class: "토론글",
   },
 ];
@@ -87,7 +87,7 @@ const sortList = [
 ];
 
 export default function Board_container() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState<string>("");
   const [sort, setSort] = useState("createdDate");
   const [order, setOrder] = useState(0);
   const [pageCount, setPageCount] = useState(0);
@@ -118,7 +118,7 @@ export default function Board_container() {
   const FETCH_BOARD_VALUECHANGE = async () => {
     try {
       const response = await axios.get(
-        `https://api.iimad.com/api/posting/list/search?search_type=0&page=1&sort=${sort}&order=${order}&category=${category}`,
+        `https://api.iimad.com/api/posting/list/search?search_type=0&query=${query}&page=1&sort=${sort}&order=${order}&category=${category}`,
         {
           headers: {
             Authorization: `Bearer ${getCookie("Authorization")}`,
@@ -153,15 +153,16 @@ export default function Board_container() {
   };
 
   const onChangeCategory = (e: React.MouseEvent<HTMLLIElement>) => {
-    const value = (e.target as HTMLLIElement).getAttribute("value");
-    const id = (e.target as HTMLLIElement).id;
+    const value = e.currentTarget.getAttribute("data-value");
+    const id = e.currentTarget.getAttribute("data-id");
+
     if (value) {
       setCurrentCategory(value);
     }
+
     if (id) {
       setCategory(Number(id));
     }
-    FETCH_BOARD_VALUECHANGE();
   };
 
   const onClickWrite = (id: number) => {
@@ -171,6 +172,10 @@ export default function Board_container() {
   const onClickPoster = (id: number): void => {
     void router.push(`/search/contents/${id}`);
   };
+
+  useEffect(() => {
+    FETCH_BOARD_VALUECHANGE();
+  }, [category]);
 
   useEffect(() => {
     FETCH_BOARD_PAGES(currentPage);

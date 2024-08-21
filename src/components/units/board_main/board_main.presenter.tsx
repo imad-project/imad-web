@@ -13,11 +13,11 @@ const categoryList = [
     class: "자유글",
   },
   {
-    id: 0,
+    id: 2,
     class: "질문글",
   },
   {
-    id: 0,
+    id: 3,
     class: "토론글",
   },
 ];
@@ -36,7 +36,8 @@ export default function Board_Page_UI(props: IBoardProps) {
               {categoryList.map((el) => (
                 <S.Option
                   key={el.id}
-                  value={el.class}
+                  data-value={el.class}
+                  data-id={el.id}
                   onClick={props.onChangeCategory}
                 >
                   {el.class}

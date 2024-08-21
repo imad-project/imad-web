@@ -194,7 +194,7 @@ export const SelectOptions = styled.ul`
   left: 0;
   width: 100%;
   overflow: hidden;
-  height: 90px;
+  height: auto;
 
   padding: 0;
   border-radius: 8px;
