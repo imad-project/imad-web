@@ -21,32 +21,65 @@ const categoryList = [
     class: "토론글",
   },
 ];
+const orderList = [
+  {
+    id: 0,
+    class: "오름차순",
+  },
+  {
+    id: 1,
+    class: "내림차순",
+  },
+];
 
 export default function Board_Page_UI(props: IBoardProps) {
   const [showCategory, setShowCategory] = useState(false);
+  const [showOrder, setShowOrder] = useState(false);
 
   return (
     <S.MainWrapper>
-      <S.title_span>내 게시물</S.title_span>
-      <S.SelectBox onClick={() => setShowCategory((prev) => !prev)}>
-        <S.Label>{props.currentCategory}</S.Label>
-        <div>
-          {showCategory && (
-            <S.SelectOptions>
-              {categoryList.map((el) => (
-                <S.Option
-                  key={el.id}
-                  data-value={el.class}
-                  data-id={el.id}
-                  onClick={props.onChangeCategory}
-                >
-                  {el.class}
-                </S.Option>
-              ))}
-            </S.SelectOptions>
-          )}
-        </div>
-      </S.SelectBox>
+      <S.title_span>게시판</S.title_span>
+      <S.RowWrapper>
+        <S.SelectBox onClick={() => setShowCategory((prev) => !prev)}>
+          <S.Label>{props.currentCategory}</S.Label>
+          <div>
+            {showCategory && (
+              <S.SelectOptions>
+                {categoryList.map((el) => (
+                  <S.Option
+                    key={el.id}
+                    data-value={el.class}
+                    data-id={el.id}
+                    onClick={props.onChangeCategory}
+                  >
+                    {el.class}
+                  </S.Option>
+                ))}
+              </S.SelectOptions>
+            )}
+          </div>
+        </S.SelectBox>
+        <S.SelectBox onClick={() => setShowOrder((prev) => !prev)}>
+          <S.Label>{props.currentOrder}</S.Label>
+          <div>
+            {showOrder && (
+              <S.SelectOptions>
+                {orderList.map((el) => (
+                  <S.Option
+                    key={el.id}
+                    data-value={el.class}
+                    data-id={el.id}
+                    onClick={props.onChangeOrder}
+                  >
+                    {el.class}
+                  </S.Option>
+                ))}
+              </S.SelectOptions>
+            )}
+          </div>
+        </S.SelectBox>
+      </S.RowWrapper>
+
       {props.writeData?.details_list.map((el) => (
         <div key={el.posting_id}>
           <S.writeWrapper>

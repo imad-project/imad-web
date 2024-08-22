@@ -39,4 +39,6 @@ export interface IBoardProps {
   onClickPoster: (id: number) => void;
   currentCategory: string;
   onChangeCategory: (e: React.MouseEvent<HTMLLIElement>) => void;
+  currentOrder: string;
+  onChangeOrder: (e: React.MouseEvent<HTMLLIElement>) => void;
 }

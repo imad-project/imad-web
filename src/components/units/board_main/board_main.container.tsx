@@ -75,14 +75,17 @@ const sortList = [
   {
     id: 0,
     class: "createdDate",
+    name: "최신순",
   },
   {
     id: 1,
     class: "likeCnt",
+    name: "좋아요순",
   },
   {
     id: 2,
     class: "dislikeCnt",
+    name: "싫어요순",
   },
 ];
 
@@ -90,6 +93,7 @@ export default function Board_container() {
   const [query, setQuery] = useState<string>("");
   const [sort, setSort] = useState("createdDate");
   const [order, setOrder] = useState(0);
+  const [currentOrder, setCurrentOrder] = useState("오름차순");
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
@@ -165,6 +169,19 @@ export default function Board_container() {
     }
   };
 
+  const onChangeOrder = (e: React.MouseEvent<HTMLLIElement>) => {
+    const value = e.currentTarget.getAttribute("data-value");
+    const id = e.currentTarget.getAttribute("data-id");
+
+    if (value) {
+      setCurrentOrder(value);
+    }
+
+    if (id) {
+      setOrder(Number(id));
+    }
+  };
+
   const onClickWrite = (id: number) => {
     router.push(`/write/${id}`);
   };
@@ -172,6 +189,10 @@ export default function Board_container() {
   const onClickPoster = (id: number): void => {
     void router.push(`/search/contents/${id}`);
   };
+
+  useEffect(() => {
+    FETCH_BOARD_VALUECHANGE();
+  }, [order]);
 
   useEffect(() => {
     FETCH_BOARD_VALUECHANGE();
@@ -197,6 +218,8 @@ export default function Board_container() {
         onClickPoster={onClickPoster}
         currentCategory={currentCategory}
         onChangeCategory={onChangeCategory}
+        currentOrder={currentOrder}
+        onChangeOrder={onChangeOrder}
       />
       <PaginationComponent
         currentPage={currentPage}

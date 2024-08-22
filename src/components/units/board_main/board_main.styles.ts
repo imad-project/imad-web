@@ -168,6 +168,8 @@ export const SelectBox = styled.div`
   position: relative;
   width: 200px;
   padding: 8px;
+  margin-bottom: 50px;
+  margin-right: 10px;
   border-radius: 12px;
   background-color: #ffffff;
   align-self: center;
