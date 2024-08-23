@@ -78,6 +78,7 @@ export default function Board_Page_UI(props: IBoardProps) {
             )}
           </div>
         </S.SelectBox>
+        <textarea placeholder="검색어" />
       </S.RowWrapper>
 
       {props.writeData?.details_list.map((el) => (
