@@ -3,7 +3,7 @@ import * as S from "./navigation.styles";
 import { INavigationUIProps } from "./navigation.types";
 import { getCookie } from "../../cookies/cookie";
 const NAVIGATION_MENUS = [
-  { name: "장르추천", page: "/genre" },
+  { name: "게시판", page: "/board" },
   { name: "리뷰 검색", page: "/review" },
   { name: "작품 검색", page: "/search" },
   { name: "막고라", page: "/ladder" },
