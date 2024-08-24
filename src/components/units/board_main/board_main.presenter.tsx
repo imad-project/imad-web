@@ -31,55 +31,108 @@ const orderList = [
     class: "내림차순",
   },
 ];
+const sortList = [
+  {
+    id: 0,
+    class: "createdDate",
+    name: "최신순",
+  },
+  {
+    id: 1,
+    class: "likeCnt",
+    name: "좋아요순",
+  },
+  {
+    id: 2,
+    class: "dislikeCnt",
+    name: "싫어요순",
+  },
+];
 
 export default function Board_Page_UI(props: IBoardProps) {
   const [showCategory, setShowCategory] = useState(false);
   const [showOrder, setShowOrder] = useState(false);
+  const [showSort, setShowSort] = useState(false);
 
   return (
     <S.MainWrapper>
       <S.title_span>게시판</S.title_span>
-      <S.RowWrapper>
-        <S.SelectBox onClick={() => setShowCategory((prev) => !prev)}>
-          <S.Label>{props.currentCategory}</S.Label>
-          <div>
-            {showCategory && (
-              <S.SelectOptions>
-                {categoryList.map((el) => (
-                  <S.Option
-                    key={el.id}
-                    data-value={el.class}
-                    data-id={el.id}
-                    onClick={props.onChangeCategory}
-                  >
-                    {el.class}
-                  </S.Option>
-                ))}
-              </S.SelectOptions>
-            )}
-          </div>
-        </S.SelectBox>
-        <S.SelectBox onClick={() => setShowOrder((prev) => !prev)}>
-          <S.Label>{props.currentOrder}</S.Label>
-          <div>
-            {showOrder && (
-              <S.SelectOptions>
-                {orderList.map((el) => (
-                  <S.Option
-                    key={el.id}
-                    data-value={el.class}
-                    data-id={el.id}
-                    onClick={props.onChangeOrder}
-                  >
-                    {el.class}
-                  </S.Option>
-                ))}
-              </S.SelectOptions>
-            )}
-          </div>
-        </S.SelectBox>
-        <textarea placeholder="검색어" />
-      </S.RowWrapper>
+
+      <S.SplitRowBox>
+        <S.RowBox1>
+          {/* 카테고리 변경선택박스 */}
+          <S.SelectBox onClick={() => setShowCategory((prev) => !prev)}>
+            <S.Label>{props.currentCategory}</S.Label>
+            <div>
+              {showCategory && (
+                <S.SelectOptions>
+                  {categoryList.map((el) => (
+                    <S.Option
+                      key={el.id}
+                      data-value={el.class}
+                      data-id={el.id}
+                      onClick={props.onChangeCategory}
+                    >
+                      {el.class}
+                    </S.Option>
+                  ))}
+                </S.SelectOptions>
+              )}
+            </div>
+          </S.SelectBox>
+          {/* 정렬순 변경 선택박스 (오름차순,내림차순) */}
+          <S.SelectBox onClick={() => setShowOrder((prev) => !prev)}>
+            <S.Label>{props.currentOrder}</S.Label>
+            <div>
+              {showOrder && (
+                <S.SelectOptions>
+                  {orderList.map((el) => (
+                    <S.Option
+                      key={el.id}
+                      data-value={el.class}
+                      data-id={el.id}
+                      onClick={props.onChangeOrder}
+                    >
+                      {el.class}
+                    </S.Option>
+                  ))}
+                </S.SelectOptions>
+              )}
+            </div>
+          </S.SelectBox>
+          {/* 정렬 분류 변경 선택박스 (최신순,좋아요순) */}
+          <S.SelectBox onClick={() => setShowSort((prev) => !prev)}>
+            <S.Label>{props.currentSort}</S.Label>
+            <div>
+              {showSort && (
+                <S.SelectOptions>
+                  {sortList.map((el) => (
+                    <S.Option
+                      key={el.id}
+                      data-value={el.name}
+                      data-id={el.class}
+                      onClick={props.onChangeSort}
+                    >
+                      {el.name}
+                    </S.Option>
+                  ))}
+                </S.SelectOptions>
+              )}
+            </div>
+          </S.SelectBox>
+        </S.RowBox1>
+
+        <S.RowBox2>
+          <S.SearchInput
+            type="text"
+            placeholder="검색어를 입력해주세요!"
+            value={props.query}
+            onChange={props.onChangeQuery}
+          />
+
+          <S.SearchButton onClick={props.onClickSearch}>검색</S.SearchButton>
+        </S.RowBox2>
+      </S.SplitRowBox>
 
       {props.writeData?.details_list.map((el) => (
         <div key={el.posting_id}>

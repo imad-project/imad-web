@@ -92,6 +92,7 @@ const sortList = [
 export default function Board_container() {
   const [query, setQuery] = useState<string>("");
   const [sort, setSort] = useState("createdDate");
+  const [currentSort, setCurrentSort] = useState("최신순");
   const [order, setOrder] = useState(0);
   const [currentOrder, setCurrentOrder] = useState("오름차순");
   const [pageCount, setPageCount] = useState(0);
@@ -182,6 +183,27 @@ export default function Board_container() {
     }
   };
 
+  const onChangeSort = (e: React.MouseEvent<HTMLLIElement>) => {
+    const value = e.currentTarget.getAttribute("data-value");
+    const id = e.currentTarget.getAttribute("data-id");
+
+    if (value) {
+      setCurrentSort(value);
+    }
+
+    if (id) {
+      setSort(id);
+    }
+  };
+
+  const onChangeQuery = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
+  const onClickSearch = () => {
+    FETCH_BOARD_VALUECHANGE();
+  };
+
   const onClickWrite = (id: number) => {
     router.push(`/write/${id}`);
   };
@@ -192,11 +214,15 @@ export default function Board_container() {
 
   useEffect(() => {
     FETCH_BOARD_VALUECHANGE();
+  }, [category]);
+
+  useEffect(() => {
+    FETCH_BOARD_VALUECHANGE();
   }, [order]);
 
   useEffect(() => {
     FETCH_BOARD_VALUECHANGE();
-  }, [category]);
+  }, [sort]);
 
   useEffect(() => {
     FETCH_BOARD_PAGES(currentPage);
@@ -220,6 +246,11 @@ export default function Board_container() {
         onChangeCategory={onChangeCategory}
         currentOrder={currentOrder}
         onChangeOrder={onChangeOrder}
+        currentSort={currentSort}
+        onChangeSort={onChangeSort}
+        query={query}
+        onChangeQuery={onChangeQuery}
+        onClickSearch={onClickSearch}
       />
       <PaginationComponent
         currentPage={currentPage}

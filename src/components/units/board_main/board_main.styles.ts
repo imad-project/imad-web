@@ -211,3 +211,52 @@ export const Option = styled.li`
     background-color: #595959;
   }
 `;
+
+export const SearchInput = styled.input`
+  margin-bottom: 50px;
+  max-width: 60%;
+`;
+
+export const SearchButton = styled.div`
+  margin-bottom: 50px;
+  font-size: 18px;
+  margin-left: 10px;
+  width: 70px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0px 0px 10px gray;
+  border-radius: 10px;
+  color: #0b0537;
+  cursor: pointer;
+  :hover {
+    border-radius: 1px solid #1e90ff;
+    color: #1e90ff;
+  }
+`;
+
+export const RowBox1 = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 50%;
+`;
+
+export const RowBox2 = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+export const SplitRowBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;

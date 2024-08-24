@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 interface IBoardData {
   details_list: [
     {
@@ -41,4 +43,9 @@ export interface IBoardProps {
   onChangeCategory: (e: React.MouseEvent<HTMLLIElement>) => void;
   currentOrder: string;
   onChangeOrder: (e: React.MouseEvent<HTMLLIElement>) => void;
+  currentSort: string;
+  onChangeSort: (e: React.MouseEvent<HTMLLIElement>) => void;
+  query: string;
+  onChangeQuery: (e: ChangeEvent<HTMLInputElement>) => void;
+  onClickSearch: () => void;
 }
