@@ -1,14 +1,24 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import axios from "axios";
+import styled from "@emotion/styled";
+
+const CircleOverlay = styled.div`
+  position: absolute;
+  width: 128px;
+  height: 128px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  pointer-events: none;
+  box-sizing: border-box;
+`;
 
 export default function ImageUpload() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [croppedImage, setCroppedImage] = useState<Blob | null>(null);
-
-  // Cropper의 ref를 위한 타입 설정
   const cropperRef = useRef<ReactCropperElement>(null);
+  const [overlayPosition, setOverlayPosition] = useState({ top: 0, left: 0 });
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -17,10 +27,34 @@ export default function ImageUpload() {
     }
   };
 
+  const updateOverlayPosition = useCallback(() => {
+    const cropper = cropperRef.current?.cropper;
+    if (cropper) {
+      const containerData = cropper.getContainerData();
+      const cropBoxData = cropper.getCropBoxData();
+
+      const top =
+        containerData.height / 2 -
+        64 +
+        (cropBoxData.top - containerData.height / 2) *
+          (cropBoxData.width / containerData.width);
+      const left =
+        containerData.width / 2 -
+        64 +
+        (cropBoxData.left - containerData.width / 2) *
+          (cropBoxData.width / containerData.width);
+
+      setOverlayPosition({
+        top: Math.max(top, 0),
+        left: Math.max(left, 0),
+      });
+    }
+  }, []);
+
   const handleCrop = () => {
     const cropper = cropperRef.current?.cropper;
     if (cropper) {
-      cropper.getCroppedCanvas().toBlob(
+      cropper.getCroppedCanvas({ width: 128, height: 128 }).toBlob(
         (blob) => {
           if (blob) {
             setCroppedImage(blob);
@@ -50,8 +84,14 @@ export default function ImageUpload() {
     }
   };
 
+  useEffect(() => {
+    if (selectedFile) {
+      updateOverlayPosition();
+    }
+  }, [selectedFile, updateOverlayPosition]);
+
   return (
-    <div>
+    <div style={{ position: "relative", width: "100%", height: "400px" }}>
       <input type="file" accept="image/*" onChange={handleFileChange} />
       {selectedFile && (
         <>
@@ -63,12 +103,22 @@ export default function ImageUpload() {
             guides={false}
             ref={cropperRef}
             viewMode={1}
-            minCropBoxHeight={10}
-            minCropBoxWidth={10}
+            dragMode="move"
+            cropBoxMovable={true}
+            cropBoxResizable={true}
+            autoCropArea={1}
             background={false}
             responsive={true}
-            autoCropArea={1}
             checkOrientation={false}
+            minCropBoxWidth={128}
+            minCropBoxHeight={128}
+            cropend={updateOverlayPosition}
+          />
+          <CircleOverlay
+            style={{
+              top: `${overlayPosition.top}px`,
+              left: `${overlayPosition.left}px`,
+            }}
           />
           <button onClick={handleCrop}>Crop Image</button>
         </>
