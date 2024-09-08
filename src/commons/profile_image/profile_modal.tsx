@@ -60,7 +60,8 @@ export default function Profile_Modal(props: any) {
           <h2>프로필 이미지 변경</h2>
           <CustomButton onClick={props.closeModal}>닫기</CustomButton>
         </Row_box>
-        <ImageUpload /> {/* ImageUpload 컴포넌트 */}
+        <ImageUpload closeModal={props.closeModal} />{" "}
+        {/* ImageUpload 컴포넌트 */}
       </Modal>
     </div>
   );
