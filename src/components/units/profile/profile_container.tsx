@@ -50,6 +50,10 @@ export default function ProfileContainer() {
   const [userData, setUserData] = useState<IData | null>(null);
   const [userData2, setUserData2] = useState<IData2 | null>(null);
   const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const FETCH_PROFILE = async () => {
     try {
@@ -96,6 +100,11 @@ export default function ProfileContainer() {
     FETCH_USER();
   }, []);
 
+  useEffect(() => {
+    FETCH_PROFILE();
+    FETCH_USER();
+  }, [isModalOpen]);
+
   return (
     <Profile_UI
       data={userData}
@@ -103,6 +112,9 @@ export default function ProfileContainer() {
       onClickMyReview={onClickMyReview}
       onClickMyWrite={onClickMyWrite}
       onClickMyScrap={onClickMyScrap}
+      isModalOpen={isModalOpen}
+      openModal={openModal}
+      closeModal={closeModal}
     />
   );
 }

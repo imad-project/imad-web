@@ -157,11 +157,6 @@ const tv_genres = [
 ];
 
 export default function Profile_UI(props: IProfileProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
   const authProvider = AuthArray.find(
     (auth) => auth.key === props?.data2?.auth_provider
   );
@@ -178,7 +173,7 @@ export default function Profile_UI(props: IProfileProps) {
     <>
       <S.Wrapper>
         <S.RowWrapper>
-          <S.ImgBox onClick={openModal}>
+          <S.ImgBox onClick={props.openModal}>
             <S.Profile_image
               src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props?.data?.user_profile_image}`}
               className="profile_img"
@@ -191,10 +186,9 @@ export default function Profile_UI(props: IProfileProps) {
             />
           </S.ImgBox>
           <Profile_Modal
-            isModalOpen={isModalOpen}
-            setIsModalOpen={setIsModalOpen}
-            openModal={openModal}
-            closeModal={closeModal}
+            isModalOpen={props.isModalOpen}
+            openModal={props.openModal}
+            closeModal={props.closeModal}
           />
 
           <S.ColumnWrapper>

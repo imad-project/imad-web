@@ -90,7 +90,7 @@ const imageList = [
   { id: 6, name: "red" },
 ];
 
-export default function ImageUpload() {
+export default function ImageUpload(props: any) {
   const [selectedProfile, setSelectedProfile] = useState(0);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [croppedImage, setCroppedImage] = useState<Blob | null>(null);
@@ -123,8 +123,11 @@ export default function ImageUpload() {
             },
           }
         );
-        console.log("Upload successful:", response.data);
-        alert("프로필 기본 이미지 변경 정상완료!");
+        if (response.status === 200) {
+          console.log("Upload successful:", response.data);
+          alert("프로필 기본 이미지 변경 정상완료!");
+          props.closeModal();
+        }
       } catch (error) {
         console.error("Upload failed:", error);
       }
@@ -188,8 +191,11 @@ export default function ImageUpload() {
           },
         }
       );
-      console.log("Upload successful:", response.data);
-      alert("프로필 커스텀 이미지 변경 정상완료!");
+      if (response.status === 200) {
+        console.log("Upload successful:", response.data);
+        alert("프로필 커스텀 이미지 변경 정상완료!");
+        props.closeModal();
+      }
     } catch (error) {
       console.error("Upload failed:", error);
     }

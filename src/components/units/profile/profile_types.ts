@@ -47,4 +47,7 @@ export interface IProfileProps {
   onClickMyReview: () => void;
   onClickMyWrite: () => void;
   onClickMyScrap: () => void;
+  isModalOpen: boolean;
+  openModal: () => void;
+  closeModal: () => void;
 }
