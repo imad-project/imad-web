@@ -1,5 +1,7 @@
 import { IProfileProps } from "./profile_types";
 import * as S from "./profile_styles";
+import Profile_Modal from "../../../../src/commons/profile_image/profile_modal";
+import { useState } from "react";
 
 const AuthArray = [
   { key: "IMAD", label: "아이매드 회원" },
@@ -155,6 +157,11 @@ const tv_genres = [
 ];
 
 export default function Profile_UI(props: IProfileProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   const authProvider = AuthArray.find(
     (auth) => auth.key === props?.data2?.auth_provider
   );
@@ -171,17 +178,24 @@ export default function Profile_UI(props: IProfileProps) {
     <>
       <S.Wrapper>
         <S.RowWrapper>
-          <S.ImgBox>
+          <S.ImgBox onClick={openModal}>
             <S.Profile_image
               src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props?.data?.user_profile_image}`}
               className="profile_img"
             />
+
             <S.ImgSpan className="profile_span">이미지변경</S.ImgSpan>
             <S.Camera_icon
               src="/img/icon/icons/camera.png"
               className="camera_icon"
             />
           </S.ImgBox>
+          <Profile_Modal
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            openModal={openModal}
+            closeModal={closeModal}
+          />
 
           <S.ColumnWrapper>
             <S.Icon_box>
