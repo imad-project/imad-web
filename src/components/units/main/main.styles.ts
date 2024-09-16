@@ -31,13 +31,18 @@ export const MainBannerWrapper = styled.div`
   background-color: #666;
   width: 100%;
   height: 500px;
-  display: flex;
-  flex-direction: column;
-
-  align-content: center;
 `;
 
-export const ImgBox = styled.div`
+export const ImgBox = styled.div<{ url: string }>`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+`;
+
+export const ImgBox2 = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -49,7 +54,8 @@ export const ImgBox = styled.div`
 export const MainSliderItem = styled.img`
   height: 500px;
   width: auto;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const testItem = styled.div`

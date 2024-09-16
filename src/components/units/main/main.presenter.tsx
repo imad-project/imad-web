@@ -18,6 +18,26 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
+const BackgroundImageWrapper = styled.div<{ backgroundUrl: string }>`
+  position: absolute;
+  width: 100%;
+  height: 500px;
+  background-image: url(${(props) => props.backgroundUrl});
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+
+  filter: blur(80px); /* 블러 처리 */
+
+  z-index: 1; /* 다른 요소보다 뒤에 배치 */
+`;
+
+const BannerContent = styled.div`
+  position: relative;
+
+  z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
+`;
+
 const Arrow = styled.img`
   width: 100%;
   height: 100%;
@@ -117,7 +137,7 @@ const subBannerItems = [
 export default function MainPageUI(props: any): JSX.Element {
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -173,9 +193,14 @@ export default function MainPageUI(props: any): JSX.Element {
       <S.MainBannerWrapper>
         <StyledSlider {...settings}>
           {mainBannerItems.map((el) => (
-            <S.ImgBox key={el.name}>
-              <S.MainSliderItem src={el.src} />
-            </S.ImgBox>
+            <div key={el.name}>
+              <BackgroundImageWrapper backgroundUrl={el.src} />
+              <BannerContent>
+                <S.ImgBox key={el.name} url={el.src}>
+                  <S.MainSliderItem src={el.src} />
+                </S.ImgBox>
+              </BannerContent>
+            </div>
           ))}
         </StyledSlider>
       </S.MainBannerWrapper>
@@ -184,11 +209,11 @@ export default function MainPageUI(props: any): JSX.Element {
         <StyledSlider {...subsettings}>
           {props?.month?.map((el: any, index: any) => (
             <>
-              <S.ImgBox key={el.title} onClick={() => onClickImg(index)}>
+              <S.ImgBox2 key={el.title} onClick={() => onClickImg(index)}>
                 <S.SubSliderItem
                   src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
                 />
-              </S.ImgBox>
+              </S.ImgBox2>
               <Modal
                 isOpen={isOpenList[index]}
                 onRequestClose={() => onClickCancel(index)}
@@ -217,9 +242,9 @@ export default function MainPageUI(props: any): JSX.Element {
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {subBannerItems.map((el) => (
-            <S.ImgBox key={el.name}>
+            <S.ImgBox2 key={el.name}>
               <S.SubSliderItem src={el.poster_path} />
-            </S.ImgBox>
+            </S.ImgBox2>
           ))}
         </StyledSlider>
       </S.SubBannerWrapper>
@@ -227,9 +252,9 @@ export default function MainPageUI(props: any): JSX.Element {
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {subBannerItems.map((el) => (
-            <S.ImgBox key={el.name}>
+            <S.ImgBox2 key={el.name}>
               <S.SubSliderItem src={el.poster_path} />
-            </S.ImgBox>
+            </S.ImgBox2>
           ))}
         </StyledSlider>
       </S.SubBannerWrapper>
