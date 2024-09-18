@@ -49,7 +49,13 @@ interface Recommend_data {
 
 export default function MainContainer(): JSX.Element {
   const [month, setMonth] = useState();
-  const token = getCookie("Authorization");
+  const [Recommend, setRecommend] = useState<Recommend_data | null>(null);
+
+  // 토큰 확인부
+  const token =
+    getCookie("Authorization") !== undefined
+      ? `Bearer ${getCookie("Authorization")}`
+      : "GUEST"; // token 변수를 함수 외부에서 선언
 
   const monthRanking = async () => {
     try {
@@ -57,7 +63,7 @@ export default function MainContainer(): JSX.Element {
         `https://api.iimad.com/api/ranking/monthly?page=1&type=all`,
         {
           headers: {
-            Authorization: "GUEST",
+            Authorization: token,
           },
         }
       );
@@ -65,6 +71,26 @@ export default function MainContainer(): JSX.Element {
         setMonth(MonthRES.data.data.details_list);
 
         console.log(month);
+      }
+    } catch (error) {
+      console.error("Error occurred while liking review:", error);
+    }
+  };
+
+  const TotalRecommend = async () => {
+    try {
+      const RecommendRES = await axios.get(
+        `https://api.iimad.com/api/recommend/all`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (RecommendRES.status === 200) {
+        setRecommend(RecommendRES.data.data);
+
+        console.log(Recommend);
       }
     } catch (error) {
       console.error("Error occurred while liking review:", error);
