@@ -8,6 +8,7 @@ import Modal from "react-modal";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { delay } from "framer-motion";
+import { IMainProps } from "./main.types";
 
 const StyledSlider = styled(Slider)`
   position: relative;
@@ -134,7 +135,7 @@ const subBannerItems = [
   },
 ];
 
-export default function MainPageUI(props: any): JSX.Element {
+export default function MainPageUI(props: IMainProps): JSX.Element {
   const settings = {
     dots: true,
     infinite: false,
@@ -207,7 +208,7 @@ export default function MainPageUI(props: any): JSX.Element {
       <S.title>월간 작품 랭킹</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
-          {props?.month?.map((el: any, index: any) => (
+          {props?.month?.details_list?.map((el: any, index: any) => (
             <>
               <S.ImgBox2 key={el.title} onClick={() => onClickImg(index)}>
                 <S.SubSliderItem

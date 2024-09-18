@@ -3,6 +3,27 @@ import MainPageUI from "./main.presenter";
 import axios from "axios";
 import { getCookie } from "@/src/commons/cookies/cookie";
 
+interface Ranking_Item {
+  contents_id: number;
+  contents_type: string;
+  imad_score: number | null;
+  title: string;
+  poster_path: string;
+  ranking: number;
+  ranking_changed: number;
+}
+
+interface Ranking {
+  details_list: Ranking_Item[];
+  total_elements: number;
+  total_pages: number;
+  page_number: number;
+  number_of_elements: number;
+  size_of_page: number;
+  sort_direction: number;
+  sort_property: string;
+}
+
 interface Tv {
   id: number;
   name: string;
@@ -48,7 +69,7 @@ interface Recommend_data {
 }
 
 export default function MainContainer(): JSX.Element {
-  const [month, setMonth] = useState();
+  const [month, setMonth] = useState<Ranking | null>(null);
   const [Recommend, setRecommend] = useState<Recommend_data | null>(null);
 
   // 토큰 확인부
@@ -68,7 +89,7 @@ export default function MainContainer(): JSX.Element {
         }
       );
       if (MonthRES.status === 200) {
-        setMonth(MonthRES.data.data.details_list);
+        setMonth(MonthRES.data.data);
 
         console.log(month);
       }
@@ -99,6 +120,7 @@ export default function MainContainer(): JSX.Element {
 
   useEffect(() => {
     monthRanking();
+    TotalRecommend();
   }, []);
-  return <MainPageUI month={month} />;
+  return <MainPageUI month={month} Recommend={Recommend} />;
 }
