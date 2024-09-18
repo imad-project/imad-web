@@ -21,14 +21,14 @@ const StyledSlider = styled(Slider)`
 
 const BackgroundImageWrapper = styled.div<{ backgroundUrl: string }>`
   position: absolute;
-  width: 100%;
+  width: 10%;
   height: 500px;
   background-image: url(${(props) => props.backgroundUrl});
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
   background-position: center;
 
-  filter: blur(50px); /* 블러 처리 */
+  filter: blur(30px); /* 블러 처리 */
 
   z-index: 1; /* 다른 요소보다 뒤에 배치 */
 `;
