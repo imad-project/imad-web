@@ -28,7 +28,7 @@ const BackgroundImageWrapper = styled.div<{ backgroundUrl: string }>`
   background-size: 100% 100%;
   background-position: center;
 
-  filter: blur(80px); /* 블러 처리 */
+  filter: blur(50px); /* 블러 처리 */
 
   z-index: 1; /* 다른 요소보다 뒤에 배치 */
 `;
@@ -136,6 +136,9 @@ const subBannerItems = [
 ];
 
 export default function MainPageUI(props: IMainProps): JSX.Element {
+  const toptenBanner =
+    props.Recommend?.trend_recommendation_movie?.results?.slice(0, 10);
+
   const settings = {
     dots: true,
     infinite: false,
@@ -193,12 +196,19 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
     <S.Wrapper>
       <S.MainBannerWrapper>
         <StyledSlider {...settings}>
-          {mainBannerItems.map((el) => (
-            <div key={el.name}>
-              <BackgroundImageWrapper backgroundUrl={el.src} />
+          {toptenBanner?.map((el) => (
+            <div key={el.title}>
+              <BackgroundImageWrapper
+                backgroundUrl={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
+              />
               <BannerContent>
-                <S.ImgBox key={el.name} url={el.src}>
-                  <S.MainSliderItem src={el.src} />
+                <S.ImgBox
+                  key={el.title}
+                  url={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                >
+                  <S.MainSliderItem
+                    src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                  />
                 </S.ImgBox>
               </BannerContent>
             </div>
