@@ -22,7 +22,7 @@ const StyledSlider = styled(Slider)`
 const BackgroundImageWrapper = styled.div<{ backgroundUrl: string }>`
   position: absolute;
   width: 10%;
-  height: 500px;
+  height: 600px;
   background-image: url(${(props) => props.backgroundUrl});
   background-repeat: no-repeat;
   background-size: cover;
@@ -37,6 +37,13 @@ const BannerContent = styled.div`
   position: relative;
 
   z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
+`;
+
+const BannerBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Arrow = styled.img`
@@ -202,14 +209,17 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                 backgroundUrl={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
               />
               <BannerContent>
-                <S.ImgBox
-                  key={el.title}
-                  url={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
-                >
-                  <S.MainSliderItem
-                    src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
-                  />
-                </S.ImgBox>
+                <BannerBox>
+                  <S.ImgBox
+                    key={el.title}
+                    url={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                  >
+                    <S.MainSliderItem
+                      src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                    />
+                  </S.ImgBox>
+                  <S.MainBannerTitle>{el.title}</S.MainBannerTitle>
+                </BannerBox>
               </BannerContent>
             </div>
           ))}

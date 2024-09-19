@@ -15,6 +15,17 @@ export const title = styled.div`
   margin-top: 30px;
 `;
 
+export const MainBannerTitle = styled.div`
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: white;
+`;
+export const MainBannerSubTitle = styled.div`
+  font-size: 20px;
+  color: white;
+`;
+
 export const SubBannerWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -30,7 +41,7 @@ export const SubSliderItem = styled.img`
 export const MainBannerWrapper = styled.div`
   background-color: #666;
   width: 100%;
-  height: 500px;
+  height: 600px;
 `;
 
 export const ImgBox = styled.div<{ url: string }>`
@@ -52,8 +63,9 @@ export const ImgBox2 = styled.div`
 `;
 
 export const MainSliderItem = styled.img`
-  height: 500px;
+  height: 450px;
   width: auto;
+  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
 `;
