@@ -22,7 +22,7 @@ const StyledSlider = styled(Slider)`
 
 const BackgroundImageWrapper = styled.div<{ backgroundUrl: string }>`
   position: absolute;
-  width: 10%;
+  width: 5%;
   height: 600px;
   background-image: url(${(props) => props.backgroundUrl});
   background-repeat: no-repeat;
@@ -146,9 +146,9 @@ const subBannerItems = [
 export default function MainPageUI(props: IMainProps): JSX.Element {
   const [category, setCategory] = useState<"movie" | "tv">("movie");
   const toptenTvBanner =
-    props.Recommend?.trend_recommendation_tv?.results?.slice(0, 10);
+    props.Recommend?.trend_recommendation_tv?.results?.slice(0, 20);
   const toptenMovieBanner =
-    props.Recommend?.trend_recommendation_movie?.results?.slice(0, 10);
+    props.Recommend?.trend_recommendation_movie?.results?.slice(0, 20);
 
   const toptenBanner =
     category === "movie" ? toptenMovieBanner : toptenTvBanner;
