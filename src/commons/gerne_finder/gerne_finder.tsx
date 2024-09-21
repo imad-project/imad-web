@@ -80,7 +80,7 @@ const movie_genres = [
 const tv_genres = [
   {
     id: 10759,
-    name: "Action & Adventure",
+    name: "액션 & 어드벤쳐",
   },
   {
     id: 16,
@@ -108,7 +108,7 @@ const tv_genres = [
   },
   {
     id: 10762,
-    name: "Kids",
+    name: "아동",
   },
   {
     id: 9648,
@@ -116,27 +116,27 @@ const tv_genres = [
   },
   {
     id: 10763,
-    name: "News",
+    name: "뉴스",
   },
   {
     id: 10764,
-    name: "Reality",
+    name: "리얼리티",
   },
   {
     id: 10765,
-    name: "Sci-Fi & Fantasy",
+    name: "SF & 판타지",
   },
   {
     id: 10766,
-    name: "Soap",
+    name: "소프 오페라",
   },
   {
     id: 10767,
-    name: "Talk",
+    name: "토크",
   },
   {
     id: 10768,
-    name: "War & Politics",
+    name: "전쟁/정치",
   },
   {
     id: 37,
