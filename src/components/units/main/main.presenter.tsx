@@ -153,6 +153,8 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
   const toptenBanner =
     category === "movie" ? toptenMovieBanner : toptenTvBanner;
 
+  const [sliderPage, setSliderPage] = useState(1); // 슬라이더 페이지 상태 추가
+
   const settings = {
     dots: true,
     infinite: false,
@@ -211,14 +213,20 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
       <S.RowBox2>
         <S.title>인기 작품</S.title>
         <S.subtitle2
-          onClick={() => setCategory("movie")}
+          onClick={() => {
+            setCategory("movie");
+            setSliderPage(1);
+          }}
           active={category === "movie"}
         >
           영화
         </S.subtitle2>
         <S.subtitle>|</S.subtitle>
         <S.subtitle2
-          onClick={() => setCategory("tv")}
+          onClick={() => {
+            setCategory("tv");
+            setSliderPage(1);
+          }}
           active={category === "tv"}
         >
           시리즈
@@ -226,7 +234,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
       </S.RowBox2>
 
       <S.MainBannerWrapper>
-        <StyledSlider {...settings}>
+        <StyledSlider {...settings} initialSlide={sliderPage - 1}>
           {toptenBanner?.map((el) => (
             <div key={"title" in el ? el.title : el.name}>
               <BackgroundImageWrapper
