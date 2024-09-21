@@ -8,6 +8,13 @@ export const Wrapper = styled.div`
   height: 100%;
 `;
 
+export const RowBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+`;
+
 export const title = styled.div`
   font-size: 30px;
   color: #0b0537;
@@ -20,10 +27,12 @@ export const MainBannerTitle = styled.div`
   margin-top: 10px;
   margin-bottom: 10px;
   color: white;
+  font-weight: bold;
 `;
-export const MainBannerSubTitle = styled.div`
+export const MainBannerSubTitle = styled.span`
   font-size: 20px;
   color: white;
+  margin-bottom: 10px;
 `;
 
 export const SubBannerWrapper = styled.div`
