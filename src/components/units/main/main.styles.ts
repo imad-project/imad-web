@@ -15,11 +15,32 @@ export const RowBox = styled.div`
   justify-content: space-around;
 `;
 
+export const RowBox2 = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
 export const title = styled.div`
   font-size: 30px;
   color: #0b0537;
   margin-left: 35px;
   margin-top: 30px;
+`;
+
+export const subtitle = styled.div`
+  font-size: 20px;
+  color: #0b0537;
+  margin-left: 35px;
+  margin-top: 30px;
+`;
+export const subtitle2 = styled.div<{ active: boolean }>`
+  cursor: pointer;
+  font-size: 20px;
+  color: ${(props) => (props.active ? "#0b0537" : "#3C4B66")};
+  margin-left: 35px;
+  margin-top: 30px;
+  transition: color 0.3s ease;
 `;
 
 export const MainBannerTitle = styled.div`

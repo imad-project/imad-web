@@ -144,8 +144,14 @@ const subBannerItems = [
 ];
 
 export default function MainPageUI(props: IMainProps): JSX.Element {
-  const toptenBanner =
+  const [category, setCategory] = useState<"movie" | "tv">("movie");
+  const toptenTvBanner =
+    props.Recommend?.trend_recommendation_tv?.results?.slice(0, 10);
+  const toptenMovieBanner =
     props.Recommend?.trend_recommendation_movie?.results?.slice(0, 10);
+
+  const toptenBanner =
+    category === "movie" ? toptenMovieBanner : toptenTvBanner;
 
   const settings = {
     dots: true,
@@ -202,26 +208,45 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
 
   return (
     <S.Wrapper>
+      <S.RowBox2>
+        <S.title>인기 작품</S.title>
+        <S.subtitle2
+          onClick={() => setCategory("movie")}
+          active={category === "movie"}
+        >
+          영화
+        </S.subtitle2>
+        <S.subtitle>|</S.subtitle>
+        <S.subtitle2
+          onClick={() => setCategory("tv")}
+          active={category === "tv"}
+        >
+          시리즈
+        </S.subtitle2>
+      </S.RowBox2>
+
       <S.MainBannerWrapper>
         <StyledSlider {...settings}>
           {toptenBanner?.map((el) => (
-            <div key={el.title}>
+            <div key={"title" in el ? el.title : el.name}>
               <BackgroundImageWrapper
                 backgroundUrl={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
               />
               <BannerContent>
                 <BannerBox>
                   <S.ImgBox
-                    key={el.title}
+                    key={"title" in el ? el.title : el.name}
                     url={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
                   >
                     <S.MainSliderItem
                       src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
                     />
                   </S.ImgBox>
-                  <S.MainBannerTitle>{el.title}</S.MainBannerTitle>
+                  <S.MainBannerTitle>
+                    {"title" in el ? el.title : el.name}
+                  </S.MainBannerTitle>
                   <S.MainBannerSubTitle>
-                    {findGenreNames("movie", el.genre_ids).join(", ")}
+                    {findGenreNames(category, el.genre_ids).join(", ")}
                   </S.MainBannerSubTitle>
                 </BannerBox>
               </BannerContent>
