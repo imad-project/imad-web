@@ -67,10 +67,33 @@ interface Recommend_data {
   trend_recommendation_tv: TvGroup;
   trend_recommendation_movie: MovieGroup;
 }
+interface Review_data {
+  review_id: number;
+  contents_id: number;
+  contents_title: string;
+  contents_poster_path: string;
+  contents_backdrop_path: string;
+  user_id: number;
+  user_nickname: string;
+  user_profile_image: string;
+  title: string;
+  content: string;
+  score: number;
+  like_cnt: number;
+  dislike_cnt: number;
+  created_at: string;
+  modified_at: string;
+  like_status: number;
+  spoiler: boolean;
+  author: boolean;
+  reported: boolean;
+}
 
 export default function MainContainer(): JSX.Element {
   const [month, setMonth] = useState<Ranking | null>(null);
   const [Recommend, setRecommend] = useState<Recommend_data | null>(null);
+  const [TopReview, setTopReview] = useState<Review_data | null>(null);
+  const [TopWrite, setTopWrite] = useState(null);
 
   // 토큰 확인부
   const token =
@@ -118,9 +141,53 @@ export default function MainContainer(): JSX.Element {
     }
   };
 
+  const Review = async () => {
+    try {
+      const ReviewRES = await axios.get(
+        `https://api.iimad.com/api/popular/review`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (ReviewRES.status === 200) {
+        setTopReview(ReviewRES.data.data);
+
+        console.log(TopReview);
+      }
+    } catch (error) {
+      console.error("Error occurred while liking review:", error);
+    }
+  };
+
+  const Write = async () => {
+    try {
+      const WriteRES = await axios.get(
+        `https://api.iimad.com/api/popular/posting`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (WriteRES.status === 200) {
+        setTopWrite(WriteRES.data.data);
+
+        console.log(TopWrite);
+      }
+    } catch (error) {
+      console.error("Error occurred while liking review:", error);
+    }
+  };
+
   useEffect(() => {
     monthRanking();
     TotalRecommend();
+    Review();
+    Write();
   }, []);
-  return <MainPageUI month={month} Recommend={Recommend} />;
+  return (
+    <MainPageUI month={month} Recommend={Recommend} TopReview={TopReview} />
+  );
 }

@@ -63,7 +63,30 @@ interface Recommend_data {
   trend_recommendation_movie: MovieGroup;
 }
 
+interface Review_data {
+  review_id: number;
+  contents_id: number;
+  contents_title: string;
+  contents_poster_path: string;
+  contents_backdrop_path: string;
+  user_id: number;
+  user_nickname: string;
+  user_profile_image: string;
+  title: string;
+  content: string;
+  score: number;
+  like_cnt: number;
+  dislike_cnt: number;
+  created_at: string;
+  modified_at: string;
+  like_status: number;
+  spoiler: boolean;
+  author: boolean;
+  reported: boolean;
+}
+
 export interface IMainProps {
   month: Ranking | null;
   Recommend: Recommend_data | null;
+  TopReview: Review_data | null;
 }

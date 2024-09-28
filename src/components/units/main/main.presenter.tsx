@@ -262,6 +262,14 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
           ))}
         </StyledSlider>
       </S.MainBannerWrapper>
+
+      <S.RowBox>
+        <S.TopRatedWrite
+          backgroundUrl={`https://image.tmdb.org/t/p/original/${props.TopReview?.contents_poster_path}`}
+        >
+          dddddddddd
+        </S.TopRatedWrite>
+      </S.RowBox>
       <S.title>월간 작품 랭킹</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>

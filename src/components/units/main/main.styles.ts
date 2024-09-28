@@ -21,6 +21,19 @@ export const RowBox2 = styled.div`
   align-items: center;
 `;
 
+export const TopRatedWrite = styled.div<{ backgroundUrl: string }>`
+  margin-top: 50px;
+  width: 50%;
+  height: 300px;
+  background-image: url(${(props) => props.backgroundUrl});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid red;
+
+  filter: blur(0px); /* 블러 처리 */
+`;
+
 export const title = styled.div`
   font-size: 30px;
   color: #0b0537;
