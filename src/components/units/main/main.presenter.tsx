@@ -264,11 +264,37 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
       </S.MainBannerWrapper>
 
       <S.RowBox>
-        <S.TopRatedWrite
-          backgroundUrl={`https://image.tmdb.org/t/p/original/${props.TopReview?.contents_poster_path}`}
-        >
-          dddddddddd
-        </S.TopRatedWrite>
+        <S.WriteBox>
+          <S.TopRatedWrite
+            backgroundUrl={`https://image.tmdb.org/t/p/original/${props.TopReview?.contents_poster_path}`}
+          />
+          <S.SubItemsTitle>오늘의 리뷰🏅</S.SubItemsTitle>
+          <S.SubItemsSubTitle>{props.TopReview?.title}</S.SubItemsSubTitle>
+          <S.RowBox2>
+            <S.RowBox3>
+              <S.TinyPoster
+                src={`https://image.tmdb.org/t/p/original/${props.TopReview?.contents_poster_path}`}
+              />
+              <S.SubItemsGrayTitle>
+                {props.TopReview?.contents_title}
+              </S.SubItemsGrayTitle>
+            </S.RowBox3>
+            <S.RowBox3>
+              <S.Profile_image
+                src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props.TopReview?.user_profile_image}`}
+              />
+              <S.SubItemsSubTitle>
+                {props.TopReview?.user_nickname}
+              </S.SubItemsSubTitle>
+            </S.RowBox3>
+          </S.RowBox2>
+        </S.WriteBox>
+        <S.WriteBox>
+          <S.TopRatedWrite
+            backgroundUrl={`https://image.tmdb.org/t/p/original/${props.TopReview?.contents_poster_path}`}
+          />
+          <S.SubItemsTitle>오늘의 리뷰🏅</S.SubItemsTitle>
+        </S.WriteBox>
       </S.RowBox>
       <S.title>월간 작품 랭킹</S.title>
       <S.SubBannerWrapper>

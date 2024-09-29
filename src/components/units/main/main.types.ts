@@ -85,8 +85,61 @@ interface Review_data {
   reported: boolean;
 }
 
+interface Write_Data {
+  posting_id: number;
+  contents_id: number;
+  contents_title: string;
+  contents_poster_path: string;
+  contents_backdrop_path: string | null;
+  user_id: number;
+  user_nickname: string;
+  user_profile_image: string;
+  title: string;
+  content: string;
+  category: number;
+  view_cnt: number;
+  like_cnt: number;
+  dislike_cnt: number;
+  like_status: number;
+  created_at: string;
+  modified_at: string;
+  comment_cnt: number;
+  comment_list_response: Comments_Data | null;
+}
+
+interface Comments_Data {
+  details_list: [
+    {
+      comment_id: number;
+      posting_id: number;
+      user_id: number;
+      user_nickname: string;
+      user_profile_image: string;
+      parent_id: number | null;
+      child_cnt: number;
+      content: string;
+      like_status: number;
+      like_cnt: number;
+      dislike_cnt: number;
+      created_at: string;
+      modified_at: string;
+      author: boolean;
+      reported: boolean;
+      removed: boolean;
+    }
+  ];
+  total_elements: number;
+  total_pages: number;
+  page_number: number;
+  number_of_elements: number;
+  size_of_page: number;
+  sort_direction: number;
+  sort_property: string;
+}
+
 export interface IMainProps {
   month: Ranking | null;
   Recommend: Recommend_data | null;
   TopReview: Review_data | null;
+  TopWrite: Write_Data | null;
 }

@@ -16,22 +16,54 @@ export const RowBox = styled.div`
 `;
 
 export const RowBox2 = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
 
-export const TopRatedWrite = styled.div<{ backgroundUrl: string }>`
-  margin-top: 50px;
+export const RowBox3 = styled.div`
   width: 50%;
-  height: 300px;
+  margin-top: 10%;
+  margin-left: 10%;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+`;
+
+export const TopRatedWrite = styled.div<{ backgroundUrl: string }>`
+  position: absolute;
+  width: 100%;
+  height: 200px;
   background-image: url(${(props) => props.backgroundUrl});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  border: 1px solid red;
 
-  filter: blur(0px); /* 블러 처리 */
+  z-index: 1;
+
+  filter: brightness(0.3) blur(20px);
+  /* 블러 처리 */
+
+  transition: filter 0.35s ease; /* filter에 대한 transition 추가 */
+  :hover {
+    filter: brightness(1) blur(0px);
+  }
+`;
+
+export const WriteBox = styled.div`
+  position: relative;
+  margin-top: 50px;
+  width: 35%;
+  height: 200px;
+
+  border-radius: 15px;
+  overflow: hidden;
+  z-index: 2;
+  cursor: pointer;
 `;
 
 export const title = styled.div`
@@ -63,10 +95,56 @@ export const MainBannerTitle = styled.div`
   color: white;
   font-weight: bold;
 `;
+
 export const MainBannerSubTitle = styled.span`
   font-size: 20px;
   color: white;
   margin-bottom: 10px;
+`;
+
+export const SubItemsTitle = styled.div`
+  margin-left: 10%;
+  position: relative;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+  z-index: 3;
+`;
+
+export const SubItemsSubTitle = styled.span`
+  margin-left: 10%;
+  position: relative;
+  font-size: 20px;
+  color: white;
+
+  z-index: 3;
+`;
+
+export const SubItemsGrayTitle = styled.span`
+  margin-left: 5%;
+  position: relative;
+  font-size: 18px;
+  color: white;
+
+  z-index: 3;
+  filter: brightness(0.6);
+`;
+
+export const TinyPoster = styled.img`
+  position: relative;
+  width: auto;
+  height: 70px;
+  border-radius: 5px;
+`;
+
+export const Profile_image = styled.img`
+  position: relative;
+  z-index: 3;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
 `;
 
 export const SubBannerWrapper = styled.div`
