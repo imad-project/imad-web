@@ -291,9 +291,28 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
         </S.WriteBox>
         <S.WriteBox>
           <S.TopRatedWrite
-            backgroundUrl={`https://image.tmdb.org/t/p/original/${props.TopReview?.contents_poster_path}`}
+            backgroundUrl={`https://image.tmdb.org/t/p/original/${props.TopWrite?.contents_backdrop_path}`}
           />
-          <S.SubItemsTitle>오늘의 리뷰🏅</S.SubItemsTitle>
+          <S.SubItemsTitle>오늘의 게시물🏅</S.SubItemsTitle>
+          <S.SubItemsSubTitle>{props.TopWrite?.title}</S.SubItemsSubTitle>
+          <S.RowBox2>
+            <S.RowBox3>
+              <S.TinyPoster
+                src={`https://image.tmdb.org/t/p/original/${props.TopWrite?.contents_poster_path}`}
+              />
+              <S.SubItemsGrayTitle>
+                {props.TopWrite?.contents_title}
+              </S.SubItemsGrayTitle>
+            </S.RowBox3>
+            <S.RowBox3>
+              <S.Profile_image
+                src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props.TopWrite?.user_profile_image}`}
+              />
+              <S.SubItemsSubTitle>
+                {props.TopWrite?.user_nickname}
+              </S.SubItemsSubTitle>
+            </S.RowBox3>
+          </S.RowBox2>
         </S.WriteBox>
       </S.RowBox>
       <S.title>월간 작품 랭킹</S.title>
