@@ -7,7 +7,7 @@ const PATH_COLOR = "#0b0537"; // 차트에 표시될 선
 const TRAIL_COLOR = "#DFE8FF"; // 차트의 배경선
 
 interface CircularProgressChartProps {
-  value: number;
+  value: number | null;
 }
 
 const ProgressbarContainer = styled.div`
@@ -42,7 +42,7 @@ export default function CircularProgressChart({
   useEffect(() => {
     setProgress(0); // 초기화
 
-    const targetValue = value * 10; // 그래프에 표시될 값
+    const targetValue = value !== null && value !== undefined ? value * 10 : 0; // null이나 undefined일 때 기본값 0
     const increment = targetValue / 100; // 각 프레임마다 증가할 값
 
     let currentProgress = 0;
@@ -65,7 +65,9 @@ export default function CircularProgressChart({
   return (
     <ProgressbarContainer>
       <Star src="/img/icon/icons/star.fill.png" />
-      <Value>{value.toFixed(1)}</Value>
+      <Value>
+        {value !== null && value !== undefined ? value.toFixed(1) : "0.0"}
+      </Value>
       <CircularProgressbar
         value={progress}
         className="progressbar"
