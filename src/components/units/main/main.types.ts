@@ -138,7 +138,7 @@ interface Comments_Data {
 }
 
 export interface IMainProps {
-  month: Ranking | null;
+  Ranking: Ranking | null;
   Recommend: Recommend_data | null;
   TopReview: Review_data | null;
   TopWrite: Write_Data | null;

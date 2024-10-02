@@ -315,10 +315,11 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
           </S.RowBox2>
         </S.WriteBox>
       </S.RowBox>
+      <S.title>아이매드 차트</S.title>
       <S.title>월간 작품 랭킹</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
-          {props?.month?.details_list?.map((el: any, index: any) => (
+          {props?.Ranking?.details_list?.map((el: any, index: any) => (
             <>
               <S.ImgBox2 key={el.title} onClick={() => onClickImg(index)}>
                 <S.SubSliderItem

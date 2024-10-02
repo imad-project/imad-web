@@ -142,7 +142,7 @@ interface Comments_Data {
 }
 
 export default function MainContainer(): JSX.Element {
-  const [month, setMonth] = useState<Ranking | null>(null);
+  const [Ranking, setRanking] = useState<Ranking | null>(null);
   const [Recommend, setRecommend] = useState<Recommend_data | null>(null);
   const [TopReview, setTopReview] = useState<Review_data | null>(null);
   const [TopWrite, setTopWrite] = useState<Write_Data | null>(null);
@@ -153,6 +153,25 @@ export default function MainContainer(): JSX.Element {
       ? `Bearer ${getCookie("Authorization")}`
       : "GUEST"; // token 변수를 함수 외부에서 선언
 
+  const allTimeRanking = async () => {
+    try {
+      const MonthRES = await axios.get(
+        `https://api.iimad.com/api/ranking/alltime?page=1&type=all`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (MonthRES.status === 200) {
+        setRanking(MonthRES.data.data);
+
+        console.log(Ranking);
+      }
+    } catch (error) {
+      console.error("Error occurred while liking review:", error);
+    }
+  };
   const monthRanking = async () => {
     try {
       const MonthRES = await axios.get(
@@ -164,9 +183,28 @@ export default function MainContainer(): JSX.Element {
         }
       );
       if (MonthRES.status === 200) {
-        setMonth(MonthRES.data.data);
+        setRanking(MonthRES.data.data);
 
-        console.log(month);
+        console.log(Ranking);
+      }
+    } catch (error) {
+      console.error("Error occurred while liking review:", error);
+    }
+  };
+  const weeklyRanking = async () => {
+    try {
+      const MonthRES = await axios.get(
+        `https://api.iimad.com/api/ranking/weekly?page=1&type=all`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (MonthRES.status === 200) {
+        setRanking(MonthRES.data.data);
+
+        console.log(Ranking);
       }
     } catch (error) {
       console.error("Error occurred while liking review:", error);
@@ -234,14 +272,14 @@ export default function MainContainer(): JSX.Element {
   };
 
   useEffect(() => {
-    monthRanking();
+    allTimeRanking();
     TotalRecommend();
     Review();
     Write();
   }, []);
   return (
     <MainPageUI
-      month={month}
+      Ranking={Ranking}
       Recommend={Recommend}
       TopReview={TopReview}
       TopWrite={TopWrite}
