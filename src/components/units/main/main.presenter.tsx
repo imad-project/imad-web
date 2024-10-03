@@ -3,8 +3,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "@emotion/styled";
+import CircularProgressChart from "@/src/commons/rate_view/rate_view";
 
-import Modal from "react-modal";
+import Modal, { contextType } from "react-modal";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { delay } from "framer-motion";
@@ -67,6 +68,21 @@ const NextTo = styled.div`
   right: 3%;
   z-index: 3;
 `;
+
+const ContentsType = [
+  {
+    id: "TV",
+    name: "시리즈",
+  },
+  {
+    id: "MOVIE",
+    name: "영화",
+  },
+  {
+    id: "ANIMATION",
+    name: "애니메이션",
+  },
+];
 
 const mainBannerItems = [
   {
@@ -208,6 +224,12 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const TypeConvert = (type: string) => {
+    return ContentsType.filter((ContentsType) =>
+      type.includes(ContentsType.id)
+    ).map((ContentsType) => ContentsType.name);
+  };
+
   return (
     <S.Wrapper>
       <S.RowBox2>
@@ -316,6 +338,28 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
         </S.WriteBox>
       </S.RowBox>
       <S.title>아이매드 차트</S.title>
+      <S.GridBox>
+        {props.Ranking?.details_list.map((el) => (
+          <S.RankingBox key={el.contents_id}>
+            <S.RankingPoster
+              src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+            />
+            <S.ColumnBox>
+              <S.RowBox>
+                <S.RankingNumbers>{el.ranking}</S.RankingNumbers>
+                <S.RankingTitle>{el.title}</S.RankingTitle>
+              </S.RowBox>
+              <S.SubItemsGrayTitle>
+                - {TypeConvert(el.contents_type)}
+              </S.SubItemsGrayTitle>
+            </S.ColumnBox>
+            <S.RateBox>
+              <CircularProgressChart value={el.imad_score} />
+            </S.RateBox>
+          </S.RankingBox>
+        ))}
+      </S.GridBox>
+
       <S.title>월간 작품 랭킹</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>

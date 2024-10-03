@@ -46,7 +46,7 @@ export default function MyReview_UI(props: IMyReviewProps) {
                   </S.reviewContentsWrapper>
                 </S.reviewBox>
               </S.ColumnBox>
-              <CircularProgressChart value={Math.floor(el.score * 10) / 10} />
+              <CircularProgressChart value={el.score} />
             </S.RowWrapper>
           </S.reviewWrapper>
         </div>

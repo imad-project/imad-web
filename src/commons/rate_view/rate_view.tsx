@@ -11,9 +11,10 @@ interface CircularProgressChartProps {
 }
 
 const ProgressbarContainer = styled.div`
-  width: 100px;
-  height: 100px;
-  margin-left: 100px;
+  width: 100%;
+  height: 100%;
+
+  margin-right: 10%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -22,16 +23,16 @@ const ProgressbarContainer = styled.div`
 `;
 
 const Star = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 20%;
+  height: 20%;
   position: absolute;
-  left: 40px;
-  top: 30px;
+  left: 40%;
+  top: 30%;
 `;
 
 const Value = styled.div`
   position: absolute;
-  top: 55px;
+  top: 55%;
 `;
 
 export default function CircularProgressChart({
@@ -42,7 +43,9 @@ export default function CircularProgressChart({
   useEffect(() => {
     setProgress(0); // 초기화
 
-    const targetValue = value !== null && value !== undefined ? value * 10 : 0; // null이나 undefined일 때 기본값 0
+    // 소수점 자르기 (한 번에 처리)
+    const targetValue =
+      value !== null && value !== undefined ? Math.floor(value * 10) : 0;
     const increment = targetValue / 100; // 각 프레임마다 증가할 값
 
     let currentProgress = 0;

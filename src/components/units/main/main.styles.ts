@@ -22,6 +22,13 @@ export const RowBox2 = styled.div`
   align-items: center;
 `;
 
+export const ColumnBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: center;
+`;
+
 export const RowBox3 = styled.div`
   width: 50%;
   margin-top: 10%;
@@ -64,6 +71,51 @@ export const WriteBox = styled.div`
   overflow: hidden;
   z-index: 2;
   cursor: pointer;
+`;
+
+export const GridBox = styled.div`
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3개의 열로 구성 */
+  gap: 30px; /* 아이템 간의 간격 */
+`;
+
+export const RankingBox = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px gray;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const RankingPoster = styled.img`
+  position: relative;
+  width: auto;
+  height: 100px;
+  border-radius: 10px;
+`;
+
+export const RateBox = styled.div`
+  margin-right: 0px;
+  width: 80px;
+  height: 80px;
+`;
+export const RankingNumbers = styled.div`
+  font-size: 20px;
+  color: #0b0537;
+  font-weight: bolder;
+  margin-right: 10px;
+`;
+
+export const RankingTitle = styled.div`
+  font-size: 20px;
+  color: #0b0537;
+  font-weight: normal;
 `;
 
 export const title = styled.div`
