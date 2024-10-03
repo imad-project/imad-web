@@ -149,3 +149,9 @@ export const Review_contents = styled.div`
 
   color: black;
 `;
+
+export const RateBox = styled.div`
+  margin-left: 15%;
+  width: 100px;
+  height: 100px;
+`;
