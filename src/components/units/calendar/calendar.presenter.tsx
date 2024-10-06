@@ -26,8 +26,10 @@ interface Event {
 
 // 스타일 설정
 const CalendarContainer = styled.div`
-  width: 100%;
+  width: 80%;
   height: 100vh; /* 전체 화면 높이 */
+  margin-left: 10%;
+  margin-right: 10%;
 `;
 
 const StyledButton = styled.button<{ color: string }>`
