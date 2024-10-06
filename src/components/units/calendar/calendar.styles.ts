@@ -1,39 +1,41 @@
 // styles.ts
 import styled from "@emotion/styled";
 
+// 캘린더와 도형들을 감싸는 컨테이너
 export const CalendarWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   align-items: center;
-  gap: 20px;
+  height: auto;
 `;
 
-export const DateButton = styled.button<{ isSelected: boolean }>`
-  background-color: ${(props) => (props.isSelected ? "#7f8c8d" : "#ecf0f1")};
-  color: ${(props) => (props.isSelected ? "white" : "black")};
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  margin: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #95a5a6;
+// 도형을 감싸는 컨테이너 (각 날짜에 도형을 렌더링)
+export const ShapeContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
   }
 `;
 
+// 도형 버튼 스타일
 export const ShapeButton = styled.button<{ isSelected: boolean }>`
-  background-color: ${(props) => (props.isSelected ? "#3498db" : "#bdc3c7")};
-  color: ${(props) => (props.isSelected ? "white" : "black")};
-  padding: 10px;
-  border: none;
-  border-radius: 50%;
+  background-color: ${(props) => (props.isSelected ? "lightblue" : "white")};
+  border: 1px solid #ccc;
   margin: 5px;
-  width: 50px;
-  height: 50px;
+  padding: 10px;
   cursor: pointer;
+`;
 
-  &:hover {
-    background-color: #2980b9;
-  }
+// 선택된 날짜 버튼 스타일 (옵션 추가 가능)
+export const DateButton = styled.button<{ isSelected: boolean }>`
+  background-color: ${(props) => (props.isSelected ? "lightgray" : "white")};
+  border: 1px solid #ccc;
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
 `;
