@@ -3,11 +3,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "@emotion/styled";
+import CircularProgressChart from "@/src/commons/rate_view/rate_view";
 
-import Modal from "react-modal";
+import Modal, { contextType } from "react-modal";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { delay } from "framer-motion";
+import { IMainProps } from "./main.types";
+import { findGenreNames } from "../../../../src/commons/gerne_finder/gerne_finder";
 
 const StyledSlider = styled(Slider)`
   position: relative;
@@ -16,6 +19,33 @@ const StyledSlider = styled(Slider)`
     opacity: 0;
     display: none;
   }
+`;
+
+const BackgroundImageWrapper = styled.div<{ backgroundUrl: string }>`
+  position: absolute;
+  width: 5%;
+  height: 600px;
+  background-image: url(${(props) => props.backgroundUrl});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  filter: blur(30px); /* 블러 처리 */
+
+  z-index: 1; /* 다른 요소보다 뒤에 배치 */
+`;
+
+const BannerContent = styled.div`
+  position: relative;
+
+  z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
+`;
+
+const BannerBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Arrow = styled.img`
@@ -38,6 +68,21 @@ const NextTo = styled.div`
   right: 3%;
   z-index: 3;
 `;
+
+const ContentsType = [
+  {
+    id: "TV",
+    name: "시리즈",
+  },
+  {
+    id: "MOVIE",
+    name: "영화",
+  },
+  {
+    id: "ANIMATION",
+    name: "애니메이션",
+  },
+];
 
 const mainBannerItems = [
   {
@@ -114,10 +159,21 @@ const subBannerItems = [
   },
 ];
 
-export default function MainPageUI(props: any): JSX.Element {
+export default function MainPageUI(props: IMainProps): JSX.Element {
+  const [category, setCategory] = useState<"movie" | "tv">("movie");
+  const toptenTvBanner =
+    props.Recommend?.trend_recommendation_tv?.results?.slice(0, 20);
+  const toptenMovieBanner =
+    props.Recommend?.trend_recommendation_movie?.results?.slice(0, 20);
+
+  const toptenBanner =
+    category === "movie" ? toptenMovieBanner : toptenTvBanner;
+
+  const [sliderPage, setSliderPage] = useState(1); // 슬라이더 페이지 상태 추가
+
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -168,27 +224,152 @@ export default function MainPageUI(props: any): JSX.Element {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const TypeConvert = (type: string) => {
+    return ContentsType.filter((ContentsType) =>
+      type.includes(ContentsType.id)
+    ).map((ContentsType) => ContentsType.name);
+  };
+
   return (
     <S.Wrapper>
+      <S.RowBox2>
+        <S.title>인기 작품</S.title>
+        <S.subtitle2
+          onClick={() => {
+            setCategory("movie");
+            setSliderPage(1);
+          }}
+          active={category === "movie"}
+        >
+          영화
+        </S.subtitle2>
+        <S.subtitle>|</S.subtitle>
+        <S.subtitle2
+          onClick={() => {
+            setCategory("tv");
+            setSliderPage(1);
+          }}
+          active={category === "tv"}
+        >
+          시리즈
+        </S.subtitle2>
+      </S.RowBox2>
+
       <S.MainBannerWrapper>
-        <StyledSlider {...settings}>
-          {mainBannerItems.map((el) => (
-            <S.ImgBox key={el.name}>
-              <S.MainSliderItem src={el.src} />
-            </S.ImgBox>
+        <StyledSlider {...settings} initialSlide={sliderPage - 1}>
+          {toptenBanner?.map((el) => (
+            <div key={"title" in el ? el.title : el.name}>
+              <BackgroundImageWrapper
+                backgroundUrl={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
+              />
+              <BannerContent>
+                <BannerBox>
+                  <S.ImgBox
+                    key={"title" in el ? el.title : el.name}
+                    url={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                  >
+                    <S.MainSliderItem
+                      src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                    />
+                  </S.ImgBox>
+                  <S.MainBannerTitle>
+                    {"title" in el ? el.title : el.name}
+                  </S.MainBannerTitle>
+                  <S.MainBannerSubTitle>
+                    {findGenreNames(category, el.genre_ids).join(", ")}
+                  </S.MainBannerSubTitle>
+                </BannerBox>
+              </BannerContent>
+            </div>
           ))}
         </StyledSlider>
       </S.MainBannerWrapper>
+
+      <S.RowBox>
+        <S.WriteBox>
+          <S.TopRatedWrite
+            backgroundUrl={`https://image.tmdb.org/t/p/original/${props.TopReview?.contents_poster_path}`}
+          />
+          <S.SubItemsTitle>오늘의 리뷰🏅</S.SubItemsTitle>
+          <S.SubItemsSubTitle>{props.TopReview?.title}</S.SubItemsSubTitle>
+          <S.RowBox2>
+            <S.RowBox3>
+              <S.TinyPoster
+                src={`https://image.tmdb.org/t/p/original/${props.TopReview?.contents_poster_path}`}
+              />
+              <S.SubItemsGrayTitle>
+                {props.TopReview?.contents_title}
+              </S.SubItemsGrayTitle>
+            </S.RowBox3>
+            <S.RowBox3>
+              <S.Profile_image
+                src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props.TopReview?.user_profile_image}`}
+              />
+              <S.SubItemsSubTitle>
+                {props.TopReview?.user_nickname}
+              </S.SubItemsSubTitle>
+            </S.RowBox3>
+          </S.RowBox2>
+        </S.WriteBox>
+        <S.WriteBox>
+          <S.TopRatedWrite
+            backgroundUrl={`https://image.tmdb.org/t/p/original/${props.TopWrite?.contents_backdrop_path}`}
+          />
+          <S.SubItemsTitle>오늘의 게시물🏅</S.SubItemsTitle>
+          <S.SubItemsSubTitle>{props.TopWrite?.title}</S.SubItemsSubTitle>
+          <S.RowBox2>
+            <S.RowBox3>
+              <S.TinyPoster
+                src={`https://image.tmdb.org/t/p/original/${props.TopWrite?.contents_poster_path}`}
+              />
+              <S.SubItemsGrayTitle>
+                {props.TopWrite?.contents_title}
+              </S.SubItemsGrayTitle>
+            </S.RowBox3>
+            <S.RowBox3>
+              <S.Profile_image
+                src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props.TopWrite?.user_profile_image}`}
+              />
+              <S.SubItemsSubTitle>
+                {props.TopWrite?.user_nickname}
+              </S.SubItemsSubTitle>
+            </S.RowBox3>
+          </S.RowBox2>
+        </S.WriteBox>
+      </S.RowBox>
+      <S.title>아이매드 차트</S.title>
+      <S.GridBox>
+        {props.Ranking?.details_list.map((el) => (
+          <S.RankingBox key={el.contents_id}>
+            <S.RankingPoster
+              src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+            />
+            <S.ColumnBox>
+              <S.RowBox>
+                <S.RankingNumbers>{el.ranking}</S.RankingNumbers>
+                <S.RankingTitle>{el.title}</S.RankingTitle>
+              </S.RowBox>
+              <S.SubItemsGrayTitle>
+                - {TypeConvert(el.contents_type)}
+              </S.SubItemsGrayTitle>
+            </S.ColumnBox>
+            <S.RateBox>
+              <CircularProgressChart value={el.imad_score} />
+            </S.RateBox>
+          </S.RankingBox>
+        ))}
+      </S.GridBox>
+
       <S.title>월간 작품 랭킹</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
-          {props?.month?.map((el: any, index: any) => (
+          {props?.Ranking?.details_list?.map((el: any, index: any) => (
             <>
-              <S.ImgBox key={el.title} onClick={() => onClickImg(index)}>
+              <S.ImgBox2 key={el.title} onClick={() => onClickImg(index)}>
                 <S.SubSliderItem
                   src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
                 />
-              </S.ImgBox>
+              </S.ImgBox2>
               <Modal
                 isOpen={isOpenList[index]}
                 onRequestClose={() => onClickCancel(index)}
@@ -217,9 +398,9 @@ export default function MainPageUI(props: any): JSX.Element {
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {subBannerItems.map((el) => (
-            <S.ImgBox key={el.name}>
+            <S.ImgBox2 key={el.name}>
               <S.SubSliderItem src={el.poster_path} />
-            </S.ImgBox>
+            </S.ImgBox2>
           ))}
         </StyledSlider>
       </S.SubBannerWrapper>
@@ -227,9 +408,9 @@ export default function MainPageUI(props: any): JSX.Element {
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {subBannerItems.map((el) => (
-            <S.ImgBox key={el.name}>
+            <S.ImgBox2 key={el.name}>
               <S.SubSliderItem src={el.poster_path} />
-            </S.ImgBox>
+            </S.ImgBox2>
           ))}
         </StyledSlider>
       </S.SubBannerWrapper>
