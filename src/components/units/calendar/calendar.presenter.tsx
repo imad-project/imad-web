@@ -26,10 +26,17 @@ interface Event {
 
 // 스타일 설정
 const CalendarContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+
   width: 80%;
   height: 100vh; /* 전체 화면 높이 */
-  margin-left: 10%;
+
   margin-right: 10%;
+`;
+
+const CalendarBox = styled.div`
+  width: 90%;
 `;
 
 const StyledButton = styled.button<{ color: string }>`
@@ -47,10 +54,12 @@ const StyledButton = styled.button<{ color: string }>`
 `;
 
 const ButtonBox = styled.div`
+  margin-left: 50px;
+  width: 10%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
-  margin-top: 30px;
+  margin-top: 10%;
 `;
 
 export default function CalendarPresenter() {
@@ -146,13 +155,16 @@ export default function CalendarPresenter() {
 
   return (
     <CalendarContainer>
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
-        dateClick={handleDateClick}
-        events={events}
-        dayCellClassNames={dayCellClassNames}
-      />
+      <CalendarBox>
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          initialView="dayGridMonth"
+          dateClick={handleDateClick}
+          events={events}
+          dayCellClassNames={dayCellClassNames}
+        />
+      </CalendarBox>
+
       <ButtonBox>
         <StyledButton onClick={() => addEvent("천영", "blue")} color="blue">
           천영 추가
@@ -166,10 +178,11 @@ export default function CalendarPresenter() {
         <StyledButton onClick={() => addEvent("영웅", "red")} color="red">
           영웅 추가
         </StyledButton>
+        <StyledButton onClick={deleteEvents} color="gray">
+          삭제
+        </StyledButton>
       </ButtonBox>
-      <StyledButton onClick={deleteEvents} color="gray">
-        삭제
-      </StyledButton>
+
       <style>
         {`
         .selected-date {
