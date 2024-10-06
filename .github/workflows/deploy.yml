@@ -57,9 +57,9 @@ jobs:
             --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
             --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
 
-        # Firebase CLI 설치 및 배포
+      # Firebase CLI 설치 및 배포
       - name: Install Firebase CLI
-        run: npm install -g firebase-tools
+        run: yarn global add firebase-tools
 
       - name: Deploy to Firebase
         run: firebase deploy --only hosting
