@@ -79,7 +79,9 @@ export const GridBox = styled.div`
   width: 80%;
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3개의 열로 구성 */
+  grid-template-rows: repeat(3, 1fr); /* 3개의 열로 구성 */
   gap: 30px; /* 아이템 간의 간격 */
+  grid-auto-flow: column;
 `;
 
 export const RankingBox = styled.div`
