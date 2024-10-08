@@ -160,6 +160,9 @@ const subBannerItems = [
 ];
 
 export default function MainPageUI(props: IMainProps): JSX.Element {
+  const [chart, setChart] = useState<"alltime" | "monthly" | "weekly">(
+    "alltime"
+  );
   const [category, setCategory] = useState<"movie" | "tv">("movie");
   const toptenTvBanner =
     props.Recommend?.trend_recommendation_tv?.results?.slice(0, 20);
@@ -339,7 +342,39 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
           </S.RowBox2>
         </S.WriteBox>
       </S.RowBox>
-      <S.title>아이매드 차트</S.title>
+      <S.RowBox2>
+        <S.title>아이매드 차트</S.title>
+        <S.subtitle2
+          onClick={() => {
+            setChart("alltime");
+            props.allTimeRanking();
+          }}
+          active={chart === "alltime"}
+        >
+          전체
+        </S.subtitle2>
+        <S.subtitle>|</S.subtitle>
+        <S.subtitle2
+          onClick={() => {
+            setChart("monthly");
+            props.monthlyRanking();
+          }}
+          active={chart === "monthly"}
+        >
+          월간
+        </S.subtitle2>
+        <S.subtitle>|</S.subtitle>
+        <S.subtitle2
+          onClick={() => {
+            setChart("weekly");
+            props.weeklyRanking();
+          }}
+          active={chart === "weekly"}
+        >
+          주간
+        </S.subtitle2>
+      </S.RowBox2>
+
       <S.GridBox>
         {topChart?.map((el) => (
           <S.RankingBox key={el.contents_id}>

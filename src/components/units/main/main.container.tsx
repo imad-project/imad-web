@@ -172,7 +172,7 @@ export default function MainContainer(): JSX.Element {
       console.error("Error occurred while liking review:", error);
     }
   };
-  const monthRanking = async () => {
+  const monthlyRanking = async () => {
     try {
       const MonthRES = await axios.get(
         `https://api.iimad.com/api/ranking/monthly?page=1&type=all`,
@@ -283,6 +283,9 @@ export default function MainContainer(): JSX.Element {
       Recommend={Recommend}
       TopReview={TopReview}
       TopWrite={TopWrite}
+      allTimeRanking={allTimeRanking}
+      monthlyRanking={monthlyRanking}
+      weeklyRanking={weeklyRanking}
     />
   );
 }

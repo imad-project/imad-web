@@ -74,6 +74,7 @@ export const WriteBox = styled.div`
 `;
 
 export const GridBox = styled.div`
+  margin-top: 20px;
   margin-left: 10%;
   margin-right: 10%;
   width: 80%;

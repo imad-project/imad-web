@@ -142,4 +142,7 @@ export interface IMainProps {
   Recommend: Recommend_data | null;
   TopReview: Review_data | null;
   TopWrite: Write_Data | null;
+  allTimeRanking: () => void;
+  monthlyRanking: () => void;
+  weeklyRanking: () => void;
 }
