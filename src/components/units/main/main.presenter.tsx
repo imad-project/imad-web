@@ -166,6 +166,8 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
   const toptenMovieBanner =
     props.Recommend?.trend_recommendation_movie?.results?.slice(0, 20);
 
+  const topChart = props.Ranking?.details_list.slice(0, 9);
+
   const toptenBanner =
     category === "movie" ? toptenMovieBanner : toptenTvBanner;
 
@@ -339,7 +341,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
       </S.RowBox>
       <S.title>아이매드 차트</S.title>
       <S.GridBox>
-        {props.Ranking?.details_list.map((el) => (
+        {topChart?.map((el) => (
           <S.RankingBox key={el.contents_id}>
             <S.RankingPoster
               src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
