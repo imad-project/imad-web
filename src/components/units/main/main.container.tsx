@@ -146,12 +146,58 @@ export default function MainContainer(): JSX.Element {
   const [Recommend, setRecommend] = useState<Recommend_data | null>(null);
   const [TopReview, setTopReview] = useState<Review_data | null>(null);
   const [TopWrite, setTopWrite] = useState<Write_Data | null>(null);
+  const [contentsType, setContentsType] = useState("all");
+  const [times, setTimes] = useState("alltime");
+  const [mergedChart, setMergedChart] = useState<Ranking_Item[]>([]);
 
   // 토큰 확인부
   const token =
     getCookie("Authorization") !== undefined
       ? `Bearer ${getCookie("Authorization")}`
       : "GUEST"; // token 변수를 함수 외부에서 선언
+
+  const mergeRanking = async () => {
+    let mergeDetailList: Array<any> = [];
+    let page = 1;
+    let totalPages = 1;
+
+    try {
+      const MergeRES = await axios.get(
+        `https://api.iimad.com/api/ranking/${times}?page=${page}&type=${contentsType}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (MergeRES.status === 200) {
+        mergeDetailList = MergeRES.data.data.details_list;
+        totalPages = MergeRES.data.data.total_pages;
+
+        if (totalPages === 0) {
+          setMergedChart([]);
+          return;
+        }
+        while (page <= totalPages) {
+          page++;
+          const nextPageRES = await axios.get(
+            `https://api.iimad.com/api/ranking/${times}?page=${page}&type=${contentsType}`,
+            {
+              headers: {
+                Authorization: token,
+              },
+            }
+          );
+          mergeDetailList = mergeDetailList.concat(
+            nextPageRES.data.data.details_list
+          );
+        }
+      }
+    } catch (error) {
+      console.error("Error occurred while liking review:", error);
+    }
+    setMergedChart(mergeDetailList);
+  };
 
   const allTimeRanking = async () => {
     try {
