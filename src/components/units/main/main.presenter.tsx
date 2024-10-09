@@ -384,7 +384,9 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
             <S.ColumnBox>
               <S.RowBox>
                 <S.RankingNumbers>{el.ranking}</S.RankingNumbers>
-                <S.RankingTitle>{el.title}</S.RankingTitle>
+                <S.RankingTitle isTitleLong={el.title.length > 10}>
+                  {el.title}
+                </S.RankingTitle>
               </S.RowBox>
               <S.SubItemsGrayTitle>
                 - {TypeConvert(el.contents_type)}
