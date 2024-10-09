@@ -46,8 +46,7 @@ export const RowBox4 = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
-  width: 150px;
+  justify-content: space-between;
 `;
 
 export const TopRatedWrite = styled.div<{ backgroundUrl: string }>`
@@ -131,6 +130,13 @@ export const RankingTitle = styled.div<{ isTitleLong: boolean }>`
   font-weight: normal;
 `;
 
+export const MergedChartWrapper = styled.div`
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 5%;
+`;
+
 export const title = styled.div`
   font-size: 30px;
   color: #0b0537;
@@ -151,6 +157,16 @@ export const subtitle2 = styled.div<{ active: boolean }>`
   margin-left: 35px;
   margin-top: 30px;
   transition: color 0.3s ease;
+`;
+
+export const subtitle3 = styled.div`
+  cursor: pointer;
+  font-size: 20px;
+  color: "#0b0537";
+  margin-left: 35px;
+  margin-top: 30px;
+  transition: color 0.3s ease;
+  margin-right: 5%;
 `;
 
 export const MainBannerTitle = styled.div`
@@ -191,10 +207,10 @@ export const SubItemsGrayTitle = styled.span`
   margin-left: 5%;
   position: relative;
   font-size: 18px;
-  color: white;
+  color: gray;
 
   z-index: 3;
-  filter: brightness(0.6);
+  /* filter: brightness(0.6); */
 `;
 
 export const TinyPoster = styled.img`
@@ -263,8 +279,8 @@ export const testItem = styled.div`
 `;
 
 export const ModalWrapper = styled.div`
-  width: 800px;
-  height: 1000px;
+  width: 100%;
+  height: 100%;
 `;
 
 export const ModalImg = styled.img`
@@ -290,8 +306,8 @@ export const customModalStyles: ReactModal.Styles = {
     left: "0",
   },
   content: {
-    width: "800px",
-    height: "1000px",
+    width: "80%",
+    height: "80%",
     zIndex: "150",
     position: "absolute",
     top: "50%",

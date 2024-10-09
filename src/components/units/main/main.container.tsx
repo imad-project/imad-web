@@ -323,6 +323,10 @@ export default function MainContainer(): JSX.Element {
     Review();
     Write();
   }, []);
+
+  useEffect(() => {
+    mergeRanking();
+  }, [times]);
   return (
     <MainPageUI
       Ranking={Ranking}
@@ -332,6 +336,10 @@ export default function MainContainer(): JSX.Element {
       allTimeRanking={allTimeRanking}
       monthlyRanking={monthlyRanking}
       weeklyRanking={weeklyRanking}
+      mergeRanking={mergeRanking}
+      mergedChart={mergedChart}
+      setTimes={setTimes}
+      times={times}
     />
   );
 }

@@ -227,6 +227,14 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
     setIsOpenList(updatedIsOpenList);
   };
 
+  const onClickClose = () => {
+    setIsOpen(false);
+  };
+
+  const onClickOpen = () => {
+    setIsOpen(true);
+  };
+
   const [isOpen, setIsOpen] = useState(false);
 
   const TypeConvert = (type: string) => {
@@ -342,38 +350,127 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
           </S.RowBox2>
         </S.WriteBox>
       </S.RowBox>
-      <S.RowBox2>
-        <S.title>아이매드 차트</S.title>
-        <S.subtitle2
+      <S.RowBox4>
+        <S.RowBox2>
+          <S.title>아이매드 차트</S.title>
+          <S.subtitle2
+            onClick={() => {
+              setChart("alltime");
+              props.allTimeRanking();
+            }}
+            active={chart === "alltime"}
+          >
+            전체
+          </S.subtitle2>
+          <S.subtitle>|</S.subtitle>
+          <S.subtitle2
+            onClick={() => {
+              setChart("monthly");
+              props.monthlyRanking();
+            }}
+            active={chart === "monthly"}
+          >
+            월간
+          </S.subtitle2>
+          <S.subtitle>|</S.subtitle>
+          <S.subtitle2
+            onClick={() => {
+              setChart("weekly");
+              props.weeklyRanking();
+            }}
+            active={chart === "weekly"}
+          >
+            주간
+          </S.subtitle2>
+        </S.RowBox2>
+        <S.subtitle3
           onClick={() => {
-            setChart("alltime");
-            props.allTimeRanking();
+            props.mergeRanking();
+            onClickOpen();
           }}
-          active={chart === "alltime"}
         >
-          전체
-        </S.subtitle2>
-        <S.subtitle>|</S.subtitle>
-        <S.subtitle2
-          onClick={() => {
-            setChart("monthly");
-            props.monthlyRanking();
-          }}
-          active={chart === "monthly"}
+          전체보기
+        </S.subtitle3>
+        <Modal
+          isOpen={isOpen}
+          onRequestClose={() => onClickClose()}
+          style={S.customModalStyles}
+          ariaHideApp={false}
+          contentLabel="Pop up Message"
+          shouldCloseOnOverlayClick={true}
         >
-          월간
-        </S.subtitle2>
-        <S.subtitle>|</S.subtitle>
-        <S.subtitle2
-          onClick={() => {
-            setChart("weekly");
-            props.weeklyRanking();
-          }}
-          active={chart === "weekly"}
-        >
-          주간
-        </S.subtitle2>
-      </S.RowBox2>
+          <S.ModalWrapper>
+            <S.RowBox2>
+              <S.title>아이매드 차트 전체보기</S.title>
+              <S.subtitle2
+                onClick={() => {
+                  props.setTimes("alltime");
+                }}
+                active={props.times === "alltime"}
+              >
+                전체
+              </S.subtitle2>
+              <S.subtitle>|</S.subtitle>
+              <S.subtitle2
+                onClick={() => {
+                  props.setTimes("monthly");
+                }}
+                active={props.times === "monthly"}
+              >
+                월간
+              </S.subtitle2>
+              <S.subtitle>|</S.subtitle>
+              <S.subtitle2
+                onClick={() => {
+                  props.setTimes("weekly");
+                }}
+                active={props.times === "weekly"}
+              >
+                주간
+              </S.subtitle2>
+            </S.RowBox2>
+            <S.MergedChartWrapper>
+              {props.mergedChart?.map((el) => (
+                <S.RankingBox key={el.contents_id}>
+                  <S.RankingPoster
+                    src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                  />
+                  <S.ColumnBox>
+                    <S.RowBox>
+                      <S.RankingNumbers>{el.ranking}</S.RankingNumbers>
+                      <S.RankingTitle isTitleLong={el.title.length > 10}>
+                        {el.title}
+                      </S.RankingTitle>
+                    </S.RowBox>
+                    <S.SubItemsGrayTitle>
+                      {el.ranking_changed === 0 ||
+                      el.ranking_changed === null ? (
+                        <>-</> // 수치가 0 또는 null일 경우 "-" 출력
+                      ) : (
+                        <span
+                          style={{
+                            color:
+                              el.ranking_changed > 0 ? "#3fe87f" : "#f05650", // 양수면 초록색, 음수면 빨간색
+                            fontSize: "16px",
+                          }}
+                        >
+                          {el.ranking_changed > 0
+                            ? `▲${el.ranking_changed}`
+                            : `▼${-el.ranking_changed}`}
+                        </span>
+                      )}{" "}
+                      {TypeConvert(el.contents_type)}
+                    </S.SubItemsGrayTitle>
+                  </S.ColumnBox>
+                  <S.RateBox>
+                    <CircularProgressChart value={el.imad_score} />
+                  </S.RateBox>
+                </S.RankingBox>
+              ))}
+            </S.MergedChartWrapper>
+          </S.ModalWrapper>
+        </Modal>
+      </S.RowBox4>
 
       <S.GridBox>
         {topChart?.map((el) => (
@@ -389,7 +486,21 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                 </S.RankingTitle>
               </S.RowBox>
               <S.SubItemsGrayTitle>
-                - {TypeConvert(el.contents_type)}
+                {el.ranking_changed === 0 || el.ranking_changed === null ? (
+                  <>-</> // 수치가 0 또는 null일 경우 "-" 출력
+                ) : (
+                  <span
+                    style={{
+                      color: el.ranking_changed > 0 ? "#3fe87f" : "#f05650", // 양수면 초록색, 음수면 빨간색
+                      fontSize: "16px",
+                    }}
+                  >
+                    {el.ranking_changed > 0
+                      ? `▲${el.ranking_changed}`
+                      : `▼${-el.ranking_changed}`}
+                  </span>
+                )}{" "}
+                {TypeConvert(el.contents_type)}
               </S.SubItemsGrayTitle>
             </S.ColumnBox>
             <S.RateBox>
