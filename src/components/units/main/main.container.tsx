@@ -324,7 +324,7 @@ export default function MainContainer(): JSX.Element {
     Review();
     Write();
   }, []);
-
+  // ㅇ
   useEffect(() => {
     mergeRanking();
   }, [times]);
