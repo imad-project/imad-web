@@ -33,6 +33,9 @@ jobs:
         env:
           CI: ""
 
+      - name: Wait for build to finish
+        run: sleep 5 # 5초 대기
+
       - name: Create tar.gz archive
         run: tar -czf ./build-fe.tar.gz .
         shell: bash
