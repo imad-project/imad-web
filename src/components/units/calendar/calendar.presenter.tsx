@@ -3,7 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { db } from "./calendar.firebase"; // firebase 설정 파일 경로
+import { db } from "./calendar.firebase";
 import {
   collection,
   addDoc,
@@ -15,23 +15,19 @@ import {
 } from "firebase/firestore";
 import styled from "@emotion/styled";
 
-// Event 인터페이스 정의
 interface Event {
-  id: string; // Firestore 문서 ID를 저장하기 위한 추가
+  id: string;
   title: string;
   start: string;
   allDay: boolean;
   color: string;
 }
 
-// 스타일 설정
 const CalendarContainer = styled.div`
   display: flex;
   flex-direction: row;
-
   width: 80%;
-  height: 100vh; /* 전체 화면 높이 */
-
+  height: 100vh;
   margin-right: 10%;
 `;
 
@@ -40,16 +36,16 @@ const CalendarBox = styled.div`
 `;
 
 const StyledButton = styled.button<{ color: string }>`
-  background-color: ${(props) => props.color}; /* 버튼 배경색 */
-  color: white; /* 버튼 텍스트 색상 */
-  border: none; /* 테두리 제거 */
-  border-radius: 5px; /* 둥근 모서리 */
-  padding: 10px 15px; /* 패딩 */
-  margin: 5px; /* 버튼 간격 */
-  cursor: pointer; /* 커서 변경 */
-
+  background-color: ${(props) => props.color};
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+  transition: 0.35s;
   &:hover {
-    background-color: #0056b3; /* 호버 시 배경색 변경 */
+    background-color: black;
   }
 `;
 
@@ -58,17 +54,16 @@ const ButtonBox = styled.div`
   width: 10%;
   display: flex;
   flex-direction: column;
-
   margin-top: 10%;
 `;
 
 export default function CalendarPresenter() {
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [highlightedDate, setHighlightedDate] = useState<string | null>(null); // 강조할 날짜 상태
+  const [highlightedDate, setHighlightedDate] = useState<string | null>(null);
+  const [isDeleteMode, setIsDeleteMode] = useState(false); // 삭제 모드 상태
 
   useEffect(() => {
-    // Firestore에서 일정을 불러오는 함수
     const fetchEvents = async () => {
       const q = query(collection(db, "events"), orderBy("start"));
       const querySnapshot = await getDocs(q);
@@ -76,7 +71,7 @@ export default function CalendarPresenter() {
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         fetchedEvents.push({
-          id: doc.id, // Firestore 문서 ID 추가
+          id: doc.id,
           title: data.title,
           start: data.start,
           allDay: data.allDay,
@@ -86,57 +81,62 @@ export default function CalendarPresenter() {
       setEvents(fetchedEvents);
     };
 
-    fetchEvents(); // 컴포넌트가 마운트될 때 호출
+    fetchEvents();
   }, []);
 
-  // 날짜 클릭 시 호출되는 함수
   const handleDateClick = (arg: { dateStr: string }) => {
     const clickedDate = new Date(arg.dateStr);
     setSelectedDate(arg.dateStr);
-    // 클릭한 날짜의 전날 계산
     clickedDate.setDate(clickedDate.getDate() - 1);
-    setHighlightedDate(clickedDate.toISOString().split("T")[0]); // 전날 저장
+    setHighlightedDate(clickedDate.toISOString().split("T")[0]);
   };
 
-  // 버튼 클릭 시 호출되는 함수
   const addEvent = async (title: string, color: string) => {
     if (selectedDate) {
+      // 같은 날짜에 동일한 이름의 이벤트가 있는지 확인
+      const dateToAdd = new Date(selectedDate).toISOString().split("T")[0];
+      const isDuplicate = events.some(
+        (event) => event.start === dateToAdd && event.title === title
+      );
+
+      if (isDuplicate) {
+        alert("같은 날짜에 같은 이름의 일정이 이미 존재합니다.");
+        return; // 중복된 일정이 있을 경우 함수를 종료
+      }
       const newEvent: Event = {
         title,
-        start: selectedDate, // 강조된 날짜를 사용
+        start: selectedDate,
         allDay: true,
-        id: "", // 초기 값 설정
+        id: "",
         color,
       };
       const docRef = await addDoc(collection(db, "events"), newEvent);
-      newEvent.id = docRef.id; // Firestore 문서 ID 업데이트
+      newEvent.id = docRef.id;
       setEvents((prevEvents) => [...prevEvents, newEvent]);
     } else {
       alert("일정을 추가할 날짜를 선택하세요.");
     }
   };
 
-  // 특정 날짜의 모든 일정 삭제 함수
-  const deleteEvents = async () => {
+  // 특정 날짜와 이름에 해당하는 이벤트 삭제 함수
+  const deleteEventByName = async (title: string) => {
     if (selectedDate) {
       const dateToDelete = new Date(selectedDate).toISOString().split("T")[0];
       const eventsToDelete = events.filter(
-        (event) => event.start === dateToDelete
+        (event) => event.start === dateToDelete && event.title === title
       );
 
-      // 삭제할 이벤트가 있을 경우
       if (eventsToDelete.length > 0) {
         for (const event of eventsToDelete) {
           if (event.id) {
-            // event.id가 정의된 경우에만 삭제
-            const eventDocRef = doc(db, "events", event.id); // Firestore 문서 참조
-            await deleteDoc(eventDocRef); // Firestore에서 삭제
+            const eventDocRef = doc(db, "events", event.id);
+            await deleteDoc(eventDocRef);
           }
         }
-
-        // 상태 업데이트
         setEvents((prevEvents) =>
-          prevEvents.filter((event) => event.start !== dateToDelete)
+          prevEvents.filter(
+            (event) => event.start !== dateToDelete || event.title !== title
+          )
         );
       } else {
         alert("삭제할 일정이 없습니다.");
@@ -146,10 +146,13 @@ export default function CalendarPresenter() {
     }
   };
 
-  // 선택된 날짜에 클래스 추가
+  // 삭제 모드 활성화
+  const toggleDeleteMode = () => {
+    setIsDeleteMode(!isDeleteMode);
+  };
+
   const dayCellClassNames = (arg: { date: Date }) => {
-    const currentDate = arg.date.toISOString().split("T")[0]; // ISO 형식으로 변환하여 날짜 비교
-    // 클릭한 날짜의 전날 강조
+    const currentDate = arg.date.toISOString().split("T")[0];
     return highlightedDate === currentDate ? "selected-date" : "";
   };
 
@@ -157,7 +160,7 @@ export default function CalendarPresenter() {
     <CalendarContainer>
       <CalendarBox>
         <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           dateClick={handleDateClick}
           events={events}
@@ -166,30 +169,92 @@ export default function CalendarPresenter() {
       </CalendarBox>
 
       <ButtonBox>
-        <StyledButton onClick={() => addEvent("천영", "blue")} color="blue">
-          천영 추가
-        </StyledButton>
-        <StyledButton onClick={() => addEvent("윤원", "black")} color="black">
-          윤원 추가
-        </StyledButton>
-        <StyledButton onClick={() => addEvent("승우", "green")} color="green">
-          승우 추가
-        </StyledButton>
-        <StyledButton onClick={() => addEvent("영웅", "red")} color="red">
-          영웅 추가
-        </StyledButton>
-        <StyledButton onClick={deleteEvents} color="gray">
-          삭제
+        {isDeleteMode ? (
+          <>
+            <StyledButton
+              onClick={() => deleteEventByName("천영")}
+              color="#536349"
+            >
+              천영
+              <br />
+              추방
+            </StyledButton>
+            <StyledButton
+              onClick={() => deleteEventByName("윤원")}
+              color="#670fdf"
+            >
+              윤원
+              <br />
+              추방
+            </StyledButton>
+            <StyledButton
+              onClick={() => deleteEventByName("승우")}
+              color="blue"
+            >
+              승우
+              <br />
+              추방
+            </StyledButton>
+            <StyledButton onClick={() => deleteEventByName("영웅")} color="red">
+              영웅
+              <br />
+              추방
+            </StyledButton>
+          </>
+        ) : (
+          <>
+            <StyledButton
+              onClick={() => addEvent("천영", "#536349")}
+              color="#536349"
+            >
+              천영
+              <br />
+              추가
+            </StyledButton>
+            <StyledButton
+              onClick={() => addEvent("윤원", "#670fdf")}
+              color="#670fdf"
+            >
+              윤원
+              <br />
+              추가
+            </StyledButton>
+            <StyledButton onClick={() => addEvent("승우", "blue")} color="blue">
+              승우
+              <br />
+              추가
+            </StyledButton>
+            <StyledButton onClick={() => addEvent("영웅", "red")} color="red">
+              영웅
+              <br />
+              추가
+            </StyledButton>
+          </>
+        )}
+        <StyledButton onClick={toggleDeleteMode} color="gray">
+          {isDeleteMode ? (
+            <>
+              삭제
+              <br />
+              종료
+            </>
+          ) : (
+            <>
+              삭제
+              <br />
+              모드
+            </>
+          )}
         </StyledButton>
       </ButtonBox>
 
       <style>
         {`
         .selected-date {
-          background-color: #cce5ff; /* 강조할 날짜의 배경색 */
-          border-radius: 5px; /* 모서리 둥글게 */
-          padding: 5px; /* 패딩 추가 */
-          color: #000; /* 텍스트 색상 */
+          background-color: #cce5ff;
+          border-radius: 5px;
+          padding: 5px;
+          color: #000;
         }
       `}
       </style>
