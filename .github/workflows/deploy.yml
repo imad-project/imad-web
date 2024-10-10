@@ -33,8 +33,11 @@ jobs:
         env:
           CI: ""
 
+      - name: Wait for build to finish
+        run: sleep 180 # 5초 대기
+
       - name: Create tar.gz archive
-        run: tar --ignore-failed-read -czf ./build-fe.tar.gz .
+        run: tar -czf ./build-fe.tar.gz .
         shell: bash
 
       - name: Configure AWS credentials
