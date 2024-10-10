@@ -22,13 +22,6 @@ export const RowBox2 = styled.div`
   align-items: center;
 `;
 
-export const ColumnBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-  justify-content: center;
-`;
-
 export const RowBox3 = styled.div`
   width: 50%;
   margin-top: 10%;
@@ -39,6 +32,21 @@ export const RowBox3 = styled.div`
   flex-direction: row;
   align-items: center;
   text-align: center;
+`;
+
+export const ColumnBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: center;
+  width: 200px;
+`;
+
+export const RowBox4 = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const TopRatedWrite = styled.div<{ backgroundUrl: string }>`
@@ -74,12 +82,15 @@ export const WriteBox = styled.div`
 `;
 
 export const GridBox = styled.div`
-  margin-left: 10%;
-  margin-right: 10%;
-  width: 80%;
+  margin-top: 20px;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3개의 열로 구성 */
+  grid-template-rows: repeat(3, 1fr); /* 3개의 열로 구성 */
   gap: 30px; /* 아이템 간의 간격 */
+  grid-auto-flow: column;
 `;
 
 export const RankingBox = styled.div`
@@ -101,7 +112,7 @@ export const RankingPoster = styled.img`
 `;
 
 export const RateBox = styled.div`
-  margin-right: 0px;
+  margin-right: 10px;
   width: 80px;
   height: 80px;
 `;
@@ -112,10 +123,18 @@ export const RankingNumbers = styled.div`
   margin-right: 10px;
 `;
 
-export const RankingTitle = styled.div`
-  font-size: 20px;
+export const RankingTitle = styled.div<{ isTitleLong: boolean }>`
+  white-space: pre-wrap;
+  font-size: ${(props) => (props.isTitleLong ? "16px" : "20px")};
   color: #0b0537;
   font-weight: normal;
+`;
+
+export const MergedChartWrapper = styled.div`
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 5%;
 `;
 
 export const title = styled.div`
@@ -138,6 +157,16 @@ export const subtitle2 = styled.div<{ active: boolean }>`
   margin-left: 35px;
   margin-top: 30px;
   transition: color 0.3s ease;
+`;
+
+export const subtitle3 = styled.div`
+  cursor: pointer;
+  font-size: 20px;
+  color: "#0b0537";
+  margin-left: 35px;
+  margin-top: 30px;
+  transition: color 0.3s ease;
+  margin-right: 5%;
 `;
 
 export const MainBannerTitle = styled.div`
@@ -178,10 +207,10 @@ export const SubItemsGrayTitle = styled.span`
   margin-left: 5%;
   position: relative;
   font-size: 18px;
-  color: white;
+  color: gray;
 
   z-index: 3;
-  filter: brightness(0.6);
+  /* filter: brightness(0.6); */
 `;
 
 export const TinyPoster = styled.img`
@@ -250,8 +279,8 @@ export const testItem = styled.div`
 `;
 
 export const ModalWrapper = styled.div`
-  width: 800px;
-  height: 1000px;
+  width: 100%;
+  height: 100%;
 `;
 
 export const ModalImg = styled.img`
@@ -277,8 +306,8 @@ export const customModalStyles: ReactModal.Styles = {
     left: "0",
   },
   content: {
-    width: "800px",
-    height: "1000px",
+    width: "80%",
+    height: "80%",
     zIndex: "150",
     position: "absolute",
     top: "50%",

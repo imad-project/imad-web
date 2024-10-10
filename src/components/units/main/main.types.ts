@@ -1,3 +1,4 @@
+import { useState } from "react";
 interface Ranking_Item {
   contents_id: number;
   contents_type: string;
@@ -142,4 +143,11 @@ export interface IMainProps {
   Recommend: Recommend_data | null;
   TopReview: Review_data | null;
   TopWrite: Write_Data | null;
+  allTimeRanking: () => void;
+  monthlyRanking: () => void;
+  weeklyRanking: () => void;
+  mergeRanking: () => void;
+  mergedChart: Ranking_Item[];
+  setTimes: React.Dispatch<React.SetStateAction<string>>;
+  times: string;
 }
