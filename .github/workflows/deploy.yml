@@ -34,7 +34,7 @@ jobs:
           CI: ""
 
       - name: Create tar.gz archive
-        run: tar -czf ./build-fe.tar.gz ./.next /node_modules /package.json
+        run: tar -czf ./build-fe.tar.gz ./.next ./node_modules ./package.json
         shell: bash
 
       - name: Configure AWS credentials
