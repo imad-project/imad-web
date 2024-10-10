@@ -146,7 +146,7 @@ export default function CalendarPresenter() {
     }
   };
 
-  // 삭제 모드 활성화
+  // 삭제 모드 활성화 ㄹ
   const toggleDeleteMode = () => {
     setIsDeleteMode(!isDeleteMode);
   };
