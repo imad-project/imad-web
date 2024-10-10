@@ -156,6 +156,7 @@ export default function MainContainer(): JSX.Element {
       ? `Bearer ${getCookie("Authorization")}`
       : "GUEST"; // token 변수를 함수 외부에서 선언
 
+  //전체 랭킹 확인부
   const mergeRanking = async () => {
     let mergeDetailList: Array<any> = [];
     let page = 1;
