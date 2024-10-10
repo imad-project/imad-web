@@ -33,12 +33,11 @@ jobs:
         env:
           CI: ""
 
-      - name: Wait for build to finish
-        run: sleep 180 # 5초 대기
+      - name: Install p7zip # Install p7zip
+        run: sudo apt-get install p7zip-full
 
-      - name: Create tar.gz archive
-        run: tar -czf ./build-fe.tar.gz .
-        shell: bash
+      - name: Create 7z archive
+        run: 7z a ./build-fe.7z . # 현재 디렉토리의 모든 파일을 압축합니다.
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -49,7 +48,7 @@ jobs:
 
       - name: Upload to AWS S3
         run: |
-          aws s3 cp --region ap-northeast-2 ./build-fe.tar.gz s3://$S3_BUCKET_NAME/$GITHUB_SHA.tar.gz
+          aws s3 cp --region ap-northeast-2 ./build-fe.7z s3://$S3_BUCKET_NAME/$GITHUB_SHA.7z
 
       - name: Deploy # Deploy to EC2
         run: |
@@ -57,4 +56,4 @@ jobs:
             --application-name ${{ env.CODE_DEPLOY_APP_NAME }} \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
             --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
-            --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.tar.gz,bundleType=tgz
+            --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.7z,bundleType=zip
