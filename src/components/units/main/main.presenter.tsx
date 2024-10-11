@@ -400,38 +400,82 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
           shouldCloseOnOverlayClick={true}
         >
           <S.ModalWrapper>
-            <S.RowBox2>
-              <S.title>아이매드 차트 전체보기</S.title>
-              <S.subtitle2
-                onClick={() => {
-                  props.setTimes("alltime");
-                }}
-                active={props.times === "alltime"}
-              >
-                전체
-              </S.subtitle2>
-              <S.subtitle>|</S.subtitle>
-              <S.subtitle2
-                onClick={() => {
-                  props.setTimes("monthly");
-                }}
-                active={props.times === "monthly"}
-              >
-                월간
-              </S.subtitle2>
-              <S.subtitle>|</S.subtitle>
-              <S.subtitle2
-                onClick={() => {
-                  props.setTimes("weekly");
-                }}
-                active={props.times === "weekly"}
-              >
-                주간
-              </S.subtitle2>
-            </S.RowBox2>
+            <S.RowBox4>
+              <S.RowBox2>
+                <S.title>아이매드 차트 전체보기</S.title>
+                <S.subtitle2
+                  onClick={() => {
+                    props.setTimes("alltime");
+                  }}
+                  active={props.times === "alltime"}
+                >
+                  전체
+                </S.subtitle2>
+                <S.subtitle>|</S.subtitle>
+                <S.subtitle2
+                  onClick={() => {
+                    props.setTimes("monthly");
+                  }}
+                  active={props.times === "monthly"}
+                >
+                  월간
+                </S.subtitle2>
+                <S.subtitle>|</S.subtitle>
+                <S.subtitle2
+                  onClick={() => {
+                    props.setTimes("weekly");
+                  }}
+                  active={props.times === "weekly"}
+                >
+                  주간
+                </S.subtitle2>
+              </S.RowBox2>
+              <S.ModalCancel
+                src="/img/icon/cancel.png"
+                onClick={onClickClose}
+              />
+            </S.RowBox4>
+
+            <S.LeftMarginBox>
+              <S.RowBox2>
+                <S.SubBtn
+                  onClick={() => {
+                    props.setContentsType("all");
+                  }}
+                  active={props.contentsType === "all"}
+                >
+                  전체
+                </S.SubBtn>
+                <S.SubBtn
+                  onClick={() => {
+                    props.setContentsType("tv");
+                  }}
+                  active={props.contentsType === "tv"}
+                >
+                  시리즈
+                </S.SubBtn>
+                <S.SubBtn
+                  onClick={() => {
+                    props.setContentsType("movie");
+                  }}
+                  active={props.contentsType === "movie"}
+                >
+                  영화
+                </S.SubBtn>
+                <S.SubBtn
+                  onClick={() => {
+                    props.setContentsType("animation");
+                  }}
+                  active={props.contentsType === "animation"}
+                >
+                  애니메이션
+                </S.SubBtn>
+              </S.RowBox2>
+            </S.LeftMarginBox>
+
             <S.MergedChartWrapper>
               {props.mergedChart?.map((el) => (
-                <S.RankingBox key={el.contents_id}>
+                <S.RankingBox2 key={el.contents_id}>
                   <S.RankingPoster
                     src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
                   />
@@ -465,7 +509,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   <S.RateBox>
                     <CircularProgressChart value={el.imad_score} />
                   </S.RateBox>
-                </S.RankingBox>
+                </S.RankingBox2>
               ))}
             </S.MergedChartWrapper>
           </S.ModalWrapper>
