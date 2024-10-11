@@ -400,35 +400,42 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
           shouldCloseOnOverlayClick={true}
         >
           <S.ModalWrapper>
-            <S.RowBox2>
-              <S.title>아이매드 차트 전체보기</S.title>
-              <S.subtitle2
-                onClick={() => {
-                  props.setTimes("alltime");
-                }}
-                active={props.times === "alltime"}
-              >
-                전체
-              </S.subtitle2>
-              <S.subtitle>|</S.subtitle>
-              <S.subtitle2
-                onClick={() => {
-                  props.setTimes("monthly");
-                }}
-                active={props.times === "monthly"}
-              >
-                월간
-              </S.subtitle2>
-              <S.subtitle>|</S.subtitle>
-              <S.subtitle2
-                onClick={() => {
-                  props.setTimes("weekly");
-                }}
-                active={props.times === "weekly"}
-              >
-                주간
-              </S.subtitle2>
-            </S.RowBox2>
+            <S.RowBox4>
+              <S.RowBox2>
+                <S.title>아이매드 차트 전체보기</S.title>
+                <S.subtitle2
+                  onClick={() => {
+                    props.setTimes("alltime");
+                  }}
+                  active={props.times === "alltime"}
+                >
+                  전체
+                </S.subtitle2>
+                <S.subtitle>|</S.subtitle>
+                <S.subtitle2
+                  onClick={() => {
+                    props.setTimes("monthly");
+                  }}
+                  active={props.times === "monthly"}
+                >
+                  월간
+                </S.subtitle2>
+                <S.subtitle>|</S.subtitle>
+                <S.subtitle2
+                  onClick={() => {
+                    props.setTimes("weekly");
+                  }}
+                  active={props.times === "weekly"}
+                >
+                  주간
+                </S.subtitle2>
+              </S.RowBox2>
+              <S.ModalCancel
+                src="/img/icon/cancel.png"
+                onClick={onClickClose}
+              />
+            </S.RowBox4>
+
             <S.LeftMarginBox>
               <S.RowBox2>
                 <S.SubBtn

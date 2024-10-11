@@ -329,6 +329,7 @@ export const ModalImg = styled.img`
 export const ModalCancel = styled.img`
   height: 30px;
   width: 30px;
+  cursor: pointer;
 `;
 
 export const customModalStyles: ReactModal.Styles = {
