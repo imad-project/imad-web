@@ -1,3 +1,4 @@
+import { contextType } from "react-modal";
 import { useState } from "react";
 interface Ranking_Item {
   contents_id: number;
@@ -150,4 +151,6 @@ export interface IMainProps {
   mergedChart: Ranking_Item[];
   setTimes: React.Dispatch<React.SetStateAction<string>>;
   times: string;
+  setContentsType: React.Dispatch<React.SetStateAction<string>>;
+  contentsType: string;
 }

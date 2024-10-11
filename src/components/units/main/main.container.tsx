@@ -327,7 +327,7 @@ export default function MainContainer(): JSX.Element {
   // ㅇ
   useEffect(() => {
     mergeRanking();
-  }, [times]);
+  }, [times, contentsType]);
   return (
     <MainPageUI
       Ranking={Ranking}
@@ -341,6 +341,8 @@ export default function MainContainer(): JSX.Element {
       mergedChart={mergedChart}
       setTimes={setTimes}
       times={times}
+      setContentsType={setContentsType}
+      contentsType={contentsType}
     />
   );
 }

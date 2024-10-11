@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+
 import ReactModal from "react-modal";
 
 export const Wrapper = styled.div`
@@ -47,6 +48,10 @@ export const RowBox4 = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const LeftMarginBox = styled.div`
+  margin-left: 35px;
 `;
 
 export const TopRatedWrite = styled.div<{ backgroundUrl: string }>`
@@ -157,6 +162,25 @@ export const subtitle2 = styled.div<{ active: boolean }>`
   margin-left: 35px;
   margin-top: 30px;
   transition: color 0.3s ease;
+`;
+
+export const SubBtn = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  font-size: 18px;
+  min-width: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-right: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: 2px solid #0b0537;
+  border-radius: 15px;
+  color: ${(props) => (props.active ? "white" : "#0b0537")};
+  background-color: ${(props) => (props.active ? "#0b0537" : "white")};
 `;
 
 export const subtitle3 = styled.div`

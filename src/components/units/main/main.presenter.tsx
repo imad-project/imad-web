@@ -429,6 +429,43 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                 주간
               </S.subtitle2>
             </S.RowBox2>
+            <S.LeftMarginBox>
+              <S.RowBox2>
+                <S.SubBtn
+                  onClick={() => {
+                    props.setContentsType("all");
+                  }}
+                  active={props.contentsType === "all"}
+                >
+                  전체
+                </S.SubBtn>
+                <S.SubBtn
+                  onClick={() => {
+                    props.setContentsType("tv");
+                  }}
+                  active={props.contentsType === "tv"}
+                >
+                  시리즈
+                </S.SubBtn>
+                <S.SubBtn
+                  onClick={() => {
+                    props.setContentsType("movie");
+                  }}
+                  active={props.contentsType === "movie"}
+                >
+                  영화
+                </S.SubBtn>
+                <S.SubBtn
+                  onClick={() => {
+                    props.setContentsType("animation");
+                  }}
+                  active={props.contentsType === "animation"}
+                >
+                  애니메이션
+                </S.SubBtn>
+              </S.RowBox2>
+            </S.LeftMarginBox>
+
             <S.MergedChartWrapper>
               {props.mergedChart?.map((el) => (
                 <S.RankingBox key={el.contents_id}>
