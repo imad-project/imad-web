@@ -109,6 +109,18 @@ export const RankingBox = styled.div`
   align-items: center;
 `;
 
+export const RankingBox2 = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px gray;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
 export const RankingPoster = styled.img`
   position: relative;
   width: auto;

@@ -468,7 +468,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
 
             <S.MergedChartWrapper>
               {props.mergedChart?.map((el) => (
-                <S.RankingBox key={el.contents_id}>
+                <S.RankingBox2 key={el.contents_id}>
                   <S.RankingPoster
                     src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
                   />
@@ -502,7 +502,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   <S.RateBox>
                     <CircularProgressChart value={el.imad_score} />
                   </S.RateBox>
-                </S.RankingBox>
+                </S.RankingBox2>
               ))}
             </S.MergedChartWrapper>
           </S.ModalWrapper>
