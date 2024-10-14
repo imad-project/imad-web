@@ -264,6 +264,104 @@ export const Profile_image = styled.img`
   border-radius: 50px;
 `;
 
+export const Recommend_Box = styled.div`
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+export const Gradation_Box1 = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  border-radius: 15px;
+  background-image: linear-gradient(135deg, pink, yellow);
+  width: 30%;
+  height: 500px;
+`;
+
+export const Gradation_Box2 = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  border-radius: 15px;
+  background-image: linear-gradient(135deg, #042e53, #e21a51);
+  width: 30%;
+  height: 500px;
+`;
+
+export const Gradation_Box3 = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  border-radius: 15px;
+  background-image: linear-gradient(135deg, #006acc, #5bff3d);
+  width: 30%;
+  height: 500px;
+`;
+
+export const Recommend_Title = styled.div`
+  position: relative;
+  font-size: 18px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+  z-index: 3;
+`;
+
+export const Recommend_SubTitle = styled.div`
+  position: relative;
+  font-size: 16px;
+  color: white;
+
+  z-index: 3;
+`;
+
+export const Recommend_MainTitle = styled.div`
+  position: relative;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+  z-index: 3;
+`;
+
+export const Recommend_SubTitleBtn = styled.span`
+  cursor: pointer;
+  margin-left: 10%;
+  position: relative;
+  font-size: 20px;
+  color: white;
+
+  z-index: 3;
+  :hover {
+    color: gray;
+    transition: 0.3s ease-in-out;
+  }
+`;
+
+export const Recommend_Item = styled.div`
+  cursor: pointer;
+  border-top: 1px solid gray;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  :hover {
+    background-color: gray;
+    transition: 0.3s ease-in-out;
+  }
+`;
+
 export const SubBannerWrapper = styled.div`
   width: 100%;
   height: 100%;

@@ -141,6 +141,17 @@ interface Comments_Data {
   sort_property: string;
 }
 
+interface LoginData {
+  email: string;
+  nickname: string;
+  auth_provider: string;
+  gender: string;
+  birth_year: number;
+  age_range: number;
+  profile_image: string;
+  role: string;
+}
+
 export default function MainContainer(): JSX.Element {
   const [Ranking, setRanking] = useState<Ranking | null>(null);
   const [Recommend, setRecommend] = useState<Recommend_data | null>(null);
@@ -149,12 +160,33 @@ export default function MainContainer(): JSX.Element {
   const [contentsType, setContentsType] = useState("all");
   const [times, setTimes] = useState("alltime");
   const [mergedChart, setMergedChart] = useState<Ranking_Item[]>([]);
+  const [loginData, setLoginData] = useState<LoginData | null>(null);
 
   // 토큰 확인부
   const token =
     getCookie("Authorization") !== undefined
       ? `Bearer ${getCookie("Authorization")}`
       : "GUEST"; // token 변수를 함수 외부에서 선언
+
+  // 로그인정보 확인부
+  const MainLogin = async () => {
+    if (token === "GUEST") {
+      console.log("로그인되지 않은 사용자입니다.");
+      return;
+    }
+    try {
+      const LoginRES = await axios.get("https://api.iimad.com/api/user", {
+        headers: {
+          Authorization: token,
+        },
+      });
+      if (LoginRES.status === 200) {
+        setLoginData(LoginRES.data.data);
+      }
+    } catch (error) {
+      console.error("Error occurred while liking review:", error);
+    }
+  };
 
   //전체 랭킹 확인부
   const mergeRanking = async () => {
@@ -323,8 +355,9 @@ export default function MainContainer(): JSX.Element {
     TotalRecommend();
     Review();
     Write();
+    MainLogin();
   }, []);
-  // ㅇ
+
   useEffect(() => {
     mergeRanking();
   }, [times, contentsType]);
@@ -343,6 +376,7 @@ export default function MainContainer(): JSX.Element {
       times={times}
       setContentsType={setContentsType}
       contentsType={contentsType}
+      loginData={loginData}
     />
   );
 }

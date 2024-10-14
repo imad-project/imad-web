@@ -139,6 +139,17 @@ interface Comments_Data {
   sort_property: string;
 }
 
+interface LoginData {
+  email: string;
+  nickname: string;
+  auth_provider: string;
+  gender: string;
+  birth_year: number;
+  age_range: number;
+  profile_image: string;
+  role: string;
+}
+
 export interface IMainProps {
   Ranking: Ranking | null;
   Recommend: Recommend_data | null;
@@ -153,4 +164,5 @@ export interface IMainProps {
   times: string;
   setContentsType: React.Dispatch<React.SetStateAction<string>>;
   contentsType: string;
+  loginData: LoginData | null;
 }

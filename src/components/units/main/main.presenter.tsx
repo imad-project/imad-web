@@ -7,8 +7,7 @@ import CircularProgressChart from "@/src/commons/rate_view/rate_view";
 
 import Modal, { contextType } from "react-modal";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { delay } from "framer-motion";
+
 import { IMainProps } from "./main.types";
 import { findGenreNames } from "../../../../src/commons/gerne_finder/gerne_finder";
 
@@ -170,6 +169,20 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
     props.Recommend?.trend_recommendation_movie?.results?.slice(0, 20);
 
   const topChart = props.Ranking?.details_list.slice(0, 9);
+  const topUserTv =
+    props.Recommend?.user_activity_recommendation_tv?.results?.slice(0, 4);
+  const topUserMovie =
+    props.Recommend?.user_activity_recommendation_movie?.results?.slice(0, 4);
+  const topUserAnimationTv =
+    props.Recommend?.user_activity_recommendation_tv_animation?.results?.slice(
+      0,
+      4
+    );
+  const topUserMovieAnimation =
+    props.Recommend?.user_activity_recommendation_movie_animation?.results?.slice(
+      0,
+      4
+    );
 
   const toptenBanner =
     category === "movie" ? toptenMovieBanner : toptenTvBanner;
@@ -554,8 +567,102 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
         ))}
       </S.GridBox>
 
+      {props.Recommend?.user_activity_recommendation_tv ? (
+        <>
+          <S.title>내 작품 골라보기</S.title>
+          <S.Recommend_Box>
+            <S.Gradation_Box1>
+              <S.RowBox>
+                <S.Recommend_MainTitle>
+                  {props.loginData?.nickname} 님을 위한
+                  <br />
+                  시리즈
+                </S.Recommend_MainTitle>
+                <S.Recommend_SubTitleBtn>전체보기</S.Recommend_SubTitleBtn>
+              </S.RowBox>
+
+              {topUserTv?.map((el) => (
+                <S.Recommend_Item key={el.name}>
+                  <S.TinyPoster
+                    src={
+                      el.poster_path
+                        ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
+                        : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                    }
+                  />
+                  <S.ColumnBox>
+                    <S.Recommend_Title>{el.name}</S.Recommend_Title>
+                    <S.Recommend_SubTitle>
+                      {findGenreNames("tv", el.genre_ids).join(", ")}
+                    </S.Recommend_SubTitle>
+                  </S.ColumnBox>
+                </S.Recommend_Item>
+              ))}
+            </S.Gradation_Box1>
+            <S.Gradation_Box2>
+              <S.RowBox>
+                <S.Recommend_MainTitle>
+                  {props.loginData?.nickname} 님을 위한
+                  <br />
+                  영화
+                </S.Recommend_MainTitle>
+                <S.Recommend_SubTitleBtn>전체보기</S.Recommend_SubTitleBtn>
+              </S.RowBox>
+
+              {topUserMovie?.map((el) => (
+                <S.Recommend_Item key={el.title}>
+                  <S.TinyPoster
+                    src={
+                      el.poster_path
+                        ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
+                        : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                    }
+                  />
+                  <S.ColumnBox>
+                    <S.Recommend_Title>{el.title}</S.Recommend_Title>
+                    <S.Recommend_SubTitle>
+                      {findGenreNames("tv", el.genre_ids).join(", ")}
+                    </S.Recommend_SubTitle>
+                  </S.ColumnBox>
+                </S.Recommend_Item>
+              ))}
+            </S.Gradation_Box2>
+            <S.Gradation_Box3>
+              <S.RowBox>
+                <S.Recommend_MainTitle>
+                  {props.loginData?.nickname} 님을 위한
+                  <br />
+                  애니메이션 시리즈
+                </S.Recommend_MainTitle>
+                <S.Recommend_SubTitleBtn>전체보기</S.Recommend_SubTitleBtn>
+              </S.RowBox>
+
+              {topUserAnimationTv?.map((el) => (
+                <S.Recommend_Item key={el.name}>
+                  <S.TinyPoster
+                    src={
+                      el.poster_path
+                        ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
+                        : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                    }
+                  />
+                  <S.ColumnBox>
+                    <S.Recommend_Title>{el.name}</S.Recommend_Title>
+                    <S.Recommend_SubTitle>
+                      {findGenreNames("tv", el.genre_ids).join(", ")}
+                    </S.Recommend_SubTitle>
+                  </S.ColumnBox>
+                </S.Recommend_Item>
+              ))}
+            </S.Gradation_Box3>
+          </S.Recommend_Box>
+        </>
+      ) : (
+        <></>
+      )}
+
       <S.title>월간 작품 랭킹</S.title>
-      <S.SubBannerWrapper>
+      {/* <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {props?.Ranking?.details_list?.map((el: any, index: any) => (
             <>
@@ -587,7 +694,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
             </>
           ))}
         </StyledSlider>
-      </S.SubBannerWrapper>
+      </S.SubBannerWrapper> */}
       <S.title>로맨스</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
