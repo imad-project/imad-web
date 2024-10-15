@@ -305,9 +305,9 @@ export const Gradation_Box3 = styled.div`
   height: 500px;
 `;
 
-export const Recommend_Title = styled.div`
+export const Recommend_Title = styled.div<{ isTitleLong: boolean }>`
   position: relative;
-  font-size: 18px;
+  font-size: ${(props) => (props.isTitleLong ? "16px" : "18px")};
   margin-top: 10px;
   margin-bottom: 10px;
   color: white;

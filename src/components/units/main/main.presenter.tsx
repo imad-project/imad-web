@@ -591,7 +591,9 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                     }
                   />
                   <S.ColumnBox>
-                    <S.Recommend_Title>{el.name}</S.Recommend_Title>
+                    <S.Recommend_Title isTitleLong={el.name?.length > 10}>
+                      {el.name}
+                    </S.Recommend_Title>
                     <S.Recommend_SubTitle>
                       {findGenreNames("tv", el.genre_ids).join(", ")}
                     </S.Recommend_SubTitle>
@@ -619,7 +621,9 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                     }
                   />
                   <S.ColumnBox>
-                    <S.Recommend_Title>{el.title}</S.Recommend_Title>
+                    <S.Recommend_Title isTitleLong={el.title?.length > 10}>
+                      {el.title}
+                    </S.Recommend_Title>
                     <S.Recommend_SubTitle>
                       {findGenreNames("tv", el.genre_ids).join(", ")}
                     </S.Recommend_SubTitle>
@@ -647,7 +651,9 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                     }
                   />
                   <S.ColumnBox>
-                    <S.Recommend_Title>{el.name}</S.Recommend_Title>
+                    <S.Recommend_Title isTitleLong={el.name?.length > 10}>
+                      {el.name}
+                    </S.Recommend_Title>
                     <S.Recommend_SubTitle>
                       {findGenreNames("tv", el.genre_ids).join(", ")}
                     </S.Recommend_SubTitle>
