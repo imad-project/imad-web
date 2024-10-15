@@ -582,7 +582,10 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
               </S.RowBox>
 
               {topUserTv?.map((el) => (
-                <S.Recommend_Item key={el.name}>
+                <S.Recommend_Item
+                  key={el.name}
+                  onClick={() => props.onClickTvContents(el.id)}
+                >
                   <S.TinyPoster
                     src={
                       el.poster_path
@@ -612,7 +615,10 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
               </S.RowBox>
 
               {topUserMovie?.map((el) => (
-                <S.Recommend_Item key={el.title}>
+                <S.Recommend_Item
+                  key={el.title}
+                  onClick={() => props.onClickMovieContents(el.id)}
+                >
                   <S.TinyPoster
                     src={
                       el.poster_path
@@ -642,7 +648,10 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
               </S.RowBox>
 
               {topUserAnimationTv?.map((el) => (
-                <S.Recommend_Item key={el.name}>
+                <S.Recommend_Item
+                  key={el.name}
+                  onClick={() => props.onClickTvContents(el.id)}
+                >
                   <S.TinyPoster
                     src={
                       el.poster_path

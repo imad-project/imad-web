@@ -165,4 +165,6 @@ export interface IMainProps {
   setContentsType: React.Dispatch<React.SetStateAction<string>>;
   contentsType: string;
   loginData: LoginData | null;
+  onClickTvContents: (id: number) => void;
+  onClickMovieContents: (id: number) => void;
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import MainPageUI from "./main.presenter";
 import axios from "axios";
 import { getCookie } from "@/src/commons/cookies/cookie";
+import { useRouter } from "next/router";
 
 interface Ranking_Item {
   contents_id: number;
@@ -161,6 +162,7 @@ export default function MainContainer(): JSX.Element {
   const [times, setTimes] = useState("alltime");
   const [mergedChart, setMergedChart] = useState<Ranking_Item[]>([]);
   const [loginData, setLoginData] = useState<LoginData | null>(null);
+  const router = useRouter();
 
   // 토큰 확인부
   const token =
@@ -350,6 +352,13 @@ export default function MainContainer(): JSX.Element {
     }
   };
 
+  const onClickTvContents = (id: number): void => {
+    void router.push(`/search/tv/${id}`);
+  };
+  const onClickMovieContents = (id: number): void => {
+    void router.push(`/search/movie/${id}`);
+  };
+
   useEffect(() => {
     allTimeRanking();
     TotalRecommend();
@@ -377,6 +386,8 @@ export default function MainContainer(): JSX.Element {
       setContentsType={setContentsType}
       contentsType={contentsType}
       loginData={loginData}
+      onClickTvContents={onClickTvContents}
+      onClickMovieContents={onClickMovieContents}
     />
   );
 }
