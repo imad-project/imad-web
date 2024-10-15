@@ -250,6 +250,36 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const [isOpen1, setIsOpen1] = useState(false);
+
+  const [isOpen2, setIsOpen2] = useState(false);
+
+  const [isOpen3, setIsOpen3] = useState(false);
+
+  const onClickOpen1 = () => {
+    setIsOpen1(true);
+  };
+
+  const onClickClose1 = () => {
+    setIsOpen1(false);
+  };
+
+  const onClickOpen2 = () => {
+    setIsOpen2(true);
+  };
+
+  const onClickClose2 = () => {
+    setIsOpen2(false);
+  };
+
+  const onClickOpen3 = () => {
+    setIsOpen3(true);
+  };
+
+  const onClickClose3 = () => {
+    setIsOpen3(false);
+  };
+
   const TypeConvert = (type: string) => {
     return ContentsType.filter((ContentsType) =>
       type.includes(ContentsType.id)
@@ -578,7 +608,60 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   <br />
                   시리즈
                 </S.Recommend_MainTitle>
-                <S.Recommend_SubTitleBtn>전체보기</S.Recommend_SubTitleBtn>
+                <S.Recommend_SubTitleBtn onClick={onClickOpen1}>
+                  전체보기
+                </S.Recommend_SubTitleBtn>
+                <Modal
+                  isOpen={isOpen1}
+                  onRequestClose={() => onClickClose1()}
+                  style={S.customModalStyles}
+                  ariaHideApp={false}
+                  contentLabel="Pop up Message"
+                  shouldCloseOnOverlayClick={true}
+                >
+                  <S.ModalWrapper>
+                    <S.RowBox4>
+                      <S.title>내가 좋아할 작품들</S.title>
+                      <S.ModalCancel
+                        src="/img/icon/cancel.png"
+                        onClick={onClickClose1}
+                      />
+                    </S.RowBox4>
+                    {props.Recommend?.user_activity_recommendation_tv?.results.map(
+                      (el) => (
+                        <S.DetailBox
+                          onClick={() => props.onClickTvContents(el.id)}
+                        >
+                          <S.Recommend_Detail_Item
+                            key={el.name}
+                            backgroundUrl={
+                              el.backdrop_path
+                                ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
+                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                            }
+                          ></S.Recommend_Detail_Item>
+                          <S.Middle_Poster
+                            src={
+                              el.poster_path
+                                ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
+                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                            }
+                          />
+                          <S.ColumnBox>
+                            <S.Recommend_Title
+                              isTitleLong={el.name?.length > 10}
+                            >
+                              {el.name}
+                            </S.Recommend_Title>
+                            <S.Recommend_SubTitle>
+                              {findGenreNames("tv", el.genre_ids).join(", ")}
+                            </S.Recommend_SubTitle>
+                          </S.ColumnBox>
+                        </S.DetailBox>
+                      )
+                    )}
+                  </S.ModalWrapper>
+                </Modal>
               </S.RowBox>
 
               {topUserTv?.map((el) => (
@@ -611,7 +694,60 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   <br />
                   영화
                 </S.Recommend_MainTitle>
-                <S.Recommend_SubTitleBtn>전체보기</S.Recommend_SubTitleBtn>
+                <S.Recommend_SubTitleBtn onClick={onClickOpen2}>
+                  전체보기
+                </S.Recommend_SubTitleBtn>
+                <Modal
+                  isOpen={isOpen2}
+                  onRequestClose={() => onClickClose2()}
+                  style={S.customModalStyles}
+                  ariaHideApp={false}
+                  contentLabel="Pop up Message"
+                  shouldCloseOnOverlayClick={true}
+                >
+                  <S.ModalWrapper>
+                    <S.RowBox4>
+                      <S.title>내가 좋아할 작품들</S.title>
+                      <S.ModalCancel
+                        src="/img/icon/cancel.png"
+                        onClick={onClickClose2}
+                      />
+                    </S.RowBox4>
+                    {props.Recommend?.user_activity_recommendation_movie?.results.map(
+                      (el) => (
+                        <S.DetailBox
+                          onClick={() => props.onClickMovieContents(el.id)}
+                        >
+                          <S.Recommend_Detail_Item
+                            key={el.title}
+                            backgroundUrl={
+                              el.backdrop_path
+                                ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
+                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                            }
+                          ></S.Recommend_Detail_Item>
+                          <S.Middle_Poster
+                            src={
+                              el.poster_path
+                                ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
+                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                            }
+                          />
+                          <S.ColumnBox>
+                            <S.Recommend_Title
+                              isTitleLong={el.title?.length > 10}
+                            >
+                              {el.title}
+                            </S.Recommend_Title>
+                            <S.Recommend_SubTitle>
+                              {findGenreNames("movie", el.genre_ids).join(", ")}
+                            </S.Recommend_SubTitle>
+                          </S.ColumnBox>
+                        </S.DetailBox>
+                      )
+                    )}
+                  </S.ModalWrapper>
+                </Modal>
               </S.RowBox>
 
               {topUserMovie?.map((el) => (
@@ -631,7 +767,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                       {el.title}
                     </S.Recommend_Title>
                     <S.Recommend_SubTitle>
-                      {findGenreNames("tv", el.genre_ids).join(", ")}
+                      {findGenreNames("movie", el.genre_ids).join(", ")}
                     </S.Recommend_SubTitle>
                   </S.ColumnBox>
                 </S.Recommend_Item>
@@ -644,7 +780,60 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   <br />
                   애니메이션 시리즈
                 </S.Recommend_MainTitle>
-                <S.Recommend_SubTitleBtn>전체보기</S.Recommend_SubTitleBtn>
+                <S.Recommend_SubTitleBtn onClick={onClickOpen3}>
+                  전체보기
+                </S.Recommend_SubTitleBtn>
+                <Modal
+                  isOpen={isOpen3}
+                  onRequestClose={() => onClickClose3()}
+                  style={S.customModalStyles}
+                  ariaHideApp={false}
+                  contentLabel="Pop up Message"
+                  shouldCloseOnOverlayClick={true}
+                >
+                  <S.ModalWrapper>
+                    <S.RowBox4>
+                      <S.title>내가 좋아할 작품들</S.title>
+                      <S.ModalCancel
+                        src="/img/icon/cancel.png"
+                        onClick={onClickClose3}
+                      />
+                    </S.RowBox4>
+                    {props.Recommend?.user_activity_recommendation_tv_animation?.results.map(
+                      (el) => (
+                        <S.DetailBox
+                          onClick={() => props.onClickTvContents(el.id)}
+                        >
+                          <S.Recommend_Detail_Item
+                            key={el.name}
+                            backgroundUrl={
+                              el.backdrop_path
+                                ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
+                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                            }
+                          ></S.Recommend_Detail_Item>
+                          <S.Middle_Poster
+                            src={
+                              el.poster_path
+                                ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
+                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                            }
+                          />
+                          <S.ColumnBox>
+                            <S.Recommend_Title
+                              isTitleLong={el.name?.length > 10}
+                            >
+                              {el.name}
+                            </S.Recommend_Title>
+                            <S.Recommend_SubTitle>
+                              {findGenreNames("tv", el.genre_ids).join(", ")}
+                            </S.Recommend_SubTitle>
+                          </S.ColumnBox>
+                        </S.DetailBox>
+                      )
+                    )}
+                  </S.ModalWrapper>
+                </Modal>
               </S.RowBox>
 
               {topUserAnimationTv?.map((el) => (

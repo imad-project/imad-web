@@ -362,6 +362,51 @@ export const Recommend_Item = styled.div`
   }
 `;
 
+export const DetailBox = styled.div`
+  /* border: 1px solid gray; */
+
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const Recommend_Detail_Item = styled.div<{ backgroundUrl: string }>`
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  height: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-image: url(${(props) => props.backgroundUrl});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: gray;
+  filter: brightness(0.5) blur(20px);
+  :hover {
+    filter: brightness(0.1) blur(0px);
+    transition: 0.2s ease-in-out;
+  }
+`;
+
+export const Middle_Poster = styled.img`
+  position: relative;
+  width: auto;
+  height: 150px;
+  border-radius: 10px;
+  z-index: 3;
+  margin-left: 10%;
+  margin-right: 10%;
+`;
+
 export const SubBannerWrapper = styled.div`
   width: 100%;
   height: 100%;
