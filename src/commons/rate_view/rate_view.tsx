@@ -7,12 +7,14 @@ const PATH_COLOR = "#0b0537"; // 차트에 표시될 선
 const TRAIL_COLOR = "#DFE8FF"; // 차트의 배경선
 
 interface CircularProgressChartProps {
-  value: number | null;
+  value: number | null | undefined;
 }
 
 const ProgressbarContainer = styled.div`
   width: 100%;
   height: 100%;
+  min-width: 50px;
+  min-height: 50px;
 
   margin-right: 10%;
   position: relative;

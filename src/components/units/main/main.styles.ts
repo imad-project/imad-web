@@ -264,16 +264,157 @@ export const Profile_image = styled.img`
   border-radius: 50px;
 `;
 
+export const Recommend_Box = styled.div`
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+export const Gradation_Box1 = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  border-radius: 15px;
+  background-image: linear-gradient(135deg, pink, yellow);
+  width: 30%;
+  height: 500px;
+`;
+
+export const Gradation_Box2 = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  border-radius: 15px;
+  background-image: linear-gradient(135deg, #042e53, #e21a51);
+  width: 30%;
+  height: 500px;
+`;
+
+export const Gradation_Box3 = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  border-radius: 15px;
+  background-image: linear-gradient(135deg, #006acc, #5bff3d);
+  width: 30%;
+  height: 500px;
+`;
+
+export const Recommend_Title = styled.div<{ isTitleLong: boolean }>`
+  position: relative;
+  font-size: ${(props) => (props.isTitleLong ? "16px" : "18px")};
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+  z-index: 3;
+`;
+
+export const Recommend_SubTitle = styled.div`
+  position: relative;
+  font-size: 16px;
+  color: white;
+
+  z-index: 3;
+`;
+
+export const Recommend_MainTitle = styled.div`
+  position: relative;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+  z-index: 3;
+`;
+
+export const Recommend_SubTitleBtn = styled.span`
+  cursor: pointer;
+  margin-left: 10%;
+  position: relative;
+  font-size: 20px;
+  color: white;
+
+  z-index: 3;
+  :hover {
+    color: gray;
+    transition: 0.3s ease-in-out;
+  }
+`;
+
+export const Recommend_Item = styled.div`
+  cursor: pointer;
+  border-top: 1px solid gray;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  :hover {
+    background-color: gray;
+    transition: 0.3s ease-in-out;
+  }
+`;
+
+export const DetailBox = styled.div`
+  /* border: 1px solid gray; */
+
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const Recommend_Detail_Item = styled.div<{ backgroundUrl: string }>`
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  height: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-image: url(${(props) => props.backgroundUrl});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: gray;
+  filter: brightness(0.5) blur(20px);
+  :hover {
+    filter: brightness(0.1) blur(0px);
+    transition: 0.2s ease-in-out;
+  }
+`;
+
+export const Middle_Poster = styled.img`
+  position: relative;
+  width: auto;
+  height: 150px;
+  border-radius: 10px;
+  z-index: 3;
+  margin-left: 10%;
+  margin-right: 10%;
+`;
+
 export const SubBannerWrapper = styled.div`
   width: 100%;
   height: 100%;
-`;
-export const SubSliderItem = styled.img`
-  height: 400px;
-  width: 250px;
-  margin: auto;
-  border-radius: 10px;
-  box-shadow: 1px 1px 10px gray;
+
+  padding-left: 10%;
+  padding-right: 10%;
+  position: relative;
+  margin-bottom: 20px;
 `;
 
 export const MainBannerWrapper = styled.div`
@@ -291,12 +432,37 @@ export const ImgBox = styled.div<{ url: string }>`
   justify-content: center;
 `;
 
-export const ImgBox2 = styled.div`
-  width: 100%;
-  height: 100%;
+export const SubSliderBox = styled.div`
   display: flex;
   flex-direction: column;
-  align-content: center;
+  align-items: center;
+  gap: 12px; /* 이미지와 제목 사이 간격 */
+
+  padding: 16px;
+`;
+
+export const ImgBox2 = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SubSliderItem = styled.img`
+  height: 300px;
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px gray;
+`;
+
+export const SubSliderTextBox = styled.div`
+  height: 50px;
+  width: 100%;
+  margin-top: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 `;
 
