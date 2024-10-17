@@ -40,6 +40,14 @@ const BannerContent = styled.div`
   z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
 `;
 
+const BannerContent1 = styled.div`
+  cursor: pointer;
+  position: relative;
+
+  z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
+  margin-bottom: 50px;
+`;
+
 const BannerBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,6 +73,22 @@ const NextTo = styled.div`
   height: 30px;
   position: absolute;
   right: 3%;
+  z-index: 3;
+`;
+
+const Pre1 = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: -10%;
+  z-index: 3;
+`;
+
+const NextTo1 = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: -10%;
   z-index: 3;
 `;
 
@@ -211,17 +235,20 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 2,
+    slidesToShow: 5,
+    slidesToScroll: 5,
     swipeToSlide: true,
+    rows: 2,
+
     nextArrow: (
-      <NextTo>
+      <NextTo1>
         <Arrow src="/img/icon/next.png" />
-      </NextTo>
+      </NextTo1>
     ),
     prevArrow: (
-      <Pre>
+      <Pre1>
         <Arrow src="/img/icon/prev.png" />
-      </Pre>
+      </Pre1>
     ),
   };
 
@@ -865,57 +892,122 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
         <></>
       )}
 
-      <S.title>월간 작품 랭킹</S.title>
-      {/* <S.SubBannerWrapper>
-        <StyledSlider {...subsettings}>
-          {props?.Ranking?.details_list?.map((el: any, index: any) => (
-            <>
-              <S.ImgBox2 key={el.title} onClick={() => onClickImg(index)}>
-                <S.SubSliderItem
-                  src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
-                />
-              </S.ImgBox2>
-              <Modal
-                isOpen={isOpenList[index]}
-                onRequestClose={() => onClickCancel(index)}
-                style={S.customModalStyles}
-                ariaHideApp={false}
-                contentLabel="Pop up Message"
-                shouldCloseOnOverlayClick={false}
-              >
-                <S.ModalWrapper>
-                  <S.ModalImg
-                    src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
-                  />
+      {props.Recommend?.preferred_genre_recommendation_movie ? (
+        <>
+          <S.title>이런 장르 영화 어떠세요?</S.title>
+          <S.SubBannerWrapper>
+            <StyledSlider {...subsettings}>
+              {props?.Recommend?.preferred_genre_recommendation_movie?.results.map(
+                (el) => (
+                  <BannerContent1
+                    onClick={() => props.onClickMovieContents(el.id)}
+                  >
+                    <BannerBox>
+                      <S.ImgBox2 key={el.title}>
+                        <S.SubSliderItem
+                          src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                        />
+                      </S.ImgBox2>
+                      <S.SubSliderTextBox>
+                        <S.RankingTitle isTitleLong={el.title?.length > 10}>
+                          {el.title}
+                        </S.RankingTitle>
+                        <S.SubItemsGrayTitle>
+                          {findGenreNames(category, el.genre_ids).join(", ")}
+                        </S.SubItemsGrayTitle>
+                      </S.SubSliderTextBox>
+                    </BannerBox>
+                  </BannerContent1>
+                )
+              )}
+            </StyledSlider>
+          </S.SubBannerWrapper>
+        </>
+      ) : (
+        <></>
+      )}
 
-                  <S.ModalCancel
-                    src="/img/icon/cancel.png"
-                    onClick={() => onClickCancel(index)}
-                  />
-                  <h2>{el.overview}</h2>
-                </S.ModalWrapper>
-              </Modal>
-            </>
-          ))}
-        </StyledSlider>
-      </S.SubBannerWrapper> */}
-      <S.title>로맨스</S.title>
+      {props.Recommend?.preferred_genre_recommendation_tv ? (
+        <>
+          <S.title>{props.loginData?.nickname}님을 위한 시리즈</S.title>
+          <S.SubBannerWrapper>
+            <StyledSlider {...subsettings}>
+              {props?.Recommend?.preferred_genre_recommendation_tv?.results.map(
+                (el) => (
+                  <BannerContent1
+                    onClick={() => props.onClickTvContents(el.id)}
+                  >
+                    <BannerBox>
+                      <S.ImgBox2 key={el.name}>
+                        <S.SubSliderItem
+                          src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                        />
+                      </S.ImgBox2>
+                      <S.SubSliderTextBox>
+                        <S.RankingTitle isTitleLong={el.name?.length > 10}>
+                          {el.name}
+                        </S.RankingTitle>
+                        <S.SubItemsGrayTitle>
+                          {findGenreNames(category, el.genre_ids).join(", ")}
+                        </S.SubItemsGrayTitle>
+                      </S.SubSliderTextBox>
+                    </BannerBox>
+                  </BannerContent1>
+                )
+              )}
+            </StyledSlider>
+          </S.SubBannerWrapper>
+        </>
+      ) : (
+        <></>
+      )}
+
+      <S.title>아이매드 엄선 영화</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
-          {subBannerItems.map((el) => (
-            <S.ImgBox2 key={el.name}>
-              <S.SubSliderItem src={el.poster_path} />
-            </S.ImgBox2>
+          {props?.Recommend?.popular_recommendation_movie?.results.map((el) => (
+            <BannerContent1 onClick={() => props.onClickMovieContents(el.id)}>
+              <BannerBox>
+                <S.ImgBox2 key={el.title}>
+                  <S.SubSliderItem
+                    src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                  />
+                </S.ImgBox2>
+                <S.SubSliderTextBox>
+                  <S.RankingTitle isTitleLong={el.title?.length > 10}>
+                    {el.title}
+                  </S.RankingTitle>
+                  <S.SubItemsGrayTitle>
+                    {findGenreNames(category, el.genre_ids).join(", ")}
+                  </S.SubItemsGrayTitle>
+                </S.SubSliderTextBox>
+              </BannerBox>
+            </BannerContent1>
           ))}
         </StyledSlider>
       </S.SubBannerWrapper>
-      <S.title>애니메이션</S.title>
+
+      <S.title>전 세계 사람들이 선택한 시리즈</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
-          {subBannerItems.map((el) => (
-            <S.ImgBox2 key={el.name}>
-              <S.SubSliderItem src={el.poster_path} />
-            </S.ImgBox2>
+          {props?.Recommend?.trend_recommendation_tv?.results.map((el) => (
+            <BannerContent1 onClick={() => props.onClickTvContents(el.id)}>
+              <BannerBox>
+                <S.ImgBox2 key={el.name}>
+                  <S.SubSliderItem
+                    src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                  />
+                </S.ImgBox2>
+                <S.SubSliderTextBox>
+                  <S.RankingTitle isTitleLong={el.name?.length > 10}>
+                    {el.name}
+                  </S.RankingTitle>
+                  <S.SubItemsGrayTitle>
+                    {findGenreNames(category, el.genre_ids).join(", ")}
+                  </S.SubItemsGrayTitle>
+                </S.SubSliderTextBox>
+              </BannerBox>
+            </BannerContent1>
           ))}
         </StyledSlider>
       </S.SubBannerWrapper>

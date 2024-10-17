@@ -410,13 +410,11 @@ export const Middle_Poster = styled.img`
 export const SubBannerWrapper = styled.div`
   width: 100%;
   height: 100%;
-`;
-export const SubSliderItem = styled.img`
-  height: 400px;
-  width: 250px;
-  margin: auto;
-  border-radius: 10px;
-  box-shadow: 1px 1px 10px gray;
+
+  padding-left: 10%;
+  padding-right: 10%;
+  position: relative;
+  margin-bottom: 20px;
 `;
 
 export const MainBannerWrapper = styled.div`
@@ -434,12 +432,37 @@ export const ImgBox = styled.div<{ url: string }>`
   justify-content: center;
 `;
 
-export const ImgBox2 = styled.div`
-  width: 100%;
-  height: 100%;
+export const SubSliderBox = styled.div`
   display: flex;
   flex-direction: column;
-  align-content: center;
+  align-items: center;
+  gap: 12px; /* 이미지와 제목 사이 간격 */
+
+  padding: 16px;
+`;
+
+export const ImgBox2 = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SubSliderItem = styled.img`
+  height: 300px;
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px gray;
+`;
+
+export const SubSliderTextBox = styled.div`
+  height: 50px;
+  width: 100%;
+  margin-top: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 `;
 
