@@ -107,81 +107,6 @@ const ContentsType = [
   },
 ];
 
-const mainBannerItems = [
-  {
-    name: "1",
-    src: "/img/banner/main/1.webp",
-  },
-  {
-    name: "2",
-    src: "/img/banner/main/2.jpg",
-  },
-  {
-    name: "3",
-    src: "/img/banner/main/3.jpg",
-  },
-  {
-    name: "4",
-    src: "/img/banner/main/4.jpg",
-  },
-  {
-    name: "5",
-    src: "/img/banner/main/5.jpg",
-  },
-];
-
-const subBannerItems = [
-  {
-    name: "데스노트",
-    poster_path: "/img/banner/sub/데스노트.jpg",
-    contents_type: "애니메이션",
-    overview:
-      "데스노트를 주운소년이 어쩌구저쩌구 인생피나싶엇는데 어쩌구 개망하고 잡혀가고 ㅅㄱ",
-  },
-  {
-    name: "목소리의형태",
-    poster_path: "/img/banner/sub/목소리의형태.png",
-    contents_type: "애니메이션",
-    overview:
-      "목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태목소리의형태",
-  },
-  {
-    name: "소드아트온라인",
-    poster_path: "/img/banner/sub/소아온.jpg",
-    contents_type: "애니메이션",
-    overview:
-      "소드아트온라인소드아트온라인소드아트온라인소드아트온라인소드아트온라인소드아트온라인소드아트온라인소드아트온라인소드아트온라인소드아트온라인",
-  },
-  {
-    name: "스즈메의문단속",
-    poster_path: "/img/banner/sub/스즈메.jpg",
-    contents_type: "애니메이션",
-    overview:
-      "스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속스즈메의문단속",
-  },
-  {
-    name: "오빠는끝!",
-    poster_path: "/img/banner/sub/오빠는끝.webp",
-    contents_type: "애니메이션",
-    overview:
-      "오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝오빠는끝ㅍ",
-  },
-  {
-    name: "주술회전",
-    poster_path: "/img/banner/sub/주술회전.png",
-    contents_type: "애니메이션",
-    overview:
-      "주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전주술회전",
-  },
-  {
-    name: "하늘의 푸르름을 아는사람이여",
-    poster_path: "/img/banner/sub/푸르름.jpg",
-    contents_type: "애니메이션",
-    overview:
-      "푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름푸르름",
-  },
-];
-
 export default function MainPageUI(props: IMainProps): JSX.Element {
   const [chart, setChart] = useState<"alltime" | "monthly" | "weekly">(
     "alltime"
@@ -250,21 +175,6 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
         <Arrow src="/img/icon/prev.png" />
       </Pre1>
     ),
-  };
-
-  const [isOpenList, setIsOpenList] = useState(
-    Array(subBannerItems.length).fill(false)
-  );
-
-  const onClickImg = (index: number) => {
-    const updatedIsOpenList = [...isOpenList];
-    updatedIsOpenList[index] = true;
-    setIsOpenList(updatedIsOpenList);
-  };
-  const onClickCancel = (index: number) => {
-    const updatedIsOpenList = [...isOpenList];
-    updatedIsOpenList[index] = false;
-    setIsOpenList(updatedIsOpenList);
   };
 
   const onClickClose = () => {
@@ -545,7 +455,12 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
 
             <S.MergedChartWrapper>
               {props.mergedChart?.map((el) => (
-                <S.RankingBox2 key={el.contents_id}>
+                <S.RankingBox2
+                  key={el.contents_id}
+                  onClick={() => {
+                    props.onClickContentsId(el.contents_id);
+                  }}
+                >
                   <S.RankingPoster
                     src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
                   />
@@ -588,7 +503,12 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
 
       <S.GridBox>
         {topChart?.map((el) => (
-          <S.RankingBox key={el.contents_id}>
+          <S.RankingBox
+            key={el.contents_id}
+            onClick={() => {
+              props.onClickContentsId(el.contents_id);
+            }}
+          >
             <S.RankingPoster
               src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
             />

@@ -359,6 +359,10 @@ export default function MainContainer(): JSX.Element {
     void router.push(`/search/movie/${id}`);
   };
 
+  const onClickContentsId = (id: number): void => {
+    void router.push(`/search/contents/${id}`);
+  };
+
   useEffect(() => {
     allTimeRanking();
     TotalRecommend();
@@ -388,6 +392,7 @@ export default function MainContainer(): JSX.Element {
       loginData={loginData}
       onClickTvContents={onClickTvContents}
       onClickMovieContents={onClickMovieContents}
+      onClickContentsId={onClickContentsId}
     />
   );
 }

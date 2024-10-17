@@ -167,4 +167,5 @@ export interface IMainProps {
   loginData: LoginData | null;
   onClickTvContents: (id: number) => void;
   onClickMovieContents: (id: number) => void;
+  onClickContentsId: (id: number) => void;
 }
