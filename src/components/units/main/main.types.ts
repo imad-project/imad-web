@@ -168,4 +168,6 @@ export interface IMainProps {
   onClickTvContents: (id: number) => void;
   onClickMovieContents: (id: number) => void;
   onClickContentsId: (id: number) => void;
+  onClickReview: (id: number) => void;
+  onClickWrite: (id: number) => void;
 }

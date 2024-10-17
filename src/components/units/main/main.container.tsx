@@ -352,15 +352,21 @@ export default function MainContainer(): JSX.Element {
     }
   };
 
+  // 페이지 이동부
   const onClickTvContents = (id: number): void => {
     void router.push(`/search/tv/${id}`);
   };
   const onClickMovieContents = (id: number): void => {
     void router.push(`/search/movie/${id}`);
   };
-
   const onClickContentsId = (id: number): void => {
     void router.push(`/search/contents/${id}`);
+  };
+  const onClickReview = (id: number): void => {
+    void router.push(`/review/${id}`);
+  };
+  const onClickWrite = (id: number): void => {
+    void router.push(`/write/${id}`);
   };
 
   useEffect(() => {
@@ -393,6 +399,8 @@ export default function MainContainer(): JSX.Element {
       onClickTvContents={onClickTvContents}
       onClickMovieContents={onClickMovieContents}
       onClickContentsId={onClickContentsId}
+      onClickReview={onClickReview}
+      onClickWrite={onClickWrite}
     />
   );
 }
