@@ -59,7 +59,6 @@ export const RowBox5 = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
 
   @media (max-width: 480px) {
     flex-direction: column;
@@ -114,15 +113,26 @@ export const GridBox = styled.div`
   margin-left: 5%;
   margin-right: 5%;
   width: 90%;
+
+  min-height: 380px;
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3개의 열로 구성 */
   grid-template-rows: repeat(3, 1fr); /* 3개의 열로 구성 */
   gap: 30px; /* 아이템 간의 간격 */
   grid-auto-flow: column;
+
+  @media (max-width: 768px) {
+    overflow-x: auto; /* 가로 스크롤 활성화 */
+
+    gap: 10px; /* 아이템 간격 줄이기 */
+    padding: 10px 0; /* 수직 여백 조정 */
+  }
 `;
 
 export const RankingBox = styled.div`
   width: 100%;
+  min-width: 300px;
+  scroll-snap-align: start;
   height: 100px;
   display: flex;
   flex-direction: row;
@@ -201,6 +211,10 @@ export const subtitle = styled.div`
 `;
 
 export const subtitle2 = styled.div<{ active: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
   cursor: pointer;
   font-size: 20px;
   color: ${(props) => (props.active ? "#0b0537" : "#3C4B66")};
@@ -209,9 +223,6 @@ export const subtitle2 = styled.div<{ active: boolean }>`
   transition: color 0.3s ease;
 
   @media (max-width: 480px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: 16px;
     margin-left: 15px;
     width: 50px;
@@ -238,6 +249,11 @@ export const SubBtn = styled.div<{ active: boolean }>`
 `;
 
 export const subtitle3 = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100px;
   cursor: pointer;
   font-size: 20px;
   color: "#0b0537";
