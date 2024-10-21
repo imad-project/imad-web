@@ -22,6 +22,7 @@ const StyledSlider = styled(Slider)`
   @media (max-width: 480px) {
     .slick-dots {
       position: absolute;
+
       bottom: -40px;
     }
   }

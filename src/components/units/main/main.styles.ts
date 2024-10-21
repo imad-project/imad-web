@@ -575,7 +575,7 @@ export const BackgroundImageWrapper = styled.div<{ backgroundUrl: string }>`
 
 export const MainBannerBox = styled.div`
   overflow: hidden;
-  height: 600px;
+  height: 590px;
 
   @media (max-width: 480px) {
     height: 290px;
