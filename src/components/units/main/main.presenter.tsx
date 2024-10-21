@@ -18,6 +18,13 @@ const StyledSlider = styled(Slider)`
     opacity: 0;
     display: none;
   }
+
+  @media (max-width: 480px) {
+    .slick-dots {
+      position: absolute;
+      bottom: -40px;
+    }
+  }
 `;
 
 const ContentsType = [
@@ -179,7 +186,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
       <S.MainBannerWrapper>
         <StyledSlider {...settings} initialSlide={sliderPage - 1}>
           {toptenBanner?.map((el) => (
-            <div key={"title" in el ? el.title : el.name}>
+            <S.MainBannerBox key={"title" in el ? el.title : el.name}>
               <S.BackgroundImageWrapper
                 backgroundUrl={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
               />
@@ -193,7 +200,11 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                       src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
                     />
                   </S.ImgBox>
-                  <S.MainBannerTitle>
+                  <S.MainBannerTitle
+                    isTitleLong={
+                      "title" in el ? el.title.length > 10 : el.name.length > 10
+                    }
+                  >
                     {"title" in el ? el.title : el.name}
                   </S.MainBannerTitle>
                   <S.MainBannerSubTitle>
@@ -201,7 +212,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   </S.MainBannerSubTitle>
                 </S.BannerBox>
               </S.BannerContent>
-            </div>
+            </S.MainBannerBox>
           ))}
         </StyledSlider>
       </S.MainBannerWrapper>

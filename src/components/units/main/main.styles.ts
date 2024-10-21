@@ -160,6 +160,10 @@ export const title = styled.div`
   color: #0b0537;
   margin-left: 35px;
   margin-top: 30px;
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
 `;
 
 export const subtitle = styled.div`
@@ -167,7 +171,12 @@ export const subtitle = styled.div`
   color: #0b0537;
   margin-left: 35px;
   margin-top: 30px;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
+
 export const subtitle2 = styled.div<{ active: boolean }>`
   cursor: pointer;
   font-size: 20px;
@@ -175,6 +184,10 @@ export const subtitle2 = styled.div<{ active: boolean }>`
   margin-left: 35px;
   margin-top: 30px;
   transition: color 0.3s ease;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 export const SubBtn = styled.div<{ active: boolean }>`
@@ -206,18 +219,26 @@ export const subtitle3 = styled.div`
   margin-right: 5%;
 `;
 
-export const MainBannerTitle = styled.div`
-  font-size: 30px;
+export const MainBannerTitle = styled.div<{ isTitleLong: boolean }>`
+  font-size: ${(props) => (props.isTitleLong ? "20px" : "30px")};
   margin-top: 10px;
   margin-bottom: 10px;
   color: white;
   font-weight: bold;
+
+  @media (max-width: 480px) {
+    font-size: ${(props) => (props.isTitleLong ? "16px" : "20px")};
+  }
 `;
 
 export const MainBannerSubTitle = styled.span`
   font-size: 20px;
   color: white;
   margin-bottom: 10px;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 export const SubItemsTitle = styled.div`
@@ -423,6 +444,10 @@ export const MainBannerWrapper = styled.div`
   width: 100vw;
   max-width: 100vw;
   height: 600px;
+
+  @media (max-width: 480px) {
+    max-height: 300px;
+  }
 `;
 
 export const ImgBox = styled.div<{ url: string }>`
@@ -474,6 +499,10 @@ export const MainSliderItem = styled.img`
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
+
+  @media (max-width: 480px) {
+    height: 200px;
+  }
 `;
 
 export const testItem = styled.div`
@@ -538,6 +567,19 @@ export const BackgroundImageWrapper = styled.div<{ backgroundUrl: string }>`
   filter: blur(30px); /* 블러 처리 */
 
   z-index: 1; /* 다른 요소보다 뒤에 배치 */
+
+  @media (max-width: 480px) {
+    max-height: 300px;
+  }
+`;
+
+export const MainBannerBox = styled.div`
+  overflow: hidden;
+  height: 600px;
+
+  @media (max-width: 480px) {
+    height: 290px;
+  }
 `;
 
 export const BannerContent = styled.div`
