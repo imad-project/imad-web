@@ -291,9 +291,9 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
           <></>
         )}
       </S.RowBox>
-      <S.RowBox4>
+      <S.RowBox5>
+        <S.title>아이매드 차트</S.title>
         <S.RowBox2>
-          <S.title>아이매드 차트</S.title>
           <S.subtitle2
             onClick={() => {
               setChart("alltime");
@@ -323,15 +323,16 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
           >
             주간
           </S.subtitle2>
+          <S.subtitle3
+            onClick={() => {
+              props.mergeRanking();
+              onClickOpen();
+            }}
+          >
+            전체보기
+          </S.subtitle3>
         </S.RowBox2>
-        <S.subtitle3
-          onClick={() => {
-            props.mergeRanking();
-            onClickOpen();
-          }}
-        >
-          전체보기
-        </S.subtitle3>
+
         <Modal
           isOpen={isOpen}
           onRequestClose={() => onClickClose()}
@@ -341,9 +342,9 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
           shouldCloseOnOverlayClick={true}
         >
           <S.ModalWrapper>
-            <S.RowBox4>
+            <S.RowBox5>
+              <S.title>아이매드 차트 전체보기</S.title>
               <S.RowBox2>
-                <S.title>아이매드 차트 전체보기</S.title>
                 <S.subtitle2
                   onClick={() => {
                     props.setTimes("alltime");
@@ -375,7 +376,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                 src="/img/icon/cancel.png"
                 onClick={onClickClose}
               />
-            </S.RowBox4>
+            </S.RowBox5>
 
             <S.LeftMarginBox>
               <S.RowBox2>
@@ -460,7 +461,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
             </S.MergedChartWrapper>
           </S.ModalWrapper>
         </Modal>
-      </S.RowBox4>
+      </S.RowBox5>
 
       <S.GridBox>
         {topChart?.map((el) => (

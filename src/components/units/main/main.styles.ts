@@ -55,6 +55,19 @@ export const RowBox4 = styled.div`
   justify-content: space-between;
 `;
 
+export const RowBox5 = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: center;
+  }
+`;
+
 export const LeftMarginBox = styled.div`
   margin-left: 35px;
 `;
@@ -183,6 +196,7 @@ export const subtitle = styled.div`
 
   @media (max-width: 480px) {
     font-size: 16px;
+    margin-left: 15px;
   }
 `;
 
@@ -195,7 +209,12 @@ export const subtitle2 = styled.div<{ active: boolean }>`
   transition: color 0.3s ease;
 
   @media (max-width: 480px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 16px;
+    margin-left: 15px;
+    width: 50px;
   }
 `;
 
@@ -226,6 +245,13 @@ export const subtitle3 = styled.div`
   margin-top: 30px;
   transition: color 0.3s ease;
   margin-right: 5%;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+    margin-left: 15px;
+    width: 80px;
+    font-weight: bold;
+  }
 `;
 
 export const MainBannerTitle = styled.div<{ isTitleLong: boolean }>`
