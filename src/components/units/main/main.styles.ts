@@ -34,6 +34,10 @@ export const RowBox3 = styled.div`
   flex-direction: row;
   align-items: center;
   text-align: center;
+
+  @media (max-width: 480px) {
+    margin-left: 5%;
+  }
 `;
 
 export const ColumnBox = styled.div`
@@ -85,6 +89,11 @@ export const WriteBox = styled.div`
   overflow: hidden;
   z-index: 2;
   cursor: pointer;
+
+  @media (max-width: 480px) {
+    width: 45%;
+    height: 140px;
+  }
 `;
 
 export const GridBox = styled.div`
@@ -250,6 +259,10 @@ export const SubItemsTitle = styled.div`
   color: white;
   font-weight: bold;
   z-index: 3;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 export const SubItemsSubTitle = styled.span`
@@ -259,6 +272,26 @@ export const SubItemsSubTitle = styled.span`
   color: white;
 
   z-index: 3;
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    width: 50px;
+  }
+`;
+
+export const SubItemsSubTitle2 = styled.span`
+  margin-left: 10%;
+  position: relative;
+  font-size: 20px;
+  color: white;
+
+  z-index: 3;
+
+  @media (max-width: 480px) {
+    font-size: 9px;
+
+    margin-left: 0;
+  }
 `;
 
 export const SubItemsGrayTitle = styled.span`
@@ -269,6 +302,12 @@ export const SubItemsGrayTitle = styled.span`
 
   z-index: 3;
   /* filter: brightness(0.6); */
+
+  @media (max-width: 480px) {
+    font-size: 9px;
+    margin-left: 0;
+    width: 50px;
+  }
 `;
 
 export const TinyPoster = styled.img`
@@ -276,6 +315,10 @@ export const TinyPoster = styled.img`
   width: auto;
   height: 70px;
   border-radius: 5px;
+
+  @media (max-width: 480px) {
+    height: 50px;
+  }
 `;
 
 export const Profile_image = styled.img`
@@ -284,6 +327,11 @@ export const Profile_image = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50px;
+
+  @media (max-width: 480px) {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 export const Recommend_Box = styled.div`

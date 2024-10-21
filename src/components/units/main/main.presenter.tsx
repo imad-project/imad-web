@@ -244,9 +244,9 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   <S.Profile_image
                     src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props.TopReview?.user_profile_image}`}
                   />
-                  <S.SubItemsSubTitle>
+                  <S.SubItemsSubTitle2>
                     {props.TopReview?.user_nickname}
-                  </S.SubItemsSubTitle>
+                  </S.SubItemsSubTitle2>
                 </S.RowBox3>
               </S.RowBox2>
             </S.WriteBox>
@@ -280,9 +280,9 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   <S.Profile_image
                     src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props.TopWrite?.user_profile_image}`}
                   />
-                  <S.SubItemsSubTitle>
+                  <S.SubItemsSubTitle2>
                     {props.TopWrite?.user_nickname}
-                  </S.SubItemsSubTitle>
+                  </S.SubItemsSubTitle2>
                 </S.RowBox3>
               </S.RowBox2>
             </S.WriteBox>
