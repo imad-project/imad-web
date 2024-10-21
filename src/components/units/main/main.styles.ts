@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 100vw;
   height: 100%;
 `;
 
@@ -410,7 +411,7 @@ export const Middle_Poster = styled.img`
 export const SubBannerWrapper = styled.div`
   width: 100%;
   height: 100%;
-
+  margin-top: 20px;
   padding-left: 10%;
   padding-right: 10%;
   position: relative;
@@ -419,7 +420,8 @@ export const SubBannerWrapper = styled.div`
 
 export const MainBannerWrapper = styled.div`
   background-color: #666;
-  width: 100%;
+  width: 100vw;
+  max-width: 100vw;
   height: 600px;
 `;
 
@@ -523,3 +525,75 @@ export const customModalStyles: ReactModal.Styles = {
     overflow: "auto",
   },
 };
+
+export const BackgroundImageWrapper = styled.div<{ backgroundUrl: string }>`
+  position: absolute;
+  width: 5%;
+  height: 600px;
+  background-image: url(${(props) => props.backgroundUrl});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  filter: blur(30px); /* 블러 처리 */
+
+  z-index: 1; /* 다른 요소보다 뒤에 배치 */
+`;
+
+export const BannerContent = styled.div`
+  position: relative;
+
+  z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
+`;
+
+export const BannerContent1 = styled.div`
+  cursor: pointer;
+  position: relative;
+
+  z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
+  margin-bottom: 50px;
+`;
+
+export const BannerBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Arrow = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
+export const Pre = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 3%;
+  z-index: 3;
+`;
+
+export const NextTo = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 3%;
+  z-index: 3;
+`;
+
+export const Pre1 = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: -10%;
+  z-index: 3;
+`;
+
+export const NextTo1 = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: -10%;
+  z-index: 3;
+`;

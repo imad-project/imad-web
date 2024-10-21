@@ -16,4 +16,5 @@ export interface INavigationUIProps {
   onClickMenu: (event: MouseEvent<HTMLDivElement>) => void;
   onClickLogout: (event: MouseEvent<HTMLDivElement>) => void;
   userData: IUserData | null;
+  isMobile: boolean;
 }

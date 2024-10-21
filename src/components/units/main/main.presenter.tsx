@@ -20,78 +20,6 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-const BackgroundImageWrapper = styled.div<{ backgroundUrl: string }>`
-  position: absolute;
-  width: 5%;
-  height: 600px;
-  background-image: url(${(props) => props.backgroundUrl});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-
-  filter: blur(30px); /* 블러 처리 */
-
-  z-index: 1; /* 다른 요소보다 뒤에 배치 */
-`;
-
-const BannerContent = styled.div`
-  position: relative;
-
-  z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
-`;
-
-const BannerContent1 = styled.div`
-  cursor: pointer;
-  position: relative;
-
-  z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
-  margin-bottom: 50px;
-`;
-
-const BannerBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Arrow = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-
-const Pre = styled.div`
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  left: 3%;
-  z-index: 3;
-`;
-
-const NextTo = styled.div`
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  right: 3%;
-  z-index: 3;
-`;
-
-const Pre1 = styled.div`
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  left: -10%;
-  z-index: 3;
-`;
-
-const NextTo1 = styled.div`
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  right: -10%;
-  z-index: 3;
-`;
-
 const ContentsType = [
   {
     id: "TV",
@@ -145,14 +73,14 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
     slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow: (
-      <NextTo>
-        <Arrow src="/img/icon/next.png" />
-      </NextTo>
+      <S.NextTo>
+        <S.Arrow src="/img/icon/next.png" />
+      </S.NextTo>
     ),
     prevArrow: (
-      <Pre>
-        <Arrow src="/img/icon/prev.png" />
-      </Pre>
+      <S.Pre>
+        <S.Arrow src="/img/icon/prev.png" />
+      </S.Pre>
     ),
   };
 
@@ -166,14 +94,14 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
     rows: 2,
 
     nextArrow: (
-      <NextTo1>
-        <Arrow src="/img/icon/next.png" />
-      </NextTo1>
+      <S.NextTo1>
+        <S.Arrow src="/img/icon/next.png" />
+      </S.NextTo1>
     ),
     prevArrow: (
-      <Pre1>
-        <Arrow src="/img/icon/prev.png" />
-      </Pre1>
+      <S.Pre1>
+        <S.Arrow src="/img/icon/prev.png" />
+      </S.Pre1>
     ),
   };
 
@@ -252,11 +180,11 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
         <StyledSlider {...settings} initialSlide={sliderPage - 1}>
           {toptenBanner?.map((el) => (
             <div key={"title" in el ? el.title : el.name}>
-              <BackgroundImageWrapper
+              <S.BackgroundImageWrapper
                 backgroundUrl={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
               />
-              <BannerContent>
-                <BannerBox>
+              <S.BannerContent>
+                <S.BannerBox>
                   <S.ImgBox
                     key={"title" in el ? el.title : el.name}
                     url={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
@@ -271,8 +199,8 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   <S.MainBannerSubTitle>
                     {findGenreNames(category, el.genre_ids).join(", ")}
                   </S.MainBannerSubTitle>
-                </BannerBox>
-              </BannerContent>
+                </S.BannerBox>
+              </S.BannerContent>
             </div>
           ))}
         </StyledSlider>
@@ -840,10 +768,10 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
             <StyledSlider {...subsettings}>
               {props?.Recommend?.preferred_genre_recommendation_movie?.results.map(
                 (el) => (
-                  <BannerContent1
+                  <S.BannerContent1
                     onClick={() => props.onClickMovieContents(el.id)}
                   >
-                    <BannerBox>
+                    <S.BannerBox>
                       <S.ImgBox2 key={el.title}>
                         <S.SubSliderItem
                           src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
@@ -857,8 +785,8 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                           {findGenreNames(category, el.genre_ids).join(", ")}
                         </S.SubItemsGrayTitle>
                       </S.SubSliderTextBox>
-                    </BannerBox>
-                  </BannerContent1>
+                    </S.BannerBox>
+                  </S.BannerContent1>
                 )
               )}
             </StyledSlider>
@@ -875,10 +803,10 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
             <StyledSlider {...subsettings}>
               {props?.Recommend?.preferred_genre_recommendation_tv?.results.map(
                 (el) => (
-                  <BannerContent1
+                  <S.BannerContent1
                     onClick={() => props.onClickTvContents(el.id)}
                   >
-                    <BannerBox>
+                    <S.BannerBox>
                       <S.ImgBox2 key={el.name}>
                         <S.SubSliderItem
                           src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
@@ -892,8 +820,8 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                           {findGenreNames(category, el.genre_ids).join(", ")}
                         </S.SubItemsGrayTitle>
                       </S.SubSliderTextBox>
-                    </BannerBox>
-                  </BannerContent1>
+                    </S.BannerBox>
+                  </S.BannerContent1>
                 )
               )}
             </StyledSlider>
@@ -907,8 +835,8 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {props?.Recommend?.popular_recommendation_movie?.results.map((el) => (
-            <BannerContent1 onClick={() => props.onClickMovieContents(el.id)}>
-              <BannerBox>
+            <S.BannerContent1 onClick={() => props.onClickMovieContents(el.id)}>
+              <S.BannerBox>
                 <S.ImgBox2 key={el.title}>
                   <S.SubSliderItem
                     src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
@@ -922,8 +850,8 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                     {findGenreNames(category, el.genre_ids).join(", ")}
                   </S.SubItemsGrayTitle>
                 </S.SubSliderTextBox>
-              </BannerBox>
-            </BannerContent1>
+              </S.BannerBox>
+            </S.BannerContent1>
           ))}
         </StyledSlider>
       </S.SubBannerWrapper>
@@ -932,8 +860,8 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {props?.Recommend?.trend_recommendation_tv?.results.map((el) => (
-            <BannerContent1 onClick={() => props.onClickTvContents(el.id)}>
-              <BannerBox>
+            <S.BannerContent1 onClick={() => props.onClickTvContents(el.id)}>
+              <S.BannerBox>
                 <S.ImgBox2 key={el.name}>
                   <S.SubSliderItem
                     src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
@@ -947,8 +875,8 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                     {findGenreNames(category, el.genre_ids).join(", ")}
                   </S.SubItemsGrayTitle>
                 </S.SubSliderTextBox>
-              </BannerBox>
-            </BannerContent1>
+              </S.BannerBox>
+            </S.BannerContent1>
           ))}
         </StyledSlider>
       </S.SubBannerWrapper>

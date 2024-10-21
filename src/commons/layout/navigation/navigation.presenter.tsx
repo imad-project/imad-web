@@ -4,14 +4,17 @@ import { INavigationUIProps } from "./navigation.types";
 import { getCookie } from "../../cookies/cookie";
 const NAVIGATION_MENUS = [
   { name: "게시판", page: "/board" },
-  { name: "리뷰 검색", page: "/review" },
   { name: "작품 검색", page: "/search" },
   { name: "캘린더", page: "/calendar" },
 ];
 export default function NavigationUI(props: INavigationUIProps): JSX.Element {
   return (
     <S.Wrapper>
-      <S.Logo src="/img/logo.png" id="/" onClick={props.onClickMenu} />
+      <S.Logo
+        src={props.isMobile ? "/img/mobile_logo.png" : "/img/logo.png"}
+        id="/"
+        onClick={props.onClickMenu}
+      />
 
       <S.ItemBox>
         {NAVIGATION_MENUS.map((el) => (
