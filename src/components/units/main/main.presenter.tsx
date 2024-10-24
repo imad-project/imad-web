@@ -569,39 +569,42 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                         onClick={onClickClose1}
                       />
                     </S.RowBox4>
-                    {props.Recommend?.user_activity_recommendation_tv?.results.map(
-                      (el) => (
-                        <S.DetailBox
-                          onClick={() => props.onClickTvContents(el.id)}
-                        >
-                          <S.Recommend_Detail_Item
-                            key={el.name}
-                            backgroundUrl={
-                              el.backdrop_path
-                                ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
-                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
-                            }
-                          ></S.Recommend_Detail_Item>
-                          <S.Middle_Poster
-                            src={
-                              el.poster_path
-                                ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
-                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
-                            }
-                          />
-                          <S.ColumnBox>
-                            <S.Recommend_Title
-                              isTitleLong={el.name?.length > 10}
-                            >
-                              {el.name}
-                            </S.Recommend_Title>
-                            <S.Recommend_SubTitle>
-                              {findGenreNames("tv", el.genre_ids).join(", ")}
-                            </S.Recommend_SubTitle>
-                          </S.ColumnBox>
-                        </S.DetailBox>
-                      )
-                    )}
+
+                    <S.Recommend_Detail_Box>
+                      {props.Recommend?.user_activity_recommendation_tv?.results.map(
+                        (el) => (
+                          <S.DetailBox
+                            onClick={() => props.onClickTvContents(el.id)}
+                          >
+                            <S.Recommend_Detail_Item
+                              key={el.name}
+                              backgroundUrl={
+                                el.backdrop_path
+                                  ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
+                                  : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                              }
+                            ></S.Recommend_Detail_Item>
+                            <S.Middle_Poster
+                              src={
+                                el.poster_path
+                                  ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
+                                  : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                              }
+                            />
+                            <S.ColumnBox>
+                              <S.Recommend_Title
+                                isTitleLong={el.name?.length > 10}
+                              >
+                                {el.name}
+                              </S.Recommend_Title>
+                              <S.Recommend_SubTitle>
+                                {findGenreNames("tv", el.genre_ids).join(", ")}
+                              </S.Recommend_SubTitle>
+                            </S.ColumnBox>
+                          </S.DetailBox>
+                        )
+                      )}
+                    </S.Recommend_Detail_Box>
                   </S.ModalWrapper>
                 </Modal>
               </S.RowBox>
@@ -655,39 +658,43 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                         onClick={onClickClose2}
                       />
                     </S.RowBox4>
-                    {props.Recommend?.user_activity_recommendation_movie?.results.map(
-                      (el) => (
-                        <S.DetailBox
-                          onClick={() => props.onClickMovieContents(el.id)}
-                        >
-                          <S.Recommend_Detail_Item
-                            key={el.title}
-                            backgroundUrl={
-                              el.backdrop_path
-                                ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
-                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
-                            }
-                          ></S.Recommend_Detail_Item>
-                          <S.Middle_Poster
-                            src={
-                              el.poster_path
-                                ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
-                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
-                            }
-                          />
-                          <S.ColumnBox>
-                            <S.Recommend_Title
-                              isTitleLong={el.title?.length > 10}
-                            >
-                              {el.title}
-                            </S.Recommend_Title>
-                            <S.Recommend_SubTitle>
-                              {findGenreNames("movie", el.genre_ids).join(", ")}
-                            </S.Recommend_SubTitle>
-                          </S.ColumnBox>
-                        </S.DetailBox>
-                      )
-                    )}
+                    <S.Recommend_Detail_Box>
+                      {props.Recommend?.user_activity_recommendation_movie?.results.map(
+                        (el) => (
+                          <S.DetailBox
+                            onClick={() => props.onClickMovieContents(el.id)}
+                          >
+                            <S.Recommend_Detail_Item
+                              key={el.title}
+                              backgroundUrl={
+                                el.backdrop_path
+                                  ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
+                                  : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                              }
+                            ></S.Recommend_Detail_Item>
+                            <S.Middle_Poster
+                              src={
+                                el.poster_path
+                                  ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
+                                  : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                              }
+                            />
+                            <S.ColumnBox>
+                              <S.Recommend_Title
+                                isTitleLong={el.title?.length > 10}
+                              >
+                                {el.title}
+                              </S.Recommend_Title>
+                              <S.Recommend_SubTitle>
+                                {findGenreNames("movie", el.genre_ids).join(
+                                  ", "
+                                )}
+                              </S.Recommend_SubTitle>
+                            </S.ColumnBox>
+                          </S.DetailBox>
+                        )
+                      )}
+                    </S.Recommend_Detail_Box>
                   </S.ModalWrapper>
                 </Modal>
               </S.RowBox>
@@ -741,39 +748,41 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                         onClick={onClickClose3}
                       />
                     </S.RowBox4>
-                    {props.Recommend?.user_activity_recommendation_tv_animation?.results.map(
-                      (el) => (
-                        <S.DetailBox
-                          onClick={() => props.onClickTvContents(el.id)}
-                        >
-                          <S.Recommend_Detail_Item
-                            key={el.name}
-                            backgroundUrl={
-                              el.backdrop_path
-                                ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
-                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
-                            }
-                          ></S.Recommend_Detail_Item>
-                          <S.Middle_Poster
-                            src={
-                              el.poster_path
-                                ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
-                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
-                            }
-                          />
-                          <S.ColumnBox>
-                            <S.Recommend_Title
-                              isTitleLong={el.name?.length > 10}
-                            >
-                              {el.name}
-                            </S.Recommend_Title>
-                            <S.Recommend_SubTitle>
-                              {findGenreNames("tv", el.genre_ids).join(", ")}
-                            </S.Recommend_SubTitle>
-                          </S.ColumnBox>
-                        </S.DetailBox>
-                      )
-                    )}
+                    <S.Recommend_Detail_Box>
+                      {props.Recommend?.user_activity_recommendation_tv_animation?.results.map(
+                        (el) => (
+                          <S.DetailBox
+                            onClick={() => props.onClickTvContents(el.id)}
+                          >
+                            <S.Recommend_Detail_Item
+                              key={el.name}
+                              backgroundUrl={
+                                el.backdrop_path
+                                  ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
+                                  : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                              }
+                            ></S.Recommend_Detail_Item>
+                            <S.Middle_Poster
+                              src={
+                                el.poster_path
+                                  ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
+                                  : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                              }
+                            />
+                            <S.ColumnBox>
+                              <S.Recommend_Title
+                                isTitleLong={el.name?.length > 10}
+                              >
+                                {el.name}
+                              </S.Recommend_Title>
+                              <S.Recommend_SubTitle>
+                                {findGenreNames("tv", el.genre_ids).join(", ")}
+                              </S.Recommend_SubTitle>
+                            </S.ColumnBox>
+                          </S.DetailBox>
+                        )
+                      )}
+                    </S.Recommend_Detail_Box>
                   </S.ModalWrapper>
                 </Modal>
               </S.RowBox>

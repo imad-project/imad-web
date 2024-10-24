@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import ReactModal from "react-modal";
@@ -447,6 +448,17 @@ export const Recommend_Box = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  height: 100%;
+
+  @media (max-width: 480px) {
+    overflow-x: auto;
+    min-height: 500px;
+    width: 100%;
+  }
+`;
+
+export const Recommend_Detail_Box = styled.div`
+  margin-top: 20px;
 `;
 
 export const Gradation_Box1 = styled.div`
@@ -457,6 +469,11 @@ export const Gradation_Box1 = styled.div`
   background-image: linear-gradient(135deg, pink, yellow);
   width: 30%;
   height: 500px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    margin-right: 5%;
+  }
 `;
 
 export const Gradation_Box2 = styled.div`
@@ -467,6 +484,11 @@ export const Gradation_Box2 = styled.div`
   background-image: linear-gradient(135deg, #042e53, #e21a51);
   width: 30%;
   height: 500px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    margin-right: 5%;
+  }
 `;
 
 export const Gradation_Box3 = styled.div`
@@ -477,6 +499,11 @@ export const Gradation_Box3 = styled.div`
   background-image: linear-gradient(135deg, #006acc, #5bff3d);
   width: 30%;
   height: 500px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    margin-right: 5%;
+  }
 `;
 
 export const Recommend_Title = styled.div<{ isTitleLong: boolean }>`
@@ -487,6 +514,10 @@ export const Recommend_Title = styled.div<{ isTitleLong: boolean }>`
   color: white;
   font-weight: bold;
   z-index: 3;
+
+  @media (max-width: 480px) {
+    font-size: ${(props) => (props.isTitleLong ? "14px" : "16px")};
+  }
 `;
 
 export const Recommend_SubTitle = styled.div`
@@ -495,6 +526,9 @@ export const Recommend_SubTitle = styled.div`
   color: white;
 
   z-index: 3;
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
 `;
 
 export const Recommend_MainTitle = styled.div`
@@ -505,6 +539,10 @@ export const Recommend_MainTitle = styled.div`
   color: white;
   font-weight: bold;
   z-index: 3;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 export const Recommend_SubTitleBtn = styled.span`
@@ -518,6 +556,10 @@ export const Recommend_SubTitleBtn = styled.span`
   :hover {
     color: gray;
     transition: 0.3s ease-in-out;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 16px;
   }
 `;
 
@@ -691,7 +733,28 @@ export const ModalCancel = styled.img`
     height: 20px;
     width: 20px;
     left: 85%;
-    top: 8%;
+    top: 6%;
+  }
+`;
+
+const contentStyles = css`
+  width: 80%;
+  height: 80%;
+  z-index: 150;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+  background-color: white;
+  justify-content: center;
+  overflow: auto;
+
+  @media (max-width: 480px) {
+    width: 95%;
+    height: 80%;
+    padding: 0;
   }
 `;
 
@@ -706,18 +769,7 @@ export const customModalStyles: ReactModal.Styles = {
     left: "0",
   },
   content: {
-    width: "80%",
-    height: "80%",
-    zIndex: "150",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    borderRadius: "10px",
-    boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-    backgroundColor: "white",
-    justifyContent: "center",
-    overflow: "auto",
+    ...(contentStyles as any),
   },
 };
 
