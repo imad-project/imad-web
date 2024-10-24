@@ -60,7 +60,7 @@ export const RowBox5 = styled.div`
   flex-direction: row;
   align-items: center;
 
-  @media (max-width: 480px) {
+  @media (max-width: 1080px) {
     flex-direction: column;
     align-items: baseline;
     justify-content: center;
@@ -632,6 +632,10 @@ export const SubSliderItem = styled.img`
   width: auto;
   border-radius: 10px;
   box-shadow: 1px 1px 10px gray;
+
+  @media (max-width: 480px) {
+    height: 150px;
+  }
 `;
 
 export const SubSliderTextBox = styled.div`
@@ -756,6 +760,10 @@ export const BannerContent1 = styled.div`
 
   z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
   margin-bottom: 50px;
+
+  @media (max-width: 480px) {
+    margin-bottom: 0;
+  }
 `;
 
 export const BannerBox = styled.div`

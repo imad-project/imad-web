@@ -111,6 +111,34 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
         <S.Arrow src="/img/icon/prev.png" />
       </S.Pre1>
     ),
+
+    // 반응형 설정 추가
+    responsive: [
+      {
+        breakpoint: 1300, // 화면 너비가 1300px 이하일 때
+        settings: {
+          slidesToShow: 4, // 한 줄에 4개씩 표시
+          slidesToScroll: 4, // 4개씩 스크롤
+          rows: 2, // 여전히 2줄로 유지
+        },
+      },
+      {
+        breakpoint: 1080, // 화면 너비가 1080px 이하일 때
+        settings: {
+          slidesToShow: 3, // 한 줄에 3개씩 표시
+          slidesToScroll: 3, // 3개씩 스크롤
+          rows: 2, // 여전히 2줄로 유지
+        },
+      },
+      {
+        breakpoint: 480, // 화면 너비가 480px 이하일 때
+        settings: {
+          slidesToShow: 2, // 한 줄에 2개씩 표시
+          slidesToScroll: 2, // 2개씩 스크롤
+          rows: 1, // 1줄로 변경
+        },
+      },
+    ],
   };
 
   const onClickClose = () => {
@@ -849,6 +877,31 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
         <></>
       )}
 
+      <S.title>어머! 이건 꼭 봐야 해!!</S.title>
+      <S.SubBannerWrapper>
+        <StyledSlider {...subsettings}>
+          {props?.Recommend?.popular_recommendation_tv?.results.map((el) => (
+            <S.BannerContent1 onClick={() => props.onClickTvContents(el.id)}>
+              <S.BannerBox>
+                <S.ImgBox2 key={el.name}>
+                  <S.SubSliderItem
+                    src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                  />
+                </S.ImgBox2>
+                <S.SubSliderTextBox>
+                  <S.RankingTitle isTitleLong={el.name?.length > 10}>
+                    {el.name}
+                  </S.RankingTitle>
+                  <S.SubItemsGrayTitle>
+                    {findGenreNames(category, el.genre_ids).join(", ")}
+                  </S.SubItemsGrayTitle>
+                </S.SubSliderTextBox>
+              </S.BannerBox>
+            </S.BannerContent1>
+          ))}
+        </StyledSlider>
+      </S.SubBannerWrapper>
+
       <S.title>아이매드 엄선 영화</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
@@ -877,7 +930,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
       <S.title>전 세계 사람들이 선택한 시리즈</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
-          {props?.Recommend?.trend_recommendation_tv?.results.map((el) => (
+          {props?.Recommend?.top_rated_recommendation_tv?.results.map((el) => (
             <S.BannerContent1 onClick={() => props.onClickTvContents(el.id)}>
               <S.BannerBox>
                 <S.ImgBox2 key={el.name}>
@@ -896,6 +949,35 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
               </S.BannerBox>
             </S.BannerContent1>
           ))}
+        </StyledSlider>
+      </S.SubBannerWrapper>
+
+      <S.title>좋은반응을 얻은 영화</S.title>
+      <S.SubBannerWrapper>
+        <StyledSlider {...subsettings}>
+          {props?.Recommend?.top_rated_recommendation_movie?.results.map(
+            (el) => (
+              <S.BannerContent1
+                onClick={() => props.onClickMovieContents(el.id)}
+              >
+                <S.BannerBox>
+                  <S.ImgBox2 key={el.title}>
+                    <S.SubSliderItem
+                      src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                    />
+                  </S.ImgBox2>
+                  <S.SubSliderTextBox>
+                    <S.RankingTitle isTitleLong={el.title?.length > 10}>
+                      {el.title}
+                    </S.RankingTitle>
+                    <S.SubItemsGrayTitle>
+                      {findGenreNames(category, el.genre_ids).join(", ")}
+                    </S.SubItemsGrayTitle>
+                  </S.SubSliderTextBox>
+                </S.BannerBox>
+              </S.BannerContent1>
+            )
+          )}
         </StyledSlider>
       </S.SubBannerWrapper>
     </S.Wrapper>
