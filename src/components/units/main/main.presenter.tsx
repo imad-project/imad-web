@@ -342,78 +342,83 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
           shouldCloseOnOverlayClick={true}
         >
           <S.ModalWrapper>
-            <S.RowBox5>
-              <S.title>아이매드 차트 전체보기</S.title>
-              <S.RowBox2>
-                <S.subtitle2
-                  onClick={() => {
-                    props.setTimes("alltime");
-                  }}
-                  active={props.times === "alltime"}
-                >
-                  전체
-                </S.subtitle2>
-                <S.subtitle>|</S.subtitle>
-                <S.subtitle2
-                  onClick={() => {
-                    props.setTimes("monthly");
-                  }}
-                  active={props.times === "monthly"}
-                >
-                  월간
-                </S.subtitle2>
-                <S.subtitle>|</S.subtitle>
-                <S.subtitle2
-                  onClick={() => {
-                    props.setTimes("weekly");
-                  }}
-                  active={props.times === "weekly"}
-                >
-                  주간
-                </S.subtitle2>
-              </S.RowBox2>
+            <S.RowBox6>
+              <div>
+                <S.RowBox5>
+                  <S.title2>아이매드 차트 전체보기</S.title2>
+
+                  <S.RowBox2>
+                    <S.subtitle2
+                      onClick={() => {
+                        props.setTimes("alltime");
+                      }}
+                      active={props.times === "alltime"}
+                    >
+                      전체
+                    </S.subtitle2>
+                    <S.subtitle>|</S.subtitle>
+                    <S.subtitle2
+                      onClick={() => {
+                        props.setTimes("monthly");
+                      }}
+                      active={props.times === "monthly"}
+                    >
+                      월간
+                    </S.subtitle2>
+                    <S.subtitle>|</S.subtitle>
+                    <S.subtitle2
+                      onClick={() => {
+                        props.setTimes("weekly");
+                      }}
+                      active={props.times === "weekly"}
+                    >
+                      주간
+                    </S.subtitle2>
+                  </S.RowBox2>
+                </S.RowBox5>
+
+                <S.LeftMarginBox>
+                  <S.RowBox2>
+                    <S.SubBtn
+                      onClick={() => {
+                        props.setContentsType("all");
+                      }}
+                      active={props.contentsType === "all"}
+                    >
+                      전체
+                    </S.SubBtn>
+                    <S.SubBtn
+                      onClick={() => {
+                        props.setContentsType("tv");
+                      }}
+                      active={props.contentsType === "tv"}
+                    >
+                      시리즈
+                    </S.SubBtn>
+                    <S.SubBtn
+                      onClick={() => {
+                        props.setContentsType("movie");
+                      }}
+                      active={props.contentsType === "movie"}
+                    >
+                      영화
+                    </S.SubBtn>
+                    <S.SubBtn
+                      onClick={() => {
+                        props.setContentsType("animation");
+                      }}
+                      active={props.contentsType === "animation"}
+                    >
+                      애니
+                    </S.SubBtn>
+                  </S.RowBox2>
+                </S.LeftMarginBox>
+              </div>
               <S.ModalCancel
                 src="/img/icon/cancel.png"
                 onClick={onClickClose}
               />
-            </S.RowBox5>
-
-            <S.LeftMarginBox>
-              <S.RowBox2>
-                <S.SubBtn
-                  onClick={() => {
-                    props.setContentsType("all");
-                  }}
-                  active={props.contentsType === "all"}
-                >
-                  전체
-                </S.SubBtn>
-                <S.SubBtn
-                  onClick={() => {
-                    props.setContentsType("tv");
-                  }}
-                  active={props.contentsType === "tv"}
-                >
-                  시리즈
-                </S.SubBtn>
-                <S.SubBtn
-                  onClick={() => {
-                    props.setContentsType("movie");
-                  }}
-                  active={props.contentsType === "movie"}
-                >
-                  영화
-                </S.SubBtn>
-                <S.SubBtn
-                  onClick={() => {
-                    props.setContentsType("animation");
-                  }}
-                  active={props.contentsType === "animation"}
-                >
-                  애니메이션
-                </S.SubBtn>
-              </S.RowBox2>
-            </S.LeftMarginBox>
+            </S.RowBox6>
 
             <S.MergedChartWrapper>
               {props.mergedChart?.map((el) => (
@@ -433,7 +438,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                         {el.title}
                       </S.RankingTitle>
                     </S.RowBox>
-                    <S.SubItemsGrayTitle>
+                    <S.SubItemsGrayTitle2>
                       {el.ranking_changed === 0 ||
                       el.ranking_changed === null ? (
                         <>-</> // 수치가 0 또는 null일 경우 "-" 출력
@@ -451,7 +456,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                         </span>
                       )}{" "}
                       {TypeConvert(el.contents_type)}
-                    </S.SubItemsGrayTitle>
+                    </S.SubItemsGrayTitle2>
                   </S.ColumnBox>
                   <S.RateBox>
                     <CircularProgressChart value={el.imad_score} />
@@ -481,7 +486,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   {el.title}
                 </S.RankingTitle>
               </S.RowBox>
-              <S.SubItemsGrayTitle>
+              <S.SubItemsGrayTitle2>
                 {el.ranking_changed === 0 || el.ranking_changed === null ? (
                   <>-</> // 수치가 0 또는 null일 경우 "-" 출력
                 ) : (
@@ -497,7 +502,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   </span>
                 )}{" "}
                 {TypeConvert(el.contents_type)}
-              </S.SubItemsGrayTitle>
+              </S.SubItemsGrayTitle2>
             </S.ColumnBox>
             <S.RateBox>
               <CircularProgressChart value={el.imad_score} />

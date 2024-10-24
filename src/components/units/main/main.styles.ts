@@ -67,8 +67,18 @@ export const RowBox5 = styled.div`
   }
 `;
 
+export const RowBox6 = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 export const LeftMarginBox = styled.div`
   margin-left: 35px;
+
+  @media (max-width: 480px) {
+    margin-left: 10px;
+  }
 `;
 
 export const TopRatedWrite = styled.div<{ backgroundUrl: string }>`
@@ -171,6 +181,11 @@ export const RankingNumbers = styled.div`
   color: #0b0537;
   font-weight: bolder;
   margin-right: 10px;
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+    margin-left: 5px;
+  }
 `;
 
 export const RankingTitle = styled.div<{ isTitleLong: boolean }>`
@@ -178,6 +193,10 @@ export const RankingTitle = styled.div<{ isTitleLong: boolean }>`
   font-size: ${(props) => (props.isTitleLong ? "16px" : "20px")};
   color: #0b0537;
   font-weight: normal;
+
+  @media (max-width: 480px) {
+    font-size: ${(props) => (props.isTitleLong ? "12px" : "16px")};
+  }
 `;
 
 export const MergedChartWrapper = styled.div`
@@ -185,6 +204,12 @@ export const MergedChartWrapper = styled.div`
   margin-left: 10%;
   margin-right: 10%;
   margin-top: 5%;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
 `;
 
 export const title = styled.div`
@@ -198,6 +223,18 @@ export const title = styled.div`
   }
 `;
 
+export const title2 = styled.div`
+  font-size: 30px;
+  color: #0b0537;
+  margin-left: 35px;
+  margin-top: 30px;
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+    margin-left: 10px;
+  }
+`;
+
 export const subtitle = styled.div`
   font-size: 20px;
   color: #0b0537;
@@ -206,7 +243,8 @@ export const subtitle = styled.div`
 
   @media (max-width: 480px) {
     font-size: 16px;
-    margin-left: 15px;
+    margin-left: 0;
+    margin-right: 15px;
   }
 `;
 
@@ -224,8 +262,9 @@ export const subtitle2 = styled.div<{ active: boolean }>`
 
   @media (max-width: 480px) {
     font-size: 16px;
-    margin-left: 15px;
+    margin-left: 0;
     width: 50px;
+    margin-right: 15px;
   }
 `;
 
@@ -246,6 +285,12 @@ export const SubBtn = styled.div<{ active: boolean }>`
   border-radius: 15px;
   color: ${(props) => (props.active ? "white" : "#0b0537")};
   background-color: ${(props) => (props.active ? "#0b0537" : "white")};
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+    padding: 0;
+    min-width: 50px;
+  }
 `;
 
 export const subtitle3 = styled.div`
@@ -347,8 +392,25 @@ export const SubItemsGrayTitle = styled.span`
 
   @media (max-width: 480px) {
     font-size: 9px;
-    margin-left: 0;
+    margin-left: 0px;
     width: 50px;
+  }
+`;
+
+export const SubItemsGrayTitle2 = styled.span`
+  margin-left: 5%;
+  position: relative;
+  font-size: 18px;
+  color: gray;
+
+  z-index: 3;
+  /* filter: brightness(0.6); */
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    margin-left: 0;
+    padding-left: 5px;
+    width: 80px;
   }
 `;
 
@@ -617,6 +679,16 @@ export const ModalCancel = styled.img`
   height: 30px;
   width: 30px;
   cursor: pointer;
+  position: absolute;
+  left: 90%;
+  top: 5%;
+
+  @media (max-width: 480px) {
+    height: 20px;
+    width: 20px;
+    left: 85%;
+    top: 8%;
+  }
 `;
 
 export const customModalStyles: ReactModal.Styles = {
