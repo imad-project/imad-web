@@ -6,6 +6,10 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 768px) {
+    padding-top: 64px;
+  }
 `;
 
 interface ILayoutProps {

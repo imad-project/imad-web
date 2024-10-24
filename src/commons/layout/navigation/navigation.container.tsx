@@ -22,6 +22,7 @@ export default function NavigationContainer(): JSX.Element {
   const [authToken, setAuthToken] = useState<string | null>(
     getCookie("Authorization")
   );
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const [userName, setUserName] = useState("");
   const router = useRouter();
 
@@ -62,6 +63,19 @@ export default function NavigationContainer(): JSX.Element {
     }
   }, [authToken]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+
+    handleResize(); // 초기 로딩 시에도 한 번 실행
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   // Add a useEffect to update authToken when the cookie changes
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -79,6 +93,7 @@ export default function NavigationContainer(): JSX.Element {
       onClickMenu={onClickMenu}
       userData={userData}
       onClickLogout={onClickLogout}
+      isMobile={isMobile}
     />
   );
 }
