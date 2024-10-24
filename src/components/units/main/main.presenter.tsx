@@ -18,78 +18,14 @@ const StyledSlider = styled(Slider)`
     opacity: 0;
     display: none;
   }
-`;
 
-const BackgroundImageWrapper = styled.div<{ backgroundUrl: string }>`
-  position: absolute;
-  width: 5%;
-  height: 600px;
-  background-image: url(${(props) => props.backgroundUrl});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  @media (max-width: 480px) {
+    .slick-dots {
+      position: absolute;
 
-  filter: blur(30px); /* 블러 처리 */
-
-  z-index: 1; /* 다른 요소보다 뒤에 배치 */
-`;
-
-const BannerContent = styled.div`
-  position: relative;
-
-  z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
-`;
-
-const BannerContent1 = styled.div`
-  cursor: pointer;
-  position: relative;
-
-  z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
-  margin-bottom: 50px;
-`;
-
-const BannerBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Arrow = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-
-const Pre = styled.div`
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  left: 3%;
-  z-index: 3;
-`;
-
-const NextTo = styled.div`
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  right: 3%;
-  z-index: 3;
-`;
-
-const Pre1 = styled.div`
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  left: -10%;
-  z-index: 3;
-`;
-
-const NextTo1 = styled.div`
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  right: -10%;
-  z-index: 3;
+      bottom: -40px;
+    }
+  }
 `;
 
 const ContentsType = [
@@ -145,14 +81,14 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
     slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow: (
-      <NextTo>
-        <Arrow src="/img/icon/next.png" />
-      </NextTo>
+      <S.NextTo>
+        <S.Arrow src="/img/icon/next.png" />
+      </S.NextTo>
     ),
     prevArrow: (
-      <Pre>
-        <Arrow src="/img/icon/prev.png" />
-      </Pre>
+      <S.Pre>
+        <S.Arrow src="/img/icon/prev.png" />
+      </S.Pre>
     ),
   };
 
@@ -166,15 +102,43 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
     rows: 2,
 
     nextArrow: (
-      <NextTo1>
-        <Arrow src="/img/icon/next.png" />
-      </NextTo1>
+      <S.NextTo1>
+        <S.Arrow src="/img/icon/next.png" />
+      </S.NextTo1>
     ),
     prevArrow: (
-      <Pre1>
-        <Arrow src="/img/icon/prev.png" />
-      </Pre1>
+      <S.Pre1>
+        <S.Arrow src="/img/icon/prev.png" />
+      </S.Pre1>
     ),
+
+    // 반응형 설정 추가
+    responsive: [
+      {
+        breakpoint: 1300, // 화면 너비가 1300px 이하일 때
+        settings: {
+          slidesToShow: 4, // 한 줄에 4개씩 표시
+          slidesToScroll: 4, // 4개씩 스크롤
+          rows: 2, // 여전히 2줄로 유지
+        },
+      },
+      {
+        breakpoint: 1080, // 화면 너비가 1080px 이하일 때
+        settings: {
+          slidesToShow: 3, // 한 줄에 3개씩 표시
+          slidesToScroll: 3, // 3개씩 스크롤
+          rows: 2, // 여전히 2줄로 유지
+        },
+      },
+      {
+        breakpoint: 480, // 화면 너비가 480px 이하일 때
+        settings: {
+          slidesToShow: 2, // 한 줄에 2개씩 표시
+          slidesToScroll: 2, // 2개씩 스크롤
+          rows: 1, // 1줄로 변경
+        },
+      },
+    ],
   };
 
   const onClickClose = () => {
@@ -251,12 +215,12 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
       <S.MainBannerWrapper>
         <StyledSlider {...settings} initialSlide={sliderPage - 1}>
           {toptenBanner?.map((el) => (
-            <div key={"title" in el ? el.title : el.name}>
-              <BackgroundImageWrapper
+            <S.MainBannerBox key={"title" in el ? el.title : el.name}>
+              <S.BackgroundImageWrapper
                 backgroundUrl={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
               />
-              <BannerContent>
-                <BannerBox>
+              <S.BannerContent>
+                <S.BannerBox>
                   <S.ImgBox
                     key={"title" in el ? el.title : el.name}
                     url={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
@@ -265,15 +229,19 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                       src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
                     />
                   </S.ImgBox>
-                  <S.MainBannerTitle>
+                  <S.MainBannerTitle
+                    isTitleLong={
+                      "title" in el ? el.title.length > 10 : el.name.length > 10
+                    }
+                  >
                     {"title" in el ? el.title : el.name}
                   </S.MainBannerTitle>
                   <S.MainBannerSubTitle>
                     {findGenreNames(category, el.genre_ids).join(", ")}
                   </S.MainBannerSubTitle>
-                </BannerBox>
-              </BannerContent>
-            </div>
+                </S.BannerBox>
+              </S.BannerContent>
+            </S.MainBannerBox>
           ))}
         </StyledSlider>
       </S.MainBannerWrapper>
@@ -304,9 +272,9 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   <S.Profile_image
                     src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props.TopReview?.user_profile_image}`}
                   />
-                  <S.SubItemsSubTitle>
+                  <S.SubItemsSubTitle2>
                     {props.TopReview?.user_nickname}
-                  </S.SubItemsSubTitle>
+                  </S.SubItemsSubTitle2>
                 </S.RowBox3>
               </S.RowBox2>
             </S.WriteBox>
@@ -340,9 +308,9 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   <S.Profile_image
                     src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props.TopWrite?.user_profile_image}`}
                   />
-                  <S.SubItemsSubTitle>
+                  <S.SubItemsSubTitle2>
                     {props.TopWrite?.user_nickname}
-                  </S.SubItemsSubTitle>
+                  </S.SubItemsSubTitle2>
                 </S.RowBox3>
               </S.RowBox2>
             </S.WriteBox>
@@ -351,9 +319,9 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
           <></>
         )}
       </S.RowBox>
-      <S.RowBox4>
+      <S.RowBox5>
+        <S.title>아이매드 차트</S.title>
         <S.RowBox2>
-          <S.title>아이매드 차트</S.title>
           <S.subtitle2
             onClick={() => {
               setChart("alltime");
@@ -383,15 +351,16 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
           >
             주간
           </S.subtitle2>
+          <S.subtitle3
+            onClick={() => {
+              props.mergeRanking();
+              onClickOpen();
+            }}
+          >
+            전체보기
+          </S.subtitle3>
         </S.RowBox2>
-        <S.subtitle3
-          onClick={() => {
-            props.mergeRanking();
-            onClickOpen();
-          }}
-        >
-          전체보기
-        </S.subtitle3>
+
         <Modal
           isOpen={isOpen}
           onRequestClose={() => onClickClose()}
@@ -401,78 +370,83 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
           shouldCloseOnOverlayClick={true}
         >
           <S.ModalWrapper>
-            <S.RowBox4>
-              <S.RowBox2>
-                <S.title>아이매드 차트 전체보기</S.title>
-                <S.subtitle2
-                  onClick={() => {
-                    props.setTimes("alltime");
-                  }}
-                  active={props.times === "alltime"}
-                >
-                  전체
-                </S.subtitle2>
-                <S.subtitle>|</S.subtitle>
-                <S.subtitle2
-                  onClick={() => {
-                    props.setTimes("monthly");
-                  }}
-                  active={props.times === "monthly"}
-                >
-                  월간
-                </S.subtitle2>
-                <S.subtitle>|</S.subtitle>
-                <S.subtitle2
-                  onClick={() => {
-                    props.setTimes("weekly");
-                  }}
-                  active={props.times === "weekly"}
-                >
-                  주간
-                </S.subtitle2>
-              </S.RowBox2>
+            <S.RowBox6>
+              <div>
+                <S.RowBox5>
+                  <S.title2>아이매드 차트 전체보기</S.title2>
+
+                  <S.RowBox2>
+                    <S.subtitle2
+                      onClick={() => {
+                        props.setTimes("alltime");
+                      }}
+                      active={props.times === "alltime"}
+                    >
+                      전체
+                    </S.subtitle2>
+                    <S.subtitle>|</S.subtitle>
+                    <S.subtitle2
+                      onClick={() => {
+                        props.setTimes("monthly");
+                      }}
+                      active={props.times === "monthly"}
+                    >
+                      월간
+                    </S.subtitle2>
+                    <S.subtitle>|</S.subtitle>
+                    <S.subtitle2
+                      onClick={() => {
+                        props.setTimes("weekly");
+                      }}
+                      active={props.times === "weekly"}
+                    >
+                      주간
+                    </S.subtitle2>
+                  </S.RowBox2>
+                </S.RowBox5>
+
+                <S.LeftMarginBox>
+                  <S.RowBox2>
+                    <S.SubBtn
+                      onClick={() => {
+                        props.setContentsType("all");
+                      }}
+                      active={props.contentsType === "all"}
+                    >
+                      전체
+                    </S.SubBtn>
+                    <S.SubBtn
+                      onClick={() => {
+                        props.setContentsType("tv");
+                      }}
+                      active={props.contentsType === "tv"}
+                    >
+                      시리즈
+                    </S.SubBtn>
+                    <S.SubBtn
+                      onClick={() => {
+                        props.setContentsType("movie");
+                      }}
+                      active={props.contentsType === "movie"}
+                    >
+                      영화
+                    </S.SubBtn>
+                    <S.SubBtn
+                      onClick={() => {
+                        props.setContentsType("animation");
+                      }}
+                      active={props.contentsType === "animation"}
+                    >
+                      애니
+                    </S.SubBtn>
+                  </S.RowBox2>
+                </S.LeftMarginBox>
+              </div>
               <S.ModalCancel
                 src="/img/icon/cancel.png"
                 onClick={onClickClose}
               />
-            </S.RowBox4>
-
-            <S.LeftMarginBox>
-              <S.RowBox2>
-                <S.SubBtn
-                  onClick={() => {
-                    props.setContentsType("all");
-                  }}
-                  active={props.contentsType === "all"}
-                >
-                  전체
-                </S.SubBtn>
-                <S.SubBtn
-                  onClick={() => {
-                    props.setContentsType("tv");
-                  }}
-                  active={props.contentsType === "tv"}
-                >
-                  시리즈
-                </S.SubBtn>
-                <S.SubBtn
-                  onClick={() => {
-                    props.setContentsType("movie");
-                  }}
-                  active={props.contentsType === "movie"}
-                >
-                  영화
-                </S.SubBtn>
-                <S.SubBtn
-                  onClick={() => {
-                    props.setContentsType("animation");
-                  }}
-                  active={props.contentsType === "animation"}
-                >
-                  애니메이션
-                </S.SubBtn>
-              </S.RowBox2>
-            </S.LeftMarginBox>
+            </S.RowBox6>
 
             <S.MergedChartWrapper>
               {props.mergedChart?.map((el) => (
@@ -492,7 +466,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                         {el.title}
                       </S.RankingTitle>
                     </S.RowBox>
-                    <S.SubItemsGrayTitle>
+                    <S.SubItemsGrayTitle2>
                       {el.ranking_changed === 0 ||
                       el.ranking_changed === null ? (
                         <>-</> // 수치가 0 또는 null일 경우 "-" 출력
@@ -510,7 +484,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                         </span>
                       )}{" "}
                       {TypeConvert(el.contents_type)}
-                    </S.SubItemsGrayTitle>
+                    </S.SubItemsGrayTitle2>
                   </S.ColumnBox>
                   <S.RateBox>
                     <CircularProgressChart value={el.imad_score} />
@@ -520,7 +494,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
             </S.MergedChartWrapper>
           </S.ModalWrapper>
         </Modal>
-      </S.RowBox4>
+      </S.RowBox5>
 
       <S.GridBox>
         {topChart?.map((el) => (
@@ -540,7 +514,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   {el.title}
                 </S.RankingTitle>
               </S.RowBox>
-              <S.SubItemsGrayTitle>
+              <S.SubItemsGrayTitle2>
                 {el.ranking_changed === 0 || el.ranking_changed === null ? (
                   <>-</> // 수치가 0 또는 null일 경우 "-" 출력
                 ) : (
@@ -556,7 +530,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   </span>
                 )}{" "}
                 {TypeConvert(el.contents_type)}
-              </S.SubItemsGrayTitle>
+              </S.SubItemsGrayTitle2>
             </S.ColumnBox>
             <S.RateBox>
               <CircularProgressChart value={el.imad_score} />
@@ -595,39 +569,42 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                         onClick={onClickClose1}
                       />
                     </S.RowBox4>
-                    {props.Recommend?.user_activity_recommendation_tv?.results.map(
-                      (el) => (
-                        <S.DetailBox
-                          onClick={() => props.onClickTvContents(el.id)}
-                        >
-                          <S.Recommend_Detail_Item
-                            key={el.name}
-                            backgroundUrl={
-                              el.backdrop_path
-                                ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
-                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
-                            }
-                          ></S.Recommend_Detail_Item>
-                          <S.Middle_Poster
-                            src={
-                              el.poster_path
-                                ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
-                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
-                            }
-                          />
-                          <S.ColumnBox>
-                            <S.Recommend_Title
-                              isTitleLong={el.name?.length > 10}
-                            >
-                              {el.name}
-                            </S.Recommend_Title>
-                            <S.Recommend_SubTitle>
-                              {findGenreNames("tv", el.genre_ids).join(", ")}
-                            </S.Recommend_SubTitle>
-                          </S.ColumnBox>
-                        </S.DetailBox>
-                      )
-                    )}
+
+                    <S.Recommend_Detail_Box>
+                      {props.Recommend?.user_activity_recommendation_tv?.results.map(
+                        (el) => (
+                          <S.DetailBox
+                            onClick={() => props.onClickTvContents(el.id)}
+                          >
+                            <S.Recommend_Detail_Item
+                              key={el.name}
+                              backgroundUrl={
+                                el.backdrop_path
+                                  ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
+                                  : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                              }
+                            ></S.Recommend_Detail_Item>
+                            <S.Middle_Poster
+                              src={
+                                el.poster_path
+                                  ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
+                                  : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                              }
+                            />
+                            <S.ColumnBox>
+                              <S.Recommend_Title
+                                isTitleLong={el.name?.length > 10}
+                              >
+                                {el.name}
+                              </S.Recommend_Title>
+                              <S.Recommend_SubTitle>
+                                {findGenreNames("tv", el.genre_ids).join(", ")}
+                              </S.Recommend_SubTitle>
+                            </S.ColumnBox>
+                          </S.DetailBox>
+                        )
+                      )}
+                    </S.Recommend_Detail_Box>
                   </S.ModalWrapper>
                 </Modal>
               </S.RowBox>
@@ -681,39 +658,43 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                         onClick={onClickClose2}
                       />
                     </S.RowBox4>
-                    {props.Recommend?.user_activity_recommendation_movie?.results.map(
-                      (el) => (
-                        <S.DetailBox
-                          onClick={() => props.onClickMovieContents(el.id)}
-                        >
-                          <S.Recommend_Detail_Item
-                            key={el.title}
-                            backgroundUrl={
-                              el.backdrop_path
-                                ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
-                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
-                            }
-                          ></S.Recommend_Detail_Item>
-                          <S.Middle_Poster
-                            src={
-                              el.poster_path
-                                ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
-                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
-                            }
-                          />
-                          <S.ColumnBox>
-                            <S.Recommend_Title
-                              isTitleLong={el.title?.length > 10}
-                            >
-                              {el.title}
-                            </S.Recommend_Title>
-                            <S.Recommend_SubTitle>
-                              {findGenreNames("movie", el.genre_ids).join(", ")}
-                            </S.Recommend_SubTitle>
-                          </S.ColumnBox>
-                        </S.DetailBox>
-                      )
-                    )}
+                    <S.Recommend_Detail_Box>
+                      {props.Recommend?.user_activity_recommendation_movie?.results.map(
+                        (el) => (
+                          <S.DetailBox
+                            onClick={() => props.onClickMovieContents(el.id)}
+                          >
+                            <S.Recommend_Detail_Item
+                              key={el.title}
+                              backgroundUrl={
+                                el.backdrop_path
+                                  ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
+                                  : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                              }
+                            ></S.Recommend_Detail_Item>
+                            <S.Middle_Poster
+                              src={
+                                el.poster_path
+                                  ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
+                                  : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                              }
+                            />
+                            <S.ColumnBox>
+                              <S.Recommend_Title
+                                isTitleLong={el.title?.length > 10}
+                              >
+                                {el.title}
+                              </S.Recommend_Title>
+                              <S.Recommend_SubTitle>
+                                {findGenreNames("movie", el.genre_ids).join(
+                                  ", "
+                                )}
+                              </S.Recommend_SubTitle>
+                            </S.ColumnBox>
+                          </S.DetailBox>
+                        )
+                      )}
+                    </S.Recommend_Detail_Box>
                   </S.ModalWrapper>
                 </Modal>
               </S.RowBox>
@@ -767,39 +748,41 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                         onClick={onClickClose3}
                       />
                     </S.RowBox4>
-                    {props.Recommend?.user_activity_recommendation_tv_animation?.results.map(
-                      (el) => (
-                        <S.DetailBox
-                          onClick={() => props.onClickTvContents(el.id)}
-                        >
-                          <S.Recommend_Detail_Item
-                            key={el.name}
-                            backgroundUrl={
-                              el.backdrop_path
-                                ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
-                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
-                            }
-                          ></S.Recommend_Detail_Item>
-                          <S.Middle_Poster
-                            src={
-                              el.poster_path
-                                ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
-                                : "/img/icon/profile/blue.png" // 대체 이미지 경로
-                            }
-                          />
-                          <S.ColumnBox>
-                            <S.Recommend_Title
-                              isTitleLong={el.name?.length > 10}
-                            >
-                              {el.name}
-                            </S.Recommend_Title>
-                            <S.Recommend_SubTitle>
-                              {findGenreNames("tv", el.genre_ids).join(", ")}
-                            </S.Recommend_SubTitle>
-                          </S.ColumnBox>
-                        </S.DetailBox>
-                      )
-                    )}
+                    <S.Recommend_Detail_Box>
+                      {props.Recommend?.user_activity_recommendation_tv_animation?.results.map(
+                        (el) => (
+                          <S.DetailBox
+                            onClick={() => props.onClickTvContents(el.id)}
+                          >
+                            <S.Recommend_Detail_Item
+                              key={el.name}
+                              backgroundUrl={
+                                el.backdrop_path
+                                  ? `https://image.tmdb.org/t/p/original/${el.backdrop_path}`
+                                  : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                              }
+                            ></S.Recommend_Detail_Item>
+                            <S.Middle_Poster
+                              src={
+                                el.poster_path
+                                  ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
+                                  : "/img/icon/profile/blue.png" // 대체 이미지 경로
+                              }
+                            />
+                            <S.ColumnBox>
+                              <S.Recommend_Title
+                                isTitleLong={el.name?.length > 10}
+                              >
+                                {el.name}
+                              </S.Recommend_Title>
+                              <S.Recommend_SubTitle>
+                                {findGenreNames("tv", el.genre_ids).join(", ")}
+                              </S.Recommend_SubTitle>
+                            </S.ColumnBox>
+                          </S.DetailBox>
+                        )
+                      )}
+                    </S.Recommend_Detail_Box>
                   </S.ModalWrapper>
                 </Modal>
               </S.RowBox>
@@ -840,10 +823,10 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
             <StyledSlider {...subsettings}>
               {props?.Recommend?.preferred_genre_recommendation_movie?.results.map(
                 (el) => (
-                  <BannerContent1
+                  <S.BannerContent1
                     onClick={() => props.onClickMovieContents(el.id)}
                   >
-                    <BannerBox>
+                    <S.BannerBox>
                       <S.ImgBox2 key={el.title}>
                         <S.SubSliderItem
                           src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
@@ -857,8 +840,8 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                           {findGenreNames(category, el.genre_ids).join(", ")}
                         </S.SubItemsGrayTitle>
                       </S.SubSliderTextBox>
-                    </BannerBox>
-                  </BannerContent1>
+                    </S.BannerBox>
+                  </S.BannerContent1>
                 )
               )}
             </StyledSlider>
@@ -875,10 +858,10 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
             <StyledSlider {...subsettings}>
               {props?.Recommend?.preferred_genre_recommendation_tv?.results.map(
                 (el) => (
-                  <BannerContent1
+                  <S.BannerContent1
                     onClick={() => props.onClickTvContents(el.id)}
                   >
-                    <BannerBox>
+                    <S.BannerBox>
                       <S.ImgBox2 key={el.name}>
                         <S.SubSliderItem
                           src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
@@ -892,8 +875,8 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                           {findGenreNames(category, el.genre_ids).join(", ")}
                         </S.SubItemsGrayTitle>
                       </S.SubSliderTextBox>
-                    </BannerBox>
-                  </BannerContent1>
+                    </S.BannerBox>
+                  </S.BannerContent1>
                 )
               )}
             </StyledSlider>
@@ -903,37 +886,12 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
         <></>
       )}
 
-      <S.title>아이매드 엄선 영화</S.title>
+      <S.title>어머! 이건 꼭 봐야 해!!</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
-          {props?.Recommend?.popular_recommendation_movie?.results.map((el) => (
-            <BannerContent1 onClick={() => props.onClickMovieContents(el.id)}>
-              <BannerBox>
-                <S.ImgBox2 key={el.title}>
-                  <S.SubSliderItem
-                    src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
-                  />
-                </S.ImgBox2>
-                <S.SubSliderTextBox>
-                  <S.RankingTitle isTitleLong={el.title?.length > 10}>
-                    {el.title}
-                  </S.RankingTitle>
-                  <S.SubItemsGrayTitle>
-                    {findGenreNames(category, el.genre_ids).join(", ")}
-                  </S.SubItemsGrayTitle>
-                </S.SubSliderTextBox>
-              </BannerBox>
-            </BannerContent1>
-          ))}
-        </StyledSlider>
-      </S.SubBannerWrapper>
-
-      <S.title>전 세계 사람들이 선택한 시리즈</S.title>
-      <S.SubBannerWrapper>
-        <StyledSlider {...subsettings}>
-          {props?.Recommend?.trend_recommendation_tv?.results.map((el) => (
-            <BannerContent1 onClick={() => props.onClickTvContents(el.id)}>
-              <BannerBox>
+          {props?.Recommend?.popular_recommendation_tv?.results.map((el) => (
+            <S.BannerContent1 onClick={() => props.onClickTvContents(el.id)}>
+              <S.BannerBox>
                 <S.ImgBox2 key={el.name}>
                   <S.SubSliderItem
                     src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
@@ -947,9 +905,88 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                     {findGenreNames(category, el.genre_ids).join(", ")}
                   </S.SubItemsGrayTitle>
                 </S.SubSliderTextBox>
-              </BannerBox>
-            </BannerContent1>
+              </S.BannerBox>
+            </S.BannerContent1>
           ))}
+        </StyledSlider>
+      </S.SubBannerWrapper>
+
+      <S.title>아이매드 엄선 영화</S.title>
+      <S.SubBannerWrapper>
+        <StyledSlider {...subsettings}>
+          {props?.Recommend?.popular_recommendation_movie?.results.map((el) => (
+            <S.BannerContent1 onClick={() => props.onClickMovieContents(el.id)}>
+              <S.BannerBox>
+                <S.ImgBox2 key={el.title}>
+                  <S.SubSliderItem
+                    src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                  />
+                </S.ImgBox2>
+                <S.SubSliderTextBox>
+                  <S.RankingTitle isTitleLong={el.title?.length > 10}>
+                    {el.title}
+                  </S.RankingTitle>
+                  <S.SubItemsGrayTitle>
+                    {findGenreNames(category, el.genre_ids).join(", ")}
+                  </S.SubItemsGrayTitle>
+                </S.SubSliderTextBox>
+              </S.BannerBox>
+            </S.BannerContent1>
+          ))}
+        </StyledSlider>
+      </S.SubBannerWrapper>
+
+      <S.title>전 세계 사람들이 선택한 시리즈</S.title>
+      <S.SubBannerWrapper>
+        <StyledSlider {...subsettings}>
+          {props?.Recommend?.top_rated_recommendation_tv?.results.map((el) => (
+            <S.BannerContent1 onClick={() => props.onClickTvContents(el.id)}>
+              <S.BannerBox>
+                <S.ImgBox2 key={el.name}>
+                  <S.SubSliderItem
+                    src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                  />
+                </S.ImgBox2>
+                <S.SubSliderTextBox>
+                  <S.RankingTitle isTitleLong={el.name?.length > 10}>
+                    {el.name}
+                  </S.RankingTitle>
+                  <S.SubItemsGrayTitle>
+                    {findGenreNames(category, el.genre_ids).join(", ")}
+                  </S.SubItemsGrayTitle>
+                </S.SubSliderTextBox>
+              </S.BannerBox>
+            </S.BannerContent1>
+          ))}
+        </StyledSlider>
+      </S.SubBannerWrapper>
+
+      <S.title>좋은반응을 얻은 영화</S.title>
+      <S.SubBannerWrapper>
+        <StyledSlider {...subsettings}>
+          {props?.Recommend?.top_rated_recommendation_movie?.results.map(
+            (el) => (
+              <S.BannerContent1
+                onClick={() => props.onClickMovieContents(el.id)}
+              >
+                <S.BannerBox>
+                  <S.ImgBox2 key={el.title}>
+                    <S.SubSliderItem
+                      src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                    />
+                  </S.ImgBox2>
+                  <S.SubSliderTextBox>
+                    <S.RankingTitle isTitleLong={el.title?.length > 10}>
+                      {el.title}
+                    </S.RankingTitle>
+                    <S.SubItemsGrayTitle>
+                      {findGenreNames(category, el.genre_ids).join(", ")}
+                    </S.SubItemsGrayTitle>
+                  </S.SubSliderTextBox>
+                </S.BannerBox>
+              </S.BannerContent1>
+            )
+          )}
         </StyledSlider>
       </S.SubBannerWrapper>
     </S.Wrapper>

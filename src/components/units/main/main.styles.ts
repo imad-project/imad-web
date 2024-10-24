@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import ReactModal from "react-modal";
@@ -6,6 +7,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 100vw;
   height: 100%;
 `;
 
@@ -33,6 +35,10 @@ export const RowBox3 = styled.div`
   flex-direction: row;
   align-items: center;
   text-align: center;
+
+  @media (max-width: 480px) {
+    margin-left: 5%;
+  }
 `;
 
 export const ColumnBox = styled.div`
@@ -50,8 +56,30 @@ export const RowBox4 = styled.div`
   justify-content: space-between;
 `;
 
+export const RowBox5 = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @media (max-width: 1080px) {
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: center;
+  }
+`;
+
+export const RowBox6 = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 export const LeftMarginBox = styled.div`
   margin-left: 35px;
+
+  @media (max-width: 480px) {
+    margin-left: 10px;
+  }
 `;
 
 export const TopRatedWrite = styled.div<{ backgroundUrl: string }>`
@@ -84,6 +112,11 @@ export const WriteBox = styled.div`
   overflow: hidden;
   z-index: 2;
   cursor: pointer;
+
+  @media (max-width: 480px) {
+    width: 45%;
+    height: 140px;
+  }
 `;
 
 export const GridBox = styled.div`
@@ -91,15 +124,26 @@ export const GridBox = styled.div`
   margin-left: 5%;
   margin-right: 5%;
   width: 90%;
+
+  min-height: 380px;
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3개의 열로 구성 */
   grid-template-rows: repeat(3, 1fr); /* 3개의 열로 구성 */
   gap: 30px; /* 아이템 간의 간격 */
   grid-auto-flow: column;
+
+  @media (max-width: 768px) {
+    overflow-x: auto; /* 가로 스크롤 활성화 */
+
+    gap: 10px; /* 아이템 간격 줄이기 */
+    padding: 10px 0; /* 수직 여백 조정 */
+  }
 `;
 
 export const RankingBox = styled.div`
   width: 100%;
+  min-width: 300px;
+  scroll-snap-align: start;
   height: 100px;
   display: flex;
   flex-direction: row;
@@ -138,6 +182,11 @@ export const RankingNumbers = styled.div`
   color: #0b0537;
   font-weight: bolder;
   margin-right: 10px;
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+    margin-left: 5px;
+  }
 `;
 
 export const RankingTitle = styled.div<{ isTitleLong: boolean }>`
@@ -145,6 +194,10 @@ export const RankingTitle = styled.div<{ isTitleLong: boolean }>`
   font-size: ${(props) => (props.isTitleLong ? "16px" : "20px")};
   color: #0b0537;
   font-weight: normal;
+
+  @media (max-width: 480px) {
+    font-size: ${(props) => (props.isTitleLong ? "12px" : "16px")};
+  }
 `;
 
 export const MergedChartWrapper = styled.div`
@@ -152,6 +205,12 @@ export const MergedChartWrapper = styled.div`
   margin-left: 10%;
   margin-right: 10%;
   margin-top: 5%;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
 `;
 
 export const title = styled.div`
@@ -159,6 +218,22 @@ export const title = styled.div`
   color: #0b0537;
   margin-left: 35px;
   margin-top: 30px;
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
+`;
+
+export const title2 = styled.div`
+  font-size: 30px;
+  color: #0b0537;
+  margin-left: 35px;
+  margin-top: 30px;
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+    margin-left: 10px;
+  }
 `;
 
 export const subtitle = styled.div`
@@ -166,14 +241,32 @@ export const subtitle = styled.div`
   color: #0b0537;
   margin-left: 35px;
   margin-top: 30px;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+    margin-left: 0;
+    margin-right: 15px;
+  }
 `;
+
 export const subtitle2 = styled.div<{ active: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
   cursor: pointer;
   font-size: 20px;
   color: ${(props) => (props.active ? "#0b0537" : "#3C4B66")};
   margin-left: 35px;
   margin-top: 30px;
   transition: color 0.3s ease;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+    margin-left: 0;
+    width: 50px;
+    margin-right: 15px;
+  }
 `;
 
 export const SubBtn = styled.div<{ active: boolean }>`
@@ -193,9 +286,20 @@ export const SubBtn = styled.div<{ active: boolean }>`
   border-radius: 15px;
   color: ${(props) => (props.active ? "white" : "#0b0537")};
   background-color: ${(props) => (props.active ? "#0b0537" : "white")};
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+    padding: 0;
+    min-width: 50px;
+  }
 `;
 
 export const subtitle3 = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100px;
   cursor: pointer;
   font-size: 20px;
   color: "#0b0537";
@@ -203,20 +307,35 @@ export const subtitle3 = styled.div`
   margin-top: 30px;
   transition: color 0.3s ease;
   margin-right: 5%;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+    margin-left: 15px;
+    width: 80px;
+    font-weight: bold;
+  }
 `;
 
-export const MainBannerTitle = styled.div`
-  font-size: 30px;
+export const MainBannerTitle = styled.div<{ isTitleLong: boolean }>`
+  font-size: ${(props) => (props.isTitleLong ? "20px" : "30px")};
   margin-top: 10px;
   margin-bottom: 10px;
   color: white;
   font-weight: bold;
+
+  @media (max-width: 480px) {
+    font-size: ${(props) => (props.isTitleLong ? "16px" : "20px")};
+  }
 `;
 
 export const MainBannerSubTitle = styled.span`
   font-size: 20px;
   color: white;
   margin-bottom: 10px;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 export const SubItemsTitle = styled.div`
@@ -228,6 +347,10 @@ export const SubItemsTitle = styled.div`
   color: white;
   font-weight: bold;
   z-index: 3;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 export const SubItemsSubTitle = styled.span`
@@ -237,6 +360,26 @@ export const SubItemsSubTitle = styled.span`
   color: white;
 
   z-index: 3;
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    width: 50px;
+  }
+`;
+
+export const SubItemsSubTitle2 = styled.span`
+  margin-left: 10%;
+  position: relative;
+  font-size: 20px;
+  color: white;
+
+  z-index: 3;
+
+  @media (max-width: 480px) {
+    font-size: 9px;
+
+    margin-left: 0;
+  }
 `;
 
 export const SubItemsGrayTitle = styled.span`
@@ -247,6 +390,29 @@ export const SubItemsGrayTitle = styled.span`
 
   z-index: 3;
   /* filter: brightness(0.6); */
+
+  @media (max-width: 480px) {
+    font-size: 9px;
+    margin-left: 0px;
+    width: 50px;
+  }
+`;
+
+export const SubItemsGrayTitle2 = styled.span`
+  margin-left: 5%;
+  position: relative;
+  font-size: 18px;
+  color: gray;
+
+  z-index: 3;
+  /* filter: brightness(0.6); */
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    margin-left: 0;
+    padding-left: 5px;
+    width: 80px;
+  }
 `;
 
 export const TinyPoster = styled.img`
@@ -254,6 +420,10 @@ export const TinyPoster = styled.img`
   width: auto;
   height: 70px;
   border-radius: 5px;
+
+  @media (max-width: 480px) {
+    height: 50px;
+  }
 `;
 
 export const Profile_image = styled.img`
@@ -262,6 +432,11 @@ export const Profile_image = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50px;
+
+  @media (max-width: 480px) {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 export const Recommend_Box = styled.div`
@@ -273,6 +448,17 @@ export const Recommend_Box = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  height: 100%;
+
+  @media (max-width: 480px) {
+    overflow-x: auto;
+    min-height: 500px;
+    width: 100%;
+  }
+`;
+
+export const Recommend_Detail_Box = styled.div`
+  margin-top: 20px;
 `;
 
 export const Gradation_Box1 = styled.div`
@@ -283,6 +469,11 @@ export const Gradation_Box1 = styled.div`
   background-image: linear-gradient(135deg, pink, yellow);
   width: 30%;
   height: 500px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    margin-right: 5%;
+  }
 `;
 
 export const Gradation_Box2 = styled.div`
@@ -293,6 +484,11 @@ export const Gradation_Box2 = styled.div`
   background-image: linear-gradient(135deg, #042e53, #e21a51);
   width: 30%;
   height: 500px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    margin-right: 5%;
+  }
 `;
 
 export const Gradation_Box3 = styled.div`
@@ -303,6 +499,11 @@ export const Gradation_Box3 = styled.div`
   background-image: linear-gradient(135deg, #006acc, #5bff3d);
   width: 30%;
   height: 500px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    margin-right: 5%;
+  }
 `;
 
 export const Recommend_Title = styled.div<{ isTitleLong: boolean }>`
@@ -313,6 +514,10 @@ export const Recommend_Title = styled.div<{ isTitleLong: boolean }>`
   color: white;
   font-weight: bold;
   z-index: 3;
+
+  @media (max-width: 480px) {
+    font-size: ${(props) => (props.isTitleLong ? "14px" : "16px")};
+  }
 `;
 
 export const Recommend_SubTitle = styled.div`
@@ -321,6 +526,9 @@ export const Recommend_SubTitle = styled.div`
   color: white;
 
   z-index: 3;
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
 `;
 
 export const Recommend_MainTitle = styled.div`
@@ -331,6 +539,10 @@ export const Recommend_MainTitle = styled.div`
   color: white;
   font-weight: bold;
   z-index: 3;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 export const Recommend_SubTitleBtn = styled.span`
@@ -344,6 +556,10 @@ export const Recommend_SubTitleBtn = styled.span`
   :hover {
     color: gray;
     transition: 0.3s ease-in-out;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 16px;
   }
 `;
 
@@ -410,7 +626,7 @@ export const Middle_Poster = styled.img`
 export const SubBannerWrapper = styled.div`
   width: 100%;
   height: 100%;
-
+  margin-top: 20px;
   padding-left: 10%;
   padding-right: 10%;
   position: relative;
@@ -419,8 +635,13 @@ export const SubBannerWrapper = styled.div`
 
 export const MainBannerWrapper = styled.div`
   background-color: #666;
-  width: 100%;
+  width: 100vw;
+  max-width: 100vw;
   height: 600px;
+
+  @media (max-width: 480px) {
+    max-height: 300px;
+  }
 `;
 
 export const ImgBox = styled.div<{ url: string }>`
@@ -453,6 +674,10 @@ export const SubSliderItem = styled.img`
   width: auto;
   border-radius: 10px;
   box-shadow: 1px 1px 10px gray;
+
+  @media (max-width: 480px) {
+    height: 150px;
+  }
 `;
 
 export const SubSliderTextBox = styled.div`
@@ -472,6 +697,10 @@ export const MainSliderItem = styled.img`
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
+
+  @media (max-width: 480px) {
+    height: 200px;
+  }
 `;
 
 export const testItem = styled.div`
@@ -496,6 +725,37 @@ export const ModalCancel = styled.img`
   height: 30px;
   width: 30px;
   cursor: pointer;
+  position: absolute;
+  left: 90%;
+  top: 5%;
+
+  @media (max-width: 480px) {
+    height: 20px;
+    width: 20px;
+    left: 85%;
+    top: 6%;
+  }
+`;
+
+const contentStyles = css`
+  width: 80%;
+  height: 80%;
+  z-index: 150;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+  background-color: white;
+  justify-content: center;
+  overflow: auto;
+
+  @media (max-width: 480px) {
+    width: 95%;
+    height: 80%;
+    padding: 0;
+  }
 `;
 
 export const customModalStyles: ReactModal.Styles = {
@@ -509,17 +769,95 @@ export const customModalStyles: ReactModal.Styles = {
     left: "0",
   },
   content: {
-    width: "80%",
-    height: "80%",
-    zIndex: "150",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    borderRadius: "10px",
-    boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-    backgroundColor: "white",
-    justifyContent: "center",
-    overflow: "auto",
+    ...(contentStyles as any),
   },
 };
+
+export const BackgroundImageWrapper = styled.div<{ backgroundUrl: string }>`
+  position: absolute;
+  width: 5%;
+  height: 600px;
+  background-image: url(${(props) => props.backgroundUrl});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  filter: blur(30px); /* 블러 처리 */
+
+  z-index: 1; /* 다른 요소보다 뒤에 배치 */
+
+  @media (max-width: 480px) {
+    max-height: 300px;
+  }
+`;
+
+export const MainBannerBox = styled.div`
+  overflow: hidden;
+  height: 590px;
+
+  @media (max-width: 480px) {
+    height: 290px;
+  }
+`;
+
+export const BannerContent = styled.div`
+  position: relative;
+
+  z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
+`;
+
+export const BannerContent1 = styled.div`
+  cursor: pointer;
+  position: relative;
+
+  z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
+  margin-bottom: 50px;
+
+  @media (max-width: 480px) {
+    margin-bottom: 0;
+  }
+`;
+
+export const BannerBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Arrow = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
+export const Pre = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 3%;
+  z-index: 3;
+`;
+
+export const NextTo = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 3%;
+  z-index: 3;
+`;
+
+export const Pre1 = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: -10%;
+  z-index: 3;
+`;
+
+export const NextTo1 = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: -10%;
+  z-index: 3;
+`;
