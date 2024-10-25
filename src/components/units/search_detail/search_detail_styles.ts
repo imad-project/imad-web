@@ -1,19 +1,21 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 100%;
   /* height: 1847px; */
   border: 1px solid black;
-  margin: 100px;
-  padding-top: 0px;
-  padding-bottom: 100px;
-  padding-left: 0px;
-  padding-right: 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   border: none;
   box-shadow: 0px 0px 10px gray;
+`;
+
+export const RowBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const subtitle = styled.div`
@@ -23,6 +25,7 @@ export const subtitle = styled.div`
 export const title = styled.div`
   font-size: 20px;
   margin-top: 10px;
+  margin-bottom: 5px;
 `;
 
 export const subWrapper = styled.div`
@@ -39,6 +42,10 @@ export const subtitleBox = styled.div`
   width: 125px;
 `;
 
+export const LeftMarginBox = styled.div`
+  margin-left: 100px;
+`;
+
 export const titleWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -48,6 +55,7 @@ export const titleWrapper = styled.div`
   width: 20%;
 
   color: white;
+  z-index: 2;
 `;
 
 export const mediaType = styled.div`
@@ -65,11 +73,27 @@ export const posterWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
 
-  background-color: #646364;
   padding-bottom: 20px;
   padding-top: 20px;
   padding-left: 100px;
   padding-right: 100px;
+
+  position: relative;
+`;
+
+export const BackdropWrapper = styled.div<{ backgroundUrl: string | null }>`
+  width: 100%;
+  height: 400px;
+  z-index: 1;
+  background-color: ${(props) =>
+    props.backgroundUrl ? "transparent" : "#d3d3d3"};
+  background-image: ${(props) =>
+    props.backgroundUrl ? `url(${props.backgroundUrl})` : "none"};
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  filter: brightness(0.5);
 `;
 
 export const RowWrapper = styled.div`
@@ -79,12 +103,17 @@ export const RowWrapper = styled.div`
   align-items: center;
 `;
 
+export const ImgWrapper = styled.div`
+  z-index: 2;
+`;
+
 export const ImgBox = styled.img`
   height: 300px;
   width: 200px;
   margin: auto;
   border-radius: 10px;
   box-shadow: 0px 0px 10px black;
+  z-index: 2;
 `;
 export const Line = styled.div`
   border-top: 1px solid #bdbdbd;

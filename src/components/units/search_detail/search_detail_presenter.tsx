@@ -5,6 +5,9 @@ import ReactStars from "react-stars";
 import { getCookie } from "../../../commons/cookies/cookie";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { getCountryNames } from "@/src/commons/countrycode/countrycode";
+import { AgeComponent } from "@/src/commons/agefinder/agefinder";
+import { findGenreNames } from "@/src/commons/gerne_finder/gerne_finder";
 
 export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
   const MAX_TITLE_BYTES = 50; // 리뷰 제목 최대 바이트 수
@@ -115,6 +118,13 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
     <>
       <S.Wrapper>
         <S.posterWrapper>
+          <S.BackdropWrapper
+            backgroundUrl={
+              props.data?.backdrop_path
+                ? `https://image.tmdb.org/t/p/original/${props?.data?.backdrop_path}`
+                : null
+            }
+          />
           <S.titleWrapper>
             <S.subtitleBox>
               <h1>{props?.data?.name || props?.data?.title}</h1>
@@ -122,7 +132,9 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
             </S.subtitleBox>
             <S.subtitleBox>
               <S.subtitle>최초공개일</S.subtitle>
-              <S.subtitle>{props?.data?.release_date}</S.subtitle>
+              <S.subtitle>
+                {props?.data?.release_date || props.data?.first_air_date}
+              </S.subtitle>
             </S.subtitleBox>
             <S.mediaType>{props?.data?.contents_type}</S.mediaType>
             <div>
@@ -131,19 +143,72 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
                 : "평점 없음"}
             </div>
           </S.titleWrapper>
-
-          <div>
+          <S.ImgWrapper>
             <S.ImgBox
               src={`https://image.tmdb.org/t/p/original/${props?.data?.poster_path}`}
               alt="Poster"
             />
-          </div>
+          </S.ImgWrapper>
         </S.posterWrapper>
 
         <S.Line />
         <S.subWrapper>
+          <S.title>원재</S.title>
+          <S.subtitle>
+            {props.data?.name || props.data?.title}(
+            {props.data?.original_name || props.data?.original_title})
+          </S.subtitle>
+          <S.RowBox>
+            <div>
+              <S.title>국가</S.title>
+              <S.subtitle>
+                {props.data?.production_countries
+                  ? getCountryNames(props.data?.production_countries)
+                  : null}
+              </S.subtitle>
+            </div>
+
+            <S.LeftMarginBox>
+              <S.title>연령등급</S.title>
+              <AgeComponent
+                id={
+                  props.data?.certification ? props.data?.certification : "NONE"
+                }
+              />
+            </S.LeftMarginBox>
+          </S.RowBox>
+          <S.title>장르</S.title>
+          <S.subtitle>
+            {props.data
+              ? findGenreNames(
+                  props.data?.tmdb_type.toLowerCase(),
+                  props.data?.genres
+                ).join(", ")
+              : null}
+          </S.subtitle>
+
+          {props.data?.runtime ? (
+            <>
+              <S.title>상영시간</S.title>
+              <S.subtitle>{props.data?.runtime}분</S.subtitle>
+            </>
+          ) : (
+            <></>
+          )}
+
+          {props.data?.seasons ? (
+            <>
+              <S.title>시즌</S.title>
+              <S.subtitle>
+                {props.data?.number_of_seasons}부작 -{" "}
+                {props.data?.number_of_episodes}개의 에피소드
+              </S.subtitle>
+            </>
+          ) : (
+            <></>
+          )}
           <S.title>개요</S.title>
-          <S.title>{props?.data?.overview}</S.title>
+          <S.subtitle>{props?.data?.overview}</S.subtitle>
         </S.subWrapper>
 
         <S.Line />
@@ -178,7 +243,7 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
                   리뷰 본문은 최대 1000바이트를 초과할 수 없습니다.
                 </p>
               )}
-              <span>평점: {rating}</span>
+              <span>평점: {rating}/10</span>
               <ReactStars
                 count={5}
                 value={selectedRating}
