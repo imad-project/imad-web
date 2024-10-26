@@ -20,6 +20,28 @@ export const RowBox = styled.div`
 
 export const subtitle = styled.div`
   font-size: 15px;
+  margin-bottom: 2px;
+`;
+
+export const RateBox = styled.div`
+  width: 100px;
+  height: 100px;
+`;
+
+export const MainTitle = styled.div`
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+`;
+
+export const MainSubTitle = styled.div`
+  font-size: 20px;
+  color: white;
+`;
+
+export const FilterSubtitle = styled.div`
+  font-size: 15px;
+  filter: brightness(0.7);
 `;
 
 export const title = styled.div`
@@ -39,30 +61,38 @@ export const subtitleBox = styled.div`
   flex-direction: column;
   align-items: flex-start;
 
-  width: 125px;
+  width: 100%;
 `;
 
 export const LeftMarginBox = styled.div`
   margin-left: 100px;
 `;
 
+export const TopMarginBox = styled.div`
+  margin-top: 50px;
+`;
+
 export const titleWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
+  align-items: flex-start;
+  margin-top: 15%;
   height: 100%;
-  width: 20%;
+  width: 30%;
 
   color: white;
   z-index: 2;
 `;
 
 export const mediaType = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 2px;
   border-radius: 5px;
   border: 2px solid white;
   font-size: 15px;
+  margin-bottom: 5px;
 `;
 
 export const posterWrapper = styled.div`

@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { getCountryNames } from "@/src/commons/countrycode/countrycode";
 import { AgeComponent } from "@/src/commons/agefinder/agefinder";
 import { findGenreNames } from "@/src/commons/gerne_finder/gerne_finder";
+import CircularProgressWhiteChart from "@/src/commons/rate_view/rate_view_white";
 
 export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
   const MAX_TITLE_BYTES = 50; // 리뷰 제목 최대 바이트 수
@@ -130,22 +131,28 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
             }
           />
           <S.titleWrapper>
-            <S.subtitleBox>
-              <h1>{props?.data?.name || props?.data?.title}</h1>
-              <h1>{props?.data?.original_title}</h1>
-            </S.subtitleBox>
-            <S.subtitleBox>
-              <S.subtitle>최초공개일</S.subtitle>
-              <S.subtitle>
-                {props?.data?.release_date || props.data?.first_air_date}
-              </S.subtitle>
-            </S.subtitleBox>
-            <S.mediaType>{props?.data?.contents_type}</S.mediaType>
-            <div>
-              {props?.data?.imad_score !== null
-                ? props?.data?.imad_score.toFixed(2)
-                : "평점 없음"}
-            </div>
+            <S.RowBox>
+              <S.subtitleBox>
+                <S.mediaType>{props?.data?.contents_type}</S.mediaType>
+                <S.subtitle>최초공개일</S.subtitle>
+                <S.FilterSubtitle>
+                  {props?.data?.release_date || props.data?.first_air_date}
+                </S.FilterSubtitle>
+              </S.subtitleBox>
+              <S.RateBox>
+                <CircularProgressWhiteChart value={props.data?.imad_score} />
+              </S.RateBox>
+            </S.RowBox>
+            <S.TopMarginBox>
+              <S.subtitleBox>
+                <S.MainTitle>
+                  {props?.data?.name || props?.data?.title}
+                </S.MainTitle>
+                <S.MainSubTitle>
+                  {props?.data?.original_title || props.data?.original_name}
+                </S.MainSubTitle>
+              </S.subtitleBox>
+            </S.TopMarginBox>
           </S.titleWrapper>
           <S.ImgWrapper>
             <S.ImgBox
