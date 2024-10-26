@@ -221,3 +221,8 @@ export const buttonBox = styled.div`
   align-items: flex-end;
   justify-content: flex-end;
 `;
+
+export const broadImg = styled.img`
+  height: 15px;
+  width: auto;
+`;

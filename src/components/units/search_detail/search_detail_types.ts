@@ -8,6 +8,13 @@ interface seasonData {
   season_number: number;
 }
 
+interface networksData {
+  id: number;
+  logo_path: string;
+  name: string;
+  origin_country: string;
+}
+
 export interface IDetailUIProps {
   onClickLike: (id: number) => void;
   onClickDisLike: (id: number) => void;
@@ -20,6 +27,7 @@ export interface IDetailUIProps {
     production_countries: string[];
     contents_id: number | null;
     seasons: seasonData[] | null;
+    networks: networksData[] | null;
     title: string;
     name: string;
     tmdb_type: "TV" | "MOVIE";

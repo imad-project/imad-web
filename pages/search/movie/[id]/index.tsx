@@ -10,13 +10,19 @@ export default function TvDetail_Page(): JSX.Element {
   const [review, setReview] = useState();
   const [like, setLike] = useState(true);
 
+  // 토큰 확인부
+  const token =
+    getCookie("Authorization") !== undefined
+      ? `Bearer ${getCookie("Authorization")}`
+      : "GUEST"; // token 변수를 함수 외부에서 선언
+
   const detailSearch = async () => {
     try {
       const detailRES = await axios.get(
         `https://api.iimad.com/api/contents/details?id=${router.query.id}&type=movie`,
         {
           headers: {
-            Authorization: "GUEST",
+            Authorization: token,
           },
         }
       );
@@ -30,7 +36,7 @@ export default function TvDetail_Page(): JSX.Element {
               `https://api.iimad.com/api/review/list?page=1&sort=createdDate&order=0&contents_id=${detailRES.data.data.contents_id}`,
               {
                 headers: {
-                  Authorization: "GUEST",
+                  Authorization: token,
                 },
               }
             );
@@ -59,7 +65,7 @@ export default function TvDetail_Page(): JSX.Element {
           },
           {
             headers: {
-              Authorization: `Bearer ${getCookie("Authorization")}`,
+              Authorization: token,
             },
           }
         );
@@ -84,7 +90,7 @@ export default function TvDetail_Page(): JSX.Element {
           },
           {
             headers: {
-              Authorization: `Bearer ${getCookie("Authorization")}`,
+              Authorization: token,
             },
           }
         );

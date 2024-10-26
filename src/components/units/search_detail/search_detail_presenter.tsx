@@ -207,6 +207,18 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
           ) : (
             <></>
           )}
+          <S.title>방송사</S.title>
+          {props.data?.networks ? (
+            <>
+              {props.data.networks.map((el) => (
+                <S.broadImg
+                  src={`https://image.tmdb.org/t/p/original/${el.logo_path}`}
+                />
+              ))}
+            </>
+          ) : (
+            <S.subtitle>없음</S.subtitle>
+          )}
           <S.title>개요</S.title>
           <S.subtitle>{props?.data?.overview}</S.subtitle>
         </S.subWrapper>
