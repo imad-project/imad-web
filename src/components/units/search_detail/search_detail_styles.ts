@@ -29,9 +29,9 @@ export const title = styled.div`
 `;
 
 export const subWrapper = styled.div`
-  margin-left: 100px;
-  margin-right: 100px;
-  margin-bottom: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 80%;
 `;
 
 export const subtitleBox = styled.div`

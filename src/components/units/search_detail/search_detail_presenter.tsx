@@ -114,6 +114,10 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
     router.push(`/search/${category}/${id}/write`);
   };
 
+  if (!props.data) {
+    return <div>Loading...</div>; // 데이터가 로드되지 않은 상태 처리
+  }
+
   return (
     <>
       <S.Wrapper>
@@ -181,7 +185,7 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
           <S.subtitle>
             {props.data
               ? findGenreNames(
-                  props.data?.tmdb_type.toLowerCase(),
+                  (props.data?.tmdb_type || "TV").toLowerCase(),
                   props.data?.genres
                 ).join(", ")
               : null}
@@ -220,7 +224,7 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
             <S.subtitle>없음</S.subtitle>
           )}
           <S.title>개요</S.title>
-          <S.subtitle>{props?.data?.overview}</S.subtitle>
+          <S.subtitle>{props?.data?.overview || "없음"}</S.subtitle>
         </S.subWrapper>
 
         <S.Line />
