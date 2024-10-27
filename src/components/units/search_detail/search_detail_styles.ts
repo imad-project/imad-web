@@ -12,6 +12,10 @@ export const Wrapper = styled.div`
   box-shadow: 0px 0px 10px gray;
 `;
 
+export const TopMarginLittleBox = styled.div`
+  margin-top: 5px;
+`;
+
 export const RowBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -21,6 +25,7 @@ export const RowBox = styled.div`
 export const subtitle = styled.div`
   font-size: 15px;
   margin-bottom: 2px;
+  margin-left: 5px;
 `;
 
 export const RateBox = styled.div`
@@ -131,6 +136,97 @@ export const RowWrapper = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+`;
+
+export const SeasonDataBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  min-width: 100%;
+  min-height: 200px;
+  margin-bottom: 20px;
+
+  overflow-x: auto; /* 가로 스크롤 강제 적용 */
+  overflow-y: hidden; /* 세로 스크롤은 숨김 */
+  scrollbar-width: thin; /* Firefox에서 얇은 스크롤바 */
+
+  &::-webkit-scrollbar {
+    height: 8px; /* 가로 스크롤바 높이 */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5); /* 스크롤바 색상 */
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1); /* 스크롤바 트랙 색상 */
+  }
+`;
+
+export const SeasonDataItem = styled.div<{ isVisible: boolean }>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 40px;
+  flex: 0 0 auto;
+
+  min-width: ${(props) => (props.isVisible ? "300px" : "100px")};
+
+  justify-content: flex-start;
+  box-shadow: 0px 0px 10px gray;
+  border-radius: 10px;
+
+  backdrop-filter: brightness(0.1) blur(15px);
+  z-index: 1;
+`;
+
+export const SeasonDataPosterBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 180px;
+  max-width: 100px;
+  width: auto;
+  background-color: white;
+  border-radius: 10px;
+`;
+
+export const SeasonDataPoster = styled.img`
+  max-width: 100px;
+  width: auto;
+  height: 150px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+`;
+
+export const SeasonDataWriteBox = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  height: 180px;
+  min-width: 120px;
+  padding-top: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+`;
+
+export const SubGrayTitle = styled.div`
+  font-size: 12px;
+  margin-bottom: 8px;
+  color: white;
+  filter: brightness(0.5);
+  z-index: 2;
+  margin-left: 5px;
+`;
+
+export const SubWhiteTitle = styled.div`
+  font-size: 15px;
+  margin-bottom: 2px;
+  color: white;
+  z-index: 2;
 `;
 
 export const ImgWrapper = styled.div`

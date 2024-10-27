@@ -20,6 +20,7 @@ const AgeBox = styled.div<{ bgColor: string }>`
   color: white;
   font-size: 15px;
   border-radius: 5px;
+  margin-left: 5px;
 `;
 
 // 컴포넌트 정의

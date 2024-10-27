@@ -115,6 +115,12 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
     router.push(`/search/${category}/${id}/write`);
   };
 
+  const [activeSeason, setActiveSeason] = useState<number | null>(null); // 열려있는 시즌의 index 관리
+
+  const handleToggle = (index: number) => {
+    setActiveSeason((prev) => (prev === index ? null : index)); // 클릭 시 해당 index가 열리고, 열려 있으면 닫음
+  };
+
   if (!props.data) {
     return <div>Loading...</div>; // 데이터가 로드되지 않은 상태 처리
   }
@@ -232,6 +238,47 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
           )}
           <S.title>개요</S.title>
           <S.subtitle>{props?.data?.overview || "없음"}</S.subtitle>
+          {props.data?.seasons ? (
+            <>
+              <S.title>시즌정보</S.title>
+              <S.SeasonDataBox>
+                {props.data?.seasons.map((el, index: number) => (
+                  <S.SeasonDataItem
+                    key={el.season_number}
+                    isVisible={activeSeason === index}
+                  >
+                    <S.SeasonDataPosterBox onClick={() => handleToggle(index)}>
+                      <S.SeasonDataPoster
+                        src={
+                          el.poster_path
+                            ? `https://image.tmdb.org/t/p/original/${el.poster_path}`
+                            : `https://image.tmdb.org/t/p/original/${props.data?.poster_path}`
+                        }
+                      />
+                      <S.TopMarginLittleBox>
+                        <S.subtitle>{el.name}</S.subtitle>
+                      </S.TopMarginLittleBox>
+                    </S.SeasonDataPosterBox>
+
+                    {activeSeason === index && (
+                      <S.SeasonDataWriteBox>
+                        <S.SubWhiteTitle>시즌명</S.SubWhiteTitle>
+                        <S.SubGrayTitle>{el.name}</S.SubGrayTitle>
+                        <S.SubWhiteTitle>시즌넘버</S.SubWhiteTitle>
+                        <S.SubGrayTitle>{el.season_number}</S.SubGrayTitle>
+                        <S.SubWhiteTitle>최초 공개일</S.SubWhiteTitle>
+                        <S.SubGrayTitle>{el.air_date || "미정"}</S.SubGrayTitle>
+                        <S.SubWhiteTitle>에피소드</S.SubWhiteTitle>
+                        <S.SubGrayTitle>{el.episode_count}부작</S.SubGrayTitle>
+                      </S.SeasonDataWriteBox>
+                    )}
+                  </S.SeasonDataItem>
+                ))}
+              </S.SeasonDataBox>
+            </>
+          ) : (
+            <></>
+          )}
         </S.subWrapper>
 
         <S.Line />
