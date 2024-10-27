@@ -121,6 +121,15 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
     setActiveSeason((prev) => (prev === index ? null : index)); // 클릭 시 해당 index가 열리고, 열려 있으면 닫음
   };
 
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const overviewText = props?.data?.overview || "없음";
+  const isLong = overviewText.length > 200;
+
+  const handleExpand = () => {
+    setIsExpanded((prev) => !prev);
+  };
+
   if (!props.data) {
     return <div>Loading...</div>; // 데이터가 로드되지 않은 상태 처리
   }
@@ -237,7 +246,37 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
             <S.subtitle>없음</S.subtitle>
           )}
           <S.title>개요</S.title>
-          <S.subtitle>{props?.data?.overview || "없음"}</S.subtitle>
+          <S.subtitle>
+            {isExpanded ? (
+              <>
+                {overviewText}
+                <br />
+                <span
+                  onClick={handleExpand}
+                  style={{ cursor: "pointer", color: "gray" }}
+                >
+                  {" "}
+                  접기
+                </span>
+              </>
+            ) : (
+              <>
+                {isLong ? overviewText.slice(0, 200) + "..." : overviewText}
+                {isLong && (
+                  <>
+                    <br />
+                    <span
+                      onClick={handleExpand}
+                      style={{ cursor: "pointer", color: "gray" }}
+                    >
+                      {" "}
+                      자세히 보기
+                    </span>
+                  </>
+                )}
+              </>
+            )}
+          </S.subtitle>
           {props.data?.seasons ? (
             <>
               <S.title>시즌정보</S.title>
