@@ -172,8 +172,8 @@ export const SeasonDataItem = styled.div<{ isVisible: boolean }>`
   margin-right: 40px;
   flex: 0 0 auto;
 
-  min-width: ${(props) => (props.isVisible ? "300px" : "100px")};
-
+  min-width: ${(props) => (props.isVisible ? "250px" : "100px")};
+  max-width: 300px;
   justify-content: flex-start;
   box-shadow: 0px 0px 10px gray;
   border-radius: 10px;
@@ -293,7 +293,7 @@ export const Line = styled.div`
 `;
 
 export const reviewWrapper = styled.div`
-  width: 1000px;
+  width: 100%;
   height: auto;
   /* height: 1847px; */
   border: 1px solid black;
@@ -309,17 +309,62 @@ export const reviewWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
+export const ReviewMapWrapper = styled.div`
+  width: 80%;
+  height: auto;
+  /* height: 1847px; */
+  border: 1px solid black;
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+
+  border: none;
+  box-shadow: 0px 0px 10px gray;
+  margin-bottom: 10px;
+`;
+
+export const ReviewWriteWrapper = styled.div`
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+`;
+
 export const avatar = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  margin-right: 15px;
 `;
 
 export const reviewBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   margin-bottom: 10px;
+`;
+
+export const likeDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-right: 10px;
+`;
+
+export const LittleIcon = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+`;
+
+export const Date_span = styled.div`
+  color: gray;
+  font-size: 15px;
+  width: 100px;
+  height: auto;
+  margin-left: 50px;
 `;
 
 export const likeCntBox = styled.div`

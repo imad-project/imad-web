@@ -10,6 +10,8 @@ import { AgeComponent } from "@/src/commons/agefinder/agefinder";
 import { findGenreNames } from "@/src/commons/gerne_finder/gerne_finder";
 import CircularProgressWhiteChart from "@/src/commons/rate_view/rate_view_white";
 import ProducerRole from "@/src/commons/crewfinder/crewfinder";
+import CircularProgressChart from "@/src/commons/rate_view/rate_view";
+import { elapsedTime } from "../../../../src/commons/date/date";
 
 export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
   const MAX_TITLE_BYTES = 50; // 리뷰 제목 최대 바이트 수
@@ -406,97 +408,100 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
         </S.subWrapper>
 
         <S.Line />
-        <S.reviewWrapper>
-          <S.RowWrapper>
-            <h1>이 작품 어떠셨나요?</h1>
-          </S.RowWrapper>
-          <S.reviewBox>
-            <S.reviewContentsWrapper>
-              <S.reviewInput
-                onChange={onInputHandler}
-                placeholder="리뷰 제목을 입력해주세요"
-              />
-              <p>
-                <span>{titleInputCount} /50 bytes</span>
-              </p>
-              {showTitleWarning && (
-                <p style={{ color: "red" }}>
-                  리뷰 제목은 최대 50바이트를 초과할 수 없습니다.
+        <S.ReviewWriteWrapper>
+          <S.reviewWrapper>
+            <S.RowWrapper>
+              <h1>이 작품 어떠셨나요?</h1>
+            </S.RowWrapper>
+            <S.reviewBox>
+              <S.reviewContentsWrapper>
+                <S.reviewInput
+                  onChange={onInputHandler}
+                  placeholder="리뷰 제목을 입력해주세요"
+                />
+                <p>
+                  <span>{titleInputCount} /50 bytes</span>
                 </p>
-              )}
+                {showTitleWarning && (
+                  <p style={{ color: "red" }}>
+                    리뷰 제목은 최대 50바이트를 초과할 수 없습니다.
+                  </p>
+                )}
 
-              <S.reviewTextArea
-                onChange={onTextareaHandler}
-                placeholder="리뷰 본문을 입력해주세요 리뷰작성은 회원만 가능합니다 로그인후 시도해주세요!"
-              />
-              <p>
-                <span>{contentInputCount}/1000 bytes</span>
-              </p>
-              {showContentWarning && (
-                <p style={{ color: "red" }}>
-                  리뷰 본문은 최대 1000바이트를 초과할 수 없습니다.
+                <S.reviewTextArea
+                  onChange={onTextareaHandler}
+                  placeholder="리뷰 본문을 입력해주세요 리뷰작성은 회원만 가능합니다 로그인후 시도해주세요!"
+                />
+                <p>
+                  <span>{contentInputCount}/1000 bytes</span>
                 </p>
-              )}
-              <span>평점: {rating}/10</span>
-              <ReactStars
-                count={5}
-                value={selectedRating}
-                size={24}
-                onChange={ratingChanged}
-                half={true}
-              />
-            </S.reviewContentsWrapper>
-          </S.reviewBox>
+                {showContentWarning && (
+                  <p style={{ color: "red" }}>
+                    리뷰 본문은 최대 1000바이트를 초과할 수 없습니다.
+                  </p>
+                )}
+                <span>평점: {rating}/10</span>
+                <ReactStars
+                  count={5}
+                  value={selectedRating}
+                  size={24}
+                  onChange={ratingChanged}
+                  half={true}
+                />
+              </S.reviewContentsWrapper>
+            </S.reviewBox>
 
-          <S.Line />
-          <S.buttonBox>
-            <S.reviewSubmitButton onClick={onClickReviewSubmit}>
-              리뷰 등록
-            </S.reviewSubmitButton>
-          </S.buttonBox>
-        </S.reviewWrapper>
+            <S.Line />
+            <S.buttonBox>
+              <S.reviewSubmitButton onClick={onClickReviewSubmit}>
+                리뷰 등록
+              </S.reviewSubmitButton>
+            </S.buttonBox>
+          </S.reviewWrapper>
+        </S.ReviewWriteWrapper>
+
         <S.Line />
 
         {props.review?.details_list.map((el) => (
-          <div key={el.review_id}>
-            <S.reviewWrapper>
-              <S.RowWrapper>
-                <S.avatar src="/img/icon/avatar.png" />
-                <h1>{el.user_nickname}</h1>
-              </S.RowWrapper>
-              <S.reviewBox>
-                <S.reviewContentsWrapper>
-                  <h2>{el.title}</h2>
+          <S.ReviewMapWrapper key={el.review_id}>
+            <S.RowWrapper>
+              <S.avatar
+                src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${el.user_profile_image}`}
+              />
+              <S.title>{el.user_nickname}</S.title>
+            </S.RowWrapper>
+            <S.reviewBox>
+              <S.reviewContentsWrapper>
+                <S.title>{el.title}</S.title>
 
-                  <h2>{el.content}</h2>
-                  <h3>평점: {el.score}</h3>
-                  <ReactStars
-                    count={5}
-                    value={el.score / 2}
-                    size={24}
-                    edit={false}
-                    half={true}
-                  />
-                </S.reviewContentsWrapper>
-                <S.likeCntBox>
-                  좋아요:{el.like_cnt}
-                  싫어요:{el.dislike_cnt}
-                </S.likeCntBox>
-              </S.reviewBox>
+                <S.subtitle>{el.content}</S.subtitle>
+                <S.RowWrapper>
+                  <S.likeDiv>
+                    <S.LittleIcon src="/img/icon/icons/arrowshape.up.png" />
+                    {el.like_cnt}
+                  </S.likeDiv>
+                  <S.likeDiv>
+                    <S.LittleIcon src="/img/icon/icons/arrowshape.down.png" />
+                    {el.dislike_cnt}
+                  </S.likeDiv>
+                  <S.Date_span>{elapsedTime(el.created_at)}</S.Date_span>
+                </S.RowWrapper>
+              </S.reviewContentsWrapper>
+              <S.RateBox>
+                <CircularProgressChart value={el.score} />
+              </S.RateBox>
+            </S.reviewBox>
 
-              <S.Line />
-              <S.likeWrapper>
-                <S.likeButton onClick={() => props.onClickLike(el.review_id)}>
-                  좋아요
-                </S.likeButton>
-                <S.likeButton
-                  onClick={() => props.onClickDisLike(el.review_id)}
-                >
-                  싫어요
-                </S.likeButton>
-              </S.likeWrapper>
-            </S.reviewWrapper>
-          </div>
+            <S.Line />
+            <S.likeWrapper>
+              <S.likeButton onClick={() => props.onClickLike(el.review_id)}>
+                좋아요
+              </S.likeButton>
+              <S.likeButton onClick={() => props.onClickDisLike(el.review_id)}>
+                싫어요
+              </S.likeButton>
+            </S.likeWrapper>
+          </S.ReviewMapWrapper>
         ))}
         <S.reviewWrapper>
           <S.buttonBox>
