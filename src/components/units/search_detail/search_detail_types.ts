@@ -15,6 +15,20 @@ interface networksData {
   origin_country: string;
 }
 
+interface personData {
+  gender: string;
+  id: number;
+  credit_id: string;
+  name: string;
+  profile_path: string | null;
+  character: string | null;
+  known_for_department: string | null;
+  department: string | null;
+  job: string | null;
+  importance_order: number;
+  credit_type: "CAST" | "CREW";
+}
+
 export interface IDetailUIProps {
   onClickLike: (id: number) => void;
   onClickDisLike: (id: number) => void;
@@ -28,6 +42,10 @@ export interface IDetailUIProps {
     contents_id: number | null;
     seasons: seasonData[] | null;
     networks: networksData[] | null;
+    credits: {
+      cast: personData[] | null;
+      crew: personData[] | null;
+    };
     title: string;
     name: string;
     tmdb_type: "TV" | "MOVIE";

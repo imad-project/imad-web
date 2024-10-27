@@ -9,6 +9,7 @@ import { getCountryNames } from "@/src/commons/countrycode/countrycode";
 import { AgeComponent } from "@/src/commons/agefinder/agefinder";
 import { findGenreNames } from "@/src/commons/gerne_finder/gerne_finder";
 import CircularProgressWhiteChart from "@/src/commons/rate_view/rate_view_white";
+import ProducerRole from "@/src/commons/crewfinder/crewfinder";
 
 export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
   const MAX_TITLE_BYTES = 50; // 리뷰 제목 최대 바이트 수
@@ -128,6 +129,18 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
 
   const handleExpand = () => {
     setIsExpanded((prev) => !prev);
+  };
+
+  const [showCrew, setShowCrew] = useState(false); // 스태프 정보 가시성 상태
+
+  const toggleCrewVisibility = () => {
+    setShowCrew((prev) => !prev); // 현재 상태를 반전
+  };
+
+  const [showCast, setShowCast] = useState(false); // 캐스트 정보 가시성 상태
+
+  const toggleCastVisibility = () => {
+    setShowCast((prev) => !prev); // 현재 상태를 반전
   };
 
   if (!props.data) {
@@ -314,6 +327,78 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
                   </S.SeasonDataItem>
                 ))}
               </S.SeasonDataBox>
+            </>
+          ) : (
+            <></>
+          )}
+
+          <S.title>
+            스태프
+            <S.CreditOpenDetailBtn onClick={toggleCrewVisibility}>
+              {showCrew ? "접기" : "자세히 보기"}
+            </S.CreditOpenDetailBtn>
+          </S.title>
+          {showCrew && props.data?.credits?.crew ? (
+            <>
+              {props.data?.credits?.crew.map((el) => (
+                <S.CreditWrapper key={el.id}>
+                  <S.PersonWrapper>
+                    {el.profile_path ? (
+                      <>
+                        <S.PersonIconFull
+                          src={`https://image.tmdb.org/t/p/original/${el.profile_path}`}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <S.PersonIcon src="/img/icon/icons/person.fill.png" />
+                      </>
+                    )}
+                  </S.PersonWrapper>
+                  <S.ColumnBox>
+                    <S.subtitle>{el.name}</S.subtitle>
+                    <S.SubGrayTitle>
+                      {ProducerRole(el.job ? el.job : "기타")}
+                    </S.SubGrayTitle>
+                  </S.ColumnBox>
+                </S.CreditWrapper>
+              ))}
+            </>
+          ) : (
+            <></>
+          )}
+
+          <S.title>
+            출연진
+            <S.CreditOpenDetailBtn onClick={toggleCastVisibility}>
+              {showCast ? "접기" : "자세히 보기"}
+            </S.CreditOpenDetailBtn>
+          </S.title>
+          {showCast && props.data?.credits?.cast ? (
+            <>
+              {props.data?.credits?.cast.map((el) => (
+                <S.CreditWrapper key={el.id}>
+                  <S.PersonWrapper>
+                    {el.profile_path ? (
+                      <>
+                        <S.PersonIconFull
+                          src={`https://image.tmdb.org/t/p/original/${el.profile_path}`}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <S.PersonIcon src="/img/icon/icons/person.fill.png" />
+                      </>
+                    )}
+                  </S.PersonWrapper>
+                  <S.ColumnBox>
+                    <S.subtitle>{el.name}</S.subtitle>
+                    <S.SubGrayTitle>
+                      {el.character ? el.character : "기타"}역
+                    </S.SubGrayTitle>
+                  </S.ColumnBox>
+                </S.CreditWrapper>
+              ))}
             </>
           ) : (
             <></>

@@ -241,6 +241,51 @@ export const ImgBox = styled.img`
   box-shadow: 0px 0px 10px black;
   z-index: 2;
 `;
+
+export const CreditWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+export const CreditOpenDetailBtn = styled.span`
+  margin-left: 30px;
+  font-size: 14px;
+  color: gray;
+  cursor: pointer;
+  :hover {
+    color: black;
+  }
+`;
+
+export const PersonWrapper = styled.div`
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  background-color: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+`;
+
+export const PersonIcon = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
+export const PersonIconFull = styled.img`
+  width: 100px;
+  height: auto;
+  border-radius: 50px;
+`;
+
+export const ColumnBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const Line = styled.div`
   border-top: 1px solid #bdbdbd;
   width: 100%;
