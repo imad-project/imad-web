@@ -32,6 +32,7 @@ interface personData {
 export interface IDetailUIProps {
   onClickLike: (id: number) => void;
   onClickDisLike: (id: number) => void;
+  onClickCancelLike: (id: number) => void;
   setLike: (liked: boolean) => void;
   onClickWrite: () => void;
 

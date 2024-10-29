@@ -494,12 +494,26 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
 
             <S.Line />
             <S.likeWrapper>
-              <S.likeButton onClick={() => props.onClickLike(el.review_id)}>
+              <S.likeButton
+                onClick={() =>
+                  el.like_status === 1
+                    ? props.onClickCancelLike(el.review_id)
+                    : props.onClickLike(el.review_id)
+                }
+                isLiked={el.like_status === 1}
+              >
                 좋아요
               </S.likeButton>
-              <S.likeButton onClick={() => props.onClickDisLike(el.review_id)}>
+              <S.DisLikeButton
+                onClick={() =>
+                  el.like_status === -1
+                    ? props.onClickCancelLike(el.review_id)
+                    : props.onClickDisLike(el.review_id)
+                }
+                isLiked={el.like_status === -1}
+              >
                 싫어요
-              </S.likeButton>
+              </S.DisLikeButton>
             </S.likeWrapper>
           </S.ReviewMapWrapper>
         ))}

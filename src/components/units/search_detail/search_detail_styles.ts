@@ -390,7 +390,7 @@ export const likeWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
-export const likeButton = styled.div`
+export const likeButton = styled.div<{ isLiked: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -400,7 +400,20 @@ export const likeButton = styled.div`
   cursor: pointer;
 
   font-size: 20px;
-  color: gray;
+  color: ${(props) => (props.isLiked ? "#00aaff" : "gray")};
+`;
+
+export const DisLikeButton = styled.div<{ isLiked: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 50px;
+  cursor: pointer;
+
+  font-size: 20px;
+  color: ${(props) => (props.isLiked ? "#f34336" : "gray")};
 `;
 
 export const reviewInput = styled.input`
