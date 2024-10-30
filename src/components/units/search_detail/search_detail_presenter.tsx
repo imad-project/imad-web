@@ -190,6 +190,18 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
               alt="Poster"
             />
           </S.ImgWrapper>
+          <S.Icon_img
+            src={
+              props.data?.bookmark_status
+                ? "/img/icon/icons/bookmark.fill.white.png"
+                : "/img/icon/icons/bookmark.white.png"
+            }
+            onClick={() =>
+              props.data?.bookmark_status
+                ? props.onClickDelBookmark()
+                : props.onClickBookmark()
+            }
+          />
         </S.posterWrapper>
 
         <S.Line />

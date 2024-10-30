@@ -33,6 +33,8 @@ export interface IDetailUIProps {
   onClickLike: (id: number) => void;
   onClickDisLike: (id: number) => void;
   onClickCancelLike: (id: number) => void;
+  onClickBookmark: () => void;
+  onClickDelBookmark: () => void;
   setLike: (liked: boolean) => void;
   onClickWrite: () => void;
 
@@ -62,6 +64,8 @@ export interface IDetailUIProps {
     runtime: number | null;
     number_of_episodes: number;
     number_of_seasons: number;
+    bookmark_id: number | null;
+    bookmark_status: boolean;
     first_air_date: string | null;
   } | null;
 

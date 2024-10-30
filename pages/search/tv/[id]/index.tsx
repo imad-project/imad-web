@@ -61,6 +61,8 @@ interface data {
   runtime: number | null;
   number_of_episodes: number;
   number_of_seasons: number;
+  bookmark_id: number | null;
+  bookmark_status: boolean;
   first_air_date: string | null;
 }
 
@@ -69,6 +71,7 @@ export default function TvDetail_Page(): JSX.Element {
   const [detail, setDetail] = useState<data | null>(null);
   const [review, setReview] = useState();
   const [like, setLike] = useState(true);
+  const [bookmark, setBookmark] = useState(true);
 
   // 토큰 확인부
   const token =
@@ -112,6 +115,47 @@ export default function TvDetail_Page(): JSX.Element {
       }
     } catch (error) {
       console.error("Error occurred while searching:", error);
+    }
+  };
+
+  const onClickBookmark = async () => {
+    try {
+      const bookmarkRES = await axios.post(
+        `https://api.iimad.com/api/profile/bookmark`,
+
+        {
+          contents_id: detail?.contents_id,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (bookmarkRES.status === 200) {
+        setBookmark(!bookmark);
+      }
+    } catch (error) {
+      console.error("Error occurred while review searching:", error);
+    }
+  };
+
+  const onClickDelBookmark = async () => {
+    try {
+      const bookmarkRES = await axios.delete(
+        `https://api.iimad.com/api/profile/bookmark/${detail?.bookmark_id}`,
+
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (bookmarkRES.status === 200) {
+        setBookmark(!bookmark);
+      }
+    } catch (error) {
+      console.error("Error occurred while review searching:", error);
     }
   };
 
@@ -215,6 +259,10 @@ export default function TvDetail_Page(): JSX.Element {
 
   useEffect(() => {
     detailSearch();
+  }, [bookmark]);
+
+  useEffect(() => {
+    detailSearch();
   }, []);
 
   const WritePush = () => {
@@ -233,6 +281,8 @@ export default function TvDetail_Page(): JSX.Element {
       onClickLike={onClickLike}
       onClickDisLike={onClickDisLike}
       onClickCancelLike={onClickCancelLike}
+      onClickBookmark={onClickBookmark}
+      onClickDelBookmark={onClickDelBookmark}
       setLike={setLike}
       like={like}
       onClickWrite={WritePush}

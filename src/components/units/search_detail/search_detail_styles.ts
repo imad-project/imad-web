@@ -309,6 +309,15 @@ export const reviewWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
+export const Icon_img = styled.img`
+  width: 20px;
+  height: auto;
+  position: absolute;
+  z-index: 2;
+  left: 80%;
+  bottom: 15%;
+`;
+
 export const ReviewMapWrapper = styled.div`
   width: 80%;
   height: auto;
