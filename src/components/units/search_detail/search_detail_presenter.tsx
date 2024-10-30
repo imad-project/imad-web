@@ -505,9 +505,9 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
                   <S.Date_span>{elapsedTime(el.created_at)}</S.Date_span>
                 </S.RowWrapper>
               </S.reviewContentsWrapper>
-              <S.RateBox>
+              <S.RateBox2>
                 <CircularProgressChart value={el.score} />
-              </S.RateBox>
+              </S.RateBox2>
             </S.reviewBox>
 
             <S.Line />

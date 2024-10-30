@@ -51,6 +51,20 @@ export const RateBox = styled.div`
   }
 `;
 
+export const RateBox2 = styled.div`
+  width: 100px;
+  height: 100px;
+
+  @media (max-width: 480px) {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+  }
+`;
+
 export const MainTitle = styled.div`
   font-size: 30px;
   color: white;
@@ -378,6 +392,14 @@ export const ReviewMapWrapper = styled.div`
   border: none;
   box-shadow: 0px 0px 10px gray;
   margin-bottom: 10px;
+
+  @media (max-width: 480px) {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 `;
 
 export const ReviewWriteWrapper = styled.div`
@@ -436,9 +458,13 @@ export const reviewContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  margin-left: 80px;
+  margin-left: 10%;
 
   width: 100%;
+
+  @media (max-width: 480px) {
+    margin-left: 10px;
+  }
 `;
 
 export const likeWrapper = styled.div`
