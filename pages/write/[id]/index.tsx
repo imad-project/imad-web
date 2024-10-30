@@ -69,13 +69,19 @@ export default function WriteDetail_Page(): JSX.Element {
     Record<number, CommentListResponse>
   >({});
 
+  // 토큰 확인부
+  const token =
+    getCookie("Authorization") !== undefined
+      ? `Bearer ${getCookie("Authorization")}`
+      : "GUEST"; // token 변수를 함수 외부에서 선언
+
   const WRITE_DETAIL = async () => {
     try {
       const detailRES = await axios.get(
         `https://api.iimad.com/api/posting/${router.query.id}`,
         {
           headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
+            Authorization: token,
           },
         }
       );
@@ -95,7 +101,7 @@ export default function WriteDetail_Page(): JSX.Element {
         `https://api.iimad.com/api/posting/comment/list?posting_id=${posting_id}&comment_type=1&parent_id=${parent_id}&page=1&sort=createdDate&order=0`,
         {
           headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
+            Authorization: token,
           },
         }
       );
@@ -145,7 +151,7 @@ export default function WriteDetail_Page(): JSX.Element {
           },
           {
             headers: {
-              Authorization: `Bearer ${getCookie("Authorization")}`,
+              Authorization: token,
             },
           }
         );

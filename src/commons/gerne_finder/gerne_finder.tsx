@@ -145,10 +145,7 @@ const tv_genres = [
 ];
 
 // 장르 이름 찾는 함수
-export const findGenreNames = (
-  type: "tv" | "movie",
-  ids: number[]
-): string[] => {
+export const findGenreNames = (type: string, ids: number[]): string[] => {
   let genres;
 
   // 타입에 따라 알맞은 장르 배열 선택
