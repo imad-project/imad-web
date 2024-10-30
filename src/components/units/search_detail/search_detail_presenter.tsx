@@ -161,7 +161,7 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
             }
           />
           <S.titleWrapper>
-            <S.RowBox>
+            <S.TransRowBox>
               <S.subtitleBox>
                 <S.mediaType>{props?.data?.contents_type}</S.mediaType>
                 <S.subtitle>최초공개일</S.subtitle>
@@ -172,15 +172,21 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
               <S.RateBox>
                 <CircularProgressWhiteChart value={props.data?.imad_score} />
               </S.RateBox>
-            </S.RowBox>
+            </S.TransRowBox>
             <S.TopMarginBox>
               <S.subtitleBox>
                 <S.MainTitle>
                   {props?.data?.name || props?.data?.title}
                 </S.MainTitle>
-                <S.MainSubTitle>
-                  {props?.data?.original_title || props.data?.original_name}
-                </S.MainSubTitle>
+                {/* 조건부 렌더링:  글자 수 체크 */}
+                {!(
+                  props?.data?.name?.length > 10 ||
+                  props?.data?.title?.length > 10
+                ) && (
+                  <S.MainSubTitle>
+                    {props?.data?.original_title || props?.data?.original_name}
+                  </S.MainSubTitle>
+                )}
               </S.subtitleBox>
             </S.TopMarginBox>
           </S.titleWrapper>

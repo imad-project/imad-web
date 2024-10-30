@@ -22,6 +22,16 @@ export const RowBox = styled.div`
   align-items: center;
 `;
 
+export const TransRowBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+`;
+
 export const subtitle = styled.div`
   font-size: 15px;
   margin-bottom: 2px;
@@ -31,17 +41,33 @@ export const subtitle = styled.div`
 export const RateBox = styled.div`
   width: 100px;
   height: 100px;
+
+  @media (max-width: 480px) {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export const MainTitle = styled.div`
   font-size: 30px;
   color: white;
   font-weight: bold;
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
 `;
 
 export const MainSubTitle = styled.div`
   font-size: 20px;
   color: white;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 export const FilterSubtitle = styled.div`
@@ -87,6 +113,10 @@ export const titleWrapper = styled.div`
 
   color: white;
   z-index: 2;
+
+  @media (max-width: 480px) {
+    margin-top: 35%;
+  }
 `;
 
 export const mediaType = styled.div`
@@ -114,6 +144,11 @@ export const posterWrapper = styled.div`
   padding-right: 100px;
 
   position: relative;
+
+  @media (max-width: 480px) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 `;
 
 export const BackdropWrapper = styled.div<{ backgroundUrl: string | null }>`
@@ -240,6 +275,11 @@ export const ImgBox = styled.img`
   border-radius: 10px;
   box-shadow: 0px 0px 10px black;
   z-index: 2;
+
+  @media (max-width: 480px) {
+    width: 150px;
+    height: auto;
+  }
 `;
 
 export const CreditWrapper = styled.div`
@@ -316,6 +356,11 @@ export const Icon_img = styled.img`
   z-index: 2;
   left: 80%;
   bottom: 15%;
+
+  @media (max-width: 480px) {
+    width: 10;
+    bottom: 10%;
+  }
 `;
 
 export const ReviewMapWrapper = styled.div`
@@ -339,6 +384,12 @@ export const ReviewWriteWrapper = styled.div`
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
+
+  @media (max-width: 480px) {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+  }
 `;
 
 export const avatar = styled.img`

@@ -32,7 +32,7 @@ export function AgeComponent({ id }: AgeComponentProps) {
   // 주어진 id에 해당하는 데이터를 찾음
   const selectedAge = age.find((item) => item.id === id);
 
-  if (!selectedAge) return <div>존재하지 않는 ID입니다.</div>;
+  if (!selectedAge) return <AgeBox bgColor={"black"}>미상</AgeBox>;
 
   return <AgeBox bgColor={selectedAge.color}>{selectedAge.name}</AgeBox>;
 }

@@ -22,6 +22,10 @@ const ProgressbarContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 480px) {
+    margin-top: 10px;
+  }
 `;
 
 const Star = styled.img`
@@ -30,6 +34,10 @@ const Star = styled.img`
   position: absolute;
   left: 35%;
   top: 30%;
+
+  @media (max-width: 480px) {
+    left: 38%;
+  }
 `;
 
 const Value = styled.div`
