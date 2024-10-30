@@ -535,13 +535,17 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
             </S.likeWrapper>
           </S.ReviewMapWrapper>
         ))}
-        <S.reviewWrapper>
-          <S.buttonBox>
-            <S.reviewSubmitButton onClick={props.onClickWrite}>
-              게시물 작성
-            </S.reviewSubmitButton>
-          </S.buttonBox>
-        </S.reviewWrapper>
+
+        <S.ReviewWriteWrapper>
+          <S.reviewWrapper>
+            <S.title>이 작품에 대한 여러분의 생각을 들려주세요!</S.title>
+            <S.buttonBox2>
+              <S.WriteSubmitButton onClick={props.onClickWrite}>
+                게시물 작성 하러가기
+              </S.WriteSubmitButton>
+            </S.buttonBox2>
+          </S.reviewWrapper>
+        </S.ReviewWriteWrapper>
       </S.Wrapper>
     </>
   );

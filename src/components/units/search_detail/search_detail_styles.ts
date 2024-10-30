@@ -535,9 +535,34 @@ export const buttonBox = styled.div`
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
+  margin-bottom: 20px;
 `;
 
 export const broadImg = styled.img`
   height: 15px;
   width: auto;
+`;
+
+export const WriteSubmitButton = styled.div`
+  height: 50px;
+  width: 170px;
+  border-radius: 15px;
+  white-space: nowrap;
+  box-shadow: 0px 0px 10px gray;
+  cursor: pointer;
+  margin-right: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
+
+export const buttonBox2 = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 `;
