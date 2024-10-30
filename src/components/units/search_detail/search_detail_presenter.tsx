@@ -535,7 +535,7 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
             </S.likeWrapper>
           </S.ReviewMapWrapper>
         ))}
-
+        {/* 게시물 작성부  */}
         <S.ReviewWriteWrapper>
           <S.reviewWrapper>
             <S.title>이 작품에 대한 여러분의 생각을 들려주세요!</S.title>
