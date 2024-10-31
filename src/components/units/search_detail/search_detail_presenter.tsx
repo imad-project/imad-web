@@ -62,17 +62,18 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
   };
 
   const onClickReviewSubmit = async () => {
+    if (!getCookie("Authorization")) {
+      alert("리뷰등록은 회원만 가능합니다.");
+      return;
+    }
     if (!title && !content) {
       alert("리뷰 제목과 본문은 비어있을 수 없습니다.");
+      return;
     }
     if (showTitleWarning || showContentWarning) {
       // 제목이나 본문의 글자 수 제한을 초과한 경우
       alert("리뷰 제목과 본문은 각각 최대 글자 수를 초과할 수 없습니다.");
       return; // 통신을 수행하지 않고 함수 종료
-    }
-
-    if (!getCookie("Authorization")) {
-      alert("리뷰등록은 회원만 가능합니다.");
     }
 
     if (
@@ -108,8 +109,6 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
         alert(error?.response?.data?.message);
         console.error("Error occurred posting review:", error);
       }
-    } else {
-      alert("형식이 올바르지 않습니다");
     }
   };
 
