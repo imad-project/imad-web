@@ -23,5 +23,5 @@ interface IReviewData {
 
 export interface IMyReviewProps {
   reviewData: IReviewData | null;
-  onClickPoster: (event: MouseEvent<HTMLImageElement>) => void;
+  onClickPoster: (id: number) => void;
 }

@@ -58,8 +58,8 @@ export default function MyReview_Container() {
     FETCH_REVIEW();
   }, []);
 
-  const onClickPoster = (event: MouseEvent<HTMLImageElement>): void => {
-    void router.push(`/search/contents/${event.currentTarget.id}`);
+  const onClickPoster = (id: number): void => {
+    void router.push(`/search/contents/${id}`);
   };
 
   if (!reviewData) {

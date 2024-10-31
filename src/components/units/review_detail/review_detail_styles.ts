@@ -10,6 +10,29 @@ export const MainWrapper = styled.div`
   box-shadow: 0px 0px 10px gray;
 `;
 
+export const BetweenRowBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+`;
+
+export const IconBox = styled.div`
+  width: auto;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+`;
+
+export const Icon = styled.img`
+  width: auto;
+  height: 7px;
+`;
+
 export const reviewWrapper = styled.div`
   width: 100%;
   height: auto;
@@ -52,6 +75,10 @@ export const likeDiv = styled.div`
   display: flex;
   flex-direction: row;
   margin-right: 10px;
+`;
+
+export const NickNameTitle = styled.div`
+  font-size: 20px;
 `;
 
 export const LittleIcon = styled.img`
@@ -154,4 +181,25 @@ export const RateBox = styled.div`
   margin-left: 15%;
   width: 100px;
   height: 100px;
+`;
+
+export const DropdownMenu = styled.div`
+  position: absolute;
+
+  top: 40px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+`;
+
+export const MenuItem = styled.div<{ color: string }>`
+  padding: 8px 12px;
+  color: ${(props) => props.color};
+  cursor: pointer;
+  &:hover {
+    background-color: #f0f0f0;
+  }
 `;
