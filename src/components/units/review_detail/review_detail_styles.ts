@@ -8,6 +8,7 @@ export const MainWrapper = styled.div`
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 0px 10px gray;
+  position: relative;
 `;
 
 export const BetweenRowBox = styled.div`
@@ -202,4 +203,81 @@ export const MenuItem = styled.div<{ color: string }>`
   &:hover {
     background-color: #f0f0f0;
   }
+`;
+
+export const ReportWrapper = styled.div`
+  width: 80%;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  background-color: white;
+  z-index: 4;
+  left: 10%;
+`;
+
+export const ReportBtn = styled.div`
+  width: 100%;
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #f34336;
+  :hover {
+    background-color: gray;
+    transition: 0.3s;
+  }
+`;
+
+export const ReportCancelBtn = styled.div`
+  width: 100%;
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #00aaff;
+  :hover {
+    background-color: gray;
+    transition: 0.3s;
+  }
+`;
+
+export const OtherWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+`;
+
+export const OtherReportBtn = styled.div`
+  margin-top: 20px;
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f34336;
+  white-space: nowrap;
+  color: white;
+  font-size: 12px;
+  :hover {
+    background-color: gray;
+    transition: 0.3s;
+  }
+`;
+
+export const ReportDescWrite = styled.textarea`
+  width: 50%;
+  resize: none;
 `;

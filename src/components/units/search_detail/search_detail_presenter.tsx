@@ -515,14 +515,17 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
             </S.RowWrapper>
             <S.reviewBox>
               <S.reviewContentsWrapper>
-                {el.spoiler ? (
+                {el.reported ? (
+                  <>
+                    <S.title>신고처리로 인하여 블러처리된 리뷰입니다.</S.title>
+                  </>
+                ) : el.spoiler ? (
                   <>
                     <S.title>스포일러가 포함된 리뷰입니다.</S.title>
                   </>
                 ) : (
                   <>
                     <S.title>{el.title}</S.title>
-
                     <S.subtitle>{el.content}</S.subtitle>
                   </>
                 )}
