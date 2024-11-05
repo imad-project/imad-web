@@ -3,9 +3,19 @@ import * as S from "./review_detail_styles";
 import { elapsedTime } from "../../../commons/date/date";
 import CircularProgressChart from "@/src/commons/rate_view/rate_view";
 import { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { getCookie } from "../../../../src/commons/cookies/cookie";
 
 export default function MyReview_UI(props: IMyReviewProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+
+  // 토큰 확인부
+  const token =
+    getCookie("Authorization") !== undefined
+      ? `Bearer ${getCookie("Authorization")}`
+      : "GUEST"; // token 변수를 함수 외부에서 선언
 
   const DropdownMenu = ({
     onEdit,
@@ -45,8 +55,28 @@ export default function MyReview_UI(props: IMyReviewProps) {
     setIsMenuOpen(false);
   };
 
-  const handleDelete = () => {
-    console.log("삭제 클릭"); // 여기에 삭제 로직 추가
+  const onClickDelBtn = async () => {
+    if (confirm("리뷰를 삭제하시겠습니까?") == true) {
+      try {
+        const DelRES = await axios.delete(
+          `https://api.iimad.com/api/review/${props.reviewData?.review_id}`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (DelRES.status === 200) {
+          console.log(DelRES.statusText);
+          router.back();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      return;
+    }
+
     setIsMenuOpen(false);
   };
 
@@ -65,7 +95,7 @@ export default function MyReview_UI(props: IMyReviewProps) {
         {isMenuOpen && (
           <DropdownMenu
             onEdit={handleEdit}
-            onDelete={handleDelete}
+            onDelete={onClickDelBtn}
             onReport={handleReport}
             isAuthor={props.reviewData?.author ?? false}
           />
