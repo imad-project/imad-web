@@ -1,8 +1,9 @@
 import { MouseEvent, useEffect, useState } from "react";
-import { getCookie } from "../../../src/commons/cookies/cookie";
+import { getCookie } from "../../../../src/commons/cookies/cookie";
 import axios from "axios";
-import MyReview_UI from "../../../src/components/units/review_detail/review_detail_presenter";
+
 import { useRouter } from "next/router";
+import Review_EDIT from "../../../../src/components/units/review_detail/review_edit/review_edit_presenter";
 
 interface IReviewData {
   review_id: number;
@@ -37,30 +38,32 @@ export default function MyReview_Container() {
       : "GUEST"; // token 변수를 함수 외부에서 선언
 
   const FETCH_REVIEW = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.iimad.com/api/review/${router.query.id}`,
-        {
-          headers: {
-            Authorization: token,
-          },
+    if (!getCookie("Authorization")) {
+      alert("리뷰수정은 본인의 리뷰&회원만 가능합니다.");
+      router.back();
+      return;
+    } else {
+      try {
+        const response = await axios.get(
+          `https://api.iimad.com/api/review/${router.query.id}`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (response.status === 200) {
+          setReviewData(response.data.data);
         }
-      );
-      if (response.status === 200) {
-        setReviewData(response.data.data);
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
   useEffect(() => {
     FETCH_REVIEW();
   }, []);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [router.query.id]);
 
   const onClickPoster = (id: number): void => {
     void router.push(`/search/contents/${id}`);
@@ -72,7 +75,7 @@ export default function MyReview_Container() {
 
   return (
     <>
-      <MyReview_UI reviewData={reviewData} onClickPoster={onClickPoster} />
+      <Review_EDIT reviewData={reviewData} onClickPoster={onClickPoster} />
     </>
   );
 }

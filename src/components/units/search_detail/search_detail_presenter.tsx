@@ -25,6 +25,7 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
   const [selectedRating, setSelectdRating] = useState<number>(0);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [isSpoiler, setIsSpoiler] = useState(false);
   const router = useRouter();
 
   const onInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -61,18 +62,23 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
     console.log(rating);
   };
 
+  const onClickSpoiler = () => {
+    setIsSpoiler((prev) => !prev);
+  };
+
   const onClickReviewSubmit = async () => {
+    if (!getCookie("Authorization")) {
+      alert("리뷰등록은 회원만 가능합니다.");
+      return;
+    }
     if (!title && !content) {
       alert("리뷰 제목과 본문은 비어있을 수 없습니다.");
+      return;
     }
     if (showTitleWarning || showContentWarning) {
       // 제목이나 본문의 글자 수 제한을 초과한 경우
       alert("리뷰 제목과 본문은 각각 최대 글자 수를 초과할 수 없습니다.");
       return; // 통신을 수행하지 않고 함수 종료
-    }
-
-    if (!getCookie("Authorization")) {
-      alert("리뷰등록은 회원만 가능합니다.");
     }
 
     if (
@@ -90,7 +96,7 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
             title: title,
             content: content,
             score: rating,
-            is_spoiler: false,
+            is_spoiler: isSpoiler,
           },
           {
             headers: {
@@ -108,8 +114,6 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
         alert(error?.response?.data?.message);
         console.error("Error occurred posting review:", error);
       }
-    } else {
-      alert("형식이 올바르지 않습니다");
     }
   };
 
@@ -143,6 +147,10 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
 
   const toggleCastVisibility = () => {
     setShowCast((prev) => !prev); // 현재 상태를 반전
+  };
+
+  const onClickReview = (id: number) => {
+    void router.push(`/review/${id}`);
   };
 
   if (!props.data) {
@@ -458,14 +466,28 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
                     리뷰 본문은 최대 1000바이트를 초과할 수 없습니다.
                   </p>
                 )}
-                <span>평점: {rating}/10</span>
-                <ReactStars
-                  count={5}
-                  value={selectedRating}
-                  size={24}
-                  onChange={ratingChanged}
-                  half={true}
-                />
+                <S.RowBox>
+                  <>
+                    <span>평점: {rating}/10</span>
+                    <ReactStars
+                      count={5}
+                      value={selectedRating}
+                      size={24}
+                      onChange={ratingChanged}
+                      half={true}
+                    />
+                  </>
+                  <S.RowBox onClick={onClickSpoiler}>
+                    <S.SpoilerIcon
+                      src={
+                        isSpoiler
+                          ? "/img/icon/icons/checkmark.circle.png"
+                          : "/img/icon/icons/checkmark.circle.gray.png"
+                      }
+                    />
+                    <S.SpoilerSpan isCheck={isSpoiler}>스포일러</S.SpoilerSpan>
+                  </S.RowBox>
+                </S.RowBox>
               </S.reviewContentsWrapper>
             </S.reviewBox>
 
@@ -481,7 +503,10 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
         <S.Line />
 
         {props.review?.details_list.map((el) => (
-          <S.ReviewMapWrapper key={el.review_id}>
+          <S.ReviewMapWrapper
+            key={el.review_id}
+            onClick={() => onClickReview(el.review_id)}
+          >
             <S.RowWrapper>
               <S.avatar
                 src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${el.user_profile_image}`}
@@ -490,9 +515,21 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
             </S.RowWrapper>
             <S.reviewBox>
               <S.reviewContentsWrapper>
-                <S.title>{el.title}</S.title>
+                {el.reported ? (
+                  <>
+                    <S.title>신고처리로 인하여 블러처리된 리뷰입니다.</S.title>
+                  </>
+                ) : el.spoiler ? (
+                  <>
+                    <S.title>스포일러가 포함된 리뷰입니다.</S.title>
+                  </>
+                ) : (
+                  <>
+                    <S.title>{el.title}</S.title>
+                    <S.subtitle>{el.content}</S.subtitle>
+                  </>
+                )}
 
-                <S.subtitle>{el.content}</S.subtitle>
                 <S.RowWrapper>
                   <S.likeDiv>
                     <S.LittleIcon src="/img/icon/icons/arrowshape.up.png" />
