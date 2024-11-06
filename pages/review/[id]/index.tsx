@@ -58,6 +58,10 @@ export default function MyReview_Container() {
     FETCH_REVIEW();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [router.query.id]);
+
   const onClickPoster = (id: number): void => {
     void router.push(`/search/contents/${id}`);
   };

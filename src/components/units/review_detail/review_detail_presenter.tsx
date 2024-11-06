@@ -93,6 +93,7 @@ export default function MyReview_UI(props: IMyReviewProps) {
       return;
     } else {
       setReportMenuOpen(true);
+      setIsMenuOpen(false);
     }
   };
 

@@ -2,15 +2,19 @@ import styled from "@emotion/styled";
 
 export const MainWrapper = styled.div`
   width: 70%;
+
   display: flex;
   flex-direction: column;
   margin-top: 10px;
   border-radius: 10px;
   padding: 20px;
+  padding-bottom: 50px;
   box-shadow: 0px 0px 10px gray;
   position: relative;
   @media (max-width: 1080px) {
     width: 100%;
+    padding: 5px;
+    padding-bottom: 50px;
   }
 `;
 
@@ -60,6 +64,11 @@ export const avatar = styled.img`
   border-radius: 50%;
   box-shadow: 0px 0px 5px gray;
   margin-right: 10px;
+
+  @media (max-width: 480px) {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 export const reviewBox = styled.div`
@@ -89,6 +98,10 @@ export const LittleIcon = styled.img`
   width: 20px;
   height: 20px;
   margin-right: 5px;
+  @media (max-width: 480px) {
+    width: 15px;
+    height: 15px;
+  }
 `;
 
 export const reviewContentsWrapper = styled.div`
@@ -120,25 +133,40 @@ export const PosterBox = styled.div`
   justify-content: center;
   align-items: center;
   width: 150px;
+
+  @media (max-width: 480px) {
+    width: 50px;
+    display: none;
+  }
 `;
 
 export const Poster_img = styled.img`
   width: 100px;
-  height: 150px;
+  height: auto;
   border-radius: 10px;
   margin-bottom: 10px;
+  @media (max-width: 480px) {
+    width: 50px;
+  }
 `;
 
 export const Poster_title = styled.div`
   font-size: 20px;
   color: #0b0537;
   text-align: center;
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
 `;
 
 export const ColumnBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 50px;
+
+  @media (max-width: 480px) {
+    margin-left: 10px;
+  }
 `;
 
 export const DividedLine = styled.div`
@@ -185,6 +213,10 @@ export const RateBox = styled.div`
   margin-left: 15%;
   width: 100px;
   height: 100px;
+
+  @media (max-width: 800px) {
+    display: none;
+  }
 `;
 
 export const DropdownMenu = styled.div`
@@ -309,6 +341,10 @@ export const SpoilerIcon = styled.img`
   height: auto;
   margin-right: 5px;
   margin-left: 15%;
+
+  @media (max-width: 480px) {
+    margin-left: 5px;
+  }
 `;
 
 export const SpoilerSpan = styled.div<{ isCheck: boolean }>`
@@ -331,6 +367,6 @@ export const ReviewEditBtn = styled.div`
   position: absolute;
   z-index: 4;
   background-color: #0b0537;
-  right: 30%;
-  bottom: 10%;
+  right: 20px;
+  bottom: 10px;
 `;

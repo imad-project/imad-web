@@ -61,6 +61,11 @@ export const avatar = styled.img`
   border-radius: 50%;
   box-shadow: 0px 0px 5px gray;
   margin-right: 10px;
+
+  @media (max-width: 480px) {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 export const reviewBox = styled.div`
@@ -90,6 +95,10 @@ export const LittleIcon = styled.img`
   width: 20px;
   height: 20px;
   margin-right: 5px;
+  @media (max-width: 480px) {
+    width: 15px;
+    height: 15px;
+  }
 `;
 
 export const reviewContentsWrapper = styled.div`
@@ -97,7 +106,7 @@ export const reviewContentsWrapper = styled.div`
   flex-direction: column;
   margin-top: 20px;
 
-  width: 300px;
+  width: 100%;
 `;
 
 export const likeWrapper = styled.div`
@@ -121,25 +130,41 @@ export const PosterBox = styled.div`
   justify-content: center;
   align-items: center;
   width: 150px;
+
+  @media (max-width: 480px) {
+    width: 50px;
+  }
 `;
 
 export const Poster_img = styled.img`
   width: 100px;
-  height: 150px;
+  height: auto;
   border-radius: 10px;
   margin-bottom: 10px;
+
+  @media (max-width: 480px) {
+    width: 50px;
+  }
 `;
 
 export const Poster_title = styled.div`
   font-size: 20px;
   color: #0b0537;
   text-align: center;
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
 `;
 
 export const ColumnBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 50px;
+
+  @media (max-width: 480px) {
+    margin-left: 10px;
+  }
 `;
 
 export const DividedLine = styled.div`
@@ -154,7 +179,12 @@ export const Date_span = styled.div`
   font-size: 15px;
   width: 100px;
   height: auto;
+  white-space: nowrap;
   margin-left: 50px;
+
+  @media (max-width: 480px) {
+    margin-left: 5px;
+  }
 `;
 
 export const title_span = styled.div`
@@ -186,6 +216,19 @@ export const RateBox = styled.div`
   margin-left: 15%;
   width: 100px;
   height: 100px;
+  min-width: 100px;
+  min-height: 100px;
+
+  @media (max-width: 480px) {
+    min-width: 25px;
+    min-height: 25px;
+    width: 75px;
+    height: 75px;
+    margin-left: 0;
+    position: absolute;
+    right: 10%;
+    bottom: 30%;
+  }
 `;
 
 export const DropdownMenu = styled.div`
