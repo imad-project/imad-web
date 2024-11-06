@@ -87,6 +87,9 @@ export interface IDetailUIProps {
         created_at: string;
         modified_at: string;
         like_status: number;
+        spoiler: boolean;
+        author: boolean;
+        reported: boolean;
       }
     ];
   };

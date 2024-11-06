@@ -512,6 +512,7 @@ export const reviewInput = styled.input`
 export const reviewTextArea = styled.textarea`
   height: 100px;
   resize: none;
+  border: 0;
 `;
 
 export const reviewSubmitButton = styled.div`
@@ -565,4 +566,17 @@ export const buttonBox2 = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+`;
+
+export const SpoilerIcon = styled.img`
+  width: 20px;
+  height: auto;
+  margin-right: 5px;
+  margin-left: 15%;
+`;
+export const SpoilerSpan = styled.div<{ isCheck: boolean }>`
+  font-size: 14px;
+  white-space: nowrap;
+  margin-top: 2px;
+  color: ${(props) => (props.isCheck ? "#0b0537" : "gray")};
 `;

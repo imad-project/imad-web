@@ -2,16 +2,19 @@ import styled from "@emotion/styled";
 
 export const MainWrapper = styled.div`
   width: 70%;
+
   display: flex;
   flex-direction: column;
   margin-top: 10px;
   border-radius: 10px;
   padding: 20px;
+  padding-bottom: 50px;
   box-shadow: 0px 0px 10px gray;
   position: relative;
-
   @media (max-width: 1080px) {
     width: 100%;
+    padding: 5px;
+    padding-bottom: 50px;
   }
 `;
 
@@ -133,6 +136,7 @@ export const PosterBox = styled.div`
 
   @media (max-width: 480px) {
     width: 50px;
+    display: none;
   }
 `;
 
@@ -141,7 +145,6 @@ export const Poster_img = styled.img`
   height: auto;
   border-radius: 10px;
   margin-bottom: 10px;
-
   @media (max-width: 480px) {
     width: 50px;
   }
@@ -151,7 +154,6 @@ export const Poster_title = styled.div`
   font-size: 20px;
   color: #0b0537;
   text-align: center;
-
   @media (max-width: 480px) {
     font-size: 12px;
   }
@@ -179,12 +181,7 @@ export const Date_span = styled.div`
   font-size: 15px;
   width: 100px;
   height: auto;
-  white-space: nowrap;
   margin-left: 50px;
-
-  @media (max-width: 480px) {
-    margin-left: 5px;
-  }
 `;
 
 export const title_span = styled.div`
@@ -216,18 +213,9 @@ export const RateBox = styled.div`
   margin-left: 15%;
   width: 100px;
   height: 100px;
-  min-width: 100px;
-  min-height: 100px;
 
-  @media (max-width: 480px) {
-    min-width: 25px;
-    min-height: 25px;
-    width: 75px;
-    height: 75px;
-    margin-left: 0;
-    position: absolute;
-    right: 10%;
-    bottom: 30%;
+  @media (max-width: 800px) {
+    display: none;
   }
 `;
 
@@ -327,4 +315,58 @@ export const OtherReportBtn = styled.div`
 export const ReportDescWrite = styled.textarea`
   width: 50%;
   resize: none;
+`;
+
+export const reviewInput = styled.input`
+  border: 0px;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 10px;
+`;
+
+export const reviewTextArea = styled.textarea`
+  height: 100px;
+  resize: none;
+  border: 0;
+`;
+
+export const RowBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const SpoilerIcon = styled.img`
+  width: 20px;
+  height: auto;
+  margin-right: 5px;
+  margin-left: 15%;
+
+  @media (max-width: 480px) {
+    margin-left: 5px;
+  }
+`;
+
+export const SpoilerSpan = styled.div<{ isCheck: boolean }>`
+  font-size: 14px;
+  white-space: nowrap;
+  margin-top: 2px;
+  color: ${(props) => (props.isCheck ? "#0b0537" : "gray")};
+`;
+
+export const ReviewEditBtn = styled.div`
+  font-size: 16px;
+  color: white;
+  width: 70px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  white-space: nowrap;
+  position: absolute;
+  z-index: 4;
+  background-color: #0b0537;
+  right: 20px;
+  bottom: 10px;
 `;
