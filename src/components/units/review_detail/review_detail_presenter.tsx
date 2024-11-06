@@ -58,7 +58,7 @@ export default function MyReview_UI(props: IMyReviewProps) {
   };
 
   const handleEdit = () => {
-    console.log("수정 클릭"); // 여기에 수정 로직 추가
+    router.push(`/review/${props.reviewData?.review_id}/edit`);
     setIsMenuOpen(false);
   };
 

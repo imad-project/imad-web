@@ -9,7 +9,6 @@ export const MainWrapper = styled.div`
   padding: 20px;
   box-shadow: 0px 0px 10px gray;
   position: relative;
-
   @media (max-width: 1080px) {
     width: 100%;
   }
@@ -97,7 +96,7 @@ export const reviewContentsWrapper = styled.div`
   flex-direction: column;
   margin-top: 20px;
 
-  width: 300px;
+  width: 100%;
 `;
 
 export const likeWrapper = styled.div`
@@ -284,4 +283,54 @@ export const OtherReportBtn = styled.div`
 export const ReportDescWrite = styled.textarea`
   width: 50%;
   resize: none;
+`;
+
+export const reviewInput = styled.input`
+  border: 0px;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 10px;
+`;
+
+export const reviewTextArea = styled.textarea`
+  height: 100px;
+  resize: none;
+  border: 0;
+`;
+
+export const RowBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const SpoilerIcon = styled.img`
+  width: 20px;
+  height: auto;
+  margin-right: 5px;
+  margin-left: 15%;
+`;
+
+export const SpoilerSpan = styled.div<{ isCheck: boolean }>`
+  font-size: 14px;
+  white-space: nowrap;
+  margin-top: 2px;
+  color: ${(props) => (props.isCheck ? "#0b0537" : "gray")};
+`;
+
+export const ReviewEditBtn = styled.div`
+  font-size: 16px;
+  color: white;
+  width: 70px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  white-space: nowrap;
+  position: absolute;
+  z-index: 4;
+  background-color: #0b0537;
+  right: 30%;
+  bottom: 10%;
 `;
