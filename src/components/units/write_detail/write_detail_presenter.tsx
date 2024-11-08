@@ -3,6 +3,8 @@ import * as S from "./write_detail_styles";
 import { elapsedTime } from "@/src/commons/date/date";
 import { TextConvert } from "@/src/commons/text_br/text_br";
 
+import { useState } from "react";
+
 const CommentItem = ({
   comment,
   commentsDetail,
@@ -63,6 +65,12 @@ const CommentItem = ({
 };
 
 export default function Write_Detail_UI(props: IWriteDetailProps) {
+  const [commentsOpen, setCommentsOpen] = useState(false);
+
+  const handleCommentsOpen = () => {
+    setCommentsOpen(!commentsOpen);
+  };
+
   if (!props.detail) {
     return <div>Loading...</div>; // 데이터가 로드되지 않은 상태 처리
   }
@@ -112,7 +120,13 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
           </S.RowWrapper>
           <S.DividedLine />
           <S.LikeBox>
-            <S.SubTitle>댓글[{props.detail?.comment_cnt}]</S.SubTitle>
+            <S.RowWrapper2>
+              <S.SubTitle>댓글[{props.detail?.comment_cnt}]</S.SubTitle>
+              <S.Gray_span_btn onClick={handleCommentsOpen}>
+                {commentsOpen ? "닫기" : "열기"}
+              </S.Gray_span_btn>
+            </S.RowWrapper2>
+
             <S.RowWrapper2>
               <S.LikeButton
                 onClick={() => {
@@ -125,7 +139,7 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
                 isLiked={props.detail?.like_status === 1}
               >
                 <S.LittleIcon src="/img/icon/icons/arrowshape.white.up.fill.png" />
-                <S.LikeSpan>추천 {props.detail?.like_cnt}</S.LikeSpan>
+                <S.LikeSpan>개추 {props.detail?.like_cnt}</S.LikeSpan>
               </S.LikeButton>
               <S.LikeButton
                 onClick={() => {
@@ -138,22 +152,25 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
                 isLiked={props.detail?.like_status === -1}
               >
                 <S.LittleIcon src="/img/icon/icons/arrowshape.white.down.fill.png" />
-                <S.LikeSpan>비추천 {props.detail?.dislike_cnt}</S.LikeSpan>
+                <S.LikeSpan>비추 {props.detail?.dislike_cnt}</S.LikeSpan>
               </S.LikeButton>
             </S.RowWrapper2>
           </S.LikeBox>
         </S.ColumnWrapper>
 
-        {props.detail?.comment_list_response.details_list.map((el) => (
-          <S.CommentsWrapper key={el.comment_id}>
-            <CommentItem
-              key={el.comment_id}
-              comment={el}
-              commentsDetail={props.commentsDetail}
-              onClickMoreComments={props.onClickMoreComments}
-            />
-          </S.CommentsWrapper>
-        ))}
+        {commentsOpen &&
+          props.detail?.comment_list_response.details_list.map((el) => (
+            <S.CommentsWrapper key={el.comment_id}>
+              <CommentItem
+                key={el.comment_id}
+                comment={el}
+                commentsDetail={props.commentsDetail}
+                onClickMoreComments={props.onClickMoreComments}
+              />
+            </S.CommentsWrapper>
+          ))}
+
+        <S.CommentsWrapper></S.CommentsWrapper>
       </S.MainWrapper>
     </>
   );

@@ -9,6 +9,10 @@ export const MainWrapper = styled.div`
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 0px 10px gray;
+
+  @media (max-width: 1080px) {
+    width: 100%;
+  }
 `;
 
 export const avatar = styled.img`
@@ -60,6 +64,13 @@ export const Date_span = styled.div`
   font-size: 15px;
   width: 100px;
   height: auto;
+`;
+
+export const Gray_span_btn = styled.div`
+  color: gray;
+  font-size: 15px;
+  margin-left: 10px;
+  cursor: pointer;
 `;
 
 export const Child_span = styled.div`
