@@ -63,6 +63,9 @@ const CommentItem = ({
 };
 
 export default function Write_Detail_UI(props: IWriteDetailProps) {
+  if (!props.detail) {
+    return <div>Loading...</div>; // 데이터가 로드되지 않은 상태 처리
+  }
   return (
     <>
       <S.MainWrapper>
@@ -113,20 +116,26 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
             <S.RowWrapper2>
               <S.LikeButton
                 onClick={() => {
-                  if (props.detail?.posting_id !== undefined) {
-                    props.onClickContentsLike(props.detail.posting_id);
-                  }
+                  props.detail?.posting_id
+                    ? props.detail.like_status === 1
+                      ? props.onClickContentsCancelLike(props.detail.posting_id)
+                      : props.onClickContentsLike(props.detail?.posting_id)
+                    : "";
                 }}
+                isLiked={props.detail?.like_status === 1}
               >
                 <S.LittleIcon src="/img/icon/icons/arrowshape.white.up.fill.png" />
                 <S.LikeSpan>추천 {props.detail?.like_cnt}</S.LikeSpan>
               </S.LikeButton>
               <S.LikeButton
                 onClick={() => {
-                  if (props.detail?.posting_id !== undefined) {
-                    props.onClickContentsDisLike(props.detail.posting_id);
-                  }
+                  props.detail?.posting_id
+                    ? props.detail.like_status === -1
+                      ? props.onClickContentsCancelLike(props.detail.posting_id)
+                      : props.onClickContentsDisLike(props.detail?.posting_id)
+                    : "";
                 }}
+                isLiked={props.detail?.like_status === -1}
               >
                 <S.LittleIcon src="/img/icon/icons/arrowshape.white.down.fill.png" />
                 <S.LikeSpan>비추천 {props.detail?.dislike_cnt}</S.LikeSpan>

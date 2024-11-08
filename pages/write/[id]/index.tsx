@@ -137,7 +137,7 @@ export default function WriteDetail_Page(): JSX.Element {
         console.error("Error occurred while liking review:", error);
       }
     } else {
-      alert("리뷰 좋아요/싫어요 는 회원만 가능합니다!");
+      alert("게시물 좋아요/싫어요 는 회원만 가능합니다!");
     }
   };
 
@@ -156,13 +156,38 @@ export default function WriteDetail_Page(): JSX.Element {
           }
         );
         if (likeReview.status === 200) {
-          setContentsLike(!setContentsLike);
+          setContentsLike(!contentsLike);
         }
       } catch (error) {
         console.error("Error occurred while liking review:", error);
       }
     } else {
-      alert("리뷰 좋아요/싫어요 는 회원만 가능합니다!");
+      alert("게시물 좋아요/싫어요 는 회원만 가능합니다!");
+    }
+  };
+
+  const onClickContentsCancelLike = async (id: number) => {
+    if (getCookie("Authorization") !== undefined) {
+      try {
+        const likeReview = await axios.patch(
+          `https://api.iimad.com/api/posting/like/${id}`,
+          {
+            like_status: 0,
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (likeReview.status === 200) {
+          setContentsLike(!contentsLike);
+        }
+      } catch (error) {
+        console.error("Error occurred while liking review:", error);
+      }
+    } else {
+      alert("게시물 좋아요/싫어요 는 회원만 가능합니다!");
     }
   };
 
@@ -174,13 +199,13 @@ export default function WriteDetail_Page(): JSX.Element {
     WRITE_DETAIL();
   }, [contentsLike]);
 
-  const onClickMoreComments = (posting_id: number, parent_id: number) => {
-    COMMENTS_DETAIL(posting_id, parent_id);
-  };
-
   useEffect(() => {
     WRITE_DETAIL();
   }, []);
+
+  const onClickMoreComments = (posting_id: number, parent_id: number) => {
+    COMMENTS_DETAIL(posting_id, parent_id);
+  };
 
   if (!detail) {
     return <div>Loading...</div>;
@@ -193,6 +218,7 @@ export default function WriteDetail_Page(): JSX.Element {
       onClickMoreComments={onClickMoreComments}
       onClickContentsLike={onClickContentsLike}
       onClickContentsDisLike={onClickContentsDisLike}
+      onClickContentsCancelLike={onClickContentsCancelLike}
       onClickPoster={onClickPoster}
     />
   );

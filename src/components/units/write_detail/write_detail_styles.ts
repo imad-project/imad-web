@@ -118,14 +118,14 @@ export const LikeBox = styled.div`
   width: 100%;
 `;
 
-export const LikeButton = styled.div`
+export const LikeButton = styled.div<{ isLiked: boolean }>`
   width: 125px;
   height: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: #3c4b66;
+  background-color: ${(props) => (props.isLiked ? "#0b0537" : "#3c4b66")};
   margin-right: 20px;
 
   border-radius: 10px;

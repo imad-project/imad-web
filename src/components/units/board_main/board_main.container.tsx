@@ -102,13 +102,19 @@ export default function Board_container() {
   const [category, setCategory] = useState(0);
   const [currentCategory, setCurrentCategory] = useState("전체");
 
+  // 토큰 확인부
+  const token =
+    getCookie("Authorization") !== undefined
+      ? `Bearer ${getCookie("Authorization")}`
+      : "GUEST"; // token 변수를 함수 외부에서 선언
+
   const FETCH_BOARD_FIRST = async () => {
     try {
       const response = await axios.get(
         "https://api.iimad.com/api/posting/list?page=1&category=0",
         {
           headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
+            Authorization: token,
           },
         }
       );
@@ -126,7 +132,7 @@ export default function Board_container() {
         `https://api.iimad.com/api/posting/list/search?search_type=0&query=${query}&page=1&sort=${sort}&order=${order}&category=${category}`,
         {
           headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
+            Authorization: token,
           },
         }
       );
@@ -145,7 +151,7 @@ export default function Board_container() {
         `https://api.iimad.com/api/posting/list/search?search_type=0&query=${query}page=${currentPage}&sort=${sort}&order=${order}&category=${category}`,
         {
           headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
+            Authorization: token,
           },
         }
       );
