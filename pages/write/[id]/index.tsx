@@ -199,10 +199,6 @@ export default function WriteDetail_Page(): JSX.Element {
     WRITE_DETAIL();
   }, [contentsLike]);
 
-  useEffect(() => {
-    WRITE_DETAIL();
-  }, []);
-
   const onClickMoreComments = (posting_id: number, parent_id: number) => {
     COMMENTS_DETAIL(posting_id, parent_id);
   };
