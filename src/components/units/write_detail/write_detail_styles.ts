@@ -76,8 +76,9 @@ export const Gray_span_btn = styled.div`
 export const Child_span = styled.div`
   color: gray;
   font-size: 15px;
-  width: 150px;
+  margin-right: 20px;
   height: auto;
+  cursor: pointer;
 `;
 
 export const View_cnt_span = styled.div`

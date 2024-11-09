@@ -11,10 +11,26 @@ const CommentItem = ({
   comment,
   commentsDetail,
   onClickMoreComments,
+  index,
+  handleToggle,
+  commentWriteOpen,
+  onInputHandler,
+  comments,
+  commentsInputCount,
+  showCommentsWarning,
+  onClickCommentsSubmit,
 }: {
   comment: any;
   commentsDetail: any;
   onClickMoreComments: (posting_id: number, parent_id: number) => void;
+  index: number;
+  handleToggle: (index: number) => void;
+  commentWriteOpen: any;
+  onInputHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+  comments: string;
+  commentsInputCount: number;
+  showCommentsWarning: boolean;
+  onClickCommentsSubmit: (parent_id: number | null) => void;
 }) => {
   return (
     <S.RowWrapper2>
@@ -38,7 +54,9 @@ const CommentItem = ({
               >
                 댓글 {comment.child_cnt}개 더보기
               </S.Child_span>
-              <S.Child_span>답글 달기</S.Child_span>
+              <S.Child_span onClick={() => handleToggle(comment.comment_id)}>
+                {commentWriteOpen === index ? "작성 취소" : "답글 작성"}
+              </S.Child_span>
               <S.RowWrapper2>
                 <S.likeDiv>
                   <S.LittleIcon src="/img/icon/icons/arrowshape.up.png" />
@@ -50,6 +68,34 @@ const CommentItem = ({
                 </S.likeDiv>
               </S.RowWrapper2>
             </S.RowWrapper>
+            {commentWriteOpen[comment.comment_id] && (
+              <S.CommentsWrapper>
+                <h1>답글 작성</h1>
+                <S.CommentsInput
+                  onChange={onInputHandler}
+                  placeholder="댓글을 작성해주세요."
+                  value={comments}
+                />
+                <S.RowWrapper>
+                  <div>
+                    <p>
+                      <span>{commentsInputCount} /1000 bytes</span>
+                    </p>
+                    {showCommentsWarning && (
+                      <p style={{ color: "red" }}>
+                        답글은 최대 1000바이트를 초과할 수 없습니다.
+                      </p>
+                    )}
+                  </div>
+
+                  <S.CommentsSubmitBtn
+                    onClick={() => onClickCommentsSubmit(comment.comment_id)}
+                  >
+                    답글 등록
+                  </S.CommentsSubmitBtn>
+                </S.RowWrapper>
+              </S.CommentsWrapper>
+            )}
             {commentsDetail[comment.comment_id]?.details_list.map(
               (childComment: any) => (
                 <CommentItem
@@ -57,6 +103,14 @@ const CommentItem = ({
                   comment={childComment}
                   commentsDetail={commentsDetail}
                   onClickMoreComments={onClickMoreComments}
+                  index={index}
+                  handleToggle={handleToggle}
+                  commentWriteOpen={commentWriteOpen}
+                  onInputHandler={onInputHandler}
+                  comments={comments}
+                  commentsInputCount={commentsInputCount}
+                  showCommentsWarning={showCommentsWarning}
+                  onClickCommentsSubmit={onClickCommentsSubmit}
                 />
               )
             )}
@@ -74,9 +128,19 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
   const MAX_COMMENTS_BYTES = 1000; // 리뷰 제목 최대 바이트 수
   const [commentsInputCount, setCommentsInputCount] = useState<number>(0);
   const [comments, setComments] = useState("");
+  const [commentWriteOpen, setCommentWriteOpen] = useState<
+    Record<number, boolean>
+  >({});
 
   const handleCommentsOpen = () => {
     setCommentsOpen(!commentsOpen);
+  };
+
+  const handleToggle = (commentId: number) => {
+    setCommentWriteOpen((prev) => ({
+      ...prev,
+      [commentId]: !prev[commentId],
+    }));
   };
 
   const onInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -230,13 +294,21 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
         </S.ColumnWrapper>
 
         {commentsOpen &&
-          props.detail?.comment_list_response.details_list.map((el) => (
+          props.detail?.comment_list_response.details_list.map((el, index) => (
             <S.CommentsWrapper key={el.comment_id}>
               <CommentItem
                 key={el.comment_id}
                 comment={el}
                 commentsDetail={props.commentsDetail}
                 onClickMoreComments={props.onClickMoreComments}
+                index={index}
+                handleToggle={handleToggle}
+                commentWriteOpen={commentWriteOpen}
+                onInputHandler={onInputHandler}
+                comments={comments}
+                commentsInputCount={commentsInputCount}
+                showCommentsWarning={showCommentsWarning}
+                onClickCommentsSubmit={onClickCommentsSubmit}
               />
             </S.CommentsWrapper>
           ))}
