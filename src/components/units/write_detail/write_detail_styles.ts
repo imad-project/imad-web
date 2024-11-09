@@ -101,6 +101,13 @@ export const title_span = styled.div`
   color: #0b0537;
 `;
 
+export const CommentsInput = styled.input`
+  border: 0px;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 10px;
+`;
+
 export const Contents_span = styled.div`
   width: 100%;
   font-size: 18px;
@@ -208,4 +215,19 @@ export const PosterBox = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+`;
+
+export const CommentsSubmitBtn = styled.div`
+  height: 50px;
+  width: 100px;
+  border-radius: 15px;
+
+  box-shadow: 0px 0px 10px gray;
+  cursor: pointer;
+  margin-right: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
 `;

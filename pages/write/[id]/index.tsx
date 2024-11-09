@@ -216,6 +216,8 @@ export default function WriteDetail_Page(): JSX.Element {
       onClickContentsDisLike={onClickContentsDisLike}
       onClickContentsCancelLike={onClickContentsCancelLike}
       onClickPoster={onClickPoster}
+      contentsLike={contentsLike}
+      setContentsLike={setContentsLike}
     />
   );
 }

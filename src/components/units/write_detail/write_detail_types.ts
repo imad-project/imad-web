@@ -63,4 +63,7 @@ export interface IWriteDetailProps {
   onClickContentsDisLike: (id: number) => void;
   onClickContentsCancelLike: (id: number) => void;
   onClickPoster: (id: number) => void;
+
+  contentsLike: boolean;
+  setContentsLike: (contentsLike: boolean) => void;
 }

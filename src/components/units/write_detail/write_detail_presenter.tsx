@@ -3,7 +3,9 @@ import * as S from "./write_detail_styles";
 import { elapsedTime } from "@/src/commons/date/date";
 import { TextConvert } from "@/src/commons/text_br/text_br";
 
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+import { getCookie } from "@/src/commons/cookies/cookie";
+import axios from "axios";
 
 const CommentItem = ({
   comment,
@@ -36,6 +38,7 @@ const CommentItem = ({
               >
                 댓글 {comment.child_cnt}개 더보기
               </S.Child_span>
+              <S.Child_span>답글 달기</S.Child_span>
               <S.RowWrapper2>
                 <S.likeDiv>
                   <S.LittleIcon src="/img/icon/icons/arrowshape.up.png" />
@@ -66,9 +69,77 @@ const CommentItem = ({
 
 export default function Write_Detail_UI(props: IWriteDetailProps) {
   const [commentsOpen, setCommentsOpen] = useState(false);
+  const [showCommentsWarning, setShowCommentsWarning] =
+    useState<boolean>(false); // 리뷰 제목 경고 표시 여부 상태 추가
+  const MAX_COMMENTS_BYTES = 1000; // 리뷰 제목 최대 바이트 수
+  const [commentsInputCount, setCommentsInputCount] = useState<number>(0);
+  const [comments, setComments] = useState("");
 
   const handleCommentsOpen = () => {
     setCommentsOpen(!commentsOpen);
+  };
+
+  const onInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    // 입력된 문자열을 UTF-8로 인코딩하여 바이트 수 계산
+    const byteLength = new TextEncoder().encode(e.target.value).length;
+    setCommentsInputCount(byteLength); // 리뷰 제목의 바이트 수를 표시
+    setComments(e.target.value);
+
+    // 최대 바이트 수를 초과할 경우 경고 표시
+    if (byteLength > MAX_COMMENTS_BYTES) {
+      setShowCommentsWarning(true);
+    } else {
+      setShowCommentsWarning(false);
+    }
+  };
+
+  const onClickCommentsSubmit = async (parent_id: number | null) => {
+    if (!getCookie("Authorization")) {
+      alert("댓글등록은 회원만 가능합니다.");
+      return;
+    }
+    if (!comments) {
+      alert("댓글은 비어있을수 없습니다.");
+      return;
+    }
+    if (showCommentsWarning) {
+      // 제목이나 본문의 글자 수 제한을 초과한 경우
+      alert("댓글의 최대 글자 수를 초과할 수 없습니다.");
+      return; // 통신을 수행하지 않고 함수 종료
+    }
+
+    if (
+      comments &&
+      !showCommentsWarning &&
+      getCookie("Authorization") !== undefined
+    ) {
+      try {
+        const PostComments = await axios.post(
+          `https://api.iimad.com/api/posting/comment`,
+          {
+            posting_id: props?.detail?.posting_id,
+            parent_id: parent_id,
+            content: comments,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${getCookie("Authorization")}`,
+            },
+          }
+        );
+        if (PostComments.data.status === 409) {
+          alert(PostComments.data.message);
+        }
+        if (PostComments.status === 200) {
+          props.setContentsLike(!props.contentsLike);
+          setComments("");
+          setCommentsInputCount(0);
+        }
+      } catch (error: any) {
+        alert(error?.response?.data?.message);
+        console.error("Error occurred posting review:", error);
+      }
+    }
   };
 
   if (!props.detail) {
@@ -170,7 +241,30 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
             </S.CommentsWrapper>
           ))}
 
-        <S.CommentsWrapper></S.CommentsWrapper>
+        <S.CommentsWrapper>
+          <h1>댓글 작성</h1>
+          <S.CommentsInput
+            onChange={onInputHandler}
+            placeholder="댓글을 작성해주세요."
+            value={comments}
+          />
+          <S.RowWrapper>
+            <div>
+              <p>
+                <span>{commentsInputCount} /1000 bytes</span>
+              </p>
+              {showCommentsWarning && (
+                <p style={{ color: "red" }}>
+                  댓글은 최대 1000바이트를 초과할 수 없습니다.
+                </p>
+              )}
+            </div>
+
+            <S.CommentsSubmitBtn onClick={() => onClickCommentsSubmit(null)}>
+              댓글 등록
+            </S.CommentsSubmitBtn>
+          </S.RowWrapper>
+        </S.CommentsWrapper>
       </S.MainWrapper>
     </>
   );
