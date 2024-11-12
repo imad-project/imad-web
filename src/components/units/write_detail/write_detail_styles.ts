@@ -345,3 +345,8 @@ export const ReportDescWrite = styled.textarea`
   width: 50%;
   resize: none;
 `;
+
+export const Gray_span = styled.div`
+  color: gray;
+  font-size: 12px;
+`;

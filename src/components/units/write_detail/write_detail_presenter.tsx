@@ -40,12 +40,34 @@ const CommentItem = ({
   const [Others, setOthers] = useState(false);
   const [reportMenuOpen, setReportMenuOpen] = useState(false);
   const [reportDesc, setReportDesc] = useState("");
+  const [editComments, setEditComments] = useState(comment.content);
+  const [isEdit, setIsEdit] = useState(false);
+  const [editCommentsInputCount, setEditCommentsInputCount] = useState<number>(
+    new TextEncoder().encode(comment.content).length
+  );
+  const [showEditCommentsWarning, setShowEditCommentsWarning] =
+    useState<boolean>(false); // 리뷰 본문 경고 표시 여부 상태 추가
+  const MAX_COMMENTS_BYTES = 1000; // 리뷰 본문 최대 바이트 수
 
   // 토큰 확인부
   const token =
     getCookie("Authorization") !== undefined
       ? `Bearer ${getCookie("Authorization")}`
       : "GUEST"; // token 변수를 함수 외부에서 선언
+
+  const onInputEditHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    // 입력된 문자열을 UTF-8로 인코딩하여 바이트 수 계산
+    const byteLength = new TextEncoder().encode(e.target.value).length;
+    setEditCommentsInputCount(byteLength); // 리뷰 제목의 바이트 수를 표시
+    setEditComments(e.target.value);
+
+    // 최대 바이트 수를 초과할 경우 경고 표시
+    if (byteLength > MAX_COMMENTS_BYTES) {
+      setShowEditCommentsWarning(true);
+    } else {
+      setShowEditCommentsWarning(false);
+    }
+  };
 
   const onChangeOtherInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setReportDesc(e.target.value);
@@ -81,7 +103,13 @@ const CommentItem = ({
   );
 
   const handleEdit = () => {
-    setIsMenuOpen(false);
+    if (comment.removed) {
+      alert("삭제된 댓글은 수정이 불가능 합니다.");
+      return;
+    } else {
+      setIsEdit(true);
+      setIsMenuOpen(false);
+    }
   };
 
   const onClickDelBtn = async () => {
@@ -127,6 +155,10 @@ const CommentItem = ({
     setReportMenuOpen(false);
   };
 
+  const onClickEditCancel = () => {
+    setIsEdit(false);
+  };
+
   const onClickReportOption = async (type: string) => {
     if (confirm("댓글을 신고하시겠습니까?") == true) {
       try {
@@ -156,10 +188,66 @@ const CommentItem = ({
     }
   };
 
+  const onClickEditSubmit = async () => {
+    if (confirm("댓글을 수정하시겠습니까?") == true) {
+      try {
+        const EditRES = await axios.patch(
+          `https://api.iimad.com/api/posting/comment/${comment.comment_id}`,
+          {
+            content: editComments,
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (EditRES.status === 200) {
+          console.log(EditRES.statusText);
+          setContentsLike(!contentsLike);
+          setIsMenuOpen(false);
+          setIsEdit(false);
+        }
+      } catch (error: any) {
+        alert(error?.response?.data?.message);
+      }
+    } else {
+      return;
+    }
+  };
+
   const handleIconClick = () => {
     setIsMenuOpen((prev) => !prev); // 메뉴 열림/닫힘 토글
   };
-  return (
+  return isEdit ? (
+    // 댓글 작성 UI
+    <S.CommentsWrapper>
+      <h1>댓글 수정</h1>
+      <S.CommentsInput
+        onChange={onInputEditHandler}
+        defaultValue={editComments}
+      />
+      <S.RowWrapper>
+        <div>
+          <p>
+            <span>{editCommentsInputCount} / 1000 bytes</span>
+          </p>
+          {showEditCommentsWarning && (
+            <p style={{ color: "red" }}>
+              댓글은 최대 1000바이트를 초과할 수 없습니다.
+            </p>
+          )}
+        </div>
+        <S.CommentsSubmitBtn onClick={() => onClickEditCancel()}>
+          수정 취소
+        </S.CommentsSubmitBtn>
+        <S.CommentsSubmitBtn onClick={() => onClickEditSubmit()}>
+          수정 완료
+        </S.CommentsSubmitBtn>
+      </S.RowWrapper>
+    </S.CommentsWrapper>
+  ) : (
+    // 기존 답글 작성 UI 및 댓글 내용
     <S.RowWrapper2>
       <S.ColumnWrapper>
         <S.RowWrapper2>
@@ -189,6 +277,13 @@ const CommentItem = ({
                 ? "삭제된 댓글입니다."
                 : comment.content}
             </S.Contents_span>
+            <S.Gray_span>
+              {comment.removed
+                ? ""
+                : comment.created_at === comment.modified_at
+                ? ""
+                : "수정됨"}
+            </S.Gray_span>
             <S.DividedLine />
             <S.RowWrapper>
               <S.Child_span
@@ -267,7 +362,7 @@ const CommentItem = ({
                 <S.RowWrapper>
                   <div>
                     <p>
-                      <span>{commentsInputCount} /1000 bytes</span>
+                      <span>{commentsInputCount} / 1000 bytes</span>
                     </p>
                     {showCommentsWarning && (
                       <p style={{ color: "red" }}>
@@ -275,7 +370,6 @@ const CommentItem = ({
                       </p>
                     )}
                   </div>
-
                   <S.CommentsSubmitBtn
                     onClick={() => onClickCommentsSubmit(comment.comment_id)}
                   >
