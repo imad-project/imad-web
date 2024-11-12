@@ -19,6 +19,8 @@ const CommentItem = ({
   commentsInputCount,
   showCommentsWarning,
   onClickCommentsSubmit,
+  setContentsLike,
+  contentsLike,
 }: {
   comment: any;
   commentsDetail: any;
@@ -31,7 +33,132 @@ const CommentItem = ({
   commentsInputCount: number;
   showCommentsWarning: boolean;
   onClickCommentsSubmit: (parent_id: number | null) => void;
+  setContentsLike: (contentsLike: boolean) => void;
+  contentsLike: boolean;
 }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [Others, setOthers] = useState(false);
+  const [reportMenuOpen, setReportMenuOpen] = useState(false);
+  const [reportDesc, setReportDesc] = useState("");
+
+  // 토큰 확인부
+  const token =
+    getCookie("Authorization") !== undefined
+      ? `Bearer ${getCookie("Authorization")}`
+      : "GUEST"; // token 변수를 함수 외부에서 선언
+
+  const onChangeOtherInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setReportDesc(e.target.value);
+  };
+
+  const DropdownMenu = ({
+    onEdit,
+    onDelete,
+    onReport,
+    isAuthor,
+  }: {
+    onEdit?: () => void;
+    onDelete?: () => void;
+    onReport?: () => void;
+    isAuthor: boolean;
+  }) => (
+    <S.DropdownMenu>
+      {isAuthor ? (
+        <>
+          <S.MenuItem onClick={onEdit} color="#00aaff">
+            댓글 수정
+          </S.MenuItem>
+          <S.MenuItem onClick={onDelete} color="#f34336">
+            댓글 삭제
+          </S.MenuItem>
+        </>
+      ) : (
+        <S.MenuItem onClick={onReport} color="#f34336">
+          댓글 신고
+        </S.MenuItem>
+      )}
+    </S.DropdownMenu>
+  );
+
+  const handleEdit = () => {
+    setIsMenuOpen(false);
+  };
+
+  const onClickDelBtn = async () => {
+    if (confirm("댓글을 삭제하시겠습니까?") == true) {
+      try {
+        const DelRES = await axios.delete(
+          `https://api.iimad.com/api/posting/comment/${comment.comment_id}`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (DelRES.status === 200) {
+          setContentsLike(!contentsLike);
+          console.log(DelRES.statusText);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      return;
+    }
+
+    setIsMenuOpen(false);
+  };
+
+  const onClickReport = () => {
+    if (!getCookie("Authorization")) {
+      alert("신고기능은 회원만 가능합니다.");
+      return;
+    } else {
+      setReportMenuOpen(true);
+      setIsMenuOpen(false);
+    }
+  };
+
+  const onClickOthers = () => {
+    setOthers((prev) => !prev);
+  };
+
+  const onClickReportCancel = () => {
+    setReportMenuOpen(false);
+  };
+
+  const onClickReportOption = async (type: string) => {
+    if (confirm("댓글을 신고하시겠습니까?") == true) {
+      try {
+        const ReportRES = await axios.post(
+          `https://api.iimad.com/api/report/comment`,
+          {
+            reported_id: comment.comment_id,
+            report_type_string: type,
+            report_desc: type === "OTHER" ? reportDesc : "",
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (ReportRES.status === 200) {
+          console.log(ReportRES.statusText);
+          setContentsLike(!contentsLike);
+          setReportMenuOpen(false);
+        }
+      } catch (error: any) {
+        alert(error?.response?.data?.message);
+      }
+    } else {
+      return;
+    }
+  };
+
+  const handleIconClick = () => {
+    setIsMenuOpen((prev) => !prev); // 메뉴 열림/닫힘 토글
+  };
   return (
     <S.RowWrapper2>
       <S.ColumnWrapper>
@@ -41,10 +168,27 @@ const CommentItem = ({
           />
           <S.UserNickName>{comment.user_nickname}</S.UserNickName>
           <S.Date_span>{elapsedTime(comment.created_at)}</S.Date_span>
+          <S.IconBox onClick={handleIconClick}>
+            <S.Icon src="/img/icon/icons/ellipsis.png" />
+            {isMenuOpen && (
+              <DropdownMenu
+                onEdit={handleEdit}
+                onDelete={onClickDelBtn}
+                onReport={onClickReport}
+                isAuthor={comment?.author ?? false}
+              />
+            )}
+          </S.IconBox>
         </S.RowWrapper2>
         <S.CommentsBox>
           <S.CommentsBoxWrapper>
-            <S.Contents_span>{comment.content}</S.Contents_span>
+            <S.Contents_span>
+              {comment.reported
+                ? "신고된 댓글입니다."
+                : comment.removed
+                ? "삭제된 댓글입니다."
+                : comment.content}
+            </S.Contents_span>
             <S.DividedLine />
             <S.RowWrapper>
               <S.Child_span
@@ -55,9 +199,53 @@ const CommentItem = ({
                 댓글 {comment.child_cnt}개 더보기
               </S.Child_span>
               <S.Child_span onClick={() => handleToggle(comment.comment_id)}>
-                {commentWriteOpen === index ? "작성 취소" : "답글 작성"}
+                {commentWriteOpen[comment.comment_id]
+                  ? "작성 취소"
+                  : "답글 작성"}
               </S.Child_span>
               <S.RowWrapper2>
+                {reportMenuOpen && (
+                  <S.ReportWrapper>
+                    <S.ReportBtn
+                      onClick={() => onClickReportOption("WRONG_INFO")}
+                    >
+                      잘못된 정보
+                    </S.ReportBtn>
+                    <S.ReportBtn onClick={() => onClickReportOption("SPAM")}>
+                      스팸, 상업적 광고
+                    </S.ReportBtn>
+                    <S.ReportBtn onClick={() => onClickReportOption("ABUSIVE")}>
+                      폭력적이거나 공격적인 내용
+                    </S.ReportBtn>
+                    <S.ReportBtn
+                      onClick={() => onClickReportOption("INAPPROPRIATE")}
+                    >
+                      부적절한 내용(상업적컨텐츠, 혐오발언 등)
+                    </S.ReportBtn>
+                    <S.ReportBtn
+                      onClick={() => onClickReportOption("COPYRIGHT_VIOLATION")}
+                    >
+                      저작권 침해
+                    </S.ReportBtn>
+                    <S.ReportBtn onClick={onClickOthers}>기타</S.ReportBtn>
+                    {Others && (
+                      <S.OtherWrapper>
+                        <S.ReportDescWrite
+                          onChange={onChangeOtherInput}
+                          placeholder="신고 사유를 작성해주세요."
+                        />
+                        <S.OtherReportBtn
+                          onClick={() => onClickReportOption("OTHER")}
+                        >
+                          기타 신고
+                        </S.OtherReportBtn>
+                      </S.OtherWrapper>
+                    )}
+                    <S.ReportCancelBtn onClick={onClickReportCancel}>
+                      신고 취소
+                    </S.ReportCancelBtn>
+                  </S.ReportWrapper>
+                )}
                 <S.likeDiv>
                   <S.LittleIcon src="/img/icon/icons/arrowshape.up.png" />
                   {comment.like_cnt}
@@ -111,6 +299,8 @@ const CommentItem = ({
                   commentsInputCount={commentsInputCount}
                   showCommentsWarning={showCommentsWarning}
                   onClickCommentsSubmit={onClickCommentsSubmit}
+                  setContentsLike={setContentsLike}
+                  contentsLike={contentsLike}
                 />
               )
             )}
@@ -309,6 +499,8 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
                 commentsInputCount={commentsInputCount}
                 showCommentsWarning={showCommentsWarning}
                 onClickCommentsSubmit={onClickCommentsSubmit}
+                setContentsLike={props.setContentsLike}
+                contentsLike={props.contentsLike}
               />
             </S.CommentsWrapper>
           ))}

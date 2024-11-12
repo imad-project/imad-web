@@ -118,6 +118,7 @@ export const Contents_span = styled.div`
 export const ColumnWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 export const ContentsBox = styled.div`
@@ -182,6 +183,7 @@ export const CommentsWrapper = styled.div`
   padding-right: 20px;
   display: flex;
   flex-direction: column;
+  position: relative;
 
   border: none;
   box-shadow: 0px 0px 10px gray;
@@ -200,8 +202,8 @@ export const CommentsBoxWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-
   width: 100%;
+  min-width: 100%;
 `;
 
 export const likeDiv = styled.div`
@@ -231,4 +233,115 @@ export const CommentsSubmitBtn = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
+`;
+
+export const DropdownMenu = styled.div`
+  top: 40px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 3;
+`;
+
+export const MenuItem = styled.div<{ color: string }>`
+  padding: 8px 12px;
+  color: ${(props) => props.color};
+  cursor: pointer;
+  &:hover {
+    background-color: #f0f0f0;
+  }
+`;
+
+export const IconBox = styled.div`
+  width: auto;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+`;
+
+export const Icon = styled.img`
+  width: auto;
+  height: 7px;
+`;
+
+export const ReportWrapper = styled.div`
+  width: 80%;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  background-color: white;
+  z-index: 4;
+  left: 10%;
+`;
+
+export const ReportBtn = styled.div`
+  width: 100%;
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #f34336;
+  :hover {
+    background-color: gray;
+    transition: 0.3s;
+  }
+`;
+
+export const ReportCancelBtn = styled.div`
+  width: 100%;
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #00aaff;
+  :hover {
+    background-color: gray;
+    transition: 0.3s;
+  }
+`;
+
+export const OtherWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+`;
+
+export const OtherReportBtn = styled.div`
+  margin-top: 20px;
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f34336;
+  white-space: nowrap;
+  color: white;
+  font-size: 12px;
+  :hover {
+    background-color: gray;
+    transition: 0.3s;
+  }
+`;
+
+export const ReportDescWrite = styled.textarea`
+  width: 50%;
+  resize: none;
 `;
