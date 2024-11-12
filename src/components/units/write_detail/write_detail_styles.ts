@@ -9,6 +9,7 @@ export const MainWrapper = styled.div`
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 0px 10px gray;
+  position: relative;
 
   @media (max-width: 1080px) {
     width: 100%;
@@ -282,6 +283,7 @@ export const ReportWrapper = styled.div`
   background-color: white;
   z-index: 4;
   left: 10%;
+  top: 10%;
 `;
 
 export const ReportBtn = styled.div`

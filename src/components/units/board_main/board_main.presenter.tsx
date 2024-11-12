@@ -157,7 +157,8 @@ export default function Board_Page_UI(props: IBoardProps) {
                     <S.Write_title
                       onClick={() => props.onClickWrite(el.posting_id)}
                     >
-                      {el.title} [{el.comment_cnt}]
+                      {el.reported ? "신고된 게시물 입니다." : el.title} [
+                      {el.comment_cnt}]
                     </S.Write_title>
                     <S.DividedLine />
                     <S.RowWrapper>

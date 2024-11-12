@@ -6,6 +6,7 @@ import { TextConvert } from "@/src/commons/text_br/text_br";
 import { ChangeEvent, useState } from "react";
 import { getCookie } from "@/src/commons/cookies/cookie";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const CommentItem = ({
   comment,
@@ -415,6 +416,17 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
   const [commentWriteOpen, setCommentWriteOpen] = useState<
     Record<number, boolean>
   >({});
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [Others, setOthers] = useState(false);
+  const [reportMenuOpen, setReportMenuOpen] = useState(false);
+  const [reportDesc, setReportDesc] = useState("");
+  const router = useRouter();
+
+  // 토큰 확인부
+  const token =
+    getCookie("Authorization") !== undefined
+      ? `Bearer ${getCookie("Authorization")}`
+      : "GUEST"; // token 변수를 함수 외부에서 선언
 
   const handleCommentsOpen = () => {
     setCommentsOpen(!commentsOpen);
@@ -490,6 +502,121 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
     }
   };
 
+  const DropdownMenu = ({
+    onEdit,
+    onDelete,
+    onReport,
+    isAuthor,
+  }: {
+    onEdit?: () => void;
+    onDelete?: () => void;
+    onReport?: () => void;
+    isAuthor: boolean;
+  }) => (
+    <S.DropdownMenu>
+      {isAuthor ? (
+        <>
+          <S.MenuItem onClick={onEdit} color="#00aaff">
+            게시물 수정
+          </S.MenuItem>
+          <S.MenuItem onClick={onDelete} color="#f34336">
+            게시물 삭제
+          </S.MenuItem>
+        </>
+      ) : (
+        <S.MenuItem onClick={onReport} color="#f34336">
+          게시물 신고
+        </S.MenuItem>
+      )}
+    </S.DropdownMenu>
+  );
+
+  const handleIconClick = () => {
+    setIsMenuOpen((prev) => !prev); // 메뉴 열림/닫힘 토글
+  };
+
+  const onClickDelBtn = async () => {
+    if (confirm("게시물을 삭제하시겠습니까?") == true) {
+      try {
+        const DelRES = await axios.delete(
+          `https://api.iimad.com/api/posting/${props.detail?.posting_id}`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (DelRES.status === 200) {
+          props.setContentsLike(!props.contentsLike);
+          console.log(DelRES.statusText);
+          router.back();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      return;
+    }
+
+    setIsMenuOpen(false);
+  };
+
+  const handleEdit = () => {
+    setIsMenuOpen(false);
+  };
+
+  const onClickReport = () => {
+    if (!getCookie("Authorization")) {
+      alert("신고기능은 회원만 가능합니다.");
+      return;
+    } else {
+      setReportMenuOpen(true);
+      setIsMenuOpen(false);
+    }
+  };
+
+  const onClickOthers = () => {
+    setOthers((prev) => !prev);
+  };
+
+  const onClickReportCancel = () => {
+    setReportMenuOpen(false);
+  };
+
+  const onChangeOtherInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setReportDesc(e.target.value);
+  };
+
+  const onClickReportOption = async (type: string) => {
+    if (confirm("게시물을 신고하시겠습니까?") == true) {
+      try {
+        const ReportRES = await axios.post(
+          `https://api.iimad.com/api/report/posting`,
+          {
+            reported_id: props.detail?.posting_id,
+            report_type_string: type,
+            report_desc: type === "OTHER" ? reportDesc : "",
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (ReportRES.status === 200) {
+          console.log(ReportRES.statusText);
+          props.setContentsLike(!props.contentsLike);
+          setReportMenuOpen(false);
+          router.back();
+        }
+      } catch (error: any) {
+        alert(error?.response?.data?.message);
+      }
+    } else {
+      return;
+    }
+  };
+
   if (!props.detail) {
     return <div>Loading...</div>; // 데이터가 로드되지 않은 상태 처리
   }
@@ -512,6 +639,65 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
                     <S.View_cnt_span>
                       조회수 {props.detail?.view_cnt}회
                     </S.View_cnt_span>
+                    <S.IconBox onClick={handleIconClick}>
+                      <S.Icon src="/img/icon/icons/ellipsis.png" />
+                      {isMenuOpen && (
+                        <DropdownMenu
+                          onEdit={handleEdit}
+                          onDelete={onClickDelBtn}
+                          onReport={onClickReport}
+                          isAuthor={props.detail.author ?? false}
+                        />
+                      )}
+                    </S.IconBox>
+                    {reportMenuOpen && (
+                      <S.ReportWrapper>
+                        <S.ReportBtn
+                          onClick={() => onClickReportOption("WRONG_INFO")}
+                        >
+                          잘못된 정보
+                        </S.ReportBtn>
+                        <S.ReportBtn
+                          onClick={() => onClickReportOption("SPAM")}
+                        >
+                          스팸, 상업적 광고
+                        </S.ReportBtn>
+                        <S.ReportBtn
+                          onClick={() => onClickReportOption("ABUSIVE")}
+                        >
+                          폭력적이거나 공격적인 내용
+                        </S.ReportBtn>
+                        <S.ReportBtn
+                          onClick={() => onClickReportOption("INAPPROPRIATE")}
+                        >
+                          부적절한 내용(상업적컨텐츠, 혐오발언 등)
+                        </S.ReportBtn>
+                        <S.ReportBtn
+                          onClick={() =>
+                            onClickReportOption("COPYRIGHT_VIOLATION")
+                          }
+                        >
+                          저작권 침해
+                        </S.ReportBtn>
+                        <S.ReportBtn onClick={onClickOthers}>기타</S.ReportBtn>
+                        {Others && (
+                          <S.OtherWrapper>
+                            <S.ReportDescWrite
+                              onChange={onChangeOtherInput}
+                              placeholder="신고 사유를 작성해주세요."
+                            />
+                            <S.OtherReportBtn
+                              onClick={() => onClickReportOption("OTHER")}
+                            >
+                              기타 신고
+                            </S.OtherReportBtn>
+                          </S.OtherWrapper>
+                        )}
+                        <S.ReportCancelBtn onClick={onClickReportCancel}>
+                          신고 취소
+                        </S.ReportCancelBtn>
+                      </S.ReportWrapper>
+                    )}
                   </S.RowWrapper2>
                 </S.ColumnWrapper>
               </S.RowWrapper2>
