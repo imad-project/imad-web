@@ -1,3 +1,4 @@
+import { useState } from "react";
 import * as S from "./board_write_styles";
 import { IBoardWriteProps } from "./board_write_types";
 
@@ -44,28 +45,17 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
           <S.BytesSpan>{props.contentsCount} /5000 bytes</S.BytesSpan>
         </p>
         <S.ErrorLog>{props.contentsError}</S.ErrorLog>
-        <S.Label>작성글에 스포일러가 포함되어 있나요?</S.Label>
-        <S.RadioBox>
-          <S.RadioBtn>
-            <S.RadioCheck
-              type="radio"
-              value={1}
-              checked={props.x === 1}
-              onChange={props.handleSpoiler}
-            />
-            <S.Label2>네!</S.Label2>
-          </S.RadioBtn>
-          <S.RadioBtn>
-            <S.RadioCheck
-              type="radio"
-              value={2}
-              checked={props.x === 2}
-              onChange={props.handleSpoiler}
-            />
-            <S.Label2>아니요!</S.Label2>
-          </S.RadioBtn>
-        </S.RadioBox>
       </S.InputWrapper>
+      <S.RowBox onClick={props.onClickSpoiler}>
+        <S.SpoilerIcon
+          src={
+            props.isSpoiler
+              ? "/img/icon/icons/checkmark.circle.png"
+              : "/img/icon/icons/checkmark.circle.gray.png"
+          }
+        />
+        <S.SpoilerSpan isCheck={props.isSpoiler}>스포일러</S.SpoilerSpan>
+      </S.RowBox>
       <S.ButtonWrapper>
         <S.SubmitButton onClick={props.onClickSubmit}>등록하기</S.SubmitButton>
       </S.ButtonWrapper>

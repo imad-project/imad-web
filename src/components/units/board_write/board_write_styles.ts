@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 80%;
   /* height: 1847px; */
   border: 1px solid black;
-  margin: 100px;
+  margin: 10px;
   padding-top: 80px;
   padding-bottom: 100px;
   padding-left: 102px;
@@ -14,6 +14,13 @@ export const Wrapper = styled.div`
   align-items: center;
   border: none;
   box-shadow: 0px 0px 10px gray;
+  border-radius: 15px;
+
+  @media (max-width: 1080px) {
+    width: 100%;
+    padding: 20px;
+    height: 100%;
+  }
 `;
 
 export const Title = styled.div`
@@ -30,14 +37,7 @@ export const WriterWrapper = styled.div`
 `;
 
 export const Writer = styled.input`
-  width: 486px;
-  height: 52px;
-  padding-left: 16px;
-  border: 1px solid #bdbdbd;
-`;
-
-export const Password = styled.input`
-  width: 486px;
+  width: 90%;
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
@@ -51,34 +51,35 @@ export const Label = styled.div`
 `;
 
 export const InputWrapper = styled.div`
+  width: 100%;
   padding-top: 40px;
 `;
 
 export const Subject = styled.input`
-  width: 996px;
+  min-width: 90%;
+  width: 90%;
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
+
+  @media (max-width: 1080px) {
+    min-width: 100%;
+    width: 100%;
+  }
 `;
 
 export const Contents = styled.textarea`
-  width: 996px;
+  width: 90%;
   height: 480px;
   padding-left: 16px;
   padding: 14px;
   border: 1px solid #bdbdbd;
-`;
 
-export const ZipcodeWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-export const Zipcode = styled.input`
-  width: 77px;
-  height: 52px;
-  padding-left: 16px;
-  border: 1px solid #bdbdbd;
+  @media (max-width: 1080px) {
+    min-width: 100%;
+    width: 100%;
+    height: 200px;
+  }
 `;
 
 export const SearchButton = styled.button`
@@ -88,26 +89,6 @@ export const SearchButton = styled.button`
   background-color: black;
   cursor: pointer;
   color: white;
-`;
-
-export const Address = styled.input`
-  width: 996px;
-  height: 52px;
-  margin-top: 16px;
-  padding-left: 16px;
-  border: 1px solid #bdbdbd;
-`;
-
-export const Youtube = styled.input`
-  width: 996px;
-  height: 52px;
-  padding-left: 16px;
-  border: 1px solid #bdbdbd;
-`;
-
-export const ImageWrapper = styled.div`
-  width: 996px;
-  padding-top: 40px;
 `;
 
 export const UploadButton = styled.button`
@@ -162,6 +143,7 @@ export const SubmitButton = styled.button`
   cursor: pointer;
   color: white;
   background-color: #0b0537;
+  border-radius: 15px;
 `;
 
 export const ErrorLog = styled.div`
@@ -203,4 +185,24 @@ export const Label2 = styled.div`
 export const BytesSpan = styled.span`
   color: gray;
   font-size: 16px;
+`;
+
+export const RowBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+`;
+
+export const SpoilerIcon = styled.img`
+  width: 20px;
+  height: auto;
+  margin-right: 5px;
+`;
+export const SpoilerSpan = styled.div<{ isCheck: boolean }>`
+  font-size: 14px;
+  white-space: nowrap;
+  margin-top: 2px;
+  color: ${(props) => (props.isCheck ? "#0b0537" : "gray")};
 `;

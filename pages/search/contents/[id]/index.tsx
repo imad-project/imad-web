@@ -268,7 +268,7 @@ export default function TvDetail_Page(): JSX.Element {
   const WritePush = () => {
     if (getCookie("Authorization") !== undefined) {
       const { id } = router.query;
-      router.push(`/search/movie/${id}/write`);
+      router.push(`/search/contents/${id}/write`);
     } else {
       alert("게시물작성은 회원만 가능합니다! 로그인후 재시도 해주세요!");
     }

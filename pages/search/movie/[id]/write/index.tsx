@@ -8,17 +8,24 @@ export default function MovieWritePage() {
   const [detail, setDetail] = useState();
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
-  const [is_spoiler, setIs_spoiler] = useState(false);
+
   const [category, setCategory] = useState(0);
-  const [x, setX] = useState(2);
+
   const [titleCount, setTitleCount] = useState(0);
   const [contentsCount, setContentsCount] = useState(0);
   const [titleError, setTitleError] = useState<string>("");
   const [contentsError, setContentsError] = useState<string>("");
   const router = useRouter();
+  const [isSpoiler, setIsSpoiler] = useState(false);
 
   const TITLE_MAX_BYTES = 50; // 제목 최대 바이트 수
   const CONTENTS_MAX_BYTES = 5000; // 내용 최대 바이트 수
+
+  // 토큰 확인부
+  const token =
+    getCookie("Authorization") !== undefined
+      ? `Bearer ${getCookie("Authorization")}`
+      : "GUEST"; // token 변수를 함수 외부에서 선언
 
   const detailSearch = async () => {
     try {
@@ -26,7 +33,7 @@ export default function MovieWritePage() {
         `https://api.iimad.com/api/contents/details?id=${router.query.id}&type=movie`,
         {
           headers: {
-            Authorization: "GUEST",
+            Authorization: token,
           },
         }
       );
@@ -45,24 +52,28 @@ export default function MovieWritePage() {
         {
           contents_id: detail.contents_id,
           title: title,
-          contents: contents,
+          content: contents,
           category: category,
-          is_spoiler: is_spoiler,
+          is_spoiler: isSpoiler,
         },
         {
           headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
+            Authorization: token,
           },
         }
       );
       if (postRES.status === 200) {
         alert("게시글이 정상적으로 등록되었습니다!");
-        const { id } = router.query;
-        router.push(`/search/movie/${id}`);
+
+        router.back();
       }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const onClickSpoiler = () => {
+    setIsSpoiler((prev) => !prev);
   };
 
   useEffect(() => {
@@ -107,19 +118,6 @@ export default function MovieWritePage() {
     setCategory(Number(event.target.value));
   };
 
-  const onChangeSpoiler = () => {
-    setIs_spoiler(!is_spoiler);
-  };
-
-  const handleSpoiler = (event: ChangeEvent<HTMLInputElement>) => {
-    setX(Number(event.target.value));
-    if (x === 1) {
-      setIs_spoiler(true);
-    } else if (x === 2) {
-      setIs_spoiler(false);
-    }
-  };
-
   const onClickSubmit = () => {
     if (!title) {
       setTitleError("제목이 비어있습니다.");
@@ -145,10 +143,9 @@ export default function MovieWritePage() {
       handleTitleChange={handleTitleChange}
       handleContentsChange={handleContentsChange}
       onChangeCategory={onChangeCategory}
-      onChangeSpoiler={onChangeSpoiler}
       onClickSubmit={onClickSubmit}
-      handleSpoiler={handleSpoiler}
-      x={x}
+      onClickSpoiler={onClickSpoiler}
+      isSpoiler={isSpoiler}
       titleCount={titleCount}
       contentsCount={contentsCount}
       titleError={titleError}

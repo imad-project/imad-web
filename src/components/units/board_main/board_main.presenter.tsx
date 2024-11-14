@@ -23,12 +23,12 @@ const categoryList = [
 ];
 const orderList = [
   {
-    id: 0,
-    class: "오름차순",
-  },
-  {
     id: 1,
     class: "내림차순",
+  },
+  {
+    id: 0,
+    class: "오름차순",
   },
 ];
 const sortList = [
