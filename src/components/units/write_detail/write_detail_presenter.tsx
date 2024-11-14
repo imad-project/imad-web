@@ -698,6 +698,18 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
                         </S.ReportCancelBtn>
                       </S.ReportWrapper>
                     )}
+                    <S.Icon_img
+                      src={
+                        props.detail.scrap_status
+                          ? "/img/icon/icons/bookmark.fill.png"
+                          : "/img/icon/icons/bookmark.png"
+                      }
+                      onClick={() =>
+                        props.detail?.scrap_status
+                          ? props.onClickDelScrap()
+                          : props.onClickScrap()
+                      }
+                    />
                   </S.RowWrapper2>
                 </S.ColumnWrapper>
               </S.RowWrapper2>

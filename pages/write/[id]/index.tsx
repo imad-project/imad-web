@@ -203,6 +203,55 @@ export default function WriteDetail_Page(): JSX.Element {
     COMMENTS_DETAIL(posting_id, parent_id);
   };
 
+  const onClickScrap = async () => {
+    if (getCookie("Authorization") !== undefined) {
+      try {
+        const bookmarkRES = await axios.post(
+          `https://api.iimad.com/api/profile/scrap`,
+
+          {
+            posting_id: detail?.posting_id,
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (bookmarkRES.status === 200) {
+          setContentsLike(!contentsLike);
+        }
+      } catch (error) {
+        console.error("Error occurred while review searching:", error);
+      }
+    } else {
+      alert("게시물 스크랩은 회원만 가능합니다.");
+    }
+  };
+
+  const onClickDelScrap = async () => {
+    if (getCookie("Authorization") !== undefined) {
+      try {
+        const bookmarkRES = await axios.delete(
+          `https://api.iimad.com/api/profile/scrap/${detail?.scrap_id}`,
+
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (bookmarkRES.status === 200) {
+          setContentsLike(!contentsLike);
+        }
+      } catch (error) {
+        console.error("Error occurred while review searching:", error);
+      }
+    } else {
+      alert("게시물 스크랩은 회원만 가능합니다.");
+    }
+  };
+
   if (!detail) {
     return <div>Loading...</div>;
   }
@@ -218,6 +267,8 @@ export default function WriteDetail_Page(): JSX.Element {
       onClickPoster={onClickPoster}
       contentsLike={contentsLike}
       setContentsLike={setContentsLike}
+      onClickScrap={onClickScrap}
+      onClickDelScrap={onClickDelScrap}
     />
   );
 }

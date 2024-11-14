@@ -352,3 +352,16 @@ export const Gray_span = styled.div`
   color: gray;
   font-size: 12px;
 `;
+
+export const Icon_img = styled.img`
+  width: 15px;
+  height: auto;
+
+  z-index: 2;
+  margin-left: 20px;
+
+  @media (max-width: 480px) {
+    width: 10;
+    bottom: 10%;
+  }
+`;
