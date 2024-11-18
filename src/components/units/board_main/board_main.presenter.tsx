@@ -149,7 +149,7 @@ export default function Board_Page_UI(props: IBoardProps) {
                   <S.avatar
                     src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${el.user_profile_image}`}
                   />
-                  <h1>{el.user_nickname}</h1>
+                  <S.UserName>{el.user_nickname}</S.UserName>
                 </S.RowWrapper>
                 <S.WriteBox>
                   <S.reviewContentsWrapper>
@@ -157,8 +157,12 @@ export default function Board_Page_UI(props: IBoardProps) {
                     <S.Write_title
                       onClick={() => props.onClickWrite(el.posting_id)}
                     >
-                      {el.reported ? "신고된 게시물 입니다." : el.title} [
-                      {el.comment_cnt}]
+                      {el.reported
+                        ? "신고된 게시물 입니다."
+                        : el.spoiler
+                        ? "스포일러가 포함된 게시물 입니다."
+                        : el.title}{" "}
+                      [{el.comment_cnt}]
                     </S.Write_title>
                     <S.DividedLine />
                     <S.RowWrapper>
