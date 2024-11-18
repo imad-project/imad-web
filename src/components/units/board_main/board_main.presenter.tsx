@@ -168,11 +168,23 @@ export default function Board_Page_UI(props: IBoardProps) {
                     <S.RowWrapper>
                       <S.View_cnt_span>조회수 {el.view_cnt}회</S.View_cnt_span>
                       <S.likeDiv>
-                        <S.LittleIcon src="/img/icon/icons/arrowshape.up.png" />
+                        <S.LittleIcon
+                          src={
+                            el.like_status === 1
+                              ? "/img/icon/icons/arrowshape.up.fill.png"
+                              : "/img/icon/icons/arrowshape.up.png"
+                          }
+                        />
                         {el.like_cnt}
                       </S.likeDiv>
                       <S.likeDiv>
-                        <S.LittleIcon src="/img/icon/icons/arrowshape.down.png" />
+                        <S.LittleIcon
+                          src={
+                            el.like_status === -1
+                              ? "/img/icon/icons/arrowshape.down.fill.png"
+                              : "/img/icon/icons/arrowshape.down.png"
+                          }
+                        />
                         {el.dislike_cnt}
                       </S.likeDiv>
                       <S.Date_span>{elapsedTime(el.created_at)}</S.Date_span>
