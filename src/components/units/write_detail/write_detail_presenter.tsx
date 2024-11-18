@@ -217,6 +217,82 @@ const CommentItem = ({
     }
   };
 
+  const onClickCommentLike = async () => {
+    if (!getCookie("Authorization")) {
+      alert("댓글 좋아요/싫어요 는 회원만 가능합니다.");
+      return;
+    } else {
+      try {
+        const EditRES = await axios.patch(
+          `https://api.iimad.com/api/posting/comment/like/${comment.comment_id}`,
+          {
+            like_status: 1,
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (EditRES.status === 200) {
+          console.log(EditRES.statusText);
+          setContentsLike(!contentsLike);
+        }
+      } catch (error: any) {
+        alert(error?.response?.data?.message);
+      }
+    }
+  };
+
+  const onClickCommentDisLike = async () => {
+    if (!getCookie("Authorization")) {
+      alert("댓글 좋아요/싫어요 는 회원만 가능합니다.");
+      return;
+    } else {
+      try {
+        const EditRES = await axios.patch(
+          `https://api.iimad.com/api/posting/comment/like/${comment.comment_id}`,
+          {
+            like_status: -1,
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (EditRES.status === 200) {
+          console.log(EditRES.statusText);
+          setContentsLike(!contentsLike);
+        }
+      } catch (error: any) {
+        alert(error?.response?.data?.message);
+      }
+    }
+  };
+
+  const onClickCommentCancelLike = async () => {
+    try {
+      const EditRES = await axios.patch(
+        `https://api.iimad.com/api/posting/comment/like/${comment.comment_id}`,
+        {
+          like_status: 0,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (EditRES.status === 200) {
+        console.log(EditRES.statusText);
+        setContentsLike(!contentsLike);
+      }
+    } catch (error: any) {
+      alert(error?.response?.data?.message);
+    }
+  };
+
   const handleIconClick = () => {
     setIsMenuOpen((prev) => !prev); // 메뉴 열림/닫힘 토글
   };
@@ -349,6 +425,11 @@ const CommentItem = ({
                         ? "/img/icon/icons/arrowshape.up.fill.png"
                         : "/img/icon/icons/arrowshape.up.png"
                     }
+                    onClick={() =>
+                      comment.like_status === 1
+                        ? onClickCommentCancelLike()
+                        : onClickCommentLike()
+                    }
                   />
                   {comment.like_cnt}
                 </S.likeDiv>
@@ -358,6 +439,11 @@ const CommentItem = ({
                       comment.like_status === -1
                         ? "/img/icon/icons/arrowshape.down.fill.png"
                         : "/img/icon/icons/arrowshape.down.png"
+                    }
+                    onClick={() =>
+                      comment.like_status === -1
+                        ? onClickCommentCancelLike()
+                        : onClickCommentDisLike()
                     }
                   />
                   {comment.dislike_cnt}
