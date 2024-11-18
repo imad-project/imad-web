@@ -562,6 +562,7 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
   };
 
   const handleEdit = () => {
+    router.push(`/write/${props.detail?.posting_id}/edit`);
     setIsMenuOpen(false);
   };
 
