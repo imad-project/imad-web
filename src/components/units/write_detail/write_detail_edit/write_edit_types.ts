@@ -6,9 +6,13 @@ export interface IBoardWriteProps {
   onChangeCategory: (event: ChangeEvent<HTMLSelectElement>) => void;
   onClickSpoiler: () => void;
   onClickSubmit: () => void;
+  onClickCancel: () => void;
   isSpoiler: boolean;
   titleCount: number;
   contentsCount: number;
   titleError: string;
   contentsError: string;
+  title: string;
+  content: string;
+  category: number;
 }

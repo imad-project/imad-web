@@ -133,7 +133,7 @@ export const CancelButton = styled.button`
 `;
 
 export const SubmitButton = styled.button`
-  width: 179px;
+  width: 100px;
   height: 52px;
   border: none;
   font-size: 16px;

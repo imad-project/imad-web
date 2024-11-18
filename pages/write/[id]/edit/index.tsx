@@ -1,8 +1,8 @@
-import BoardWriteUI from "../../../../../src/components/units/board_write/board_write_presenter";
-import { getCookie } from "../../../../../src/commons/cookies/cookie";
+import { getCookie } from "../../../../src/commons/cookies/cookie";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
+import BoardWriteEditUI from "../../../../src/components/units/write_detail/write_detail_edit/write_edit_presenter";
 
 export default function MovieWritePage() {
   const [detail, setDetail] = useState();
@@ -30,7 +30,7 @@ export default function MovieWritePage() {
   const detailSearch = async () => {
     try {
       const detailRES = await axios.get(
-        `https://api.iimad.com/api/contents/details?id=${router.query.id}&type=tv`,
+        `https://api.iimad.com/api/posting/${router.query.id}`,
         {
           headers: {
             Authorization: token,
@@ -39,18 +39,27 @@ export default function MovieWritePage() {
       );
       if (detailRES.status === 200) {
         setDetail(detailRES?.data?.data ?? []);
+        setTitle(detailRES.data.data.title);
+        setContents(detailRES.data.data.content);
+        setIsSpoiler(detailRES.data.data.spoiler);
+        setTitleCount(
+          new TextEncoder().encode(detailRES.data.data.title).length
+        );
+        setContentsCount(
+          new TextEncoder().encode(detailRES.data.data.content).length
+        );
+        setCategory(detailRES.data.data.category);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const postBoard = async (detail: any) => {
+  const patchBoard = async (detail: any) => {
     try {
-      const postRES = await axios.post(
-        `https://api.iimad.com/api/posting`,
+      const postRES = await axios.patch(
+        `https://api.iimad.com/api/posting/${router.query.id}`,
         {
-          contents_id: detail.contents_id,
           title: title,
           content: contents,
           category: category,
@@ -63,8 +72,7 @@ export default function MovieWritePage() {
         }
       );
       if (postRES.status === 200) {
-        alert("게시글이 정상적으로 등록되었습니다!");
-
+        alert("게시글이 정상적으로 수정되었습니다!");
         router.back();
       }
     } catch (error) {
@@ -126,7 +134,7 @@ export default function MovieWritePage() {
       setContentsError("내용이 비어있습니다.");
     }
     if (!getCookie("Authorization")) {
-      alert("게시글 등록은 회원만 가능합니다 로그인후 재시도 해주세요!");
+      alert("게시글 수정은 회원만 가능합니다 로그인후 재시도 해주세요!");
     }
     if (
       title &&
@@ -135,11 +143,15 @@ export default function MovieWritePage() {
       !contentsError &&
       getCookie("Authorization")
     ) {
-      postBoard(detail);
+      patchBoard(detail);
     }
   };
+
+  const onClickCancel = () => {
+    router.back();
+  };
   return (
-    <BoardWriteUI
+    <BoardWriteEditUI
       handleTitleChange={handleTitleChange}
       handleContentsChange={handleContentsChange}
       onChangeCategory={onChangeCategory}
@@ -150,6 +162,10 @@ export default function MovieWritePage() {
       contentsCount={contentsCount}
       titleError={titleError}
       contentsError={contentsError}
+      title={title}
+      content={contents}
+      category={category}
+      onClickCancel={onClickCancel}
     />
   );
 }
