@@ -62,12 +62,12 @@ const categoryList = [
 
 const orderList = [
   {
-    id: 0,
-    class: "오름차순",
-  },
-  {
     id: 1,
     class: "내림차순",
+  },
+  {
+    id: 0,
+    class: "오름차순",
   },
 ];
 
@@ -93,8 +93,8 @@ export default function Board_container() {
   const [query, setQuery] = useState<string>("");
   const [sort, setSort] = useState("createdDate");
   const [currentSort, setCurrentSort] = useState("최신순");
-  const [order, setOrder] = useState(0);
-  const [currentOrder, setCurrentOrder] = useState("오름차순");
+  const [order, setOrder] = useState(1);
+  const [currentOrder, setCurrentOrder] = useState("내림차순");
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
@@ -102,13 +102,19 @@ export default function Board_container() {
   const [category, setCategory] = useState(0);
   const [currentCategory, setCurrentCategory] = useState("전체");
 
+  // 토큰 확인부
+  const token =
+    getCookie("Authorization") !== undefined
+      ? `Bearer ${getCookie("Authorization")}`
+      : "GUEST"; // token 변수를 함수 외부에서 선언
+
   const FETCH_BOARD_FIRST = async () => {
     try {
       const response = await axios.get(
-        "https://api.iimad.com/api/posting/list?page=1&category=0",
+        "https://api.iimad.com/api/posting/list?page=1&order=1&category=0",
         {
           headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
+            Authorization: token,
           },
         }
       );
@@ -126,7 +132,7 @@ export default function Board_container() {
         `https://api.iimad.com/api/posting/list/search?search_type=0&query=${query}&page=1&sort=${sort}&order=${order}&category=${category}`,
         {
           headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
+            Authorization: token,
           },
         }
       );
@@ -142,10 +148,10 @@ export default function Board_container() {
   const FETCH_BOARD_PAGES = async (currentPage: number) => {
     try {
       const response = await axios.get(
-        `https://api.iimad.com/api/posting/list/search?search_type=0&query=${query}page=${currentPage}&sort=${sort}&order=${order}&category=${category}`,
+        `https://api.iimad.com/api/posting/list/search?search_type=0&query=${query}&page=${currentPage}&sort=${sort}&order=${order}&category=${category}`,
         {
           headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
+            Authorization: token,
           },
         }
       );

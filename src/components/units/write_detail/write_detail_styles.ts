@@ -9,6 +9,11 @@ export const MainWrapper = styled.div`
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 0px 10px gray;
+  position: relative;
+
+  @media (max-width: 1080px) {
+    width: 100%;
+  }
 `;
 
 export const avatar = styled.img`
@@ -26,6 +31,18 @@ export const RowWrapper2 = styled.div`
   align-items: center;
 `;
 
+export const RowWrapper3 = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  @media (max-width: 1080px) {
+    width: 100%;
+    margin-top: 20px;
+  }
+`;
+
 export const RowWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -35,9 +52,13 @@ export const RowWrapper = styled.div`
 
 export const Poster_img = styled.img`
   width: 150px;
-  height: 225px;
+  height: auto;
   border-radius: 10px;
   margin-bottom: 10px;
+
+  @media (max-width: 1080px) {
+    width: 100px;
+  }
 `;
 
 export const Poster_title = styled.div`
@@ -46,6 +67,10 @@ export const Poster_title = styled.div`
   margin-bottom: 10px;
   color: #0b0537;
   margin-top: 10px;
+
+  @media (max-width: 1080px) {
+    font-size: 12px;
+  }
 `;
 
 export const DividedLine = styled.div`
@@ -62,11 +87,19 @@ export const Date_span = styled.div`
   height: auto;
 `;
 
+export const Gray_span_btn = styled.div`
+  color: gray;
+  font-size: 15px;
+  margin-left: 10px;
+  cursor: pointer;
+`;
+
 export const Child_span = styled.div`
   color: gray;
   font-size: 15px;
-  width: 150px;
+  margin-right: 20px;
   height: auto;
+  cursor: pointer;
 `;
 
 export const View_cnt_span = styled.div`
@@ -90,6 +123,13 @@ export const title_span = styled.div`
   color: #0b0537;
 `;
 
+export const CommentsInput = styled.input`
+  border: 0px;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 10px;
+`;
+
 export const Contents_span = styled.div`
   width: 100%;
   font-size: 18px;
@@ -99,15 +139,21 @@ export const Contents_span = styled.div`
 export const ColumnWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+`;
+
+export const ColumnWrapper2 = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ContentsBox = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  margin-left: 20%;
-  width: 200%;
+
+  width: 100%;
 `;
 
 export const LikeBox = styled.div`
@@ -116,16 +162,20 @@ export const LikeBox = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+
+  @media (max-width: 1080px) {
+    flex-direction: column-reverse;
+  }
 `;
 
-export const LikeButton = styled.div`
+export const LikeButton = styled.div<{ isLiked: boolean }>`
   width: 125px;
   height: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: #3c4b66;
+  background-color: ${(props) => (props.isLiked ? "#0b0537" : "#3c4b66")};
   margin-right: 20px;
 
   border-radius: 10px;
@@ -163,6 +213,7 @@ export const CommentsWrapper = styled.div`
   padding-right: 20px;
   display: flex;
   flex-direction: column;
+  position: relative;
 
   border: none;
   box-shadow: 0px 0px 10px gray;
@@ -181,13 +232,15 @@ export const CommentsBoxWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-
   width: 100%;
+  min-width: 100%;
 `;
 
 export const likeDiv = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   margin-right: 10px;
 `;
 
@@ -197,4 +250,149 @@ export const PosterBox = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+`;
+
+export const CommentsSubmitBtn = styled.div`
+  height: 50px;
+  width: 100px;
+  border-radius: 15px;
+
+  box-shadow: 0px 0px 10px gray;
+  cursor: pointer;
+  margin-right: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
+
+export const DropdownMenu = styled.div`
+  top: 40px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 3;
+`;
+
+export const MenuItem = styled.div<{ color: string }>`
+  padding: 8px 12px;
+  color: ${(props) => props.color};
+  cursor: pointer;
+  &:hover {
+    background-color: #f0f0f0;
+  }
+`;
+
+export const IconBox = styled.div`
+  width: auto;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+`;
+
+export const Icon = styled.img`
+  width: auto;
+  height: 7px;
+`;
+
+export const ReportWrapper = styled.div`
+  width: 80%;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  background-color: white;
+  z-index: 4;
+  left: 10%;
+  top: 10%;
+`;
+
+export const ReportBtn = styled.div`
+  width: 100%;
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #f34336;
+  :hover {
+    background-color: gray;
+    transition: 0.3s;
+  }
+`;
+
+export const ReportCancelBtn = styled.div`
+  width: 100%;
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #00aaff;
+  :hover {
+    background-color: gray;
+    transition: 0.3s;
+  }
+`;
+
+export const OtherWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+`;
+
+export const OtherReportBtn = styled.div`
+  margin-top: 20px;
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f34336;
+  white-space: nowrap;
+  color: white;
+  font-size: 12px;
+  :hover {
+    background-color: gray;
+    transition: 0.3s;
+  }
+`;
+
+export const ReportDescWrite = styled.textarea`
+  width: 50%;
+  resize: none;
+`;
+
+export const Gray_span = styled.div`
+  color: gray;
+  font-size: 12px;
+`;
+
+export const Icon_img = styled.img`
+  width: 15px;
+  height: auto;
+
+  z-index: 2;
+  margin-left: 20px;
+
+  @media (max-width: 480px) {
+    width: 10;
+    bottom: 10%;
+  }
 `;

@@ -30,7 +30,7 @@ export default function MovieWritePage() {
   const detailSearch = async () => {
     try {
       const detailRES = await axios.get(
-        `https://api.iimad.com/api/contents/details?id=${router.query.id}&type=tv`,
+        `https://api.iimad.com/api/contents/${router.query.id}`,
         {
           headers: {
             Authorization: token,
@@ -64,7 +64,6 @@ export default function MovieWritePage() {
       );
       if (postRES.status === 200) {
         alert("게시글이 정상적으로 등록되었습니다!");
-
         router.back();
       }
     } catch (error) {

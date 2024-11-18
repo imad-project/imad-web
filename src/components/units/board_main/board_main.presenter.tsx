@@ -23,12 +23,12 @@ const categoryList = [
 ];
 const orderList = [
   {
-    id: 0,
-    class: "오름차순",
-  },
-  {
     id: 1,
     class: "내림차순",
+  },
+  {
+    id: 0,
+    class: "오름차순",
   },
 ];
 const sortList = [
@@ -149,7 +149,7 @@ export default function Board_Page_UI(props: IBoardProps) {
                   <S.avatar
                     src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${el.user_profile_image}`}
                   />
-                  <h1>{el.user_nickname}</h1>
+                  <S.UserName>{el.user_nickname}</S.UserName>
                 </S.RowWrapper>
                 <S.WriteBox>
                   <S.reviewContentsWrapper>
@@ -157,17 +157,34 @@ export default function Board_Page_UI(props: IBoardProps) {
                     <S.Write_title
                       onClick={() => props.onClickWrite(el.posting_id)}
                     >
-                      {el.title} [{el.comment_cnt}]
+                      {el.reported
+                        ? "신고된 게시물 입니다."
+                        : el.spoiler
+                        ? "스포일러가 포함된 게시물 입니다."
+                        : el.title}{" "}
+                      [{el.comment_cnt}]
                     </S.Write_title>
                     <S.DividedLine />
                     <S.RowWrapper>
                       <S.View_cnt_span>조회수 {el.view_cnt}회</S.View_cnt_span>
                       <S.likeDiv>
-                        <S.LittleIcon src="/img/icon/icons/arrowshape.up.png" />
+                        <S.LittleIcon
+                          src={
+                            el.like_status === 1
+                              ? "/img/icon/icons/arrowshape.up.fill.png"
+                              : "/img/icon/icons/arrowshape.up.png"
+                          }
+                        />
                         {el.like_cnt}
                       </S.likeDiv>
                       <S.likeDiv>
-                        <S.LittleIcon src="/img/icon/icons/arrowshape.down.png" />
+                        <S.LittleIcon
+                          src={
+                            el.like_status === -1
+                              ? "/img/icon/icons/arrowshape.down.fill.png"
+                              : "/img/icon/icons/arrowshape.down.png"
+                          }
+                        />
                         {el.dislike_cnt}
                       </S.likeDiv>
                       <S.Date_span>{elapsedTime(el.created_at)}</S.Date_span>

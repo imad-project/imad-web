@@ -1,8 +1,8 @@
 import { useState } from "react";
-import * as S from "./board_write_styles";
-import { IBoardWriteProps } from "./board_write_types";
+import * as S from "./write_edit_styles";
+import { IBoardWriteProps } from "./write_edit_types";
 
-export default function BoardWriteUI(props: IBoardWriteProps) {
+export default function BoardWriteEditUI(props: IBoardWriteProps) {
   const OPTIONS = [
     { value: 0, name: "전체" },
     { value: 1, name: "자유글" },
@@ -12,11 +12,15 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
 
   return (
     <S.Wrapper>
-      <S.Title>게시글 등록</S.Title>
+      <S.Title>게시글 수정</S.Title>
 
       <S.InputWrapper>
         <S.Label>글분류</S.Label>
-        <S.SelectBox onChange={props.onChangeCategory}>
+        <S.SelectBox
+          onChange={props.onChangeCategory}
+          defaultValue={props.category}
+          key={props.category}
+        >
           {OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>
               {option.name}
@@ -27,7 +31,7 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
         <S.Subject
           onChange={props.handleTitleChange}
           type="text"
-          placeholder="제목을 작성해주세요."
+          defaultValue={props.title ? props.title : ""}
         />
         <p>
           <S.BytesSpan>{props.titleCount} /50 bytes</S.BytesSpan>
@@ -39,7 +43,7 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
         <S.Label>내용</S.Label>
         <S.Contents
           onChange={props.handleContentsChange}
-          placeholder="내용을 작성해주세요."
+          defaultValue={props.content ? props.content : ""}
         />
         <p>
           <S.BytesSpan>{props.contentsCount} /5000 bytes</S.BytesSpan>
@@ -57,7 +61,8 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
         <S.SpoilerSpan isCheck={props.isSpoiler}>스포일러</S.SpoilerSpan>
       </S.RowBox>
       <S.ButtonWrapper>
-        <S.SubmitButton onClick={props.onClickSubmit}>등록하기</S.SubmitButton>
+        <S.SubmitButton onClick={props.onClickCancel}>취소</S.SubmitButton>
+        <S.SubmitButton onClick={props.onClickSubmit}>수정하기</S.SubmitButton>
       </S.ButtonWrapper>
     </S.Wrapper>
   );
