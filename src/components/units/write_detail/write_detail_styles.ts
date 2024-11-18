@@ -31,6 +31,18 @@ export const RowWrapper2 = styled.div`
   align-items: center;
 `;
 
+export const RowWrapper3 = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  @media (max-width: 1080px) {
+    width: 100%;
+    margin-top: 20px;
+  }
+`;
+
 export const RowWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -40,9 +52,13 @@ export const RowWrapper = styled.div`
 
 export const Poster_img = styled.img`
   width: 150px;
-  height: 225px;
+  height: auto;
   border-radius: 10px;
   margin-bottom: 10px;
+
+  @media (max-width: 1080px) {
+    width: 100px;
+  }
 `;
 
 export const Poster_title = styled.div`
@@ -51,6 +67,10 @@ export const Poster_title = styled.div`
   margin-bottom: 10px;
   color: #0b0537;
   margin-top: 10px;
+
+  @media (max-width: 1080px) {
+    font-size: 12px;
+  }
 `;
 
 export const DividedLine = styled.div`
@@ -122,13 +142,18 @@ export const ColumnWrapper = styled.div`
   width: 100%;
 `;
 
-export const ContentsBox = styled.div`
+export const ColumnWrapper2 = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+`;
+
+export const ContentsBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  margin-left: 20%;
-  width: 200%;
+
+  width: 100%;
 `;
 
 export const LikeBox = styled.div`
@@ -137,6 +162,10 @@ export const LikeBox = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+
+  @media (max-width: 1080px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 export const LikeButton = styled.div<{ isLiked: boolean }>`
@@ -210,6 +239,8 @@ export const CommentsBoxWrapper = styled.div`
 export const likeDiv = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   margin-right: 10px;
 `;
 

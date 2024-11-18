@@ -343,11 +343,23 @@ const CommentItem = ({
                   </S.ReportWrapper>
                 )}
                 <S.likeDiv>
-                  <S.LittleIcon src="/img/icon/icons/arrowshape.up.png" />
+                  <S.LittleIcon
+                    src={
+                      comment.like_status === 1
+                        ? "/img/icon/icons/arrowshape.up.fill.png"
+                        : "/img/icon/icons/arrowshape.up.png"
+                    }
+                  />
                   {comment.like_cnt}
                 </S.likeDiv>
                 <S.likeDiv>
-                  <S.LittleIcon src="/img/icon/icons/arrowshape.down.png" />
+                  <S.LittleIcon
+                    src={
+                      comment.like_status === -1
+                        ? "/img/icon/icons/arrowshape.down.fill.png"
+                        : "/img/icon/icons/arrowshape.down.png"
+                    }
+                  />
                   {comment.dislike_cnt}
                 </S.likeDiv>
               </S.RowWrapper2>
@@ -716,34 +728,38 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
               </S.RowWrapper2>
               <S.DividedLine />
               <S.ContentsBox>
-                <S.title_span>{props.detail?.title}</S.title_span>
-                <S.Contents_span>
-                  {TextConvert(props.detail?.content)}
-                </S.Contents_span>
+                <S.ColumnWrapper2>
+                  <S.title_span>{props.detail?.title}</S.title_span>
+                  <S.Contents_span>
+                    {TextConvert(props.detail?.content)}
+                  </S.Contents_span>
+                </S.ColumnWrapper2>
+
+                <S.PosterBox
+                  onClick={() => {
+                    if (props.detail?.contents_id !== undefined) {
+                      props.onClickPoster(props.detail.contents_id);
+                    }
+                  }}
+                >
+                  <S.Poster_img
+                    src={`https://image.tmdb.org/t/p/original/${props.detail?.contents_poster_path}`}
+                  />
+                  <S.Poster_title>
+                    {props.detail?.contents_title}
+                  </S.Poster_title>
+                </S.PosterBox>
               </S.ContentsBox>
             </S.ColumnWrapper>
-
-            <S.PosterBox
-              onClick={() => {
-                if (props.detail?.contents_id !== undefined) {
-                  props.onClickPoster(props.detail.contents_id);
-                }
-              }}
-            >
-              <S.Poster_img
-                src={`https://image.tmdb.org/t/p/original/${props.detail?.contents_poster_path}`}
-              />
-              <S.Poster_title>{props.detail?.contents_title}</S.Poster_title>
-            </S.PosterBox>
           </S.RowWrapper>
           <S.DividedLine />
           <S.LikeBox>
-            <S.RowWrapper2>
+            <S.RowWrapper3>
               <S.SubTitle>댓글[{props.detail?.comment_cnt}]</S.SubTitle>
               <S.Gray_span_btn onClick={handleCommentsOpen}>
                 {commentsOpen ? "닫기" : "열기"}
               </S.Gray_span_btn>
-            </S.RowWrapper2>
+            </S.RowWrapper3>
 
             <S.RowWrapper2>
               <S.LikeButton
