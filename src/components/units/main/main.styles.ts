@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-width: 100vw;
 `;
 
 export const RowBox = styled.div`
@@ -120,8 +121,8 @@ export const WriteBox = styled.div`
 export const GridBox = styled.div`
   margin-top: 20px;
   margin-left: 5%;
-  margin-right: 5%;
-  width: 90%;
+
+  width: 95%;
 
   min-height: 380px;
   display: grid;
@@ -636,6 +637,7 @@ export const SubBannerWrapper = styled.div`
 export const MainBannerWrapper = styled.div`
   background-color: #666;
   width: 100%;
+  min-width: 100vw;
 
   height: 600px;
 

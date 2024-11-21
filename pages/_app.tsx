@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import { globalStyles } from "../src/commons/styles/globalStyles";
 import { useRouter } from "next/router";
 import { useEffect, useLayoutEffect, useState } from "react";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -22,6 +23,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Head>
+        <meta
+          name="viewport"
+          content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
+        />
+      </Head>
+
       <Global styles={globalStyles} />
       <Layout>
         <Component {...pageProps} />
