@@ -27,7 +27,7 @@ export const globalStyles = css`
     height: 100%;
     max-width: 100vw;
     min-height: 100vh;
-    overflow-x: hidden;
+
     font-family: "myfont", sans-serif;
     color: #333;
     background-color: #f5f5f5;
