@@ -151,6 +151,7 @@ export const RankingBox = styled.div`
   box-shadow: 1px 1px 10px gray;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const RankingBox2 = styled.div`
@@ -663,10 +664,11 @@ export const SubSliderBox = styled.div`
 `;
 
 export const ImgBox2 = styled.div`
-  width: 100%;
+  width: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const SubSliderItem = styled.img`
@@ -705,7 +707,7 @@ export const MainSliderItem = styled.img`
 
 export const testItem = styled.div`
   margin: auto;
-  background-color: red;
+
   font-size: 30px;
 `;
 
@@ -807,7 +809,6 @@ export const BannerContent = styled.div`
 `;
 
 export const BannerContent1 = styled.div`
-  cursor: pointer;
   position: relative;
 
   z-index: 2; /* 이미지가 배경보다 위에 배치되도록 설정 */
