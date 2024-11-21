@@ -2,12 +2,20 @@ import { Fragment } from "react";
 import * as S from "./navigation.styles";
 import { INavigationUIProps } from "./navigation.types";
 import { getCookie } from "../../cookies/cookie";
+import { useRouter } from "next/router";
 const NAVIGATION_MENUS = [
   { name: "게시판", page: "/board" },
   { name: "작품 검색", page: "/search" },
   { name: "캘린더", page: "/calendar" },
 ];
 export default function NavigationUI(props: INavigationUIProps): JSX.Element {
+  const router = useRouter(); // useRouter 사용
+
+  const handleLoginClick = () => {
+    const currentUrl = router.asPath; // 현재 URL 경로 가져오기
+    router.push(`/login?redirect=${encodeURIComponent(currentUrl)}`);
+  };
+
   return (
     <S.Wrapper>
       <S.Logo
@@ -36,7 +44,7 @@ export default function NavigationUI(props: INavigationUIProps): JSX.Element {
           로그아웃
         </S.MenuItem>
       ) : (
-        <S.MenuItem id="/login" onClick={props.onClickMenu}>
+        <S.MenuItem id="/login" onClick={handleLoginClick}>
           로그인
         </S.MenuItem>
       )}

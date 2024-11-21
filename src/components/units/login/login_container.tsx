@@ -11,6 +11,8 @@ export default function LoginContainer() {
   const [password, setPassword] = useState("");
 
   const router = useRouter();
+  const redirectUrl = router.query.redirect || "/"; // 쿼리에서 redirect 값을 가져오거나 기본값 설정
+
   const LOGINIMAD = async () => {
     await axios
       .post("https://api.iimad.com/api/login", {
@@ -27,7 +29,7 @@ export default function LoginContainer() {
             sameSite: "none",
           });
           if (process.browser) {
-            router.push("/user");
+            router.push(String(redirectUrl));
           }
         }
 
@@ -67,19 +69,19 @@ export default function LoginContainer() {
 
   //소셜로그인 선택부
   const onClickLoginKakao = async () => {
-    window.location.href = `https://api.iimad.com/oauth2/authorization/kakao?redirect_uri=https://iimad.com/oauth2/redirect`;
+    window.location.href = `https://api.iimad.com/oauth2/authorization/kakao?redirect_uri=https://iimad.com/oauth2/redirect&origin_site=${redirectUrl}`;
   };
 
   const onClickLoginGoogle = async () => {
-    window.location.href = `https://api.iimad.com/oauth2/authorization/google?redirect_uri=https://iimad.com/oauth2/redirect`;
+    window.location.href = `https://api.iimad.com/oauth2/authorization/google?redirect_uri=https://iimad.com/oauth2/redirect&origin_site=${redirectUrl}`;
   };
 
   const onClickLoginNaver = async () => {
-    window.location.href = `https://api.iimad.com/oauth2/authorization/naver?redirect_uri=https://iimad.com/oauth2/redirect`;
+    window.location.href = `https://api.iimad.com/oauth2/authorization/naver?redirect_uri=https://iimad.com/oauth2/redirect&origin_site=${redirectUrl}`;
   };
 
   const onClickLoginApple = async () => {
-    window.location.href = `https://api.iimad.com/oauth2/login/apple?redirect_uri=https://iimad.com/oauth2/redirect`;
+    window.location.href = `https://api.iimad.com/oauth2/login/apple?redirect_uri=https://iimad.com/oauth2/redirect&origin_site=${redirectUrl}`;
   };
 
   return (
