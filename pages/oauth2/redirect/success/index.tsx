@@ -6,7 +6,7 @@ import axios from "axios";
 
 export default function KakaoRedirect(): JSX.Element {
   const router = useRouter();
-  const redirectUrl = router.query.origin_site;
+  const redirectUrl = router.query.origin_site || "/";
 
   // 유저 정보 불러오기
   const PATCHUSER = async () => {
