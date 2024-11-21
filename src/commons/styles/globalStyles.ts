@@ -21,13 +21,15 @@ export const globalStyles = css`
   }
 
   /* HTML과 BODY 설정 */
-  html,
+  html {
+    overflow-x: hidden; /* 가로 스크롤 방지 */
+    width: 100%;
+    height: 100%;
+  }
+
   body {
     width: 100%;
     height: 100%;
-    max-width: 100vw;
-    min-height: 100vh;
-
     font-family: "myfont", sans-serif;
     color: #333;
     background-color: #f5f5f5;

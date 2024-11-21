@@ -7,9 +7,6 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 100vw;
-  height: 100%;
-  overflow-x: hidden;
 `;
 
 export const RowBox = styled.div`
@@ -133,7 +130,7 @@ export const GridBox = styled.div`
   gap: 30px; /* 아이템 간의 간격 */
   grid-auto-flow: column;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1080px) {
     overflow-x: auto; /* 가로 스크롤 활성화 */
 
     gap: 10px; /* 아이템 간격 줄이기 */
@@ -207,6 +204,7 @@ export const MergedChartWrapper = styled.div`
   margin-left: 10%;
   margin-right: 10%;
   margin-top: 5%;
+  overflow-x: auto;
 
   @media (max-width: 480px) {
     width: 100%;
@@ -637,8 +635,8 @@ export const SubBannerWrapper = styled.div`
 
 export const MainBannerWrapper = styled.div`
   background-color: #666;
-  width: 100vw;
-  max-width: 100vw;
+  width: 100%;
+
   height: 600px;
 
   @media (max-width: 480px) {
@@ -795,7 +793,6 @@ export const BackgroundImageWrapper = styled.div<{ backgroundUrl: string }>`
 `;
 
 export const MainBannerBox = styled.div`
-  overflow: hidden;
   height: 590px;
 
   @media (max-width: 480px) {
@@ -828,23 +825,32 @@ export const BannerBox = styled.div`
 `;
 
 export const Arrow = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 30px;
+  height: 30px;
+
+  position: absolute;
+  top: 50%;
 `;
 
 export const Pre = styled.div`
-  width: 30px;
-  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 100%;
   position: absolute;
-  left: 3%;
+  left: 0px;
   z-index: 3;
 `;
 
 export const NextTo = styled.div`
-  width: 30px;
-  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 100%;
   position: absolute;
-  right: 3%;
+  right: 0px;
   z-index: 3;
 `;
 
