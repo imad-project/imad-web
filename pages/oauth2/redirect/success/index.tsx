@@ -7,6 +7,8 @@ import axios from "axios";
 export default function KakaoRedirect(): JSX.Element {
   const router = useRouter();
   const redirectUrl = router.query.origin_site || "/";
+  const params = new URLSearchParams(location.search);
+  const origin = params.get("origin_site");
 
   // 유저 정보 불러오기
   const PATCHUSER = async () => {
@@ -23,7 +25,7 @@ export default function KakaoRedirect(): JSX.Element {
             router.push("/user/edit");
           } else if (res.data.data.role === "USER") {
             console.log(res.data.data.role);
-            router.push(String(redirectUrl));
+            router.push(String(origin));
           }
         }
 
