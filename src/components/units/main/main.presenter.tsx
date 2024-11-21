@@ -224,6 +224,11 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   <S.ImgBox
                     key={"title" in el ? el.title : el.name}
                     url={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                    onClick={() =>
+                      category === "movie"
+                        ? props.onClickMovieContents(el.id)
+                        : props.onClickTvContents(el.id)
+                    }
                   >
                     <S.MainSliderItem
                       src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
@@ -823,11 +828,12 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
             <StyledSlider {...subsettings}>
               {props?.Recommend?.preferred_genre_recommendation_movie?.results.map(
                 (el) => (
-                  <S.BannerContent1
-                    onClick={() => props.onClickMovieContents(el.id)}
-                  >
+                  <S.BannerContent1>
                     <S.BannerBox>
-                      <S.ImgBox2 key={el.title}>
+                      <S.ImgBox2
+                        key={el.title}
+                        onClick={() => props.onClickMovieContents(el.id)}
+                      >
                         <S.SubSliderItem
                           src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
                         />

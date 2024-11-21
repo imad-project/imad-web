@@ -503,10 +503,7 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
         <S.Line />
 
         {props.review?.details_list.map((el) => (
-          <S.ReviewMapWrapper
-            key={el.review_id}
-            onClick={() => onClickReview(el.review_id)}
-          >
+          <S.ReviewMapWrapper key={el.review_id}>
             <S.RowWrapper>
               <S.avatar
                 src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${el.user_profile_image}`}
@@ -515,20 +512,24 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
             </S.RowWrapper>
             <S.reviewBox>
               <S.reviewContentsWrapper>
-                {el.reported ? (
-                  <>
-                    <S.title>신고처리로 인하여 블러처리된 리뷰입니다.</S.title>
-                  </>
-                ) : el.spoiler ? (
-                  <>
-                    <S.title>스포일러가 포함된 리뷰입니다.</S.title>
-                  </>
-                ) : (
-                  <>
-                    <S.title>{el.title}</S.title>
-                    <S.subtitle>{el.content}</S.subtitle>
-                  </>
-                )}
+                <S.ReviewClickBox onClick={() => onClickReview(el.review_id)}>
+                  {el.reported ? (
+                    <>
+                      <S.title>
+                        신고처리로 인하여 블러처리된 리뷰입니다.
+                      </S.title>
+                    </>
+                  ) : el.spoiler ? (
+                    <>
+                      <S.title>스포일러가 포함된 리뷰입니다.</S.title>
+                    </>
+                  ) : (
+                    <>
+                      <S.title>{el.title}</S.title>
+                      <S.subtitle>{el.content}</S.subtitle>
+                    </>
+                  )}
+                </S.ReviewClickBox>
 
                 <S.RowWrapper>
                   <S.likeDiv>
