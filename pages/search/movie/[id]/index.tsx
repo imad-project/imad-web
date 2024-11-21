@@ -79,10 +79,10 @@ export default function TvDetail_Page(): JSX.Element {
       ? `Bearer ${getCookie("Authorization")}`
       : "GUEST"; // token 변수를 함수 외부에서 선언
 
-  const detailSearch = async () => {
+  const detailSearch = async (id: string) => {
     try {
       const detailRES = await axios.get(
-        `https://api.iimad.com/api/contents/details?id=${router.query.id}&type=movie`,
+        `https://api.iimad.com/api/contents/details?id=${id}&type=movie`,
         {
           headers: {
             Authorization: token,
@@ -254,16 +254,13 @@ export default function TvDetail_Page(): JSX.Element {
   };
 
   useEffect(() => {
-    reviewSearch();
-  }, [like]);
+    const { id } = router.query;
 
-  useEffect(() => {
-    detailSearch();
-  }, [bookmark]);
-
-  useEffect(() => {
-    detailSearch();
-  }, []);
+    // router.query.id가 정의되었을 때만 detailSearch 호출
+    if (id && typeof id === "string") {
+      detailSearch(id);
+    }
+  }, [router.query, , like, bookmark]);
 
   const WritePush = () => {
     if (getCookie("Authorization") !== undefined) {

@@ -36,10 +36,10 @@ export default function MyReview_Container() {
       ? `Bearer ${getCookie("Authorization")}`
       : "GUEST"; // token 변수를 함수 외부에서 선언
 
-  const FETCH_REVIEW = async () => {
+  const FETCH_REVIEW = async (id: string) => {
     try {
       const response = await axios.get(
-        `https://api.iimad.com/api/review/${router.query.id}`,
+        `https://api.iimad.com/api/review/${id}`,
         {
           headers: {
             Authorization: token,
@@ -55,8 +55,13 @@ export default function MyReview_Container() {
   };
 
   useEffect(() => {
-    FETCH_REVIEW();
-  }, []);
+    const { id } = router.query;
+
+    // router.query.id가 정의되었을 때만 detailSearch 호출
+    if (id && typeof id === "string") {
+      FETCH_REVIEW(id);
+    }
+  }, [router.query]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

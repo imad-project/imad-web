@@ -467,6 +467,13 @@ export const reviewContentsWrapper = styled.div`
   }
 `;
 
+export const ReviewClickBox = styled.div`
+  cursor: pointer;
+  :hover {
+    color: #00aaff;
+  }
+`;
+
 export const likeWrapper = styled.div`
   display: flex;
   flex-direction: row;

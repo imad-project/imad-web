@@ -75,10 +75,10 @@ export default function WriteDetail_Page(): JSX.Element {
       ? `Bearer ${getCookie("Authorization")}`
       : "GUEST"; // token 변수를 함수 외부에서 선언
 
-  const WRITE_DETAIL = async () => {
+  const WRITE_DETAIL = async (id: string) => {
     try {
       const detailRES = await axios.get(
-        `https://api.iimad.com/api/posting/${router.query.id}`,
+        `https://api.iimad.com/api/posting/${id}`,
         {
           headers: {
             Authorization: token,
@@ -196,8 +196,13 @@ export default function WriteDetail_Page(): JSX.Element {
   };
 
   useEffect(() => {
-    WRITE_DETAIL();
-  }, [contentsLike]);
+    const { id } = router.query;
+
+    // router.query.id가 정의되었을 때만 detailSearch 호출
+    if (id && typeof id === "string") {
+      WRITE_DETAIL(id);
+    }
+  }, [router.query, contentsLike]);
 
   const onClickMoreComments = (posting_id: number, parent_id: number) => {
     COMMENTS_DETAIL(posting_id, parent_id);
