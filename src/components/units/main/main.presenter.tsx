@@ -76,10 +76,12 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
 
   const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true, // 자동으로 슬라이드 넘기기
+    autoplaySpeed: 5000, // 2초마다 넘기기
     nextArrow: (
       <S.NextTo>
         <S.Arrow src="/img/icon/next.png" />
@@ -224,14 +226,14 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   <S.ImgBox
                     key={"title" in el ? el.title : el.name}
                     url={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
-                    onClick={() =>
-                      category === "movie"
-                        ? props.onClickMovieContents(el.id)
-                        : props.onClickTvContents(el.id)
-                    }
                   >
                     <S.MainSliderItem
                       src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                      onClick={() =>
+                        category === "movie"
+                          ? props.onClickMovieContents(el.id)
+                          : props.onClickTvContents(el.id)
+                      }
                     />
                   </S.ImgBox>
                   <S.MainBannerTitle
