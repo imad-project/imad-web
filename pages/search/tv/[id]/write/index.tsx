@@ -27,10 +27,10 @@ export default function MovieWritePage() {
       ? `Bearer ${getCookie("Authorization")}`
       : "GUEST"; // token 변수를 함수 외부에서 선언
 
-  const detailSearch = async () => {
+  const detailSearch = async (id: string) => {
     try {
       const detailRES = await axios.get(
-        `https://api.iimad.com/api/contents/details?id=${router.query.id}&type=tv`,
+        `https://api.iimad.com/api/contents/details?id=${id}&type=tv`,
         {
           headers: {
             Authorization: token,
@@ -77,8 +77,13 @@ export default function MovieWritePage() {
   };
 
   useEffect(() => {
-    detailSearch();
-  }, []);
+    const { id } = router.query;
+
+    // router.query.id가 정의되었을 때만 detailSearch 호출
+    if (id && typeof id === "string") {
+      detailSearch(id);
+    }
+  }, [router.query]);
 
   const getByteLength = (str: string) => {
     return new Blob([str]).size;
