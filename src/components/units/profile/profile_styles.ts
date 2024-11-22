@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 80%;
   /* height: 1847px; */
   border: 1px solid black;
-  margin: 100px;
+  margin-top: 20px;
   padding-top: 80px;
   padding-bottom: 100px;
   padding-left: 102px;
@@ -14,6 +14,13 @@ export const Wrapper = styled.div`
   align-items: center;
   border: none;
   box-shadow: 0px 0px 10px gray;
+
+  @media (max-width: 1080px) {
+    width: 100%;
+    margin-top: 0;
+    padding: 0;
+    padding-top: 20px;
+  }
 `;
 
 export const ColumnWrapper = styled.div`
@@ -28,7 +35,7 @@ export const GenresBox = styled.div`
   flex-direction: column;
   justify-content: baseline;
   align-items: center;
-  width: 500px;
+  width: 80%;
   box-shadow: 0px 0px 10px gray;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -170,7 +177,7 @@ export const BigIcon = styled.img`
 `;
 
 export const Box_wrapper = styled.div`
-  width: 500px;
+  width: 80%;
   height: 150px;
   display: flex;
   flex-direction: row;
@@ -178,6 +185,9 @@ export const Box_wrapper = styled.div`
   justify-content: space-around;
 
   border-radius: 40px;
+  @media (max-width: 1080px) {
+    width: 100%;
+  }
 `;
 
 export const Box = styled.div`
