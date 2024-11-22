@@ -8,6 +8,10 @@ export const Wrapper = styled.div`
   flex-direction: column;
   width: 100%;
   min-width: 100vw;
+
+  @media (max-width: 480px) {
+    overflow-x: hidden;
+  }
 `;
 
 export const RowBox = styled.div`
