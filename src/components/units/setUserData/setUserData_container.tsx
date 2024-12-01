@@ -2,6 +2,7 @@ import { getCookie } from "../../../commons/cookies/cookie";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, useCallback, useState, useEffect } from "react";
+import SetUserData_UI from "./setUserData_presenter";
 
 const age = [
   { value: 1, name: "10~19" },
@@ -93,7 +94,7 @@ const movie_genres = [
 const tv_genres = [
   {
     id: 10759,
-    name: "Action & Adventure",
+    name: "액션/모험",
   },
   {
     id: 16,
@@ -121,7 +122,7 @@ const tv_genres = [
   },
   {
     id: 10762,
-    name: "Kids",
+    name: "아동",
   },
   {
     id: 9648,
@@ -129,27 +130,27 @@ const tv_genres = [
   },
   {
     id: 10763,
-    name: "News",
+    name: "뉴스",
   },
   {
     id: 10764,
-    name: "Reality",
+    name: "리얼리티",
   },
   {
     id: 10765,
-    name: "Sci-Fi & Fantasy",
+    name: "SF/판타지",
   },
   {
     id: 10766,
-    name: "Soap",
+    name: "소프 오페라",
   },
   {
     id: 10767,
-    name: "Talk",
+    name: "토크",
   },
   {
     id: 10768,
-    name: "War & Politics",
+    name: "전쟁/정치",
   },
   {
     id: 37,
@@ -189,31 +190,27 @@ export default function SetUserData_container() {
   };
 
   // 영화 장르 선택부
-  const MovieCheckedItemHandler = (value: number, isChecked: boolean) => {
-    if (isChecked) {
-      setMovieCheckedList((prev) => [...prev, value]);
-
-      return;
+  const handleMovieGenreClick = (id: number) => {
+    if (MovieCheckedList.includes(id)) {
+      // 이미 선택된 경우 선택 해제
+      setMovieCheckedList((prev) => prev.filter((genreId) => genreId !== id));
+    } else {
+      // 선택되지 않은 경우 추가
+      setMovieCheckedList((prev) => [...prev, id]);
     }
-
-    if (!isChecked && MovieCheckedList.includes(value)) {
-      setMovieCheckedList(MovieCheckedList.filter((item) => item !== value));
-
-      return;
-    }
-
-    return;
-  };
-
-  const MovieCheckHandler = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    value: number
-  ) => {
-    setIsChecked(!isChecked);
-    MovieCheckedItemHandler(value, e.target.checked);
   };
 
   // TV 장르 선택부
+  const handleTVGenreClick = (id: number) => {
+    if (TVCheckedList.includes(id)) {
+      // 이미 선택된 경우 선택 해제
+      setTVCheckedList((prev) => prev.filter((genreId) => genreId !== id));
+    } else {
+      // 선택되지 않은 경우 추가
+      setTVCheckedList((prev) => [...prev, id]);
+    }
+  };
+
   const TVCheckedItemHandler = (value: number, isChecked: boolean) => {
     if (isChecked) {
       setTVCheckedList((prev) => [...prev, value]);
@@ -248,79 +245,49 @@ export default function SetUserData_container() {
 
   // 수정요청 API 요청부
   const PATCHUSER = async () => {
-    await axios.patch(
-      "https://api.iimad.com/api/user",
-      {
-        birth_year: userAge,
-        gender: gender,
-        preferred_movie_genres: MovieCheckedList,
-        preferred_tv_genres: TVCheckedList,
-        nickname: nickName,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${getCookie("Authorization")}`,
+    try {
+      const PatchUserRes = await axios.patch(
+        "https://api.iimad.com/api/user",
+        {
+          birth_year: userAge,
+          gender: gender,
+          preferred_movie_genres: MovieCheckedList,
+          preferred_tv_genres: TVCheckedList,
+          nickname: nickName,
         },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie("Authorization")}`,
+          },
+        }
+      );
+      if (PatchUserRes.status === 200) {
+        router.push("/user");
       }
-    );
+    } catch (error) {
+      console.error("Error occurred while searching:", error);
+    }
   };
 
   const onSubmit = () => {
     PATCHUSER();
-    router.push("/user");
   };
 
   return (
-    <>
-      <h1>회원정보 수정</h1>
-      <div>
-        <span>닉네임:</span>
-        <input type="text" onChange={onChangeNickName} />
-      </div>
-
-      <div>
-        <span>성별</span>
-        <button onClick={onClickMale}>남성</button>
-        <button onClick={onClickFemale}>여성</button>
-      </div>
-
-      <div>
-        <span>출생년도:</span>
-        <select id="year" onChange={onChangeAge}>
-          {years.map((el) => (
-            <option key={el}>{el}</option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <h1>좋아하는 영화장르</h1>
-        {movie_genres?.map((el) => (
-          <div key={el.id}>
-            <input
-              type="checkbox"
-              id={el.name}
-              onChange={(e) => MovieCheckHandler(e, el.id)}
-            />
-            <span>{el.name}</span>
-          </div>
-        ))}
-      </div>
-
-      <div>
-        <h1>좋아하는 TV장르</h1>
-        {tv_genres?.map((el) => (
-          <div key={el.id}>
-            <input
-              type="checkbox"
-              id={el.name}
-              onChange={(e) => TVCheckHandler(e, el.id)}
-            />
-            <span>{el.name}</span>
-          </div>
-        ))}
-      </div>
-      <button onClick={onSubmit}>submit</button>
-    </>
+    <SetUserData_UI
+      onChangeNickName={onChangeNickName}
+      onClickMale={onClickMale}
+      onClickFemale={onClickFemale}
+      onChangeAge={onChangeAge}
+      years={years}
+      movie_genres={movie_genres}
+      tv_genres={tv_genres}
+      TVCheckHandler={TVCheckHandler}
+      onSubmit={onSubmit}
+      handleMovieGenreClick={handleMovieGenreClick}
+      MovieCheckedList={MovieCheckedList}
+      handleTVGenreClick={handleTVGenreClick}
+      TVCheckedList={TVCheckedList}
+    />
   );
 }
