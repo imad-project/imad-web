@@ -32,3 +32,66 @@ export const GenreBox = styled.div<{ isSelected: boolean }>`
     flex: 0 0 calc(30% - 10px); /* 한 줄에 5개씩 */
   }
 `;
+
+export const Title = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  color: #0b0537;
+  margin-bottom: 20px;
+  margin-top: 50px;
+`;
+export const Input = styled.input`
+  width: 200px;
+  height: 20px;
+  border: none;
+  border-bottom: 2px solid #0b0537;
+  margin-bottom: 15px;
+  background-color: #f5f5f5;
+
+  :focus {
+    outline: 2px solid #0b0537;
+
+    border-bottom: none;
+  }
+`;
+
+export const AlertSpan = styled.div<{ color: string }>`
+  color: ${(props) => props.color};
+  font-size: 12px;
+`;
+
+export const SubTitle = styled.div`
+  font-size: 16px;
+  color: #0b0537;
+  margin-bottom: 5px;
+`;
+
+export const LittleTitle = styled.div`
+  font-size: 12px;
+  color: #0b0537;
+  margin-bottom: 5px;
+`;
+
+export const BtnBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+`;
+
+export const SmallBtn = styled.div`
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 60px;
+  height: 35px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: white;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0b0537;
+`;

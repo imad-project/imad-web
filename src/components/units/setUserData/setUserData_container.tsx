@@ -162,6 +162,7 @@ export default function SetUserData_container() {
   const [nickName, setNickName] = useState("");
   const [MovieCheckedList, setMovieCheckedList] = useState<number[]>([]);
   const [isChecked, setIsChecked] = useState(false);
+  const [nickNameCheck, setNickNameCheck] = useState(false);
   const [userAge, setUserAge] = useState(Number);
   const router = useRouter();
   const [TVCheckedList, setTVCheckedList] = useState<number[]>([]);
@@ -170,6 +171,37 @@ export default function SetUserData_container() {
   // 닉네임 변경부
   const onChangeNickName = (event: ChangeEvent<HTMLInputElement>) => {
     setNickName(event.target.value);
+    setIsChecked(false);
+  };
+
+  // 닉네임 중복확인
+
+  const NICKNAMECHECK = async () => {
+    if (nickName === "") {
+      alert("닉네임이 비어있습니다.");
+      return;
+    }
+
+    if (nickName.length > 10) {
+      alert("닉네임이 너무 깁니다!");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "https://api.iimad.com/api/user/validation/nickname",
+        {
+          info: nickName,
+        }
+      );
+
+      if (response.status === 200) {
+        setIsChecked(true);
+        setNickNameCheck(response.data.data.validation);
+      }
+    } catch (error) {
+      console.error("Error occurred while searching:", error);
+    }
   };
 
   // 나이 변경부ㅇㅇ
@@ -209,30 +241,6 @@ export default function SetUserData_container() {
       // 선택되지 않은 경우 추가
       setTVCheckedList((prev) => [...prev, id]);
     }
-  };
-
-  const TVCheckedItemHandler = (value: number, isChecked: boolean) => {
-    if (isChecked) {
-      setTVCheckedList((prev) => [...prev, value]);
-
-      return;
-    }
-
-    if (!isChecked && TVCheckedList.includes(value)) {
-      setTVCheckedList(TVCheckedList.filter((item) => item !== value));
-
-      return;
-    }
-
-    return;
-  };
-
-  const TVCheckHandler = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    value: number
-  ) => {
-    setIsChecked(!isChecked);
-    TVCheckedItemHandler(value, e.target.checked);
   };
 
   //연도 범위 설정부
@@ -282,12 +290,15 @@ export default function SetUserData_container() {
       years={years}
       movie_genres={movie_genres}
       tv_genres={tv_genres}
-      TVCheckHandler={TVCheckHandler}
       onSubmit={onSubmit}
       handleMovieGenreClick={handleMovieGenreClick}
       MovieCheckedList={MovieCheckedList}
       handleTVGenreClick={handleTVGenreClick}
       TVCheckedList={TVCheckedList}
+      nickName={nickName}
+      NICKNAMECHECK={NICKNAMECHECK}
+      isChecked={isChecked}
+      nickNameCheck={nickNameCheck}
     />
   );
 }

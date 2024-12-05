@@ -3,10 +3,27 @@ import * as S from "./setUserData_styles";
 export default function SetUserData_UI(props: any) {
   return (
     <>
-      <h1>회원정보 수정</h1>
+      <S.Title>회원정보 수정</S.Title>
       <div>
-        <span>닉네임:</span>
-        <input type="text" onChange={props.onChangeNickName} />
+        <S.SubTitle>닉네임</S.SubTitle>
+        <S.Input type="text" onChange={props.onChangeNickName} />
+        {props.isChecked ? (
+          props.nickNameCheck ? (
+            <S.AlertSpan color="green">
+              사용할 수 있는 닉네임입니다!
+            </S.AlertSpan>
+          ) : (
+            <S.AlertSpan color="red">사용할 수 없는 닉네임입니다!</S.AlertSpan>
+          )
+        ) : (
+          ""
+        )}
+        <S.BtnBox>
+          <S.LittleTitle>{props.nickName.length}/10</S.LittleTitle>
+          <S.SmallBtn onClick={() => props.NICKNAMECHECK()}>
+            중복확인
+          </S.SmallBtn>
+        </S.BtnBox>
       </div>
 
       <div>
@@ -25,7 +42,7 @@ export default function SetUserData_UI(props: any) {
       </div>
 
       <S.Wrapper>
-        <h1>좋아하는 영화장르</h1>
+        <S.Title>좋아하는 영화장르</S.Title>
         <S.GenreGrid>
           {props.movie_genres?.map((el: any) => (
             <S.GenreBox
@@ -40,7 +57,7 @@ export default function SetUserData_UI(props: any) {
       </S.Wrapper>
 
       <S.Wrapper>
-        <h1>좋아하는 시리즈장르</h1>
+        <S.Title>좋아하는 시리즈장르</S.Title>
         <S.GenreGrid>
           {props.tv_genres?.map((el: any) => (
             <S.GenreBox
