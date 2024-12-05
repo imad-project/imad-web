@@ -1,6 +1,16 @@
 import * as S from "./setUserData_styles";
 
 export default function SetUserData_UI(props: any) {
+  const lengthCheck = (): string => {
+    if (props.nickName.length < 2) {
+      return "red";
+    } else if (props.nickName.length > 10) {
+      return "red";
+    } else {
+      return "green";
+    }
+  };
+
   return (
     <>
       <S.Title>회원정보 수정</S.Title>
@@ -19,27 +29,41 @@ export default function SetUserData_UI(props: any) {
           ""
         )}
         <S.BtnBox>
-          <S.LittleTitle>{props.nickName.length}/10</S.LittleTitle>
+          <S.LittleTitle color={lengthCheck()}>
+            {props.nickName.length}/10
+          </S.LittleTitle>
           <S.SmallBtn onClick={() => props.NICKNAMECHECK()}>
             중복확인
           </S.SmallBtn>
         </S.BtnBox>
       </div>
 
-      <div>
-        <span>성별</span>
-        <button onClick={props.onClickMale}>남성</button>
-        <button onClick={props.onClickFemale}>여성</button>
-      </div>
+      <S.Wrapper>
+        <S.SubTitle>성별</S.SubTitle>
+        <S.BtnBox>
+          <S.GenderDiv
+            isSelected={props.gender === "MALE"}
+            onClick={props.onClickMale}
+          >
+            남성
+          </S.GenderDiv>
+          <S.GenderDiv
+            isSelected={props.gender === "FEMALE"}
+            onClick={props.onClickFemale}
+          >
+            여성
+          </S.GenderDiv>
+        </S.BtnBox>
+      </S.Wrapper>
 
-      <div>
-        <span>출생년도:</span>
-        <select id="year" onChange={props.onChangeAge}>
+      <S.Wrapper>
+        <S.SubTitle>출생년도</S.SubTitle>
+        <S.StyledSelect id="year" onChange={props.onChangeAge}>
           {props.years.map((el: number) => (
-            <option key={el}>{el}</option>
+            <S.StyledOption key={el}>{el}</S.StyledOption>
           ))}
-        </select>
-      </div>
+        </S.StyledSelect>
+      </S.Wrapper>
 
       <S.Wrapper>
         <S.Title>좋아하는 영화장르</S.Title>
@@ -70,7 +94,11 @@ export default function SetUserData_UI(props: any) {
           ))}
         </S.GenreGrid>
       </S.Wrapper>
-      <button onClick={props.onSubmit}>submit</button>
+      <S.Wrapper>
+        <S.BtnWrapper>
+          <S.SmallBtn onClick={props.onSubmit}>입력완료</S.SmallBtn>
+        </S.BtnWrapper>
+      </S.Wrapper>
     </>
   );
 }

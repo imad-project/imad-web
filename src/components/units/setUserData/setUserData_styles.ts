@@ -66,9 +66,9 @@ export const SubTitle = styled.div`
   margin-bottom: 5px;
 `;
 
-export const LittleTitle = styled.div`
+export const LittleTitle = styled.div<{ color: string }>`
   font-size: 12px;
-  color: #0b0537;
+  color: ${(props) => props.color};
   margin-bottom: 5px;
 `;
 
@@ -86,6 +86,81 @@ export const SmallBtn = styled.div`
   margin-bottom: 10px;
   width: 60px;
   height: 35px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: white;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0b0537;
+`;
+
+export const Label = styled.span`
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+`;
+
+export const GenderDiv = styled.div<{ isSelected: boolean }>`
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 2px solid ${({ isSelected }) => (isSelected ? "#0b0537" : "#ccc")};
+  background-color: ${({ isSelected }) => (isSelected ? "#0b0537" : "#f5f5f5")};
+  color: ${({ isSelected }) => (isSelected ? "white" : "#333")};
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+
+  &:hover {
+    background-color: ${({ isSelected }) =>
+      isSelected ? "#0b0537" : "#e0e0e0"};
+  }
+`;
+
+export const StyledSelect = styled.select`
+  width: 200px;
+  padding: 10px;
+  font-size: 14px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    border-color: #0b0537;
+  }
+
+  &:focus {
+    border-color: #0b0537;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+  }
+`;
+
+export const StyledOption = styled.option`
+  background-color: white;
+  color: #333;
+  font-size: 14px;
+`;
+
+export const BtnWrapper = styled.div`
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SubmitBtn = styled.div`
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  min-width: 150px;
+  min-height: 50px;
   border-radius: 8px;
   font-size: 14px;
   color: white;

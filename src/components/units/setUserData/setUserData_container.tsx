@@ -166,7 +166,7 @@ export default function SetUserData_container() {
   const [userAge, setUserAge] = useState(Number);
   const router = useRouter();
   const [TVCheckedList, setTVCheckedList] = useState<number[]>([]);
-  const [gender, setGender] = useState("MALE");
+  const [gender, setGender] = useState<"MALE" | "FEMALE">("MALE");
 
   // 닉네임 변경부
   const onChangeNickName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -179,6 +179,11 @@ export default function SetUserData_container() {
   const NICKNAMECHECK = async () => {
     if (nickName === "") {
       alert("닉네임이 비어있습니다.");
+      return;
+    }
+
+    if (nickName.length < 2) {
+      alert("닉네임은 2글자 이상이여야 합니다.");
       return;
     }
 
@@ -214,11 +219,11 @@ export default function SetUserData_container() {
   // 성별 변경부
   const onClickMale = () => {
     setGender("MALE");
-    console.log(gender);
+    console.log("male");
   };
   const onClickFemale = () => {
     setGender("FEMALE");
-    console.log(gender);
+    console.log("female");
   };
 
   // 영화 장르 선택부
@@ -253,6 +258,16 @@ export default function SetUserData_container() {
 
   // 수정요청 API 요청부
   const PATCHUSER = async () => {
+    if (isChecked === false) {
+      alert("닉네임 중복확인을 해주세요!");
+      return;
+    }
+
+    if (nickNameCheck === false) {
+      alert("중복된 닉네임 입니다.");
+      return;
+    }
+
     try {
       const PatchUserRes = await axios.patch(
         "https://api.iimad.com/api/user",
@@ -270,12 +285,37 @@ export default function SetUserData_container() {
         }
       );
       if (PatchUserRes.status === 200) {
-        router.push("/user");
+        router.push("/");
       }
     } catch (error) {
       console.error("Error occurred while searching:", error);
     }
   };
+  const SetDefaultImg = async () => {
+    const formData = new FormData();
+    formData.append("image", `default_profile_image_1.png`);
+    try {
+      const response = await axios.patch(
+        `https://api.iimad.com/api/user/profile_image/default`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie("Authorization")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("Upload successful:", response.data);
+      }
+    } catch (error) {
+      console.error("Upload failed:", error);
+    }
+  };
+
+  useEffect(() => {
+    SetDefaultImg();
+  }, []);
 
   const onSubmit = () => {
     PATCHUSER();
@@ -299,6 +339,7 @@ export default function SetUserData_container() {
       NICKNAMECHECK={NICKNAMECHECK}
       isChecked={isChecked}
       nickNameCheck={nickNameCheck}
+      gender={gender}
     />
   );
 }

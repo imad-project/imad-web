@@ -55,6 +55,10 @@ export default function NavigationContainer(): JSX.Element {
     }
   };
 
+  if (userData?.nickname === "") {
+    FETCHUSER();
+  }
+
   useEffect(() => {
     if (authToken) {
       FETCHUSER();
@@ -83,10 +87,14 @@ export default function NavigationContainer(): JSX.Element {
       if (token !== authToken) {
         setAuthToken(token);
       }
+      // 닉네임이 비어있으면 FETCHUSER 호출
+      if (userData && userData.nickname === "") {
+        void FETCHUSER(); // 비동기 함수 호출
+      }
     }, 1000); // Check every second
 
     return () => clearInterval(intervalId);
-  }, [authToken]);
+  }, [authToken, userData]);
 
   return (
     <NavigationUI
