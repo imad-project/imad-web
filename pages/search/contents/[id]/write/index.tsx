@@ -9,7 +9,7 @@ export default function MovieWritePage() {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
 
-  const [category, setCategory] = useState(0);
+  const [category, setCategory] = useState(1);
 
   const [titleCount, setTitleCount] = useState(0);
   const [contentsCount, setContentsCount] = useState(0);
