@@ -2,6 +2,7 @@ import { IProfileProps } from "./profile_types";
 import * as S from "./profile_styles";
 import Profile_Modal from "../../../../src/commons/profile_image/profile_modal";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const AuthArray = [
   { key: "IMAD", label: "아이매드 회원" },
@@ -92,7 +93,7 @@ const movie_genres = [
 const tv_genres = [
   {
     id: 10759,
-    name: "Action & Adventure",
+    name: "액션/모험",
   },
   {
     id: 16,
@@ -120,7 +121,7 @@ const tv_genres = [
   },
   {
     id: 10762,
-    name: "Kids",
+    name: "아동",
   },
   {
     id: 9648,
@@ -128,27 +129,27 @@ const tv_genres = [
   },
   {
     id: 10763,
-    name: "News",
+    name: "뉴스",
   },
   {
     id: 10764,
-    name: "Reality",
+    name: "리얼리티",
   },
   {
     id: 10765,
-    name: "Sci-Fi & Fantasy",
+    name: "SF/판타지",
   },
   {
     id: 10766,
-    name: "Soap",
+    name: "소프 오페라",
   },
   {
     id: 10767,
-    name: "Talk",
+    name: "토크",
   },
   {
     id: 10768,
-    name: "War & Politics",
+    name: "전쟁/정치",
   },
   {
     id: 37,
@@ -157,6 +158,9 @@ const tv_genres = [
 ];
 
 export default function Profile_UI(props: IProfileProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+
   const authProvider = AuthArray.find(
     (auth) => auth.key === props?.data2?.auth_provider
   );
@@ -169,9 +173,60 @@ export default function Profile_UI(props: IProfileProps) {
     (id) => movie_genres.find((genre) => genre.id === id)?.name
   );
 
+  const DropdownMenu = ({
+    onEdit,
+    onDelete,
+    onReport,
+  }: {
+    onEdit?: () => void;
+    onDelete?: () => void;
+    onReport?: () => void;
+  }) => (
+    <S.DropdownMenu>
+      <>
+        <S.MenuItem onClick={onEdit} color="#00aaff">
+          회원정보 수정
+        </S.MenuItem>
+        <S.MenuItem onClick={onDelete} color="#00aaff">
+          비밀번호 변경
+        </S.MenuItem>
+        <S.MenuItem onClick={onDelete} color="#f34336">
+          회원탈퇴
+        </S.MenuItem>
+      </>
+    </S.DropdownMenu>
+  );
+
+  const handleIconClick = () => {
+    setIsMenuOpen((prev) => !prev); // 메뉴 열림/닫힘 토글
+  };
+
+  const handleEdit = () => {
+    router.push(`/profile/edit`);
+    setIsMenuOpen(false);
+  };
+
+  const handlePasswordEdit = () => {
+    setIsMenuOpen(false);
+  };
+
+  const handleDelete = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <>
       <S.Wrapper>
+        <S.IconBox onClick={handleIconClick}>
+          <S.Icon src="/img/icon/icons/gearshape.fill.png" />
+        </S.IconBox>
+        {isMenuOpen && (
+          <DropdownMenu
+            onEdit={handleEdit}
+            onDelete={handlePasswordEdit}
+            onReport={handleDelete}
+          />
+        )}
         <S.RowWrapper>
           <S.ImgBox onClick={props.openModal}>
             <S.Profile_image

@@ -14,6 +14,7 @@ export const Wrapper = styled.div`
   align-items: center;
   border: none;
   box-shadow: 0px 0px 10px gray;
+  position: relative;
 
   @media (max-width: 1080px) {
     width: 100%;
@@ -252,4 +253,43 @@ export const NoBookmarks = styled.div`
   color: gray;
   text-align: center;
   margin-top: 20px;
+`;
+
+export const DropdownMenu = styled.div`
+  position: absolute;
+
+  top: 40px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+`;
+
+export const MenuItem = styled.div<{ color: string }>`
+  padding: 8px 12px;
+  color: ${(props) => props.color};
+  cursor: pointer;
+  &:hover {
+    background-color: #f0f0f0;
+  }
+`;
+
+export const IconBox = styled.div`
+  width: auto;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 90%;
+  top: 20px;
+
+  cursor: pointer;
+`;
+
+export const Icon = styled.img`
+  width: auto;
+  height: 25px;
 `;
