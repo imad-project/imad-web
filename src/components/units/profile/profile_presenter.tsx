@@ -1,8 +1,10 @@
 import { IProfileProps } from "./profile_types";
 import * as S from "./profile_styles";
 import Profile_Modal from "../../../../src/commons/profile_image/profile_modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import styled from "@emotion/styled";
+import ReactModal from "react-modal";
 
 const AuthArray = [
   { key: "IMAD", label: "아이매드 회원" },
@@ -161,6 +163,62 @@ export default function Profile_UI(props: IProfileProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // 768px 이하를 모바일로 간주
+    };
+
+    handleResize(); // 초기 화면 크기 체크
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // 이벤트 제거
+    };
+  }, []);
+
+  // 커스텀 버튼 스타일
+  const CustomButton = styled.button`
+    background-color: #008cba;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+      background-color: #007bb5;
+    }
+  `;
+
+  // 모달 스타일 (react-modal의 인라인 스타일링)
+  const customModalStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      width: isMobile ? "95%" : "80%", // 모바일: 95%, 데스크톱: 80%
+      height: isMobile ? "80%" : "70%", // 모바일: 60%, 데스크톱: 70%
+      padding: "20px",
+      borderRadius: "10px",
+      boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)",
+    },
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+  };
+
+  const Row_box = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  `;
+
   const authProvider = AuthArray.find(
     (auth) => auth.key === props?.data2?.auth_provider
   );
@@ -176,24 +234,38 @@ export default function Profile_UI(props: IProfileProps) {
   const DropdownMenu = ({
     onEdit,
     onDelete,
-    onReport,
+    onPasswordEdit,
+    isImad,
   }: {
     onEdit?: () => void;
     onDelete?: () => void;
-    onReport?: () => void;
+    onPasswordEdit?: () => void;
+    isImad: string;
   }) => (
     <S.DropdownMenu>
-      <>
-        <S.MenuItem onClick={onEdit} color="#00aaff">
-          회원정보 수정
-        </S.MenuItem>
-        <S.MenuItem onClick={onDelete} color="#00aaff">
-          비밀번호 변경
-        </S.MenuItem>
-        <S.MenuItem onClick={onDelete} color="#f34336">
-          회원탈퇴
-        </S.MenuItem>
-      </>
+      {isImad == "IMAD" ? (
+        <>
+          <S.MenuItem onClick={onEdit} color="#00aaff">
+            회원정보 수정
+          </S.MenuItem>
+          <S.MenuItem onClick={onPasswordEdit} color="#00aaff">
+            비밀번호 변경
+          </S.MenuItem>
+          <S.MenuItem onClick={onDelete} color="#f34336">
+            회원탈퇴
+          </S.MenuItem>
+        </>
+      ) : (
+        <>
+          <S.MenuItem onClick={onEdit} color="#00aaff">
+            회원정보 수정
+          </S.MenuItem>
+
+          <S.MenuItem onClick={onDelete} color="#f34336">
+            회원탈퇴
+          </S.MenuItem>
+        </>
+      )}
     </S.DropdownMenu>
   );
 
@@ -207,6 +279,7 @@ export default function Profile_UI(props: IProfileProps) {
   };
 
   const handlePasswordEdit = () => {
+    props.openModal2();
     setIsMenuOpen(false);
   };
 
@@ -223,10 +296,37 @@ export default function Profile_UI(props: IProfileProps) {
         {isMenuOpen && (
           <DropdownMenu
             onEdit={handleEdit}
-            onDelete={handlePasswordEdit}
-            onReport={handleDelete}
+            onPasswordEdit={handlePasswordEdit}
+            onDelete={handleDelete}
+            isImad={
+              props.data2?.auth_provider ? props.data2?.auth_provider : ""
+            }
           />
         )}
+        <ReactModal
+          isOpen={props.isModalOpen2}
+          onRequestClose={props.closeModal2}
+          style={customModalStyles}
+          contentLabel="Image Upload Modal"
+        >
+          <Row_box>
+            <h2>비밀번호 변경</h2>
+            <CustomButton onClick={props.closeModal2}>닫기</CustomButton>
+          </Row_box>
+          <S.InputBox>
+            <S.SubTitle>기존 비밀번호</S.SubTitle>
+            <S.Input type="password" onChange={props.onChangeOriginPassWord} />
+            <S.SubTitle>새 비밀번호</S.SubTitle>
+            <S.Input type="password" onChange={props.onChangePassWord} />
+
+            <S.SubTitle>새 비밀번호 확인</S.SubTitle>
+            <S.Input type="password" onChange={props.onChangePassWord2} />
+
+            <S.LoginBtn onClick={props.CHANGE_PASSWORD}>
+              비밀번호 변경
+            </S.LoginBtn>
+          </S.InputBox>
+        </ReactModal>
         <S.RowWrapper>
           <S.ImgBox onClick={props.openModal}>
             <S.Profile_image

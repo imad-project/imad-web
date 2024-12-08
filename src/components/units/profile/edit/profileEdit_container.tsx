@@ -295,7 +295,7 @@ export default function ProfileEdit_Container() {
         }
       );
       if (PatchUserRes.status === 200) {
-        router.push("/");
+        router.back();
       }
     } catch (error) {
       console.error("Error occurred while searching:", error);

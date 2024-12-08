@@ -293,3 +293,45 @@ export const Icon = styled.img`
   width: auto;
   height: 25px;
 `;
+
+export const Input = styled.input`
+  width: 200px;
+  height: 20px;
+  border: none;
+  border-bottom: 2px solid #0b0537;
+  margin-bottom: 15px;
+  background-color: #f5f5f5;
+
+  :focus {
+    outline: 2px solid #0b0537;
+
+    border-bottom: none;
+  }
+`;
+export const ModalSubTitle = styled.div`
+  font-size: 16px;
+  color: #0b0537;
+  margin-bottom: 5px;
+`;
+
+export const LoginBtn = styled.div`
+  cursor: pointer;
+  margin-top: 10px;
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 16px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0b0537;
+`;
+
+export const InputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 20px;
+`;
