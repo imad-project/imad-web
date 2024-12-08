@@ -118,6 +118,11 @@ export default function SignupContainer(): JSX.Element {
       return;
     }
 
+    if (/\s/.test(password)) {
+      alert("비밀번호에 공백을 포함할 수 없습니다.");
+      return;
+    }
+
     if (password !== password2) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
