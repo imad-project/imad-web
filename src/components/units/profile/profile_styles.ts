@@ -71,6 +71,10 @@ export const Title = styled.div`
   font-size: 25px;
   margin-bottom: 5px;
   font-weight: bold;
+
+  @media (max-width: 1080px) {
+    font-size: 18px;
+  }
 `;
 
 export const SubTitle = styled.div`
@@ -237,15 +241,22 @@ export const Movie_box = styled.div`
 
 export const Movie_poster = styled.img`
   width: 200px;
-  height: 300px;
+  height: auto;
   border-radius: 10px;
   margin-bottom: 10px;
+
+  @media (max-width: 1080px) {
+    width: 100px;
+  }
 `;
 
 export const Movie_title = styled.div`
   font-size: 20px;
   color: #0b0537;
   text-align: center;
+  @media (max-width: 1080px) {
+    font-size: 13px;
+  }
 `;
 export const NoBookmarks = styled.div`
   width: 100%;
@@ -257,14 +268,18 @@ export const NoBookmarks = styled.div`
 
 export const DropdownMenu = styled.div`
   position: absolute;
-
-  top: 40px;
+  width: 150px;
+  top: 25px;
   right: 0;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 10;
+
+  @media (max-width: 1080px) {
+    top: 30px;
+  }
 `;
 
 export const MenuItem = styled.div<{ color: string }>`
@@ -283,10 +298,15 @@ export const IconBox = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  left: 90%;
-  top: 20px;
+  right: 200px;
+  top: 150px;
 
   cursor: pointer;
+
+  @media (max-width: 1080px) {
+    right: 20px;
+    top: 70px;
+  }
 `;
 
 export const Icon = styled.img`

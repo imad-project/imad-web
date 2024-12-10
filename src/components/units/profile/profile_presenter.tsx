@@ -300,17 +300,18 @@ export default function Profile_UI(props: IProfileProps) {
       <S.Wrapper>
         <S.IconBox onClick={handleIconClick}>
           <S.Icon src="/img/icon/icons/gearshape.fill.png" />
+          {isMenuOpen && (
+            <DropdownMenu
+              onEdit={handleEdit}
+              onPasswordEdit={handlePasswordEdit}
+              onDelete={handleDelete}
+              isImad={
+                props.data2?.auth_provider ? props.data2?.auth_provider : ""
+              }
+            />
+          )}
         </S.IconBox>
-        {isMenuOpen && (
-          <DropdownMenu
-            onEdit={handleEdit}
-            onPasswordEdit={handlePasswordEdit}
-            onDelete={handleDelete}
-            isImad={
-              props.data2?.auth_provider ? props.data2?.auth_provider : ""
-            }
-          />
-        )}
+
         <ReactModal
           isOpen={props.isModalOpen2}
           onRequestClose={props.closeModal2}
