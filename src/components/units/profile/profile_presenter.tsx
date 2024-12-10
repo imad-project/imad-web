@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import ReactModal from "react-modal";
+import revoke from "../../../../src/commons/revoke/revoke";
 
 const AuthArray = [
   { key: "IMAD", label: "아이매드 회원" },
@@ -283,8 +284,15 @@ export default function Profile_UI(props: IProfileProps) {
     setIsMenuOpen(false);
   };
 
-  const handleDelete = () => {
-    setIsMenuOpen(false);
+  const handleDelete = async () => {
+    try {
+      await revoke(props.data2?.auth_provider ? props.data2.auth_provider : "");
+
+      setIsMenuOpen(false);
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
