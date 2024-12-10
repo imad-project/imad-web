@@ -96,6 +96,17 @@ export default function NavigationContainer(): JSX.Element {
     return () => clearInterval(intervalId);
   }, [authToken, userData]);
 
+  useEffect(() => {
+    const handleRouteChange = () => {
+      FETCHUSER(); // 페이지 변경 시 유저 데이터를 다시 가져옴
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, []);
   return (
     <NavigationUI
       onClickMenu={onClickMenu}
