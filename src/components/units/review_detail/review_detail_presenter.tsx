@@ -215,11 +215,16 @@ export default function MyReview_UI(props: IMyReviewProps) {
                   </S.RowWrapper>
                   <S.reviewBox>
                     <S.reviewContentsWrapper>
-                      <S.Review_title>{props.reviewData?.title}</S.Review_title>
+                      <S.ReviewClickBox>
+                        <S.Review_title>
+                          {props.reviewData?.title}
+                        </S.Review_title>
 
-                      <S.Review_contents>
-                        {props.reviewData?.content}
-                      </S.Review_contents>
+                        <S.Review_contents>
+                          {props.reviewData?.content}
+                        </S.Review_contents>
+                      </S.ReviewClickBox>
+
                       <S.DividedLine />
                       <S.RowWrapper>
                         <S.likeDiv>
