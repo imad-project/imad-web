@@ -37,6 +37,7 @@ export const avatar = styled.img`
   border-radius: 50%;
   box-shadow: 0px 0px 5px gray;
   margin-right: 10px;
+
   @media (max-width: 1080px) {
     width: 30px;
     height: 30px;
