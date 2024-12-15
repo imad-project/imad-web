@@ -8,6 +8,10 @@ export const MainWrapper = styled.div`
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 0px 10px gray;
+
+  @media (max-width: 1080px) {
+    width: 100%;
+  }
 `;
 
 export const writeWrapper = styled.div`
@@ -33,6 +37,16 @@ export const avatar = styled.img`
   border-radius: 50%;
   box-shadow: 0px 0px 5px gray;
   margin-right: 10px;
+
+  @media (max-width: 1080px) {
+    width: 30px;
+    height: 30px;
+  }
+`;
+
+export const UserName = styled.div`
+  font-size: 20px;
+  font-weight: bold;
 `;
 
 export const WriteBox = styled.div`
@@ -52,6 +66,8 @@ export const likeDiv = styled.div`
   display: flex;
   flex-direction: row;
   margin-right: 10px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const LittleIcon = styled.img`
@@ -65,7 +81,7 @@ export const reviewContentsWrapper = styled.div`
   flex-direction: column;
   margin-top: 20px;
 
-  width: 500px;
+  width: 100%;
 `;
 
 export const likeWrapper = styled.div`
@@ -93,9 +109,13 @@ export const PosterBox = styled.div`
 
 export const Poster_img = styled.img`
   width: 150px;
-  height: 225px;
+  height: auto;
   border-radius: 10px;
   margin-bottom: 10px;
+
+  @media (max-width: 1080px) {
+    width: 80px;
+  }
 `;
 
 export const Poster_title = styled.div`
@@ -107,9 +127,14 @@ export const Poster_title = styled.div`
 `;
 
 export const ColumnBox = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin-left: 50px;
+
+  @media (max-width: 1080px) {
+    margin-left: 10px;
+  }
 `;
 
 export const DividedLine = styled.div`
@@ -124,14 +149,23 @@ export const Date_span = styled.div`
   font-size: 15px;
   width: 100px;
   height: auto;
+  margin-left: 10px;
+
+  @media (max-width: 1080px) {
+    font-size: 12px;
+  }
 `;
 
 export const View_cnt_span = styled.div`
   color: gray;
   font-size: 15px;
-  width: 100px;
+  width: 100%;
   height: auto;
   overflow: visible;
+
+  @media (max-width: 1080px) {
+    font-size: 12px;
+  }
 `;
 
 export const title_span = styled.div`

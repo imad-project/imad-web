@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import SearchDetailUI from "../../../../src/components/units/search_detail/search_detail_presenter";
 import { IDetailUIProps } from "@/src/components/units/search_detail/search_detail_types";
 import { getCookie } from "../../../../src/commons/cookies/cookie";
+import apiClient from "@/api/apiClient";
 
 interface seasonData {
   air_date: string;
@@ -81,13 +82,8 @@ export default function TvDetail_Page(): JSX.Element {
 
   const detailSearch = async (id: string) => {
     try {
-      const detailRES = await axios.get(
-        `https://api.iimad.com/api/contents/details?id=${id}&type=tv`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+      const detailRES = await apiClient.get(
+        `/api/contents/details?id=${id}&type=tv`
       );
 
       if (detailRES.status === 200) {
@@ -95,13 +91,8 @@ export default function TvDetail_Page(): JSX.Element {
         console.log(detail);
         const reviewSearch = async () => {
           try {
-            const reviewRES = await axios.get(
-              `https://api.iimad.com/api/review/list?page=1&sort=createdDate&order=0&contents_id=${detailRES.data.data.contents_id}`,
-              {
-                headers: {
-                  Authorization: token,
-                },
-              }
+            const reviewRES = await apiClient.get(
+              `/api/review/list?page=1&sort=createdDate&order=0&contents_id=${detailRES.data.data.contents_id}`
             );
             if (reviewRES.status === 200) {
               setReview(reviewRES.data.data);
@@ -120,16 +111,11 @@ export default function TvDetail_Page(): JSX.Element {
 
   const onClickBookmark = async () => {
     try {
-      const bookmarkRES = await axios.post(
-        `https://api.iimad.com/api/profile/bookmark`,
+      const bookmarkRES = await apiClient.post(
+        `/api/profile/bookmark`,
 
         {
           contents_id: detail?.contents_id,
-        },
-        {
-          headers: {
-            Authorization: token,
-          },
         }
       );
       if (bookmarkRES.status === 200) {
@@ -142,14 +128,8 @@ export default function TvDetail_Page(): JSX.Element {
 
   const onClickDelBookmark = async () => {
     try {
-      const bookmarkRES = await axios.delete(
-        `https://api.iimad.com/api/profile/bookmark/${detail?.bookmark_id}`,
-
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+      const bookmarkRES = await apiClient.delete(
+        `/api/profile/bookmark/${detail?.bookmark_id}`
       );
       if (bookmarkRES.status === 200) {
         setBookmark(!bookmark);
@@ -161,13 +141,8 @@ export default function TvDetail_Page(): JSX.Element {
 
   const reviewSearch = async () => {
     try {
-      const reviewRES = await axios.get(
-        `https://api.iimad.com/api/review/list?page=1&sort=createdDate&order=0&contents_id=${detail?.contents_id}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+      const reviewRES = await apiClient.get(
+        `/api/review/list?page=1&sort=createdDate&order=0&contents_id=${detail?.contents_id}`
       );
       if (reviewRES.status === 200) {
         setReview(reviewRES.data.data);
@@ -181,17 +156,9 @@ export default function TvDetail_Page(): JSX.Element {
   const onClickLike = async (id: number) => {
     if (getCookie("Authorization") !== undefined) {
       try {
-        const likeReview = await axios.patch(
-          `https://api.iimad.com/api/review/like/${id}`,
-          {
-            like_status: 1,
-          },
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const likeReview = await apiClient.patch(`/api/review/like/${id}`, {
+          like_status: 1,
+        });
         if (likeReview.status === 200) {
           setLike(!like);
         }
@@ -206,17 +173,9 @@ export default function TvDetail_Page(): JSX.Element {
   const onClickDisLike = async (id: number) => {
     if (getCookie("Authorization") !== undefined) {
       try {
-        const likeReview = await axios.patch(
-          `https://api.iimad.com/api/review/like/${id}`,
-          {
-            like_status: -1,
-          },
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const likeReview = await apiClient.patch(`/api/review/like/${id}`, {
+          like_status: -1,
+        });
         if (likeReview.status === 200) {
           setLike(!like);
         }
@@ -231,17 +190,9 @@ export default function TvDetail_Page(): JSX.Element {
   const onClickCancelLike = async (id: number) => {
     if (getCookie("Authorization") !== undefined) {
       try {
-        const likeReview = await axios.patch(
-          `https://api.iimad.com/api/review/like/${id}`,
-          {
-            like_status: 0,
-          },
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const likeReview = await apiClient.patch(`/api/review/like/${id}`, {
+          like_status: 0,
+        });
         if (likeReview.status === 200) {
           setLike(!like);
         }

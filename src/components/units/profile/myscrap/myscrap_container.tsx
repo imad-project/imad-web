@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { getCookie } from "@/src/commons/cookies/cookie";
 import PaginationComponent from "@/src/commons/pagination/pagination";
+import apiClient from "@/api/apiClient";
 
 interface IScrapData {
   details_list: [
@@ -40,14 +41,7 @@ export default function MyScrap_container() {
 
   const FETCH_MYSCRAP = async () => {
     try {
-      const response = await axios.get(
-        "https://api.iimad.com/api/profile/scrap/list?page=1",
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
-          },
-        }
-      );
+      const response = await apiClient.get("/api/profile/scrap/list?page=1");
       if (response.status === 200) {
         setScrapData(response.data.data);
       }
@@ -58,13 +52,8 @@ export default function MyScrap_container() {
 
   const FETCH_MYSCRAP_PAGES = async (currentPage: number) => {
     try {
-      const response = await axios.get(
-        `https://api.iimad.com/api/profile/scrap/list?page=${currentPage}`,
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
-          },
-        }
+      const response = await apiClient.get(
+        `/api/profile/scrap/list?page=${currentPage}`
       );
       if (response.status === 200) {
         setScrapData(response.data.data);

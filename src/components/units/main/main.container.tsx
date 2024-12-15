@@ -3,6 +3,7 @@ import MainPageUI from "./main.presenter";
 import axios from "axios";
 import { getCookie } from "@/src/commons/cookies/cookie";
 import { useRouter } from "next/router";
+import apiClient from "@/api/apiClient";
 
 interface Ranking_Item {
   contents_id: number;
@@ -177,11 +178,7 @@ export default function MainContainer(): JSX.Element {
       return;
     }
     try {
-      const LoginRES = await axios.get("https://api.iimad.com/api/user", {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const LoginRES = await apiClient.get("/api/user");
       if (LoginRES.status === 200) {
         setLoginData(LoginRES.data.data);
       }
@@ -197,13 +194,8 @@ export default function MainContainer(): JSX.Element {
     let totalPages = 1;
 
     try {
-      const MergeRES = await axios.get(
-        `https://api.iimad.com/api/ranking/${times}?page=${page}&type=${contentsType}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+      const MergeRES = await apiClient.get(
+        `/api/ranking/${times}?page=${page}&type=${contentsType}`
       );
       if (MergeRES.status === 200) {
         mergeDetailList = MergeRES.data.data.details_list;
@@ -215,13 +207,8 @@ export default function MainContainer(): JSX.Element {
         }
         while (page <= totalPages) {
           page++;
-          const nextPageRES = await axios.get(
-            `https://api.iimad.com/api/ranking/${times}?page=${page}&type=${contentsType}`,
-            {
-              headers: {
-                Authorization: token,
-              },
-            }
+          const nextPageRES = await apiClient.get(
+            `/api/ranking/${times}?page=${page}&type=${contentsType}`
           );
           mergeDetailList = mergeDetailList.concat(
             nextPageRES.data.data.details_list
@@ -236,13 +223,8 @@ export default function MainContainer(): JSX.Element {
 
   const allTimeRanking = async () => {
     try {
-      const MonthRES = await axios.get(
-        `https://api.iimad.com/api/ranking/alltime?page=1&type=all`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+      const MonthRES = await apiClient.get(
+        `/api/ranking/alltime?page=1&type=all`
       );
       if (MonthRES.status === 200) {
         setRanking(MonthRES.data.data);
@@ -255,13 +237,8 @@ export default function MainContainer(): JSX.Element {
   };
   const monthlyRanking = async () => {
     try {
-      const MonthRES = await axios.get(
-        `https://api.iimad.com/api/ranking/monthly?page=1&type=all`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+      const MonthRES = await apiClient.get(
+        `/api/ranking/monthly?page=1&type=all`
       );
       if (MonthRES.status === 200) {
         setRanking(MonthRES.data.data);
@@ -274,13 +251,8 @@ export default function MainContainer(): JSX.Element {
   };
   const weeklyRanking = async () => {
     try {
-      const MonthRES = await axios.get(
-        `https://api.iimad.com/api/ranking/weekly?page=1&type=all`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+      const MonthRES = await apiClient.get(
+        `/api/ranking/weekly?page=1&type=all`
       );
       if (MonthRES.status === 200) {
         setRanking(MonthRES.data.data);
@@ -294,14 +266,7 @@ export default function MainContainer(): JSX.Element {
 
   const TotalRecommend = async () => {
     try {
-      const RecommendRES = await axios.get(
-        `https://api.iimad.com/api/recommend/all`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const RecommendRES = await apiClient.get(`/api/recommend/all`);
       if (RecommendRES.status === 200) {
         setRecommend(RecommendRES.data.data);
 
@@ -314,14 +279,7 @@ export default function MainContainer(): JSX.Element {
 
   const Review = async () => {
     try {
-      const ReviewRES = await axios.get(
-        `https://api.iimad.com/api/popular/review`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const ReviewRES = await apiClient.get(`/api/popular/review`);
       if (ReviewRES.status === 200) {
         setTopReview(ReviewRES.data.data);
 
@@ -334,14 +292,7 @@ export default function MainContainer(): JSX.Element {
 
   const Write = async () => {
     try {
-      const WriteRES = await axios.get(
-        `https://api.iimad.com/api/popular/posting`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const WriteRES = await apiClient.get(`/api/popular/posting`);
       if (WriteRES.status === 200) {
         setTopWrite(WriteRES.data.data);
 

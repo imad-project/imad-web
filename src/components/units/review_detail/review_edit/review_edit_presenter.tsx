@@ -7,6 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { getCookie } from "../../../../commons/cookies/cookie";
 import ReactStars from "react-stars";
+import apiClient from "@/api/apiClient";
 
 export default function Review_EDIT(props: IMyReviewProps) {
   const [title, setTitle] = useState(props.reviewData?.title);
@@ -98,18 +99,13 @@ export default function Review_EDIT(props: IMyReviewProps) {
       getCookie("Authorization") !== undefined
     ) {
       try {
-        const EditReview = await axios.patch(
-          `https://api.iimad.com/api/review/${props.reviewData?.review_id}`,
+        const EditReview = await apiClient.patch(
+          `/api/review/${props.reviewData?.review_id}`,
           {
             title: title,
             content: contents,
             score: rating,
             is_spoiler: isSpoiler,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${getCookie("Authorization")}`,
-            },
           }
         );
         if (EditReview.status === 200) {

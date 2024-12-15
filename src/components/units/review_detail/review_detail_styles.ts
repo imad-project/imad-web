@@ -187,6 +187,13 @@ export const Date_span = styled.div`
   }
 `;
 
+export const ReviewClickBox = styled.div`
+  width: 300px;
+  @media (max-width: 1080px) {
+    width: 150px;
+  }
+`;
+
 export const title_span = styled.div`
   width: 100%;
   margin-bottom: 20px;

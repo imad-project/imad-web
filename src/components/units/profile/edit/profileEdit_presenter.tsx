@@ -1,6 +1,6 @@
-import * as S from "./setUserData_styles";
+import * as S from "./profileEdit_styles";
 
-export default function SetUserData_UI(props: any) {
+export default function ProfileEdit_Ui(props: any) {
   const lengthCheck = (): string => {
     if (props.nickName.length < 2) {
       return "red";
@@ -16,7 +16,11 @@ export default function SetUserData_UI(props: any) {
       <S.Title>회원정보 수정</S.Title>
       <div>
         <S.SubTitle>닉네임</S.SubTitle>
-        <S.Input type="text" onChange={props.onChangeNickName} />
+        <S.Input
+          type="text"
+          onChange={props.onChangeNickName}
+          defaultValue={props.nickName}
+        />
         {props.isChecked ? (
           props.nickNameCheck ? (
             <S.AlertSpan color="green">
@@ -58,9 +62,15 @@ export default function SetUserData_UI(props: any) {
 
       <S.Wrapper>
         <S.SubTitle>출생년도</S.SubTitle>
-        <S.StyledSelect id="year" onChange={props.onChangeAge}>
+        <S.StyledSelect
+          id="year"
+          onChange={props.onChangeAge}
+          value={props.userAge}
+        >
           {props.years.map((el: number) => (
-            <S.StyledOption key={el}>{el}</S.StyledOption>
+            <S.StyledOption key={el} value={el}>
+              {el}
+            </S.StyledOption>
           ))}
         </S.StyledSelect>
       </S.Wrapper>

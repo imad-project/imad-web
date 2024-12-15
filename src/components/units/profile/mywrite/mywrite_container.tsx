@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { getCookie } from "../../../../../src/commons/cookies/cookie";
 import PaginationComponent from "@/src/commons/pagination/pagination";
+import apiClient from "@/api/apiClient";
 
 interface IWriteData {
   details_list: [
@@ -48,14 +49,7 @@ export default function MyWrite_container() {
 
   const FETCH_MYWRITE = async () => {
     try {
-      const response = await axios.get(
-        "https://api.iimad.com/api/profile/posting/list?page=1",
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
-          },
-        }
-      );
+      const response = await apiClient.get("/api/profile/posting/list?page=1");
       if (response.status === 200) {
         setWriteData(response.data.data);
       }
@@ -66,13 +60,8 @@ export default function MyWrite_container() {
 
   const FETCH_MYWRITE_PAGES = async (currentPage: number) => {
     try {
-      const response = await axios.get(
-        `https://api.iimad.com/api/profile/posting/list?page=${currentPage}`,
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
-          },
-        }
+      const response = await apiClient.get(
+        `/api/profile/posting/list?page=${currentPage}`
       );
       if (response.status === 200) {
         setWriteData(response.data.data);

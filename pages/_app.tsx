@@ -5,6 +5,7 @@ import { globalStyles } from "../src/commons/styles/globalStyles";
 import { useRouter } from "next/router";
 import { useEffect, useLayoutEffect, useState } from "react";
 import Head from "next/head";
+import apiClient from "@/api/apiClient";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();

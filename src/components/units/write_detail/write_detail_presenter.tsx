@@ -7,6 +7,7 @@ import { ChangeEvent, useState } from "react";
 import { getCookie } from "@/src/commons/cookies/cookie";
 import axios from "axios";
 import { useRouter } from "next/router";
+import apiClient from "@/api/apiClient";
 
 const CommentItem = ({
   comment,
@@ -116,13 +117,8 @@ const CommentItem = ({
   const onClickDelBtn = async () => {
     if (confirm("댓글을 삭제하시겠습니까?") == true) {
       try {
-        const DelRES = await axios.delete(
-          `https://api.iimad.com/api/posting/comment/${comment.comment_id}`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
+        const DelRES = await apiClient.delete(
+          `/api/posting/comment/${comment.comment_id}`
         );
         if (DelRES.status === 200) {
           setContentsLike(!contentsLike);
@@ -163,19 +159,11 @@ const CommentItem = ({
   const onClickReportOption = async (type: string) => {
     if (confirm("댓글을 신고하시겠습니까?") == true) {
       try {
-        const ReportRES = await axios.post(
-          `https://api.iimad.com/api/report/comment`,
-          {
-            reported_id: comment.comment_id,
-            report_type_string: type,
-            report_desc: type === "OTHER" ? reportDesc : "",
-          },
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const ReportRES = await apiClient.post(`/api/report/comment`, {
+          reported_id: comment.comment_id,
+          report_type_string: type,
+          report_desc: type === "OTHER" ? reportDesc : "",
+        });
         if (ReportRES.status === 200) {
           console.log(ReportRES.statusText);
           setContentsLike(!contentsLike);
@@ -192,15 +180,10 @@ const CommentItem = ({
   const onClickEditSubmit = async () => {
     if (confirm("댓글을 수정하시겠습니까?") == true) {
       try {
-        const EditRES = await axios.patch(
-          `https://api.iimad.com/api/posting/comment/${comment.comment_id}`,
+        const EditRES = await apiClient.patch(
+          `/api/posting/comment/${comment.comment_id}`,
           {
             content: editComments,
-          },
-          {
-            headers: {
-              Authorization: token,
-            },
           }
         );
         if (EditRES.status === 200) {
@@ -223,15 +206,10 @@ const CommentItem = ({
       return;
     } else {
       try {
-        const EditRES = await axios.patch(
-          `https://api.iimad.com/api/posting/comment/like/${comment.comment_id}`,
+        const EditRES = await apiClient.patch(
+          `/api/posting/comment/like/${comment.comment_id}`,
           {
             like_status: 1,
-          },
-          {
-            headers: {
-              Authorization: token,
-            },
           }
         );
         if (EditRES.status === 200) {
@@ -250,15 +228,10 @@ const CommentItem = ({
       return;
     } else {
       try {
-        const EditRES = await axios.patch(
-          `https://api.iimad.com/api/posting/comment/like/${comment.comment_id}`,
+        const EditRES = await apiClient.patch(
+          `/api/posting/comment/like/${comment.comment_id}`,
           {
             like_status: -1,
-          },
-          {
-            headers: {
-              Authorization: token,
-            },
           }
         );
         if (EditRES.status === 200) {
@@ -273,15 +246,10 @@ const CommentItem = ({
 
   const onClickCommentCancelLike = async () => {
     try {
-      const EditRES = await axios.patch(
-        `https://api.iimad.com/api/posting/comment/like/${comment.comment_id}`,
+      const EditRES = await apiClient.patch(
+        `/api/posting/comment/like/${comment.comment_id}`,
         {
           like_status: 0,
-        },
-        {
-          headers: {
-            Authorization: token,
-          },
         }
       );
       if (EditRES.status === 200) {
@@ -572,17 +540,12 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
       getCookie("Authorization") !== undefined
     ) {
       try {
-        const PostComments = await axios.post(
+        const PostComments = await apiClient.post(
           `https://api.iimad.com/api/posting/comment`,
           {
             posting_id: props?.detail?.posting_id,
             parent_id: parent_id,
             content: comments,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${getCookie("Authorization")}`,
-            },
           }
         );
         if (PostComments.data.status === 409) {
@@ -636,13 +599,8 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
   const onClickDelBtn = async () => {
     if (confirm("게시물을 삭제하시겠습니까?") == true) {
       try {
-        const DelRES = await axios.delete(
-          `https://api.iimad.com/api/posting/${props.detail?.posting_id}`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
+        const DelRES = await apiClient.delete(
+          `/api/posting/${props.detail?.posting_id}`
         );
         if (DelRES.status === 200) {
           props.setContentsLike(!props.contentsLike);
@@ -689,19 +647,11 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
   const onClickReportOption = async (type: string) => {
     if (confirm("게시물을 신고하시겠습니까?") == true) {
       try {
-        const ReportRES = await axios.post(
-          `https://api.iimad.com/api/report/posting`,
-          {
-            reported_id: props.detail?.posting_id,
-            report_type_string: type,
-            report_desc: type === "OTHER" ? reportDesc : "",
-          },
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const ReportRES = await apiClient.post(`/api/report/posting`, {
+          reported_id: props.detail?.posting_id,
+          report_type_string: type,
+          report_desc: type === "OTHER" ? reportDesc : "",
+        });
         if (ReportRES.status === 200) {
           console.log(ReportRES.statusText);
           props.setContentsLike(!props.contentsLike);

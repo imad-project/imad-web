@@ -20,7 +20,7 @@ export default function MyWritePage_UI(props: IMyWriteProps) {
                   <S.avatar
                     src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${el.user_profile_image}`}
                   />
-                  <h1>{el.user_nickname}</h1>
+                  <S.UserName>{el.user_nickname}</S.UserName>
                 </S.RowWrapper>
                 <S.WriteBox>
                   <S.reviewContentsWrapper>
