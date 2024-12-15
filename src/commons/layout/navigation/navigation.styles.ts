@@ -58,3 +58,25 @@ export const MenuItem = styled.div`
     height: 30px;
   }
 `;
+
+export const Nickname = styled.div<{ isLong: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  font-size: 18px;
+  margin: 0px 20px;
+  cursor: pointer;
+  color: #0b0537;
+
+  :hover {
+    color: white;
+  }
+
+  @media (max-width: 480px) {
+    font-size: ${(props) => (props.isLong ? "10px" : "13px")};
+    font-weight: bold;
+    margin: 0 5px;
+    height: 30px;
+  }
+`;

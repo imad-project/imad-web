@@ -3,6 +3,7 @@ import { getCookie } from "../../../src/commons/cookies/cookie";
 import axios from "axios";
 import MyReview_UI from "../../../src/components/units/review_detail/review_detail_presenter";
 import { useRouter } from "next/router";
+import apiClient from "@/api/apiClient";
 
 interface IReviewData {
   review_id: number;
@@ -38,14 +39,7 @@ export default function MyReview_Container() {
 
   const FETCH_REVIEW = async (id: string) => {
     try {
-      const response = await axios.get(
-        `https://api.iimad.com/api/review/${id}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const response = await apiClient.get(`/api/review/${id}`);
       if (response.status === 200) {
         setReviewData(response.data.data);
       }

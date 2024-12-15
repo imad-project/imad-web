@@ -3,6 +3,7 @@ import axios from "axios";
 import * as S from "../search/search_styles";
 import Modal from "react-modal";
 import { useRouter } from "next/router";
+import apiClient from "@/api/apiClient";
 
 interface IDetail {
   poster_path: string;
@@ -38,20 +39,14 @@ export default function SearchPage() {
   }, [query]); // query 상태가 변경될 때마다 useEffect 실행
   const search = async () => {
     try {
-      const response = await axios.get(
-        `https://api.iimad.com/api/contents/search?query=${query}&type=multi&page=1`,
-        {
-          headers: {
-            Authorization: "GUEST",
-          },
-        }
+      const response = await apiClient.get(
+        `/api/contents/search?query=${query}&type=multi&page=1`
       );
 
       if (response.status === 200) {
         setSearchResults(response.data?.data?.results ?? []);
         console.log(searchResults);
         setShowSearch(true);
-        
       }
     } catch (error) {
       console.error("Error occurred while searching:", error);
@@ -63,10 +58,10 @@ export default function SearchPage() {
   };
 
   return (
-    <div>
-      <h1>작품 검색</h1>
+    <S.Wrapper>
+      <S.Title>작품 검색</S.Title>
 
-      <input
+      <S.Input
         type="text"
         value={query}
         onChange={handleInputChange}
@@ -74,9 +69,9 @@ export default function SearchPage() {
       />
 
       {showSearch && searchResults && searchResults.length > 0 && (
-        <>
+        <S.Container>
           {searchResults.map((result: any, index) => (
-            <div
+            <S.Item
               key={result.id}
               onClick={() => onClickImg(result.id, result.media_type)}
             >
@@ -89,13 +84,13 @@ export default function SearchPage() {
               <p>
                 {result.name ?? result.title ?? "No name or title available"}
               </p>
-            </div>
+            </S.Item>
           ))}
-        </>
+        </S.Container>
       )}
       {showSearch && searchResults && searchResults.length === 0 && (
         <h1>검색 결과가 없습니다.</h1>
       )}
-    </div>
+    </S.Wrapper>
   );
 }

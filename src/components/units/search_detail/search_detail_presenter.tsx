@@ -12,6 +12,7 @@ import CircularProgressWhiteChart from "@/src/commons/rate_view/rate_view_white"
 import ProducerRole from "@/src/commons/crewfinder/crewfinder";
 import CircularProgressChart from "@/src/commons/rate_view/rate_view";
 import { elapsedTime } from "../../../../src/commons/date/date";
+import apiClient from "@/api/apiClient";
 
 export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
   const MAX_TITLE_BYTES = 50; // 리뷰 제목 최대 바이트 수
@@ -89,21 +90,13 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
       getCookie("Authorization") !== undefined
     ) {
       try {
-        const PostReview = await axios.post(
-          `https://api.iimad.com/api/review`,
-          {
-            contents_id: props?.data?.contents_id,
-            title: title,
-            content: content,
-            score: rating,
-            is_spoiler: isSpoiler,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${getCookie("Authorization")}`,
-            },
-          }
-        );
+        const PostReview = await apiClient.post(`/api/review`, {
+          contents_id: props?.data?.contents_id,
+          title: title,
+          content: content,
+          score: rating,
+          is_spoiler: isSpoiler,
+        });
         if (PostReview.data.status === 409) {
           alert(PostReview.data.message);
         }

@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { useRouter } from "next/router";
 import Review_EDIT from "../../../../src/components/units/review_detail/review_edit/review_edit_presenter";
+import apiClient from "@/api/apiClient";
 
 interface IReviewData {
   review_id: number;
@@ -44,14 +45,7 @@ export default function MyReview_Container() {
       return;
     } else {
       try {
-        const response = await axios.get(
-          `https://api.iimad.com/api/review/${id}`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const response = await apiClient.get(`/api/review/${id}`);
         if (response.status === 200) {
           setReviewData(response.data.data);
         }

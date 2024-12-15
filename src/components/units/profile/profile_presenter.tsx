@@ -1,7 +1,11 @@
 import { IProfileProps } from "./profile_types";
 import * as S from "./profile_styles";
 import Profile_Modal from "../../../../src/commons/profile_image/profile_modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import styled from "@emotion/styled";
+import ReactModal from "react-modal";
+import revoke from "../../../../src/commons/revoke/revoke";
 
 const AuthArray = [
   { key: "IMAD", label: "아이매드 회원" },
@@ -92,7 +96,7 @@ const movie_genres = [
 const tv_genres = [
   {
     id: 10759,
-    name: "Action & Adventure",
+    name: "액션/모험",
   },
   {
     id: 16,
@@ -120,7 +124,7 @@ const tv_genres = [
   },
   {
     id: 10762,
-    name: "Kids",
+    name: "아동",
   },
   {
     id: 9648,
@@ -128,27 +132,27 @@ const tv_genres = [
   },
   {
     id: 10763,
-    name: "News",
+    name: "뉴스",
   },
   {
     id: 10764,
-    name: "Reality",
+    name: "리얼리티",
   },
   {
     id: 10765,
-    name: "Sci-Fi & Fantasy",
+    name: "SF/판타지",
   },
   {
     id: 10766,
-    name: "Soap",
+    name: "소프 오페라",
   },
   {
     id: 10767,
-    name: "Talk",
+    name: "토크",
   },
   {
     id: 10768,
-    name: "War & Politics",
+    name: "전쟁/정치",
   },
   {
     id: 37,
@@ -157,6 +161,65 @@ const tv_genres = [
 ];
 
 export default function Profile_UI(props: IProfileProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // 768px 이하를 모바일로 간주
+    };
+
+    handleResize(); // 초기 화면 크기 체크
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // 이벤트 제거
+    };
+  }, []);
+
+  // 커스텀 버튼 스타일
+  const CustomButton = styled.button`
+    background-color: #008cba;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+      background-color: #007bb5;
+    }
+  `;
+
+  // 모달 스타일 (react-modal의 인라인 스타일링)
+  const customModalStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      width: isMobile ? "95%" : "80%", // 모바일: 95%, 데스크톱: 80%
+      height: isMobile ? "80%" : "70%", // 모바일: 60%, 데스크톱: 70%
+      padding: "20px",
+      borderRadius: "10px",
+      boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)",
+    },
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+  };
+
+  const Row_box = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  `;
+
   const authProvider = AuthArray.find(
     (auth) => auth.key === props?.data2?.auth_provider
   );
@@ -169,9 +232,110 @@ export default function Profile_UI(props: IProfileProps) {
     (id) => movie_genres.find((genre) => genre.id === id)?.name
   );
 
+  const DropdownMenu = ({
+    onEdit,
+    onDelete,
+    onPasswordEdit,
+    isImad,
+  }: {
+    onEdit?: () => void;
+    onDelete?: () => void;
+    onPasswordEdit?: () => void;
+    isImad: string;
+  }) => (
+    <S.DropdownMenu>
+      {isImad == "IMAD" ? (
+        <>
+          <S.MenuItem onClick={onEdit} color="#00aaff">
+            회원정보 수정
+          </S.MenuItem>
+          <S.MenuItem onClick={onPasswordEdit} color="#00aaff">
+            비밀번호 변경
+          </S.MenuItem>
+          <S.MenuItem onClick={onDelete} color="#f34336">
+            회원탈퇴
+          </S.MenuItem>
+        </>
+      ) : (
+        <>
+          <S.MenuItem onClick={onEdit} color="#00aaff">
+            회원정보 수정
+          </S.MenuItem>
+
+          <S.MenuItem onClick={onDelete} color="#f34336">
+            회원탈퇴
+          </S.MenuItem>
+        </>
+      )}
+    </S.DropdownMenu>
+  );
+
+  const handleIconClick = () => {
+    setIsMenuOpen((prev) => !prev); // 메뉴 열림/닫힘 토글
+  };
+
+  const handleEdit = () => {
+    router.push(`/profile/edit`);
+    setIsMenuOpen(false);
+  };
+
+  const handlePasswordEdit = () => {
+    props.openModal2();
+    setIsMenuOpen(false);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await revoke(props.data2?.auth_provider ? props.data2.auth_provider : "");
+
+      setIsMenuOpen(false);
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <S.Wrapper>
+        <S.IconBox onClick={handleIconClick}>
+          <S.Icon src="/img/icon/icons/gearshape.fill.png" />
+          {isMenuOpen && (
+            <DropdownMenu
+              onEdit={handleEdit}
+              onPasswordEdit={handlePasswordEdit}
+              onDelete={handleDelete}
+              isImad={
+                props.data2?.auth_provider ? props.data2?.auth_provider : ""
+              }
+            />
+          )}
+        </S.IconBox>
+
+        <ReactModal
+          isOpen={props.isModalOpen2}
+          onRequestClose={props.closeModal2}
+          style={customModalStyles}
+          contentLabel="Image Upload Modal"
+        >
+          <Row_box>
+            <h2>비밀번호 변경</h2>
+            <CustomButton onClick={props.closeModal2}>닫기</CustomButton>
+          </Row_box>
+          <S.InputBox>
+            <S.SubTitle>기존 비밀번호</S.SubTitle>
+            <S.Input type="password" onChange={props.onChangeOriginPassWord} />
+            <S.SubTitle>새 비밀번호</S.SubTitle>
+            <S.Input type="password" onChange={props.onChangePassWord} />
+
+            <S.SubTitle>새 비밀번호 확인</S.SubTitle>
+            <S.Input type="password" onChange={props.onChangePassWord2} />
+
+            <S.LoginBtn onClick={props.CHANGE_PASSWORD}>
+              비밀번호 변경
+            </S.LoginBtn>
+          </S.InputBox>
+        </ReactModal>
         <S.RowWrapper>
           <S.ImgBox onClick={props.openModal}>
             <S.Profile_image

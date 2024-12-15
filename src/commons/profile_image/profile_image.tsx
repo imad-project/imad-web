@@ -4,6 +4,7 @@ import "cropperjs/dist/cropper.css";
 import axios from "axios";
 import { getCookie } from "../../../src/commons/cookies/cookie";
 import styled from "@emotion/styled";
+import apiClient from "@/api/apiClient";
 
 // 이미지 업로드 컴포넌트 스타일링
 const UploadContainer = styled.div`
@@ -26,7 +27,10 @@ const FileInputLabel = styled.label`
   padding: 10px 20px;
   font-size: 16px;
   border-radius: 4px;
-  margin-right: 50px;
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   &:hover {
     background-color: #45a049;
@@ -36,7 +40,7 @@ const FileInputLabel = styled.label`
 const CustomButton = styled.button`
   background-color: #008cba;
   color: white;
-  padding: 12px 24px;
+  padding: 10px 20px;
   font-size: 16px;
   border: none;
   border-radius: 4px;
@@ -57,16 +61,24 @@ const Title = styled.h1`
 `;
 
 const Profile_Image = styled.img<{ isSelected: boolean }>`
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   border: ${({ isSelected }) => (isSelected ? "3px solid blue" : "none")};
-  border-radius: 50px;
+  border-radius: 25px;
   box-shadow: 0px 0px 10px gray;
   margin: 10px;
 `;
 
 const Row_Box = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+`;
+
+const Row_Box2 = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -113,12 +125,11 @@ export default function ImageUpload(props: any) {
       const formData = new FormData();
       formData.append("image", `default_profile_image_${selectedProfile}.png`);
       try {
-        const response = await axios.patch(
-          `https://api.iimad.com/api/user/profile_image/default`,
+        const response = await apiClient.patch(
+          `/api/user/profile_image/default`,
           formData,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "multipart/form-data",
             },
           }
@@ -181,12 +192,11 @@ export default function ImageUpload(props: any) {
     formData.append("image", croppedImage, selectedFile.name);
 
     try {
-      const response = await axios.patch(
-        `https://api.iimad.com/api/user/profile_image/custom`,
+      const response = await apiClient.patch(
+        `/api/user/profile_image/custom`,
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }
@@ -259,14 +269,12 @@ export default function ImageUpload(props: any) {
                 </CustomButton>
               </>
             )}
-          <Row_Box>
-            <FileInputLabel htmlFor="fileInput">
-              커스텀 이미지 선택
-            </FileInputLabel>
+          <Row_Box2>
+            <FileInputLabel htmlFor="fileInput">이미지 선택</FileInputLabel>
             <CustomButton onClick={handleUpload} disabled={!croppedImage}>
-              커스텀 이미지 적용
+              이미지 적용
             </CustomButton>
-          </Row_Box>
+          </Row_Box2>
         </UploadContainer>
       </Box>
     </>

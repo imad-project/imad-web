@@ -2,8 +2,15 @@ import { IMyReviewProps } from "./myreview_types";
 import * as S from "./myreview_styles";
 import { elapsedTime } from "../../../../commons/date/date";
 import CircularProgressChart from "@/src/commons/rate_view/rate_view";
+import { useRouter } from "next/router";
 
 export default function MyReview_UI(props: IMyReviewProps) {
+  const router = useRouter();
+
+  const onClickReview = (id: number) => {
+    void router.push(`/review/${id}`);
+  };
+
   return (
     <S.MainWrapper>
       <S.title_span>내 리뷰</S.title_span>
@@ -24,13 +31,18 @@ export default function MyReview_UI(props: IMyReviewProps) {
                   <S.avatar
                     src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${el.user_profile_image}`}
                   />
-                  <h1>{el.user_nickname}</h1>
+                  <S.NickNameTitle>{el.user_nickname}</S.NickNameTitle>
                 </S.RowWrapper>
                 <S.reviewBox>
                   <S.reviewContentsWrapper>
-                    <S.Review_title>{el.title}</S.Review_title>
-                    <S.DividedLine />
-                    <S.Review_contents>{el.content}</S.Review_contents>
+                    <S.ReviewClickBox
+                      onClick={() => onClickReview(el.review_id)}
+                    >
+                      <S.Review_title>{el.title}</S.Review_title>
+
+                      <S.Review_contents>{el.content}</S.Review_contents>
+                    </S.ReviewClickBox>
+
                     <S.DividedLine />
                     <S.RowWrapper>
                       <S.likeDiv>

@@ -3,6 +3,7 @@ import { MouseEvent, useEffect, useState } from "react";
 import NavigationUI from "./navigation.presenter";
 import axios from "axios";
 import { getCookie, removeCookie } from "../../cookies/cookie";
+import apiClient from "@/api/apiClient";
 
 interface IUserData {
   gender: string;
@@ -40,6 +41,10 @@ export default function NavigationContainer(): JSX.Element {
   };
 
   const FETCHUSER = async () => {
+    if (!getCookie("Authorization")) {
+      return;
+    }
+
     try {
       const response = await axios.get("https://api.iimad.com/api/user", {
         headers: {
@@ -54,6 +59,10 @@ export default function NavigationContainer(): JSX.Element {
       console.error("Error fetching user data:", error);
     }
   };
+
+  if (userData?.nickname === "") {
+    FETCHUSER();
+  }
 
   useEffect(() => {
     if (authToken) {
@@ -83,11 +92,26 @@ export default function NavigationContainer(): JSX.Element {
       if (token !== authToken) {
         setAuthToken(token);
       }
+      // 닉네임이 비어있으면 FETCHUSER 호출
+      if (userData && userData.nickname === "") {
+        void FETCHUSER(); // 비동기 함수 호출
+      }
     }, 1000); // Check every second
 
     return () => clearInterval(intervalId);
-  }, [authToken]);
+  }, [authToken, userData]);
 
+  useEffect(() => {
+    const handleRouteChange = () => {
+      FETCHUSER(); // 페이지 변경 시 유저 데이터를 다시 가져옴
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, []);
   return (
     <NavigationUI
       onClickMenu={onClickMenu}

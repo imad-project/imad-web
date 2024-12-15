@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { ChangeEvent } from "react";
 interface IData {
   user_id: number;
   user_nickname: string;
@@ -50,4 +51,11 @@ export interface IProfileProps {
   isModalOpen: boolean;
   openModal: () => void;
   closeModal: () => void;
+  openModal2: () => void;
+  closeModal2: () => void;
+  isModalOpen2: boolean;
+  onChangeOriginPassWord: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangePassWord: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangePassWord2: (event: ChangeEvent<HTMLInputElement>) => void;
+  CHANGE_PASSWORD: () => void;
 }

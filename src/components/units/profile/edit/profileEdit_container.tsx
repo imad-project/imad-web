@@ -1,8 +1,8 @@
-import { getCookie } from "../../../commons/cookies/cookie";
+import { getCookie } from "../../../../commons/cookies/cookie";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, useCallback, useState, useEffect } from "react";
-import SetUserData_UI from "./setUserData_presenter";
+import SetUserData_UI from "./profileEdit_presenter";
 import apiClient from "@/api/apiClient";
 
 const age = [
@@ -159,7 +159,7 @@ const tv_genres = [
   },
 ];
 
-export default function SetUserData_container() {
+export default function ProfileEdit_Container() {
   const [nickName, setNickName] = useState("");
   const [MovieCheckedList, setMovieCheckedList] = useState<number[]>([]);
   const [isChecked, setIsChecked] = useState(false);
@@ -168,6 +168,23 @@ export default function SetUserData_container() {
   const router = useRouter();
   const [TVCheckedList, setTVCheckedList] = useState<number[]>([]);
   const [gender, setGender] = useState<"MALE" | "FEMALE">("MALE");
+  const [defaultNickname, setDefaultNickname] = useState("");
+
+  const FETCH_USER = async () => {
+    try {
+      const response2 = await apiClient.get("/api/user");
+      if (response2.status === 200) {
+        setNickName(response2.data.data.nickname);
+        setDefaultNickname(response2.data.data.nickname);
+        setGender(response2.data.data.gender);
+        setUserAge(response2.data.data.birth_year);
+        setMovieCheckedList(response2.data.data.preferred_movie_genres);
+        setTVCheckedList(response2.data.data.preferred_tv_genres);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // 닉네임 변경부
   const onChangeNickName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -254,8 +271,31 @@ export default function SetUserData_container() {
     years.push(y);
   }
 
+  const ChangeUserData = async () => {
+    try {
+      const PatchUserRes = await apiClient.patch("/api/user", {
+        birth_year: userAge,
+        gender: gender,
+        preferred_movie_genres: MovieCheckedList,
+        preferred_tv_genres: TVCheckedList,
+        nickname: nickName,
+      });
+      if (PatchUserRes.status === 200) {
+        router.back();
+      }
+    } catch (error) {
+      console.error("Error occurred while searching:", error);
+    }
+  };
+
   // 수정요청 API 요청부
-  const PATCHUSER = async () => {
+  const PATCHUSER = () => {
+    const isNickNameChanged = nickName == defaultNickname;
+    if (isNickNameChanged) {
+      ChangeUserData();
+      return;
+    }
+
     if (isChecked === false) {
       alert("닉네임 중복확인을 해주세요!");
       return;
@@ -266,20 +306,7 @@ export default function SetUserData_container() {
       return;
     }
 
-    try {
-      const PatchUserRes = await apiClient.patch("/api/user", {
-        birth_year: userAge,
-        gender: gender,
-        preferred_movie_genres: MovieCheckedList,
-        preferred_tv_genres: TVCheckedList,
-        nickname: nickName,
-      });
-      if (PatchUserRes.status === 200) {
-        router.push("/");
-      }
-    } catch (error) {
-      console.error("Error occurred while searching:", error);
-    }
+    ChangeUserData();
   };
   const SetDefaultImg = async () => {
     const formData = new FormData();
@@ -303,7 +330,7 @@ export default function SetUserData_container() {
   };
 
   useEffect(() => {
-    SetDefaultImg();
+    FETCH_USER();
   }, []);
 
   const onSubmit = () => {
@@ -329,6 +356,7 @@ export default function SetUserData_container() {
       isChecked={isChecked}
       nickNameCheck={nickNameCheck}
       gender={gender}
+      userAge={userAge}
     />
   );
 }

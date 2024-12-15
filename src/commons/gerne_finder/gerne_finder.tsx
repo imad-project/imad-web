@@ -80,7 +80,7 @@ const movie_genres = [
 const tv_genres = [
   {
     id: 10759,
-    name: "액션 & 어드벤쳐",
+    name: "액션/어드벤쳐",
   },
   {
     id: 16,
@@ -124,7 +124,7 @@ const tv_genres = [
   },
   {
     id: 10765,
-    name: "SF & 판타지",
+    name: "SF/판타지",
   },
   {
     id: 10766,

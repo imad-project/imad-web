@@ -5,6 +5,7 @@ import axios from "axios";
 import { getCookie } from "../../../../src/commons/cookies/cookie";
 import PaginationComponent from "@/src/commons/pagination/pagination";
 import Board_Page_UI from "./board_main.presenter";
+import apiClient from "@/api/apiClient";
 
 interface IWriteData {
   details_list: [
@@ -110,13 +111,8 @@ export default function Board_container() {
 
   const FETCH_BOARD_FIRST = async () => {
     try {
-      const response = await axios.get(
-        "https://api.iimad.com/api/posting/list?page=1&order=1&category=0",
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+      const response = await apiClient.get(
+        "/api/posting/list?page=1&order=1&category=0"
       );
       if (response.status === 200) {
         setWriteData(response.data.data);
@@ -128,13 +124,8 @@ export default function Board_container() {
 
   const FETCH_BOARD_VALUECHANGE = async () => {
     try {
-      const response = await axios.get(
-        `https://api.iimad.com/api/posting/list/search?search_type=0&query=${query}&page=1&sort=${sort}&order=${order}&category=${category}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+      const response = await apiClient.get(
+        `/api/posting/list/search?search_type=0&query=${query}&page=1&sort=${sort}&order=${order}&category=${category}`
       );
       if (response.status === 200) {
         setWriteData(response.data.data);
@@ -147,13 +138,8 @@ export default function Board_container() {
 
   const FETCH_BOARD_PAGES = async (currentPage: number) => {
     try {
-      const response = await axios.get(
-        `https://api.iimad.com/api/posting/list/search?search_type=0&query=${query}&page=${currentPage}&sort=${sort}&order=${order}&category=${category}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+      const response = await apiClient.get(
+        `/api/posting/list/search?search_type=0&query=${query}&page=${currentPage}&sort=${sort}&order=${order}&category=${category}`
       );
       if (response.status === 200) {
         setWriteData(response.data.data);

@@ -23,7 +23,13 @@ export default function LoginContainer() {
         if (res.status === 200) {
           console.log(res.data.message);
           const accessToken = res.headers["authorization"];
+          const refresh_token = res.headers["authorization-refresh"];
           setCookie("Authorization", accessToken, {
+            path: "/",
+            secure: true,
+            sameSite: "none",
+          });
+          setCookie("Authorization_refresh", refresh_token, {
             path: "/",
             secure: true,
             sameSite: "none",

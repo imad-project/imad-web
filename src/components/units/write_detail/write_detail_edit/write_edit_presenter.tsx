@@ -4,7 +4,6 @@ import { IBoardWriteProps } from "./write_edit_types";
 
 export default function BoardWriteEditUI(props: IBoardWriteProps) {
   const OPTIONS = [
-    { value: 0, name: "전체" },
     { value: 1, name: "자유글" },
     { value: 2, name: "질문글" },
     { value: 3, name: "토론글" },
