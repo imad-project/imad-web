@@ -1,14 +1,11 @@
 import axios from "axios";
 import { getCookie, removeCookie } from "../cookies/cookie";
+import apiClient from "@/api/apiClient";
 
 export default async function revoke(type: string): Promise<void> {
   const DELETE_IMAD = async () => {
     try {
-      const response = await axios.delete("https://api.iimad.com/api/user", {
-        headers: {
-          Authorization: `Bearer ${getCookie("Authorization")}`,
-        },
-      });
+      const response = await apiClient.delete("/api/user");
       if (response.status === 200) {
         removeCookie("Authorization");
         removeCookie("Authorization_refresh");
@@ -21,13 +18,8 @@ export default async function revoke(type: string): Promise<void> {
 
   const DELETE_APPLE = async () => {
     try {
-      const response = await axios.delete(
-        "https://api.iimad.com/api/oauth2/revoke/apple?ios=false",
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
-          },
-        }
+      const response = await apiClient.delete(
+        "/api/oauth2/revoke/apple?ios=false"
       );
       if (response.status === 200) {
         removeCookie("Authorization");
@@ -41,14 +33,7 @@ export default async function revoke(type: string): Promise<void> {
 
   const DELETE_GOOGLE = async () => {
     try {
-      const response = await axios.delete(
-        "https://api.iimad.com/api/oauth2/revoke/google",
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
-          },
-        }
-      );
+      const response = await apiClient.delete("/api/oauth2/revoke/google");
       if (response.status === 200) {
         removeCookie("Authorization");
         removeCookie("Authorization_refresh");
@@ -61,14 +46,7 @@ export default async function revoke(type: string): Promise<void> {
 
   const DELETE_NAVER = async () => {
     try {
-      const response = await axios.delete(
-        "https://api.iimad.com/api/oauth2/revoke/naver",
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
-          },
-        }
-      );
+      const response = await apiClient.delete("/api/oauth2/revoke/naver");
       if (response.status === 200) {
         removeCookie("Authorization");
         removeCookie("Authorization_refresh");
@@ -81,14 +59,7 @@ export default async function revoke(type: string): Promise<void> {
 
   const DELETE_KAKAO = async () => {
     try {
-      const response = await axios.delete(
-        "https://api.iimad.com/api/oauth2/revoke/kakao",
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
-          },
-        }
-      );
+      const response = await apiClient.delete("/api/oauth2/revoke/kakao");
       if (response.status === 200) {
         removeCookie("Authorization");
         removeCookie("Authorization_refresh");

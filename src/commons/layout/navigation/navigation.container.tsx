@@ -3,6 +3,7 @@ import { MouseEvent, useEffect, useState } from "react";
 import NavigationUI from "./navigation.presenter";
 import axios from "axios";
 import { getCookie, removeCookie } from "../../cookies/cookie";
+import apiClient from "@/api/apiClient";
 
 interface IUserData {
   gender: string;
@@ -40,6 +41,10 @@ export default function NavigationContainer(): JSX.Element {
   };
 
   const FETCHUSER = async () => {
+    if (!getCookie("Authorization")) {
+      return;
+    }
+
     try {
       const response = await axios.get("https://api.iimad.com/api/user", {
         headers: {

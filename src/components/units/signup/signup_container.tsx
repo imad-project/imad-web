@@ -4,6 +4,7 @@ import { SHA256 } from "crypto-js";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { setCookie } from "../../../commons/cookies/cookie";
+import apiClient from "@/api/apiClient";
 
 export default function SignupContainer(): JSX.Element {
   const [email, setEmail] = useState("");
@@ -20,8 +21,8 @@ export default function SignupContainer(): JSX.Element {
     return emailRegEx.test(username); //형식에 맞을 경우, true 리턴
   };
   const SIGNUPIMAD = async () => {
-    await axios
-      .post("https://api.iimad.com/api/signup", {
+    await apiClient
+      .post("/api/signup", {
         email: email,
         password: SHA256(password).toString(),
         auth_provider: "IMAD",
@@ -35,8 +36,8 @@ export default function SignupContainer(): JSX.Element {
       });
   };
   const LOGINIMAD = async () => {
-    await axios
-      .post("https://api.iimad.com/api/login", {
+    await apiClient
+      .post("/api/login", {
         email: email,
         password: SHA256(password).toString(),
       })
@@ -78,12 +79,9 @@ export default function SignupContainer(): JSX.Element {
     }
 
     try {
-      const response = await axios.post(
-        "https://api.iimad.com/api/user/validation/email",
-        {
-          info: email,
-        }
-      );
+      const response = await apiClient.post("/api/user/validation/email", {
+        info: email,
+      });
 
       if (response.status === 200) {
         setIsChecked(true);

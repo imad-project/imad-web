@@ -6,6 +6,7 @@ import { ChangeEvent, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { getCookie } from "../../../../src/commons/cookies/cookie";
+import apiClient from "@/api/apiClient";
 
 export default function MyReview_UI(props: IMyReviewProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -65,13 +66,8 @@ export default function MyReview_UI(props: IMyReviewProps) {
   const onClickDelBtn = async () => {
     if (confirm("리뷰를 삭제하시겠습니까?") == true) {
       try {
-        const DelRES = await axios.delete(
-          `https://api.iimad.com/api/review/${props.reviewData?.review_id}`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
+        const DelRES = await apiClient.delete(
+          `/api/review/${props.reviewData?.review_id}`
         );
         if (DelRES.status === 200) {
           console.log(DelRES.statusText);
@@ -108,19 +104,11 @@ export default function MyReview_UI(props: IMyReviewProps) {
   const onClickReportOption = async (type: string) => {
     if (confirm("리뷰를 신고하시겠습니까?") == true) {
       try {
-        const ReportRES = await axios.post(
-          `https://api.iimad.com/api/report/review`,
-          {
-            reported_id: props.reviewData?.review_id,
-            report_type_string: type,
-            report_desc: type === "OTHER" ? reportDesc : "",
-          },
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const ReportRES = await apiClient.post(`/api/report/review`, {
+          reported_id: props.reviewData?.review_id,
+          report_type_string: type,
+          report_desc: type === "OTHER" ? reportDesc : "",
+        });
         if (ReportRES.status === 200) {
           console.log(ReportRES.statusText);
           router.back();

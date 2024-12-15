@@ -4,6 +4,7 @@ import axios from "axios";
 import MyReview_UI from "./myreview_presenter";
 import { useRouter } from "next/router";
 import PaginationComponent from "@/src/commons/pagination/pagination";
+import apiClient from "@/api/apiClient";
 
 interface IReviewData {
   details_list: [
@@ -44,14 +45,7 @@ export default function MyReview_Container() {
 
   const FETCH_MYREVIEW = async () => {
     try {
-      const response = await axios.get(
-        "https://api.iimad.com/api/profile/review/list?page=1",
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
-          },
-        }
-      );
+      const response = await apiClient.get("/api/profile/review/list?page=1");
       if (response.status === 200) {
         setReviewData(response.data.data);
       }
@@ -62,13 +56,8 @@ export default function MyReview_Container() {
 
   const FETCH_MYREVIEW_PAGES = async (currentPage: number) => {
     try {
-      const response = await axios.get(
-        `https://api.iimad.com/api/profile/review/list?page=${currentPage}`,
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
-          },
-        }
+      const response = await apiClient.get(
+        `/api/profile/review/list?page=${currentPage}`
       );
       if (response.status === 200) {
         setReviewData(response.data.data);

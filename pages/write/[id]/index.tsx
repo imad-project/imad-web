@@ -3,6 +3,7 @@ import Write_Detail_UI from "../../../src/components/units/write_detail/write_de
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import apiClient from "@/api/apiClient";
 
 interface Comment {
   comment_id: number;
@@ -77,14 +78,7 @@ export default function WriteDetail_Page(): JSX.Element {
 
   const WRITE_DETAIL = async (id: string) => {
     try {
-      const detailRES = await axios.get(
-        `https://api.iimad.com/api/posting/${id}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const detailRES = await apiClient.get(`/api/posting/${id}`);
 
       if (detailRES.status === 200) {
         setDetail(detailRES.data.data);
@@ -97,13 +91,8 @@ export default function WriteDetail_Page(): JSX.Element {
 
   const COMMENTS_DETAIL = async (posting_id: number, parent_id: number) => {
     try {
-      const commentsRES = await axios.get(
-        `https://api.iimad.com/api/posting/comment/list?posting_id=${posting_id}&comment_type=1&parent_id=${parent_id}&page=1&sort=createdDate&order=0`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+      const commentsRES = await apiClient.get(
+        `/api/posting/comment/list?posting_id=${posting_id}&comment_type=1&parent_id=${parent_id}&page=1&sort=createdDate&order=0`
       );
       if (commentsRES.status === 200) {
         setCommentsDetail((prev) => ({
@@ -119,17 +108,9 @@ export default function WriteDetail_Page(): JSX.Element {
   const onClickContentsLike = async (id: number) => {
     if (getCookie("Authorization") !== undefined) {
       try {
-        const likeReview = await axios.patch(
-          `https://api.iimad.com/api/posting/like/${id}`,
-          {
-            like_status: 1,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${getCookie("Authorization")}`,
-            },
-          }
-        );
+        const likeReview = await apiClient.patch(`/api/posting/like/${id}`, {
+          like_status: 1,
+        });
         if (likeReview.status === 200) {
           setContentsLike(!contentsLike);
         }
@@ -144,17 +125,9 @@ export default function WriteDetail_Page(): JSX.Element {
   const onClickContentsDisLike = async (id: number) => {
     if (getCookie("Authorization") !== undefined) {
       try {
-        const likeReview = await axios.patch(
-          `https://api.iimad.com/api/posting/like/${id}`,
-          {
-            like_status: -1,
-          },
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const likeReview = await apiClient.patch(`/api/posting/like/${id}`, {
+          like_status: -1,
+        });
         if (likeReview.status === 200) {
           setContentsLike(!contentsLike);
         }
@@ -169,17 +142,9 @@ export default function WriteDetail_Page(): JSX.Element {
   const onClickContentsCancelLike = async (id: number) => {
     if (getCookie("Authorization") !== undefined) {
       try {
-        const likeReview = await axios.patch(
-          `https://api.iimad.com/api/posting/like/${id}`,
-          {
-            like_status: 0,
-          },
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const likeReview = await apiClient.patch(`/api/posting/like/${id}`, {
+          like_status: 0,
+        });
         if (likeReview.status === 200) {
           setContentsLike(!contentsLike);
         }
@@ -211,16 +176,11 @@ export default function WriteDetail_Page(): JSX.Element {
   const onClickScrap = async () => {
     if (getCookie("Authorization") !== undefined) {
       try {
-        const bookmarkRES = await axios.post(
-          `https://api.iimad.com/api/profile/scrap`,
+        const bookmarkRES = await apiClient.post(
+          `/api/profile/scrap`,
 
           {
             posting_id: detail?.posting_id,
-          },
-          {
-            headers: {
-              Authorization: token,
-            },
           }
         );
         if (bookmarkRES.status === 200) {
@@ -237,14 +197,8 @@ export default function WriteDetail_Page(): JSX.Element {
   const onClickDelScrap = async () => {
     if (getCookie("Authorization") !== undefined) {
       try {
-        const bookmarkRES = await axios.delete(
-          `https://api.iimad.com/api/profile/scrap/${detail?.scrap_id}`,
-
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
+        const bookmarkRES = await apiClient.delete(
+          `/api/profile/scrap/${detail?.scrap_id}`
         );
         if (bookmarkRES.status === 200) {
           setContentsLike(!contentsLike);

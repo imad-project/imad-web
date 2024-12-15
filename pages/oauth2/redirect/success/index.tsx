@@ -3,6 +3,7 @@ import { setCookie, getCookie } from "../../../../src/commons/cookies/cookie";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import apiClient from "@/api/apiClient";
 
 export default function KakaoRedirect(): JSX.Element {
   const router = useRouter();
@@ -10,12 +11,8 @@ export default function KakaoRedirect(): JSX.Element {
 
   // 유저 정보 불러오기
   const PATCHUSER = async (origin: any) => {
-    await axios
-      .get("https://api.iimad.com/api/user", {
-        headers: {
-          Authorization: `Bearer ${getCookie("Authorization")}`,
-        },
-      })
+    await apiClient
+      .get("/api/user")
       .then((res) => {
         if (res.status === 200) {
           if (res.data.data.role === "GUEST") {

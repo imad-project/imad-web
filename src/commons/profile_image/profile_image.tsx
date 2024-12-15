@@ -4,6 +4,7 @@ import "cropperjs/dist/cropper.css";
 import axios from "axios";
 import { getCookie } from "../../../src/commons/cookies/cookie";
 import styled from "@emotion/styled";
+import apiClient from "@/api/apiClient";
 
 // 이미지 업로드 컴포넌트 스타일링
 const UploadContainer = styled.div`
@@ -124,12 +125,11 @@ export default function ImageUpload(props: any) {
       const formData = new FormData();
       formData.append("image", `default_profile_image_${selectedProfile}.png`);
       try {
-        const response = await axios.patch(
-          `https://api.iimad.com/api/user/profile_image/default`,
+        const response = await apiClient.patch(
+          `/api/user/profile_image/default`,
           formData,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "multipart/form-data",
             },
           }
@@ -192,12 +192,11 @@ export default function ImageUpload(props: any) {
     formData.append("image", croppedImage, selectedFile.name);
 
     try {
-      const response = await axios.patch(
-        `https://api.iimad.com/api/user/profile_image/custom`,
+      const response = await apiClient.patch(
+        `/api/user/profile_image/custom`,
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }

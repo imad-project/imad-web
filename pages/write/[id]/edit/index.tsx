@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
 import BoardWriteEditUI from "../../../../src/components/units/write_detail/write_detail_edit/write_edit_presenter";
+import apiClient from "@/api/apiClient";
 
 export default function MovieWritePage() {
   const [detail, setDetail] = useState();
@@ -29,14 +30,7 @@ export default function MovieWritePage() {
 
   const detailSearch = async (id: string) => {
     try {
-      const detailRES = await axios.get(
-        `https://api.iimad.com/api/posting/${id}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const detailRES = await apiClient.get(`/api/posting/${id}`);
       if (detailRES.status === 200) {
         setDetail(detailRES?.data?.data ?? []);
         setTitle(detailRES.data.data.title);
@@ -57,20 +51,12 @@ export default function MovieWritePage() {
 
   const patchBoard = async (detail: any) => {
     try {
-      const postRES = await axios.patch(
-        `https://api.iimad.com/api/posting/${router.query.id}`,
-        {
-          title: title,
-          content: contents,
-          category: category,
-          is_spoiler: isSpoiler,
-        },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const postRES = await apiClient.patch(`/api/posting/${router.query.id}`, {
+        title: title,
+        content: contents,
+        category: category,
+        is_spoiler: isSpoiler,
+      });
       if (postRES.status === 200) {
         alert("게시글이 정상적으로 수정되었습니다!");
         router.back();

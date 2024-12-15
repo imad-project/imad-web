@@ -3,6 +3,7 @@ import { getCookie } from "../../../../../src/commons/cookies/cookie";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
+import apiClient from "@/api/apiClient";
 
 export default function MovieWritePage() {
   const [detail, setDetail] = useState();
@@ -29,13 +30,8 @@ export default function MovieWritePage() {
 
   const detailSearch = async (id: string) => {
     try {
-      const detailRES = await axios.get(
-        `https://api.iimad.com/api/contents/details?id=${id}&type=movie`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+      const detailRES = await apiClient.get(
+        `/api/contents/details?id=${id}&type=movie`
       );
       if (detailRES.status === 200) {
         setDetail(detailRES?.data?.data ?? []);
@@ -47,21 +43,13 @@ export default function MovieWritePage() {
 
   const postBoard = async (detail: any) => {
     try {
-      const postRES = await axios.post(
-        `https://api.iimad.com/api/posting`,
-        {
-          contents_id: detail.contents_id,
-          title: title,
-          content: contents,
-          category: category,
-          is_spoiler: isSpoiler,
-        },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const postRES = await apiClient.post(`/api/posting`, {
+        contents_id: detail.contents_id,
+        title: title,
+        content: contents,
+        category: category,
+        is_spoiler: isSpoiler,
+      });
       if (postRES.status === 200) {
         alert("게시글이 정상적으로 등록되었습니다!");
 

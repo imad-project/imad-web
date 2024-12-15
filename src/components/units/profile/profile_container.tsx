@@ -5,6 +5,7 @@ import Profile_UI from "./profile_presenter";
 import { IProfileProps } from "./profile_types";
 import { useRouter } from "next/router";
 import { SHA256 } from "crypto-js";
+import apiClient from "@/api/apiClient";
 
 interface IData {
   user_id: number;
@@ -64,11 +65,7 @@ export default function ProfileContainer() {
 
   const FETCH_PROFILE = async () => {
     try {
-      const response = await axios.get("https://api.iimad.com/api/profile", {
-        headers: {
-          Authorization: `Bearer ${getCookie("Authorization")}`,
-        },
-      });
+      const response = await apiClient.get("/api/profile");
       if (response.status === 200) {
         setUserData(response.data.data);
       }
@@ -79,11 +76,7 @@ export default function ProfileContainer() {
 
   const FETCH_USER = async () => {
     try {
-      const response2 = await axios.get("https://api.iimad.com/api/user", {
-        headers: {
-          Authorization: `Bearer ${getCookie("Authorization")}`,
-        },
-      });
+      const response2 = await apiClient.get("/api/user");
       if (response2.status === 200) {
         setUserData2(response2.data.data);
       }
@@ -127,18 +120,10 @@ export default function ProfileContainer() {
     }
 
     try {
-      const response = await axios.patch(
-        "https://api.iimad.com/api/user/password",
-        {
-          old_password: SHA256(originPassword).toString(),
-          new_password: SHA256(password).toString(),
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
-          },
-        }
-      );
+      const response = await apiClient.patch("/api/user/password", {
+        old_password: SHA256(originPassword).toString(),
+        new_password: SHA256(password).toString(),
+      });
       if (response.status === 200) {
         alert("비밀번호 변경완료!");
         closeModal2();

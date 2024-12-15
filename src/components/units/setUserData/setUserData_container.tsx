@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, useCallback, useState, useEffect } from "react";
 import SetUserData_UI from "./setUserData_presenter";
+import apiClient from "@/api/apiClient";
 
 const age = [
   { value: 1, name: "10~19" },
@@ -193,12 +194,9 @@ export default function SetUserData_container() {
     }
 
     try {
-      const response = await axios.post(
-        "https://api.iimad.com/api/user/validation/nickname",
-        {
-          info: nickName,
-        }
-      );
+      const response = await apiClient.post("/api/user/validation/nickname", {
+        info: nickName,
+      });
 
       if (response.status === 200) {
         setIsChecked(true);
@@ -269,21 +267,13 @@ export default function SetUserData_container() {
     }
 
     try {
-      const PatchUserRes = await axios.patch(
-        "https://api.iimad.com/api/user",
-        {
-          birth_year: userAge,
-          gender: gender,
-          preferred_movie_genres: MovieCheckedList,
-          preferred_tv_genres: TVCheckedList,
-          nickname: nickName,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
-          },
-        }
-      );
+      const PatchUserRes = await apiClient.patch("/api/user", {
+        birth_year: userAge,
+        gender: gender,
+        preferred_movie_genres: MovieCheckedList,
+        preferred_tv_genres: TVCheckedList,
+        nickname: nickName,
+      });
       if (PatchUserRes.status === 200) {
         router.push("/");
       }
@@ -295,12 +285,11 @@ export default function SetUserData_container() {
     const formData = new FormData();
     formData.append("image", `default_profile_image_1.png`);
     try {
-      const response = await axios.patch(
-        `https://api.iimad.com/api/user/profile_image/default`,
+      const response = await apiClient.patch(
+        `/api/user/profile_image/default`,
         formData,
         {
           headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
             "Content-Type": "multipart/form-data",
           },
         }

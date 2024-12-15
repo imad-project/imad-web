@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { IUserData } from "./login_complete_type";
 import { useRouter } from "next/router";
+import apiClient from "@/api/apiClient";
 export default function LoginCompletePage(): JSX.Element {
   const [userData, setUserData] = useState<IUserData | null>(null);
   const [event, setEvent] = useState(true);
@@ -19,14 +20,7 @@ export default function LoginCompletePage(): JSX.Element {
     if (userData?.data.auth_provider === "IMAD") {
       const DELIMADUSER = async () => {
         try {
-          const response = await axios.delete(
-            "https://api.iimad.com/api/user",
-            {
-              headers: {
-                Authorization: `Bearer ${getCookie("Authorization")}`,
-              },
-            }
-          );
+          const response = await apiClient.delete("/api/user");
           if (response.status === 200) {
             alert("아이매드 회원탈퇴가 정상적으로 진행되었습니다.");
             router.push("/");
@@ -41,14 +35,7 @@ export default function LoginCompletePage(): JSX.Element {
     else if (userData?.data.auth_provider === "KAKAO") {
       const DELKAKAOUSER = async () => {
         try {
-          const response = await axios.delete(
-            "https://api.iimad.com/api/oauth2/revoke/kakao",
-            {
-              headers: {
-                Authorization: `Bearer ${getCookie("Authorization")}`,
-              },
-            }
-          );
+          const response = await apiClient.delete("/api/oauth2/revoke/kakao");
           if (response.status === 200) {
             alert("아이매드 카카오 회원탈퇴가 정상적으로 진행되었습니다.");
             router.push("/");
@@ -63,14 +50,7 @@ export default function LoginCompletePage(): JSX.Element {
     else if (userData?.data.auth_provider === "NAVER") {
       const DELNAVERUSER = async () => {
         try {
-          const response = await axios.delete(
-            "https://api.iimad.com/api/oauth2/revoke/naver",
-            {
-              headers: {
-                Authorization: `Bearer ${getCookie("Authorization")}`,
-              },
-            }
-          );
+          const response = await apiClient.delete("/api/oauth2/revoke/naver");
           if (response.status === 200) {
             alert("아이매드 네이버 회원탈퇴가 정상적으로 진행되었습니다.");
             router.push("/");
@@ -85,14 +65,7 @@ export default function LoginCompletePage(): JSX.Element {
     else if (userData?.data.auth_provider === "GOOGLE") {
       const DELGOOGLEUSER = async () => {
         try {
-          const response = await axios.delete(
-            "https://api.iimad.com/api/oauth2/revoke/google",
-            {
-              headers: {
-                Authorization: `Bearer ${getCookie("Authorization")}`,
-              },
-            }
-          );
+          const response = await apiClient.delete("/api/oauth2/revoke/google");
           if (response.status === 200) {
             alert("아이매드 구글 회원탈퇴가 정상적으로 진행되었습니다.");
             router.push("/");
@@ -107,14 +80,7 @@ export default function LoginCompletePage(): JSX.Element {
     else if (userData?.data.auth_provider === "APPLE") {
       const DELAPPLEUSER = async () => {
         try {
-          const response = await axios.delete(
-            "https://api.iimad.com/api/oauth2/revoke/apple",
-            {
-              headers: {
-                Authorization: `Bearer ${getCookie("Authorization")}`,
-              },
-            }
-          );
+          const response = await apiClient.delete("/api/oauth2/revoke/apple");
           if (response.status === 200) {
             alert("아이매드 애플 회원탈퇴가 정상적으로 진행되었습니다.");
             router.push("/");
@@ -133,11 +99,7 @@ export default function LoginCompletePage(): JSX.Element {
   useEffect(() => {
     const FETCHUSER = async () => {
       try {
-        const response = await axios.get("https://api.iimad.com/api/user", {
-          headers: {
-            Authorization: `Bearer ${getCookie("Authorization")}`,
-          },
-        });
+        const response = await apiClient.get("/api/user");
         if (response.status === 200) {
           setUserData(response.data);
         }
