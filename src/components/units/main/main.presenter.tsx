@@ -969,7 +969,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
         </StyledSlider>
       </S.SubBannerWrapper>
 
-      <S.title>좋은반응을 얻은 영화</S.title>
+      <S.title>좋은 반응을 얻은 영화</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {props?.Recommend?.top_rated_recommendation_movie?.results.map(
