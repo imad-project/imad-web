@@ -30,7 +30,8 @@ export const RowBox2 = styled.div`
 
 export const RowBox3 = styled.div`
   width: 50%;
-  margin-top: 10%;
+  margin-top: 50px;
+
   margin-left: 10%;
   position: relative;
   z-index: 3;
@@ -41,6 +42,7 @@ export const RowBox3 = styled.div`
 
   @media (max-width: 480px) {
     margin-left: 5%;
+    margin-top: 10%;
   }
 `;
 
