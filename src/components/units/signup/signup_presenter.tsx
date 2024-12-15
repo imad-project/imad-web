@@ -24,6 +24,15 @@ export default function SignupUI(props: any): JSX.Element {
 
         <S.SubTitle>비밀번호</S.SubTitle>
         <S.Input type="password" onChange={props.onChangePassWord} />
+        {props.passwordIsChecked ? (
+          <S.AlertSpan2 color="green">
+            공백 미포함 영문 숫자 조합 8자리 이상
+          </S.AlertSpan2>
+        ) : (
+          <S.AlertSpan2 color="gray">
+            공백 미포함 영문 숫자 조합 8자리 이상
+          </S.AlertSpan2>
+        )}
 
         <S.SubTitle>비밀번호 확인</S.SubTitle>
         <S.Input type="password" onChange={props.onChangePassWord2} />
