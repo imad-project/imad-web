@@ -67,4 +67,5 @@ export interface IWriteDetailProps {
   onClickDelScrap: () => void;
   contentsLike: boolean;
   setContentsLike: (contentsLike: boolean) => void;
+  onClickUser: (id: number, auther: boolean) => void;
 }

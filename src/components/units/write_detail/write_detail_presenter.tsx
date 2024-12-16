@@ -23,6 +23,7 @@ const CommentItem = ({
   onClickCommentsSubmit,
   setContentsLike,
   contentsLike,
+  onClickUser,
 }: {
   comment: any;
   commentsDetail: any;
@@ -37,6 +38,7 @@ const CommentItem = ({
   onClickCommentsSubmit: (parent_id: number | null) => void;
   setContentsLike: (contentsLike: boolean) => void;
   contentsLike: boolean;
+  onClickUser: (id: number, author: boolean) => void;
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [Others, setOthers] = useState(false);
@@ -299,7 +301,11 @@ const CommentItem = ({
           <S.avatar
             src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${comment.user_profile_image}`}
           />
-          <S.UserNickName>{comment.user_nickname}</S.UserNickName>
+          <S.UserNickName
+            onClick={() => onClickUser(comment.user_id, comment.author)}
+          >
+            {comment.user_nickname}
+          </S.UserNickName>
           <S.Date_span>{elapsedTime(comment.created_at)}</S.Date_span>
           <S.IconBox onClick={handleIconClick}>
             <S.Icon src="/img/icon/icons/ellipsis.png" />
@@ -462,6 +468,7 @@ const CommentItem = ({
                   onClickCommentsSubmit={onClickCommentsSubmit}
                   setContentsLike={setContentsLike}
                   contentsLike={contentsLike}
+                  onClickUser={onClickUser}
                 />
               )
             )}
@@ -680,7 +687,16 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
                   src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props.detail?.user_profile_image}`}
                 />
                 <S.ColumnWrapper>
-                  <S.UserNickName>{props.detail?.user_nickname}</S.UserNickName>
+                  <S.UserNickName
+                    onClick={() =>
+                      props.onClickUser(
+                        props.detail?.user_id || 0,
+                        props.detail?.author || false
+                      )
+                    }
+                  >
+                    {props.detail?.user_nickname}
+                  </S.UserNickName>
                   <S.RowWrapper2>
                     <S.Date_span>
                       {elapsedTime(props.detail?.created_at)}
@@ -846,6 +862,7 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
                 onClickCommentsSubmit={onClickCommentsSubmit}
                 setContentsLike={props.setContentsLike}
                 contentsLike={props.contentsLike}
+                onClickUser={props.onClickUser}
               />
             </S.CommentsWrapper>
           ))}

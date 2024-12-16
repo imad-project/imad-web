@@ -86,6 +86,12 @@ export const AlertSpan = styled.div<{ color: string }>`
   font-size: 12px;
 `;
 
+export const AlertSpan2 = styled.div<{ color: string }>`
+  color: ${(props) => props.color};
+  font-size: 12px;
+  margin-bottom: 20px;
+`;
+
 export const BtnBox = styled.div`
   display: flex;
   flex-direction: row;

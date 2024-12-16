@@ -121,6 +121,21 @@ export default function MyReview_UI(props: IMyReviewProps) {
     }
   };
 
+  const onClickUser = (id: number, author: boolean) => {
+    if (token == "GUEST") {
+      alert("다른 사용자의 프로필은 회원만 열람할 수 있습니다.");
+      return;
+    }
+
+    if (author) {
+      void router.push("/profile");
+      return;
+    } else {
+      void router.push(`/otheruser/${id}`);
+      return;
+    }
+  };
+
   return (
     <S.MainWrapper>
       <S.BetweenRowBox>
@@ -197,7 +212,14 @@ export default function MyReview_UI(props: IMyReviewProps) {
                     <S.avatar
                       src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props.reviewData?.user_profile_image}`}
                     />
-                    <S.NickNameTitle>
+                    <S.NickNameTitle
+                      onClick={() =>
+                        onClickUser(
+                          props.reviewData?.user_id || 0,
+                          props.reviewData?.author || false
+                        )
+                      }
+                    >
                       {props.reviewData?.user_nickname}
                     </S.NickNameTitle>
                   </S.RowWrapper>

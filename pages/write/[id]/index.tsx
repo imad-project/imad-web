@@ -211,6 +211,21 @@ export default function WriteDetail_Page(): JSX.Element {
     }
   };
 
+  const onClickUser = (id: number, author: boolean) => {
+    if (token == "GUEST") {
+      alert("다른 사용자의 프로필은 회원만 열람할 수 있습니다.");
+      return;
+    }
+
+    if (author) {
+      void router.push("/profile");
+      return;
+    } else {
+      void router.push(`/otheruser/${id}`);
+      return;
+    }
+  };
+
   if (!detail) {
     return <div>Loading...</div>;
   }
@@ -228,6 +243,7 @@ export default function WriteDetail_Page(): JSX.Element {
       setContentsLike={setContentsLike}
       onClickScrap={onClickScrap}
       onClickDelScrap={onClickDelScrap}
+      onClickUser={onClickUser}
     />
   );
 }
