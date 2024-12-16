@@ -37,7 +37,13 @@ export default function NavigationContainer(): JSX.Element {
     removeCookie("Authorization");
     removeCookie("Authorization_refresh");
     setAuthToken(null);
-    await router.push(event.currentTarget.id);
+    if (router.pathname === "/") {
+      // 현재 페이지가 "/"라면 새로고침
+      router.reload();
+    } else {
+      // 다른 페이지에서는 "/"로 이동
+      await router.push("/");
+    }
   };
 
   const FETCHUSER = async () => {

@@ -22,7 +22,7 @@ export default function SignupContainer(): JSX.Element {
     return emailRegEx.test(username); //형식에 맞을 경우, true 리턴
   };
 
-  let passwordReg = /^(?=.*[a-zA-Z])(?=.*[0-9])\S{8,25}$/;
+  let passwordReg = /^(?=.*[a-zA-Z])(?=.*[0-9])\S{8,20}$/;
 
   const passwordCheck = (password: string) => {
     return passwordReg.test(password);
