@@ -229,7 +229,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   >
                     <S.MainSliderItem
                       src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
-                      onClick={() =>
+                      onDoubleClick={() =>
                         category === "movie"
                           ? props.onClickMovieContents(el.id)
                           : props.onClickTvContents(el.id)
