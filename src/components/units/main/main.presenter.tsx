@@ -229,7 +229,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   >
                     <S.MainSliderItem
                       src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
-                      onClick={() =>
+                      onDoubleClick={() =>
                         category === "movie"
                           ? props.onClickMovieContents(el.id)
                           : props.onClickTvContents(el.id)
@@ -832,12 +832,10 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                 (el) => (
                   <S.BannerContent1>
                     <S.BannerBox>
-                      <S.ImgBox2
-                        key={el.title}
-                        onClick={() => props.onClickMovieContents(el.id)}
-                      >
+                      <S.ImgBox2 key={el.title}>
                         <S.SubSliderItem
                           src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                          onClick={() => props.onClickMovieContents(el.id)}
                         />
                       </S.ImgBox2>
                       <S.SubSliderTextBox>
@@ -866,13 +864,12 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
             <StyledSlider {...subsettings}>
               {props?.Recommend?.preferred_genre_recommendation_tv?.results.map(
                 (el) => (
-                  <S.BannerContent1
-                    onClick={() => props.onClickTvContents(el.id)}
-                  >
+                  <S.BannerContent1>
                     <S.BannerBox>
                       <S.ImgBox2 key={el.name}>
                         <S.SubSliderItem
                           src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                          onClick={() => props.onClickTvContents(el.id)}
                         />
                       </S.ImgBox2>
                       <S.SubSliderTextBox>
@@ -898,11 +895,12 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {props?.Recommend?.popular_recommendation_tv?.results.map((el) => (
-            <S.BannerContent1 onClick={() => props.onClickTvContents(el.id)}>
+            <S.BannerContent1>
               <S.BannerBox>
                 <S.ImgBox2 key={el.name}>
                   <S.SubSliderItem
                     src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                    onClick={() => props.onClickTvContents(el.id)}
                   />
                 </S.ImgBox2>
                 <S.SubSliderTextBox>
@@ -923,11 +921,12 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {props?.Recommend?.popular_recommendation_movie?.results.map((el) => (
-            <S.BannerContent1 onClick={() => props.onClickMovieContents(el.id)}>
+            <S.BannerContent1>
               <S.BannerBox>
                 <S.ImgBox2 key={el.title}>
                   <S.SubSliderItem
                     src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                    onClick={() => props.onClickMovieContents(el.id)}
                   />
                 </S.ImgBox2>
                 <S.SubSliderTextBox>
@@ -948,11 +947,12 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {props?.Recommend?.top_rated_recommendation_tv?.results.map((el) => (
-            <S.BannerContent1 onClick={() => props.onClickTvContents(el.id)}>
+            <S.BannerContent1>
               <S.BannerBox>
                 <S.ImgBox2 key={el.name}>
                   <S.SubSliderItem
                     src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                    onClick={() => props.onClickTvContents(el.id)}
                   />
                 </S.ImgBox2>
                 <S.SubSliderTextBox>
@@ -969,18 +969,17 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
         </StyledSlider>
       </S.SubBannerWrapper>
 
-      <S.title>좋은반응을 얻은 영화</S.title>
+      <S.title>좋은 반응을 얻은 영화</S.title>
       <S.SubBannerWrapper>
         <StyledSlider {...subsettings}>
           {props?.Recommend?.top_rated_recommendation_movie?.results.map(
             (el) => (
-              <S.BannerContent1
-                onClick={() => props.onClickMovieContents(el.id)}
-              >
+              <S.BannerContent1>
                 <S.BannerBox>
                   <S.ImgBox2 key={el.title}>
                     <S.SubSliderItem
                       src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                      onClick={() => props.onClickMovieContents(el.id)}
                     />
                   </S.ImgBox2>
                   <S.SubSliderTextBox>

@@ -11,6 +11,7 @@ export default function SignupContainer(): JSX.Element {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [passwordIsChecked, setpasswordIsChecked] = useState<boolean>(false);
   const [emailChecked, setEmailChecked] = useState<boolean>(false);
   const router = useRouter();
 
@@ -19,6 +20,12 @@ export default function SignupContainer(): JSX.Element {
 
   const emailCheck = (username: string) => {
     return emailRegEx.test(username); //형식에 맞을 경우, true 리턴
+  };
+
+  let passwordReg = /^(?=.*[a-zA-Z])(?=.*[0-9])\S{8,20}$/;
+
+  const passwordCheck = (password: string) => {
+    return passwordReg.test(password);
   };
   const SIGNUPIMAD = async () => {
     await apiClient
@@ -99,6 +106,7 @@ export default function SignupContainer(): JSX.Element {
 
   const onChangePassWord = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
+    setpasswordIsChecked(passwordCheck(event.target.value));
   };
 
   const onChangePassWord2 = (event: ChangeEvent<HTMLInputElement>) => {
@@ -113,6 +121,11 @@ export default function SignupContainer(): JSX.Element {
 
     if (emailChecked === false) {
       alert("중복된 이메일입니다.");
+      return;
+    }
+
+    if (passwordIsChecked === false) {
+      alert("비밀번호 형식이 맞지 않습니다.");
       return;
     }
 
@@ -140,6 +153,7 @@ export default function SignupContainer(): JSX.Element {
       onClickSignUp={onClickSignUp}
       isChecked={isChecked}
       emailChecked={emailChecked}
+      passwordIsChecked={passwordIsChecked}
       EMAILCHECK={EMAILCHECK}
     />
   );

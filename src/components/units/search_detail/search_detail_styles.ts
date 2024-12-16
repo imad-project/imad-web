@@ -163,6 +163,9 @@ export const posterWrapper = styled.div`
     padding-left: 10px;
     padding-right: 10px;
   }
+  @media (min-width: 1800px) {
+    height: 600px;
+  }
 `;
 
 export const BackdropWrapper = styled.div<{ backgroundUrl: string | null }>`
@@ -178,6 +181,10 @@ export const BackdropWrapper = styled.div<{ backgroundUrl: string | null }>`
   background-position: center;
   position: absolute;
   filter: brightness(0.5);
+
+  @media (min-width: 1800px) {
+    height: 600px;
+  }
 `;
 
 export const RowWrapper = styled.div`
@@ -374,6 +381,10 @@ export const Icon_img = styled.img`
   @media (max-width: 480px) {
     width: 10;
     bottom: 10%;
+  }
+
+  @media (min-width: 1800px) {
+    bottom: 26%;
   }
 `;
 
