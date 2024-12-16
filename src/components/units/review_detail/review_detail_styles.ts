@@ -89,6 +89,10 @@ export const likeDiv = styled.div`
 
 export const NickNameTitle = styled.div`
   font-size: 20px;
+  cursor: pointer;
+  :hover {
+    color: #1e90ff;
+  }
 `;
 
 export const LittleIcon = styled.img`

@@ -188,6 +188,11 @@ export const LikeSpan = styled.div`
 export const UserNickName = styled.h1`
   margin-bottom: 5px;
   margin-right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  :hover {
+    color: #1e90ff;
+  }
 `;
 
 export const LittleIcon = styled.img`
