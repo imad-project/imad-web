@@ -250,6 +250,7 @@ export const Option = styled.li`
 export const SearchInput = styled.input`
   margin-bottom: 50px;
   max-width: 60%;
+  cursor: pointer;
 `;
 
 export const SearchButton = styled.div`
