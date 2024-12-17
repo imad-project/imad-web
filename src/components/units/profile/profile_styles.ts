@@ -275,7 +275,7 @@ export const DropdownMenu = styled.div`
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  z-index: 10;
+  z-index: 5;
 
   @media (max-width: 1080px) {
     top: 30px;
@@ -319,7 +319,7 @@ export const Input = styled.input`
   height: 20px;
   border: none;
   border-bottom: 2px solid #0b0537;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   background-color: #f5f5f5;
 
   :focus {
@@ -328,6 +328,22 @@ export const Input = styled.input`
     border-bottom: none;
   }
 `;
+
+export const Input2 = styled.input`
+  width: 200px;
+  height: 20px;
+  border: none;
+  border-bottom: 2px solid #0b0537;
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+
+  :focus {
+    outline: 2px solid #0b0537;
+
+    border-bottom: none;
+  }
+`;
+
 export const ModalSubTitle = styled.div`
   font-size: 16px;
   color: #0b0537;
@@ -353,5 +369,19 @@ export const InputBox = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  margin-bottom: 20px;
+`;
+
+export const ModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+`;
+
+export const AlertSpan2 = styled.div<{ color: string }>`
+  color: ${(props) => props.color};
+  font-size: 12px;
   margin-bottom: 20px;
 `;

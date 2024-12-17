@@ -57,6 +57,7 @@ export default function ProfileContainer() {
   const [originPassword, setOriginPassword] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const [passwordIsChecked, setpasswordIsChecked] = useState<boolean>(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -86,12 +87,19 @@ export default function ProfileContainer() {
   };
   //비밀번호 변경 로직
 
+  let passwordReg = /^(?=.*[a-zA-Z])(?=.*[0-9])\S{8,20}$/;
+
+  const passwordCheck = (password: string) => {
+    return passwordReg.test(password);
+  };
+
   const onChangeOriginPassWord = (event: ChangeEvent<HTMLInputElement>) => {
     setOriginPassword(event.target.value);
   };
 
   const onChangePassWord = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
+    setpasswordIsChecked(passwordCheck(event.target.value));
   };
 
   const onChangePassWord2 = (event: ChangeEvent<HTMLInputElement>) => {
@@ -101,6 +109,11 @@ export default function ProfileContainer() {
   const CHANGE_PASSWORD = async () => {
     if (originPassword === "" || password === "" || password2 === "") {
       alert("빈칸을 전부 작성후 시도해주세요!");
+      return;
+    }
+
+    if (passwordIsChecked === false) {
+      alert("비밀번호 형식이 맞지 않습니다.");
       return;
     }
 
@@ -170,6 +183,7 @@ export default function ProfileContainer() {
       onChangePassWord={onChangePassWord}
       onChangePassWord2={onChangePassWord2}
       CHANGE_PASSWORD={CHANGE_PASSWORD}
+      passwordIsChecked={passwordIsChecked}
     />
   );
 }

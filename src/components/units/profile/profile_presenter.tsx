@@ -187,6 +187,10 @@ export default function Profile_UI(props: IProfileProps) {
     font-size: 16px;
     border: none;
     border-radius: 4px;
+    position: absolute;
+
+    right: 10px;
+    top: 10px;
     cursor: pointer;
     &:hover {
       background-color: #007bb5;
@@ -200,6 +204,7 @@ export default function Profile_UI(props: IProfileProps) {
       left: "50%",
       right: "auto",
       bottom: "auto",
+
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       width: isMobile ? "95%" : "80%", // 모바일: 95%, 데스크톱: 80%
@@ -210,14 +215,17 @@ export default function Profile_UI(props: IProfileProps) {
     },
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.5)",
+      zIndex: 10, // z-index 추가
     },
   };
 
   const Row_box = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
   `;
 
   const authProvider = AuthArray.find(
@@ -280,8 +288,11 @@ export default function Profile_UI(props: IProfileProps) {
   };
 
   const handlePasswordEdit = () => {
-    props.openModal2();
-    setIsMenuOpen(false);
+    setIsMenuOpen(false); // 상태를 닫기
+
+    setTimeout(() => {
+      props.openModal2(); // 모달 열기
+    }, 20); // 상태 업데이트 후 모달 열기
   };
 
   const handleDelete = async () => {
@@ -318,23 +329,38 @@ export default function Profile_UI(props: IProfileProps) {
           style={customModalStyles}
           contentLabel="Image Upload Modal"
         >
-          <Row_box>
-            <h2>비밀번호 변경</h2>
+          <S.ModalWrapper>
             <CustomButton onClick={props.closeModal2}>닫기</CustomButton>
-          </Row_box>
-          <S.InputBox>
-            <S.SubTitle>기존 비밀번호</S.SubTitle>
-            <S.Input type="password" onChange={props.onChangeOriginPassWord} />
-            <S.SubTitle>새 비밀번호</S.SubTitle>
-            <S.Input type="password" onChange={props.onChangePassWord} />
+            <Row_box>
+              <h2>비밀번호 변경</h2>
+            </Row_box>
+            <S.InputBox>
+              <S.SubTitle>기존 비밀번호</S.SubTitle>
+              <S.Input
+                type="password"
+                onChange={props.onChangeOriginPassWord}
+              />
+              <S.SubTitle>새 비밀번호</S.SubTitle>
+              <S.Input2 type="password" onChange={props.onChangePassWord} />
 
-            <S.SubTitle>새 비밀번호 확인</S.SubTitle>
-            <S.Input type="password" onChange={props.onChangePassWord2} />
+              {props.passwordIsChecked ? (
+                <S.AlertSpan2 color="green">
+                  공백 미포함 영문 숫자 조합 8자리 이상
+                </S.AlertSpan2>
+              ) : (
+                <S.AlertSpan2 color="gray">
+                  공백 미포함 영문 숫자 조합 8자리 이상
+                </S.AlertSpan2>
+              )}
 
-            <S.LoginBtn onClick={props.CHANGE_PASSWORD}>
-              비밀번호 변경
-            </S.LoginBtn>
-          </S.InputBox>
+              <S.SubTitle>새 비밀번호 확인</S.SubTitle>
+              <S.Input type="password" onChange={props.onChangePassWord2} />
+
+              <S.LoginBtn onClick={props.CHANGE_PASSWORD}>
+                비밀번호 변경
+              </S.LoginBtn>
+            </S.InputBox>
+          </S.ModalWrapper>
         </ReactModal>
         <S.RowWrapper>
           <S.ImgBox onClick={props.openModal}>
