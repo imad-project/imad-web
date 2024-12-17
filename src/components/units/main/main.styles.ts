@@ -168,6 +168,7 @@ export const RankingBox2 = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 export const RankingPoster = styled.img`
@@ -705,6 +706,7 @@ export const MainSliderItem = styled.img`
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
+  cursor: pointer;
 
   @media (max-width: 480px) {
     height: 200px;
