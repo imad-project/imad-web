@@ -238,11 +238,41 @@ export default function MyReview_UI(props: IMyReviewProps) {
                       <S.DividedLine />
                       <S.RowWrapper>
                         <S.likeDiv>
-                          <S.LittleIcon src="/img/icon/icons/arrowshape.up.png" />
+                          <S.LittleIcon
+                            src={
+                              props.reviewData?.like_status === 1
+                                ? "/img/icon/icons/arrowshape.up.fill.png"
+                                : "/img/icon/icons/arrowshape.up.png"
+                            }
+                            onClick={() =>
+                              props.reviewData?.like_status === 1
+                                ? props.onClickCancelLike(
+                                    props.reviewData?.review_id
+                                  )
+                                : props.onClickLike(
+                                    props.reviewData?.review_id || 0
+                                  )
+                            }
+                          />
                           {props.reviewData?.like_cnt}
                         </S.likeDiv>
                         <S.likeDiv>
-                          <S.LittleIcon src="/img/icon/icons/arrowshape.down.png" />
+                          <S.LittleIcon
+                            src={
+                              props.reviewData?.like_status === -1
+                                ? "/img/icon/icons/arrowshape.down.fill.png"
+                                : "/img/icon/icons/arrowshape.down.png"
+                            }
+                            onClick={() =>
+                              props.reviewData?.like_status === -1
+                                ? props.onClickCancelLike(
+                                    props.reviewData?.review_id
+                                  )
+                                : props.onClickDisLike(
+                                    props.reviewData?.review_id || 0
+                                  )
+                            }
+                          />
                           {props.reviewData?.dislike_cnt}
                         </S.likeDiv>
                         <S.Date_span>

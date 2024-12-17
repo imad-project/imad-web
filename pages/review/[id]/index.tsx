@@ -30,6 +30,7 @@ export default function MyReview_Container() {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewData, setReviewData] = useState<IReviewData | null>(null);
+  const [like, setLike] = useState(true);
 
   // 토큰 확인부
   const token =
@@ -48,6 +49,57 @@ export default function MyReview_Container() {
     }
   };
 
+  const onClickLike = async (id: number) => {
+    if (getCookie("Authorization") !== undefined) {
+      try {
+        const likeReview = await apiClient.patch(`/api/review/like/${id}`, {
+          like_status: 1,
+        });
+        if (likeReview.status === 200) {
+          setLike(!like);
+        }
+      } catch (error) {
+        console.error("Error occurred while liking review:", error);
+      }
+    } else {
+      alert("리뷰 좋아요/싫어요 는 회원만 가능합니다!");
+    }
+  };
+
+  const onClickDisLike = async (id: number) => {
+    if (getCookie("Authorization") !== undefined) {
+      try {
+        const likeReview = await apiClient.patch(`/api/review/like/${id}`, {
+          like_status: -1,
+        });
+        if (likeReview.status === 200) {
+          setLike(!like);
+        }
+      } catch (error) {
+        console.error("Error occurred while liking review:", error);
+      }
+    } else {
+      alert("리뷰 좋아요/싫어요 는 회원만 가능합니다!");
+    }
+  };
+
+  const onClickCancelLike = async (id: number) => {
+    if (getCookie("Authorization") !== undefined) {
+      try {
+        const likeReview = await apiClient.patch(`/api/review/like/${id}`, {
+          like_status: 0,
+        });
+        if (likeReview.status === 200) {
+          setLike(!like);
+        }
+      } catch (error) {
+        console.error("Error occurred while liking review:", error);
+      }
+    } else {
+      alert("리뷰 좋아요/싫어요 는 회원만 가능합니다!");
+    }
+  };
+
   useEffect(() => {
     const { id } = router.query;
 
@@ -55,7 +107,7 @@ export default function MyReview_Container() {
     if (id && typeof id === "string") {
       FETCH_REVIEW(id);
     }
-  }, [router.query]);
+  }, [router.query, like]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -71,7 +123,13 @@ export default function MyReview_Container() {
 
   return (
     <>
-      <MyReview_UI reviewData={reviewData} onClickPoster={onClickPoster} />
+      <MyReview_UI
+        reviewData={reviewData}
+        onClickPoster={onClickPoster}
+        onClickLike={onClickLike}
+        onClickDisLike={onClickDisLike}
+        onClickCancelLike={onClickCancelLike}
+      />
     </>
   );
 }
