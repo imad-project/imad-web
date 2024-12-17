@@ -128,6 +128,7 @@ export const CommentsInput = styled.input`
   width: 100%;
   height: 50px;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 export const Contents_span = styled.div`
@@ -177,7 +178,7 @@ export const LikeButton = styled.div<{ isLiked: boolean }>`
   justify-content: center;
   background-color: ${(props) => (props.isLiked ? "#0b0537" : "#3c4b66")};
   margin-right: 20px;
-
+  cursor: pointer;
   border-radius: 10px;
 `;
 export const LikeSpan = styled.div`
