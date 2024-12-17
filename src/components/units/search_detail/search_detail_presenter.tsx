@@ -470,7 +470,7 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
                       half={true}
                     />
                   </>
-                  <S.RowBox onClick={onClickSpoiler}>
+                  <S.ClickRowBox onClick={onClickSpoiler}>
                     <S.SpoilerIcon
                       src={
                         isSpoiler
@@ -479,7 +479,7 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
                       }
                     />
                     <S.SpoilerSpan isCheck={isSpoiler}>스포일러</S.SpoilerSpan>
-                  </S.RowBox>
+                  </S.ClickRowBox>
                 </S.RowBox>
               </S.reviewContentsWrapper>
             </S.reviewBox>

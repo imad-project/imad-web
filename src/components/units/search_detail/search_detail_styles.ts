@@ -22,6 +22,13 @@ export const RowBox = styled.div`
   align-items: center;
 `;
 
+export const ClickRowBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+`;
+
 export const TransRowBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -248,6 +255,7 @@ export const SeasonDataPosterBox = styled.div`
   width: auto;
   background-color: white;
   border-radius: 10px;
+  cursor: pointer;
 `;
 
 export const SeasonDataPoster = styled.img`
@@ -377,6 +385,7 @@ export const Icon_img = styled.img`
   z-index: 2;
   left: 80%;
   bottom: 15%;
+  cursor: pointer;
 
   @media (max-width: 480px) {
     width: 10;
@@ -525,12 +534,14 @@ export const reviewInput = styled.input`
   width: 100%;
   height: 50px;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 export const reviewTextArea = styled.textarea`
   height: 100px;
   resize: none;
   border: 0;
+  cursor: pointer;
 `;
 
 export const reviewSubmitButton = styled.div`
