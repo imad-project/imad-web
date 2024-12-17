@@ -204,6 +204,7 @@ export const Box = styled.div`
   align-items: center;
   border-radius: 40px;
   box-shadow: 0px 0px 10px gray;
+  cursor: pointer;
 `;
 
 export const Span_box = styled.div`
@@ -244,6 +245,7 @@ export const Movie_poster = styled.img`
   height: auto;
   border-radius: 10px;
   margin-bottom: 10px;
+  cursor: pointer;
 
   @media (max-width: 1080px) {
     width: 100px;
