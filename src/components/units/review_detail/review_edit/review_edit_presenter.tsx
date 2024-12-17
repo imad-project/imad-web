@@ -122,6 +122,10 @@ export default function Review_EDIT(props: IMyReviewProps) {
     }
   };
 
+  const onClickBack = () => {
+    router.back();
+  };
+
   return (
     <S.MainWrapper>
       <S.BetweenRowBox>
@@ -189,7 +193,7 @@ export default function Review_EDIT(props: IMyReviewProps) {
                               half={true}
                             />
                           </>
-                          <S.RowBox onClick={onClickSpoiler}>
+                          <S.ClickRowBox onClick={onClickSpoiler}>
                             <S.SpoilerIcon
                               src={
                                 isSpoiler
@@ -204,7 +208,7 @@ export default function Review_EDIT(props: IMyReviewProps) {
                             >
                               스포일러
                             </S.SpoilerSpan>
-                          </S.RowBox>
+                          </S.ClickRowBox>
                         </S.RowBox>
                       </S.reviewContentsWrapper>
                     </S.reviewBox>
@@ -220,7 +224,12 @@ export default function Review_EDIT(props: IMyReviewProps) {
       ) : (
         <></>
       )}
-      <S.ReviewEditBtn onClick={onClickReviewSubmit}>리뷰 수정</S.ReviewEditBtn>
+      <S.RowBox>
+        <S.ReviewEditBtn2 onClick={onClickBack}>수정 취소</S.ReviewEditBtn2>
+        <S.ReviewEditBtn onClick={onClickReviewSubmit}>
+          리뷰 수정
+        </S.ReviewEditBtn>
+      </S.RowBox>
     </S.MainWrapper>
   );
 }

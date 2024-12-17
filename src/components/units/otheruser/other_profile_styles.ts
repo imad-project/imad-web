@@ -230,6 +230,7 @@ export const Movie_poster = styled.img`
   height: auto;
   border-radius: 10px;
   margin-bottom: 10px;
+  cursor: pointer;
 
   @media (max-width: 1080px) {
     width: 100px;
@@ -347,6 +348,7 @@ export const subBtn = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 
   width: 150px;
   height: 50px;
@@ -374,6 +376,7 @@ export const subBtn2 = styled.div`
   margin-bottom: 10px;
   left: 10px;
   top: 20px;
+  cursor: pointer;
 
   @media (max-width: 1080px) {
     width: 70px;

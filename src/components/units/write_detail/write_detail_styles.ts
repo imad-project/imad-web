@@ -128,6 +128,7 @@ export const CommentsInput = styled.input`
   width: 100%;
   height: 50px;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 export const Contents_span = styled.div`
@@ -177,7 +178,7 @@ export const LikeButton = styled.div<{ isLiked: boolean }>`
   justify-content: center;
   background-color: ${(props) => (props.isLiked ? "#0b0537" : "#3c4b66")};
   margin-right: 20px;
-
+  cursor: pointer;
   border-radius: 10px;
 `;
 export const LikeSpan = styled.div`
@@ -331,6 +332,7 @@ export const ReportBtn = styled.div`
   align-items: center;
   font-size: 18px;
   color: #f34336;
+  cursor: pointer;
   :hover {
     background-color: gray;
     transition: 0.3s;
@@ -346,6 +348,7 @@ export const ReportCancelBtn = styled.div`
   align-items: center;
   font-size: 18px;
   color: #00aaff;
+  cursor: pointer;
   :hover {
     background-color: gray;
     transition: 0.3s;
@@ -395,6 +398,7 @@ export const Icon_img = styled.img`
 
   z-index: 2;
   margin-left: 20px;
+  cursor: pointer;
 
   @media (max-width: 480px) {
     width: 10;

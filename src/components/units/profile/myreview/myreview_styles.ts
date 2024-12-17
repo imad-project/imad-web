@@ -113,6 +113,7 @@ export const Poster_img = styled.img`
   height: auto;
   border-radius: 10px;
   margin-bottom: 10px;
+  cursor: pointer;
 
   @media (max-width: 1080px) {
     width: 50px;

@@ -99,6 +99,7 @@ export const LittleIcon = styled.img`
   width: 20px;
   height: 20px;
   margin-right: 5px;
+  cursor: pointer;
   @media (max-width: 480px) {
     width: 15px;
     height: 15px;
@@ -145,6 +146,7 @@ export const Poster_img = styled.img`
   height: auto;
   border-radius: 10px;
   margin-bottom: 10px;
+  cursor: pointer;
 
   @media (max-width: 480px) {
     width: 50px;
@@ -287,6 +289,7 @@ export const ReportBtn = styled.div`
   align-items: center;
   font-size: 18px;
   color: #f34336;
+  cursor: pointer;
   :hover {
     background-color: gray;
     transition: 0.3s;
@@ -302,6 +305,7 @@ export const ReportCancelBtn = styled.div`
   align-items: center;
   font-size: 18px;
   color: #00aaff;
+  cursor: pointer;
   :hover {
     background-color: gray;
     transition: 0.3s;

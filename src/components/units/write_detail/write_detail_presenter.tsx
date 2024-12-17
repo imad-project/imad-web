@@ -808,9 +808,6 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
           <S.LikeBox>
             <S.RowWrapper3>
               <S.SubTitle>댓글[{props.detail?.comment_cnt}]</S.SubTitle>
-              <S.Gray_span_btn onClick={handleCommentsOpen}>
-                {commentsOpen ? "닫기" : "열기"}
-              </S.Gray_span_btn>
             </S.RowWrapper3>
 
             <S.RowWrapper2>
@@ -844,28 +841,27 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
           </S.LikeBox>
         </S.ColumnWrapper>
 
-        {commentsOpen &&
-          props.detail?.comment_list_response.details_list.map((el, index) => (
-            <S.CommentsWrapper key={el.comment_id}>
-              <CommentItem
-                key={el.comment_id}
-                comment={el}
-                commentsDetail={props.commentsDetail}
-                onClickMoreComments={props.onClickMoreComments}
-                index={index}
-                handleToggle={handleToggle}
-                commentWriteOpen={commentWriteOpen}
-                onInputHandler={onInputHandler}
-                comments={comments}
-                commentsInputCount={commentsInputCount}
-                showCommentsWarning={showCommentsWarning}
-                onClickCommentsSubmit={onClickCommentsSubmit}
-                setContentsLike={props.setContentsLike}
-                contentsLike={props.contentsLike}
-                onClickUser={props.onClickUser}
-              />
-            </S.CommentsWrapper>
-          ))}
+        {props.detail?.comment_list_response.details_list.map((el, index) => (
+          <S.CommentsWrapper key={el.comment_id}>
+            <CommentItem
+              key={el.comment_id}
+              comment={el}
+              commentsDetail={props.commentsDetail}
+              onClickMoreComments={props.onClickMoreComments}
+              index={index}
+              handleToggle={handleToggle}
+              commentWriteOpen={commentWriteOpen}
+              onInputHandler={onInputHandler}
+              comments={comments}
+              commentsInputCount={commentsInputCount}
+              showCommentsWarning={showCommentsWarning}
+              onClickCommentsSubmit={onClickCommentsSubmit}
+              setContentsLike={props.setContentsLike}
+              contentsLike={props.contentsLike}
+              onClickUser={props.onClickUser}
+            />
+          </S.CommentsWrapper>
+        ))}
 
         <S.CommentsWrapper>
           <h1>댓글 작성</h1>

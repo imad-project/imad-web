@@ -17,9 +17,9 @@ export default function BoardWriteUI(props: IBoardWriteProps) {
         <S.Label>글분류</S.Label>
         <S.SelectBox onChange={props.onChangeCategory}>
           {OPTIONS.map((option) => (
-            <option key={option.value} value={option.value}>
+            <S.Option key={option.value} value={option.value}>
               {option.name}
-            </option>
+            </S.Option>
           ))}
         </S.SelectBox>
         <S.Label>제목</S.Label>

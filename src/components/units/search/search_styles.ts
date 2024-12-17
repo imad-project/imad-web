@@ -23,6 +23,7 @@ export const Input = styled.input`
   border-bottom: 2px solid #0b0537;
   margin-bottom: 30px;
   background-color: #f5f5f5;
+  cursor: pointer;
 
   :focus {
     outline: 2px solid #0b0537;
@@ -37,6 +38,7 @@ export const ImgBox = styled.img`
   margin: auto;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
+  cursor: pointer;
 
   @media (max-width: 1080px) {
     width: 100px;
