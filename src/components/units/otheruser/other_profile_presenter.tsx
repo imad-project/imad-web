@@ -57,6 +57,7 @@ export default function Profile_UI(props: IProfileProps) {
                   <S.Movie_box key={el.bookmark_id}>
                     <S.Movie_poster
                       src={`https://image.tmdb.org/t/p/original/${el.contents_poster_path}`}
+                      onClick={() => props.onClickPoster(el.contents_id)}
                     />
                     <S.Movie_title>{el.contents_title}</S.Movie_title>
                   </S.Movie_box>

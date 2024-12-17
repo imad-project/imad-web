@@ -146,6 +146,10 @@ export default function ProfileContainer() {
     }
   };
 
+  const onClickPoster = (id: number) => {
+    router.push(`/search/contents/${id}`);
+  };
+
   const onClickMyReview = () => {
     router.push("/profile/myreview");
   };
@@ -184,6 +188,7 @@ export default function ProfileContainer() {
       onChangePassWord2={onChangePassWord2}
       CHANGE_PASSWORD={CHANGE_PASSWORD}
       passwordIsChecked={passwordIsChecked}
+      onClickPoster={onClickPoster}
     />
   );
 }

@@ -59,4 +59,5 @@ export interface IProfileProps {
   onChangePassWord2: (event: ChangeEvent<HTMLInputElement>) => void;
   CHANGE_PASSWORD: () => void;
   passwordIsChecked: boolean;
+  onClickPoster: (id: number) => void;
 }
