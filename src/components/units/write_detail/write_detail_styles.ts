@@ -332,6 +332,7 @@ export const ReportBtn = styled.div`
   align-items: center;
   font-size: 18px;
   color: #f34336;
+  cursor: pointer;
   :hover {
     background-color: gray;
     transition: 0.3s;
@@ -347,6 +348,7 @@ export const ReportCancelBtn = styled.div`
   align-items: center;
   font-size: 18px;
   color: #00aaff;
+  cursor: pointer;
   :hover {
     background-color: gray;
     transition: 0.3s;
@@ -396,6 +398,7 @@ export const Icon_img = styled.img`
 
   z-index: 2;
   margin-left: 20px;
+  cursor: pointer;
 
   @media (max-width: 480px) {
     width: 10;
