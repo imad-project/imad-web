@@ -24,4 +24,7 @@ interface IReviewData {
 export interface IMyReviewProps {
   reviewData: IReviewData | null;
   onClickPoster: (id: number) => void;
+  onClickLike: (id: number) => void;
+  onClickCancelLike: (id: number) => void;
+  onClickDisLike: (id: number) => void;
 }

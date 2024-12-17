@@ -101,6 +101,10 @@ export default function OtherProfileContainer() {
     }
   };
 
+  const onClickPoster = (id: number) => {
+    router.push(`/search/contents/${id}`);
+  };
+
   const onClickBack = () => {
     void router.back();
   };
@@ -120,6 +124,7 @@ export default function OtherProfileContainer() {
       isModalOpen2={isModalOpen2}
       onClickReport={onClickReport}
       onClickBack={onClickBack}
+      onClickPoster={onClickPoster}
     />
   );
 }

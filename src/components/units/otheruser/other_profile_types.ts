@@ -53,4 +53,5 @@ export interface IProfileProps {
   isModalOpen2: boolean;
   onClickReport: () => void;
   onClickBack: () => void;
+  onClickPoster: (id: number) => void;
 }

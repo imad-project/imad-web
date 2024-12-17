@@ -47,6 +47,7 @@ export const Input = styled.input`
   border-bottom: 2px solid #0b0537;
   margin-bottom: 15px;
   background-color: #f5f5f5;
+  cursor: pointer;
 
   :focus {
     outline: 2px solid #0b0537;

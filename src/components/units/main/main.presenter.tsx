@@ -81,6 +81,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true, // 자동으로 슬라이드 넘기기
+    draggable: false, // 드래그 비활성화
     autoplaySpeed: 5000, // 2초마다 넘기기
     nextArrow: (
       <S.NextTo>
@@ -101,6 +102,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
     slidesToShow: 5,
     slidesToScroll: 5,
     swipeToSlide: true,
+    draggable: false, // 드래그 비활성화
     rows: 2,
 
     nextArrow: (
@@ -229,7 +231,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                   >
                     <S.MainSliderItem
                       src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
-                      onDoubleClick={() =>
+                      onClick={() =>
                         category === "movie"
                           ? props.onClickMovieContents(el.id)
                           : props.onClickTvContents(el.id)

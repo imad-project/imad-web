@@ -61,6 +61,7 @@ export const Subject = styled.input`
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
+  cursor: pointer;
 
   @media (max-width: 1080px) {
     min-width: 100%;
@@ -74,6 +75,7 @@ export const Contents = styled.textarea`
   padding-left: 16px;
   padding: 14px;
   border: 1px solid #bdbdbd;
+  cursor: pointer;
 
   @media (max-width: 1080px) {
     min-width: 100%;
@@ -160,6 +162,7 @@ export const ErrorWrapper = styled.div`
 
 export const SelectBox = styled.select`
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 export const RadioBox = styled.div`
@@ -193,6 +196,7 @@ export const RowBox = styled.div`
   align-items: center;
   margin-top: 20px;
   width: 100%;
+  cursor: pointer;
 `;
 
 export const SpoilerIcon = styled.img`

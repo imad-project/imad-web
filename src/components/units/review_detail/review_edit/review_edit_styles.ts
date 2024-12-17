@@ -322,18 +322,27 @@ export const reviewInput = styled.input`
   width: 100%;
   height: 50px;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 export const reviewTextArea = styled.textarea`
   height: 100px;
   resize: none;
   border: 0;
+  cursor: pointer;
 `;
 
 export const RowBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+`;
+
+export const ClickRowBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
 `;
 
 export const SpoilerIcon = styled.img`
@@ -369,4 +378,23 @@ export const ReviewEditBtn = styled.div`
   background-color: #0b0537;
   right: 20px;
   bottom: 10px;
+  cursor: pointer;
+`;
+
+export const ReviewEditBtn2 = styled.div`
+  font-size: 16px;
+  color: white;
+  width: 70px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  white-space: nowrap;
+  position: absolute;
+  z-index: 4;
+  background-color: #0b0537;
+  right: 120px;
+  bottom: 10px;
+  cursor: pointer;
 `;
