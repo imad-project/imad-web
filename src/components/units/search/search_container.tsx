@@ -71,14 +71,12 @@ export default function SearchPage() {
       {showSearch && searchResults && searchResults.length > 0 && (
         <S.Container>
           {searchResults.map((result: any, index) => (
-            <S.Item
-              key={result.id}
-              onClick={() => onClickImg(result.id, result.media_type)}
-            >
+            <S.Item key={result.id}>
               {result.poster_path && (
                 <S.ImgBox
                   src={`https://image.tmdb.org/t/p/original/${result.poster_path}`}
                   alt="Poster"
+                  onClick={() => onClickImg(result.id, result.media_type)}
                 />
               )}
               <p>
