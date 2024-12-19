@@ -82,6 +82,17 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
       return; // 통신을 수행하지 않고 함수 종료
     }
 
+    const expText = /[%=*><]/;
+    if (expText.test(title) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      return;
+    }
+
+    if (expText.test(content) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      return;
+    }
+
     if (
       title &&
       content &&
