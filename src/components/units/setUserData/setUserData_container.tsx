@@ -178,6 +178,8 @@ export default function SetUserData_container() {
   // 닉네임 중복확인
 
   const NICKNAMECHECK = async () => {
+    const expText = /[%=*><]/;
+
     if (nickName === "") {
       alert("닉네임이 비어있습니다.");
       return;
@@ -190,6 +192,11 @@ export default function SetUserData_container() {
 
     if (nickName.length > 10) {
       alert("닉네임이 너무 깁니다!");
+      return;
+    }
+
+    if (expText.test(nickName) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
       return;
     }
 
