@@ -14,6 +14,17 @@ export default function LoginContainer() {
   const redirectUrl = router.query.redirect || "/"; // 쿼리에서 redirect 값을 가져오거나 기본값 설정
 
   const LOGINIMAD = async () => {
+    const expText = /[%=*><]/;
+    if (expText.test(email) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      return;
+    }
+
+    if (expText.test(password) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      return;
+    }
+
     await axios
       .post("https://api.iimad.com/api/login", {
         email: email,

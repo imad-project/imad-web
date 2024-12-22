@@ -210,6 +210,12 @@ export default function ProfileEdit_Container() {
       return;
     }
 
+    const expText = /[%=*><]/;
+    if (expText.test(nickName) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      return;
+    }
+
     try {
       const response = await apiClient.post("/api/user/validation/nickname", {
         info: nickName,

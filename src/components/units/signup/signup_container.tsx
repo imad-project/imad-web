@@ -114,6 +114,7 @@ export default function SignupContainer(): JSX.Element {
   };
 
   const onClickSignUp = () => {
+    const expText = /[%=*><]/;
     if (isChecked === false) {
       alert("이메일 중복확인을 해주세요!");
       return;
@@ -131,6 +132,11 @@ export default function SignupContainer(): JSX.Element {
 
     if (/\s/.test(password)) {
       alert("비밀번호에 공백을 포함할 수 없습니다.");
+      return;
+    }
+
+    if (expText.test(password) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
       return;
     }
 
