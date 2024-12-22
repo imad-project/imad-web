@@ -123,6 +123,13 @@ export default function Board_container() {
   };
 
   const FETCH_BOARD_VALUECHANGE = async () => {
+    const expText = /[%=*><]/;
+    if (expText.test(query) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      setQuery("");
+      return;
+    }
+
     try {
       const response = await apiClient.get(
         `/api/posting/list/search?search_type=0&query=${query}&page=1&sort=${sort}&order=${order}&category=${category}`
@@ -137,6 +144,13 @@ export default function Board_container() {
   };
 
   const FETCH_BOARD_PAGES = async (currentPage: number) => {
+    const expText = /[%=*><]/;
+    if (expText.test(query) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      setQuery("");
+      return;
+    }
+
     try {
       const response = await apiClient.get(
         `/api/posting/list/search?search_type=0&query=${query}&page=${currentPage}&sort=${sort}&order=${order}&category=${category}`
