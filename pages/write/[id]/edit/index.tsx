@@ -127,6 +127,16 @@ export default function MovieWritePage() {
     if (!getCookie("Authorization")) {
       alert("게시글 수정은 회원만 가능합니다 로그인후 재시도 해주세요!");
     }
+
+    const expText = /[%=*><]/;
+    if (expText.test(title) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      return;
+    }
+    if (expText.test(contents) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      return;
+    }
     if (
       title &&
       contents &&

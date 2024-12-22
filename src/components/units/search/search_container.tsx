@@ -38,6 +38,13 @@ export default function SearchPage() {
     };
   }, [query]); // query 상태가 변경될 때마다 useEffect 실행
   const search = async () => {
+    const expText = /[%=*><]/;
+    if (expText.test(query) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      setQuery("");
+      return;
+    }
+
     try {
       const response = await apiClient.get(
         `/api/contents/search?query=${query}&type=multi&page=1`

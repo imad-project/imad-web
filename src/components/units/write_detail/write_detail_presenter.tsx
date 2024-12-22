@@ -181,6 +181,12 @@ const CommentItem = ({
 
   const onClickEditSubmit = async () => {
     if (confirm("댓글을 수정하시겠습니까?") == true) {
+      const expText = /[%=*><]/;
+      if (expText.test(editComments) == true) {
+        alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+        return;
+      }
+
       try {
         const EditRES = await apiClient.patch(
           `/api/posting/comment/${comment.comment_id}`,
@@ -527,10 +533,18 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
   };
 
   const onClickCommentsSubmit = async (parent_id: number | null) => {
+    const expText = /[%=*><]/;
+
     if (!getCookie("Authorization")) {
       alert("댓글등록은 회원만 가능합니다.");
       return;
     }
+
+    if (expText.test(comments) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      return;
+    }
+
     if (!comments) {
       alert("댓글은 비어있을수 없습니다.");
       return;

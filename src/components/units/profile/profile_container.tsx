@@ -117,6 +117,22 @@ export default function ProfileContainer() {
       return;
     }
 
+    const expText = /[%=*><]/;
+    if (expText.test(originPassword) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      return;
+    }
+
+    if (expText.test(password) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      return;
+    }
+
+    if (expText.test(password2) == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      return;
+    }
+
     if (/\s/.test(password)) {
       alert("비밀번호에 공백을 포함할 수 없습니다.");
       return;
