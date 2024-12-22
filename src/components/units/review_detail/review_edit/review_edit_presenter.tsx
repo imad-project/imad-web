@@ -85,6 +85,16 @@ export default function Review_EDIT(props: IMyReviewProps) {
       alert("리뷰 제목과 본문은 비어있을 수 없습니다.");
       return;
     }
+
+    const expText = /[%=*><]/;
+    if (expText.test(title ? title : "") == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      return;
+    }
+    if (expText.test(contents ? contents : "") == true) {
+      alert("특수문자 %, =, *, >, < 들은 사용할 수 없습니다. ");
+      return;
+    }
     if (showTitleWarning || showContentWarning) {
       // 제목이나 본문의 글자 수 제한을 초과한 경우
       alert("리뷰 제목과 본문은 각각 최대 글자 수를 초과할 수 없습니다.");
