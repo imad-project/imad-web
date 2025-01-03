@@ -4,7 +4,7 @@ on: # Event 감지
     branches:
       - release # 해당 브랜치의 푸쉬가 일어날 때 CI/CD를 진행하겠다는 뜻
 env:
-  S3_BUCKET_NAME: imad-s3-bucket
+  S3_BUCKET_NAME: imad-s3-bucket #ec2 에 codedeploy-agent 설치후 진행
   CODE_DEPLOY_APP_NAME: imad-codedploy-app
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: imad-codedeploy-deployment-group
   NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }} # Firebase API Key 추가
