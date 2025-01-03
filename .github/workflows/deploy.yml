@@ -4,9 +4,9 @@ on: # Event 감지
     branches:
       - release # 해당 브랜치의 푸쉬가 일어날 때 CI/CD를 진행하겠다는 뜻
 env:
-  S3_BUCKET_NAME: ryuforaws01-github-actions-s3-bucket
-  CODE_DEPLOY_APP_NAME: deploy-application-front
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: deploy-group-front
+  S3_BUCKET_NAME: imad-s3-bucket
+  CODE_DEPLOY_APP_NAME: imad-codedploy-app
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: imad-codedeploy-deployment-group
   NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }} # Firebase API Key 추가
   NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }} # Firebase 프로젝트 ID 추가
   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }} # Firebase Auth 도메인 추가
