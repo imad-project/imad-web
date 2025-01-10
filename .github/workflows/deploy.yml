@@ -1,4 +1,4 @@
-name: Deploy # Workflow 이름
+name: Deploy # Workflow 이름 빌드테스트
 on: # Event 감지
   push:
     branches:
