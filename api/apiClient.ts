@@ -6,7 +6,7 @@ import {
 } from "../src/commons/cookies/cookie"; // 쿠키 유틸리티
 
 const apiClient = axios.create({
-  baseURL: "https://api.iimad.com", // 기본 API URL 설정
+  baseURL: "https://api.imad.ncookie.net", // 기본 API URL 설정
   headers: {
     "Content-Type": "application/json", // 기본 헤더 설정
   },
