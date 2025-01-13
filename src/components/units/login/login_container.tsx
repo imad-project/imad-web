@@ -26,7 +26,7 @@ export default function LoginContainer() {
     }
 
     await axios
-      .post("https://api.iimad.com/api/login", {
+      .post("https://api.imad.ncookie.net/api/login", {
         email: email,
         password: SHA256(password).toString(),
       })
