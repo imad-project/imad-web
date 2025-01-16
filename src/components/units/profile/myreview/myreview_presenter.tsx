@@ -3,6 +3,7 @@ import * as S from "./myreview_styles";
 import { elapsedTime } from "../../../../commons/date/date";
 import CircularProgressChart from "@/src/commons/rate_view/rate_view";
 import { useRouter } from "next/router";
+import { profile_url } from "@/src/commons/constants/constants";
 
 export default function MyReview_UI(props: IMyReviewProps) {
   const router = useRouter();
@@ -28,9 +29,7 @@ export default function MyReview_UI(props: IMyReviewProps) {
               </S.PosterBox>
               <S.ColumnBox>
                 <S.RowWrapper>
-                  <S.avatar
-                    src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${el.user_profile_image}`}
-                  />
+                  <S.avatar src={`${profile_url}${el.user_profile_image}`} />
                   <S.NickNameTitle>{el.user_nickname}</S.NickNameTitle>
                 </S.RowWrapper>
                 <S.reviewBox>

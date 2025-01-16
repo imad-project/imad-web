@@ -52,11 +52,14 @@ export default function NavigationContainer(): JSX.Element {
     }
 
     try {
-      const response = await axios.get("https://api.iimad.com/api/user", {
-        headers: {
-          Authorization: `Bearer ${getCookie("Authorization")}`,
-        },
-      });
+      const response = await axios.get(
+        "https://api.imad.ncookie.net/api/user",
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie("Authorization")}`,
+          },
+        }
+      );
       if (response.status === 200) {
         setUserData(response.data.data);
         return response.data.data;

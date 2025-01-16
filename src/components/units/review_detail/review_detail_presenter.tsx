@@ -7,6 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { getCookie } from "../../../../src/commons/cookies/cookie";
 import apiClient from "@/api/apiClient";
+import { profile_url } from "@/src/commons/constants/constants";
 
 export default function MyReview_UI(props: IMyReviewProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -210,7 +211,7 @@ export default function MyReview_UI(props: IMyReviewProps) {
                 <S.ColumnBox>
                   <S.RowWrapper>
                     <S.avatar
-                      src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props.reviewData?.user_profile_image}`}
+                      src={`${profile_url}${props.reviewData?.user_profile_image}`}
                     />
                     <S.NickNameTitle
                       onClick={() =>
