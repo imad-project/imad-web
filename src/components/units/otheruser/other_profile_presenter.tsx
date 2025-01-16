@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import ReactModal from "react-modal";
 import revoke from "../../../commons/revoke/revoke";
+import { profile_url } from "@/src/commons/constants/constants";
 
 export default function Profile_UI(props: IProfileProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,7 +18,7 @@ export default function Profile_UI(props: IProfileProps) {
         <S.RowWrapper>
           <S.ImgBox onClick={props.openModal}>
             <S.Profile_image
-              src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props?.data?.user_profile_image}`}
+              src={`${profile_url}${props?.data?.user_profile_image}`}
               className="profile_img"
             />
           </S.ImgBox>

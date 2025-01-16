@@ -13,6 +13,7 @@ import ProducerRole from "@/src/commons/crewfinder/crewfinder";
 import CircularProgressChart from "@/src/commons/rate_view/rate_view";
 import { elapsedTime } from "../../../../src/commons/date/date";
 import apiClient from "@/api/apiClient";
+import { profile_url } from "@/src/commons/constants/constants";
 
 export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
   const MAX_TITLE_BYTES = 50; // 리뷰 제목 최대 바이트 수
@@ -509,9 +510,7 @@ export default function SearchDetailUI(props: IDetailUIProps): JSX.Element {
         {props.review?.details_list.map((el) => (
           <S.ReviewMapWrapper key={el.review_id}>
             <S.RowWrapper>
-              <S.avatar
-                src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${el.user_profile_image}`}
-              />
+              <S.avatar src={`${profile_url}${el.user_profile_image}`} />
               <S.title>{el.user_nickname}</S.title>
             </S.RowWrapper>
             <S.reviewBox>

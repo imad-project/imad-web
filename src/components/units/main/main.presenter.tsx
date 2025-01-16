@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 
 import { IMainProps } from "./main.types";
 import { findGenreNames } from "../../../../src/commons/gerne_finder/gerne_finder";
+import { profile_url } from "@/src/commons/constants/constants";
 
 const StyledSlider = styled(Slider)`
   position: relative;
@@ -279,7 +280,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                 </S.RowBox3>
                 <S.RowBox3>
                   <S.Profile_image
-                    src={`https://imad-s3-image.s3.ap-northeast-2.amazonaws.com/profile/${props.TopReview?.user_profile_image}`}
+                    src={`${profile_url}${props.TopReview?.user_profile_image}`}
                   />
                   <S.SubItemsSubTitle2>
                     {props.TopReview?.user_nickname}
@@ -315,7 +316,7 @@ export default function MainPageUI(props: IMainProps): JSX.Element {
                 </S.RowBox3>
                 <S.RowBox3>
                   <S.Profile_image
-                    src={`https://imad-s3-image.s3.ap-northeast-2.amazonaws.com/profile/${props.TopWrite?.user_profile_image}`}
+                    src={`${profile_url}${props.TopWrite?.user_profile_image}`}
                   />
                   <S.SubItemsSubTitle2>
                     {props.TopWrite?.user_nickname}

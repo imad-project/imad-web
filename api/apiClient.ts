@@ -55,7 +55,7 @@ apiClient.interceptors.response.use(
           const accessToken = getCookie("Authorization");
           const refreshToken = getCookie("Authorization_refresh"); // 쿠키에서 리프레시 토큰 가져오기
           const response = await axios.get(
-            "https://api.iimad.com/api/token", // 리프레시 요청 URL
+            "https://api.imad.ncookie.net/api/token", // 리프레시 요청 URL
             {
               headers: {
                 Authorization: `Bearer ${accessToken}`,

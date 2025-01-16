@@ -8,6 +8,7 @@ import { getCookie } from "@/src/commons/cookies/cookie";
 import axios from "axios";
 import { useRouter } from "next/router";
 import apiClient from "@/api/apiClient";
+import { profile_url } from "@/src/commons/constants/constants";
 
 const CommentItem = ({
   comment,
@@ -304,9 +305,7 @@ const CommentItem = ({
     <S.RowWrapper2>
       <S.ColumnWrapper>
         <S.RowWrapper2>
-          <S.avatar
-            src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${comment.user_profile_image}`}
-          />
+          <S.avatar src={`${profile_url}${comment.user_profile_image}`} />
           <S.UserNickName
             onClick={() => onClickUser(comment.user_id, comment.author)}
           >
@@ -698,7 +697,7 @@ export default function Write_Detail_UI(props: IWriteDetailProps) {
             <S.ColumnWrapper>
               <S.RowWrapper2>
                 <S.avatar
-                  src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props.detail?.user_profile_image}`}
+                  src={`${profile_url}${props.detail?.user_profile_image}`}
                 />
                 <S.ColumnWrapper>
                   <S.UserNickName
