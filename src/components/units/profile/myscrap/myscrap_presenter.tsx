@@ -1,6 +1,7 @@
 import { IMyScrapProps } from "./myscrap_types";
 import * as S from "./myscrap_styles";
 import { elapsedTime } from "@/src/commons/date/date";
+import { profile_url } from "@/src/commons/constants/constants";
 
 export default function MyScrap_UI(props: IMyScrapProps) {
   return (
@@ -18,9 +19,7 @@ export default function MyScrap_UI(props: IMyScrapProps) {
               </S.PosterBox>
               <S.ColumnBox>
                 <S.RowWrapper>
-                  <S.avatar
-                    src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${el.user_profile_image}`}
-                  />
+                  <S.avatar src={`${profile_url}${el.user_profile_image}`} />
                   <h1>{el.user_nickname}</h1>
                 </S.RowWrapper>
                 <S.WriteBox>

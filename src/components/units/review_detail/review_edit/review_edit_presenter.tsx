@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { getCookie } from "../../../../commons/cookies/cookie";
 import ReactStars from "react-stars";
 import apiClient from "@/api/apiClient";
+import { profile_url } from "@/src/commons/constants/constants";
 
 export default function Review_EDIT(props: IMyReviewProps) {
   const [title, setTitle] = useState(props.reviewData?.title);
@@ -158,7 +159,7 @@ export default function Review_EDIT(props: IMyReviewProps) {
                 <S.ColumnBox>
                   <S.RowWrapper>
                     <S.avatar
-                      src={`https://imad-image-s3.s3.ap-northeast-2.amazonaws.com/profile/${props.reviewData?.user_profile_image}`}
+                      src={`${profile_url}${props.reviewData?.user_profile_image}`}
                     />
                     <S.NickNameTitle>
                       {props.reviewData?.user_nickname}
