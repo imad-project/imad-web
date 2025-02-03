@@ -71,3 +71,21 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 - [IMAD Server](https://github.com/NCookies/imad-server)
 - [IMAD Anroid](https://github.com/imad-project/imad-android)
 - [IMAD Ios](https://github.com/imad-project/imad-ios)
+
+
+## 🚀주요기능
+
+<details>
+ <summary>- 로그인</summary>
+
+ ## 로그인
+
+<img src="https://github.com/user-attachments/assets/4b7d56ba-45b7-4de0-966e-6fdaad0b6639" width="auto" height="30%">
+ 
+- 회원가입 이후 로그인 기능을 사용하여 회원로그인을 진행할 수 있습니다.
+
+- 아이매드 일반회원 로그인 기능
+- Kakao, Naver, Google, Apple 의 소셜로그인기능
+- 소셜 로그인시 신규 회원과 기존 회원을 구분하여 신규 가입도 동시에 진행 가능
+
+</details>
