@@ -7,7 +7,7 @@
 
 
 
-<img src="https://github.com/user-attachments/assets/c64d60f5-d169-4fe7-9b14-4db05a25ded3" width="100%" height="auto">
+<img src="https://github.com/user-attachments/assets/c64d60f5-d169-4fe7-9b14-4db05a25ded3" width="50%" height="50%">
 
 > IMAD 프로젝트 Web 레포지토리입니다.
 
