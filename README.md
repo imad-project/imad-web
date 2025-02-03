@@ -19,9 +19,9 @@ IMAD는 영화/드라마/애니메이션 등 여러 미디어 작품에
 
 
 
-## Getting Started
+## 시작하기 
 
-First, run the development server:
+
 
 ```bash
 npm run dev
