@@ -98,7 +98,7 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 
  ## 로그인
 
-<img src="https://github.com/user-attachments/assets/4b7d56ba-45b7-4de0-966e-6fdaad0b6639" width="auto" height="30%">
+<img src="https://github.com/user-attachments/assets/4b7d56ba-45b7-4de0-966e-6fdaad0b6639" width="30%" height="25%">
  
 - 회원가입 이후 로그인 기능을 사용하여 회원로그인을 진행할 수 있습니다.
 
