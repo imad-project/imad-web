@@ -207,3 +207,31 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 
 
 </details>
+
+<details>
+ <summary>프로필</summary>
+
+ ## 프로필
+<p align = "leading">
+
+
+
+
+
+ <img src="https://github.com/user-attachments/assets/e6e7e977-af03-459b-bd81-6edca58ef939" width="30%" height="25%">
+ <img src="https://github.com/user-attachments/assets/85ddff32-7e75-4ad8-b363-7aba39bc6c15" width="30%" height="25%">
+<img src="https://github.com/user-attachments/assets/5efd3c9f-ceb7-4634-b91a-ada54d878d02" width="30%" height="25%">
+ 
+</p>
+
+ 
+- 자신의 정보를 확인할 수 있는 프로필 페이지 입니다.
+- 로그인한 유저일 경우 상단의 네비게이션바에서 자신의 닉네임을 클릭시 언제든 이동할 수 있습니다.
+- 닉네임 우측의 톱니바퀴를 클릭시 회원정보수정,비밀번호 변경, 회원탈퇴 등의 기능을 사용할 수 있습니다.
+- 프로필 사진을 클릭시 유저의 프로필 사진을 변경할 수 있습니다.
+- 프로필 사진 변경은 Imad 측에서 제공하는 기본 프로필 사진들을 사용하거나 유저가 원하는 커스텀 이미지를 업로드하여 사용할 수 있습니다.
+- 내 리뷰/내 게시물/내 스크랩 버튼을 클릭시 자신이 작성한 리뷰/게시물, 내가 스크랩한 게시물/리뷰등을 확인할 수 있습니다. 
+
+
+
+</details>
