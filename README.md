@@ -22,16 +22,39 @@ IMAD는 영화/드라마/애니메이션 등 여러 미디어 작품에
 ## 시작하기 
 
 
-
+> 라이브러리 설치 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+
+yarn install
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> 서버 테스트 시작 
+```bash
+
+yarn dev
+
+```
+서버 테스트시 
+ [http://localhost:3000](http://localhost:3000) 위의 로컬 주소로 브라우징 테스트를 진행 할 수 있습니다. 
+
+ > 빌드 파일 생성 
+```bash
+
+yarn build
+
+```
+yarn build 시 별도의 최적화 된 서버 구동 파일을 생성 할 수 있습니다.
+
+> 서버 시동  
+```bash
+# 상위의 빌드 파일 생성 이후 작동할것!
+yarn start 
+
+```
+
+yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 수 있습니다. 
+서버는 3000 번의 포트로 자동 시작 됩니다.
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
