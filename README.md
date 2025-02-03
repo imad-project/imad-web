@@ -86,8 +86,7 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 
 ## 🚀주요기능
 
-<details>
- <summary>회원가입</summary>
+
 
  ## 회원가입
 <p align = "leading">
@@ -102,10 +101,10 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 
 - 회원가입 이후 닉네임, 성별, 출생년도, 좋아하는 영화 장르, 좋아하는 TV 시리즈 장르 등을 입력해 회원정보를 기입할 수 있습니다. 
 
-</details>
 
-<details>
- <summary>로그인</summary>
+
+
+ 
 
  ## 로그인
 
@@ -117,10 +116,10 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 - Kakao, Naver, Google, Apple 의 소셜로그인기능
 - 소셜 로그인시 신규 회원과 기존 회원을 구분하여 신규 가입도 동시에 진행 가능
 
-</details>
 
-<details>
- <summary>메인화면</summary>
+
+
+
 
  ## 메인화면
 <p align = "leading">
@@ -140,10 +139,7 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 - Imad 의 데이터 베이스 에서 높은 평점을 기록한 작품들을 순위별로 볼 수 있는 아이매드 차트 입니다.
 - 로그인을 한 유저는 유저 정보에 기입되어 있는 선호하는 장르와 활동기록에 기반해 작품을 추천 받을 수 있습니다.
 
-</details>
 
-<details>
- <summary>작품 검색</summary>
 
  ## 작품 검색
 <p align = "leading">
@@ -161,12 +157,11 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 - tmdb 데이터 베이스에 있는 모든 작품을 검색 할수 있으며 별도의 검색 버튼 없이 타이핑만으로 실시간 작품검색이 가능합니다.
 - 나열된 포스터 이미지를 클릭시 후술할 작품 상세페이지로 연결됩니다.
 
-</details>
 
 
 
-<details>
- <summary>작품 상세 페이지</summary>
+
+
 
  ## 작품 상세 페이지
 <p align = "leading">
@@ -190,10 +185,7 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 - 작품 상세 페이지 에서 타유저가 작성한 리뷰들을 확인 할 수 있으며 리뷰에 대한 좋아요/싫어요 평가와 리뷰 신고를 진행 할 수 있습니다.
 - 본인이 작성한 리뷰의 수정기능이 포함되어 있습니다.
 
-</details>
 
-<details>
- <summary>게시판/게시글</summary>
 
  ## 게시판/게시글
 <p align = "leading">
@@ -217,10 +209,7 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 - 부적절한 게시글을 신고처리 할 수 있습니다.
 
 
-</details>
 
-<details>
- <summary>프로필</summary>
 
  ## 프로필
 <p align = "leading">
@@ -245,10 +234,7 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 
 
 
-</details>
 
-<details>
- <summary>보안</summary>
 
  ## 보안
 <p align = "leading">
@@ -272,7 +258,7 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 
 
 
-</details>
+
 
 ## ⚙️배포 
 - 본 레포지토리의 release 브런치에 push가 인식 되면 git action을 활용한 자동 배포 스크립트가 작동합니다.
