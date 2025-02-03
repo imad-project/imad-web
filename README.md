@@ -73,6 +73,17 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 - [IMAD Ios](https://github.com/imad-project/imad-ios)
 
 
+## 💻기술 스택
+
+- TypeScript
+- React
+- Next.js
+- Node.js
+- Emotion
+- Axios
+- AWS
+
+
 ## 🚀주요기능
 
 <details>
@@ -253,7 +264,7 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 </p>
 
  
-- 개발하며 주의한 보안잇슈를 나열 합니다.
+- 개발하며 주의한 보안잇슈를 나열합니다.
 - https를 사용해 서버와의 통신은 암호화 되어 있습니다.
 - 비밀번호등 민감한 정보는 클라이언트측에서 한번더 암호화를 진행하여 통신을 진행합니다.
 - SQL injection 에 대응하기위해 프로젝트에 사용된 모든 input&textarea 는 태그로 사용될 수 있는 특수문자를 사용하지 못하도록 설계 되어 있습니다.
@@ -262,3 +273,8 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 
 
 </details>
+
+## 배포 
+- 본 레포지토리의 release 브런치에 push가 인식 되면 git action을 활요한 자동 배포 스크립트가 작동합니다.
+- AWS s3에 빌드된 파일이 업로드되고 ec2에 이동되며 서버를 작동시키게 됩니다.
+- 위의 과정은 스크립트에 의해 자동으로 진행됩니다.
