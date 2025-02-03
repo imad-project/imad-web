@@ -22,6 +22,7 @@ IMAD는 tmdb 데이터베이스를 사용해 영화/드라마/애니메이션 �
 ## 시작하기 
 <details>
  <summary>작동법</summary>
+ 
  ### 1. 라이브러리 설치 
 ```bash
 
