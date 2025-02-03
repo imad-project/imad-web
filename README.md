@@ -2,7 +2,7 @@
 <img src="https://github.com/user-attachments/assets/b245b82b-fa87-4166-b796-810aeac3176b" width="12.5%" height="25%">
 
 
-## 개요 
+## 📢개요 
 
 
 
@@ -19,7 +19,7 @@ IMAD는 tmdb 데이터베이스를 사용해 영화/드라마/애니메이션 �
 
 
 
-## 시작하기 
+## 💾시작하기 
 <details>
  <summary>작동법</summary>
  
@@ -274,7 +274,7 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 
 </details>
 
-## 배포 
+## ⚙️배포 
 - 본 레포지토리의 release 브런치에 push가 인식 되면 git action을 활요한 자동 배포 스크립트가 작동합니다.
 - AWS s3에 빌드된 파일이 업로드되고 ec2에 이동되며 서버를 작동시키게 됩니다.
 - 위의 과정은 스크립트에 의해 자동으로 진행됩니다.
