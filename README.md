@@ -1,11 +1,13 @@
 
 <img src="https://github.com/user-attachments/assets/b245b82b-fa87-4166-b796-810aeac3176b" width="12.5%" height="25%">
-![354802045-a9ff5bca-3bf0-4878-b9df-49798ec02e64](https://github.com/user-attachments/assets/b245b82b-fa87-4166-b796-810aeac3176b)
+
 
 ## 개요 
 
 
 ![imad_pc_main](https://github.com/user-attachments/assets/c64d60f5-d169-4fe7-9b14-4db05a25ded3)
+
+<img src="https://github.com/user-attachments/assets/c64d60f5-d169-4fe7-9b14-4db05a25ded3" width="12.5%" height="25%">
 
 > IMAD 프로젝트 Web 레포지토리입니다.
 
