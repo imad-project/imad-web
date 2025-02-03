@@ -107,3 +107,26 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 - 소셜 로그인시 신규 회원과 기존 회원을 구분하여 신규 가입도 동시에 진행 가능
 
 </details>
+
+<details>
+ <summary>메인화면</summary>
+
+ ## 메인화면
+<p align = "leading">
+
+
+
+ <img src="https://github.com/user-attachments/assets/6b16a364-b164-4001-a2a0-19b17a0e303a" width="30%" height="25%">
+ <img src="https://github.com/user-attachments/assets/dbbf7c53-aa5b-406e-b5e6-db7e82a65eff" width="30%" height="25%">
+ <img src="https://github.com/user-attachments/assets/830269cb-41a8-471f-a150-bc310a55f031" width="30%" height="25%">
+</p>
+
+ 
+- Project Imad 의 메인 페이지입니다.
+
+- 메인배너엔 tmdb데이터 베이스의 상위 랭크된 작품들이 나열 됩니다.
+- Imad 데이터 베이스에서 기록된 그날의 높은 조회수의 리뷰와 게시물을 불러와 오늘의 리뷰/게시물 로 표시해 줍니다.
+- Imad 의 데이터 베이스 에서 높은 평점을 기록한 작품들을 순위별로 볼 수 있는 아이매드 차트 입니다.
+- 로그인을 한 유저는 유저 정보에 기입되어 있는 선호하는 장르와 활동기록에 기반해 작품을 추천 받을 수 있습니다.
+
+</details>
