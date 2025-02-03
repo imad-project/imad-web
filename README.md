@@ -241,7 +241,7 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 
 
 
- <img src="https://github.com/user-attachments/assets/47ed5d2e-2708-4b27-b615-1aabf0a2f3de" width="30%" height="25%">
+ <img src="https://github.com/user-attachments/assets/47ed5d2e-2708-4b27-b615-1aabf0a2f3de" width="60%" height="25%">
  <img src="https://github.com/user-attachments/assets/f1efb6b3-8372-4f14-b11d-3291dc93aa54" width="30%" height="25%">
 
  
@@ -253,7 +253,7 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 
 
 
- <img src="https://github.com/user-attachments/assets/bf6132fa-fc81-457a-b1d3-4b23ce739ceb" width="30%" height="25%">
+ <img src="https://github.com/user-attachments/assets/bf6132fa-fc81-457a-b1d3-4b23ce739ceb" width="60%" height="25%">
  <img src="https://github.com/user-attachments/assets/df2980c2-6532-4b58-88f7-b7dd0eecd9ec" width="30%" height="25%">
 
  
