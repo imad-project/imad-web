@@ -66,7 +66,7 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 </details>
 
 
-## 팀원 깃허브 🔗링크
+## 🔗팀원 깃허브 링크
 
 - [IMAD Server](https://github.com/NCookies/imad-server)
 - [IMAD Anroid](https://github.com/imad-project/imad-android)
