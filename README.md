@@ -180,3 +180,30 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 - 본인이 작성한 리뷰의 수정기능이 포함되어 있습니다.
 
 </details>
+
+<details>
+ <summary>게시판/게시글</summary>
+
+ ## 게시판/게시글
+<p align = "leading">
+
+
+
+
+
+ <img src="https://github.com/user-attachments/assets/676f9a1e-506f-468c-bb56-973d4aa9b60f" width="30%" height="25%">
+ <img src="https://github.com/user-attachments/assets/bc4ba5ab-ed04-4589-9e05-af3a1018b427" width="30%" height="25%">
+
+ 
+</p>
+
+ 
+- 타유저들과 의견을 교류 할 수 있는 게시판입니다.
+
+- 게시판의 경우 게시글의 나열방식을 변경할 수 있도록 하였습니다. ex) 글분류, 좋아요/싫어요순, 최신순 등등 변경가능!
+- 게시글 제목을 클릭시 게시글 전문을 볼 수 있는 상세 페이지로 이동합니다.
+- 게시글 상세 페이지 에선 댓글을 작성/수정이 가능하고 타유저의 댓글을 확인 하거나 답글을 달아 의견을 교류 할 수 있습니다.
+- 부적절한 게시글을 신고처리 할 수 있습니다.
+
+
+</details>
