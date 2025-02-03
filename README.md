@@ -76,7 +76,25 @@ yarn start 시 최적화 된 빌드파일을 사용해 서버를 구동 시킬 �
 ## 🚀주요기능
 
 <details>
- <summary>- 로그인</summary>
+ <summary>회원가입</summary>
+
+ ## 회원가입
+<p align = "leading">
+ 
+
+ <img src="https://github.com/user-attachments/assets/be0d7c54-8ac8-4619-b87e-e330dfdeaf24" width="30%" height="25%">
+ <img src="https://github.com/user-attachments/assets/2bb02b99-c38b-4334-ac94-24bd9a4a7061" width="30%" height="25%">
+</p>
+
+ 
+- 정규화된 이메일 주소와 비밀번호를 사용해 신규 회원가입이 가능합니다. 
+
+- 회원가입 이후 닉네임, 성별, 출생년도, 좋아하는 영화 장르, 좋아하는 TV 시리즈 장르 등을 입력해 회원정보를 기입할 수 있습니다. 
+
+</details>
+
+<details>
+ <summary>로그인</summary>
 
  ## 로그인
 
