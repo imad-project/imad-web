@@ -86,19 +86,19 @@ export default function LoginContainer() {
 
   //소셜로그인 선택부
   const onClickLoginKakao = async () => {
-    window.location.href = `https://api.iimad.com/oauth2/authorization/kakao?redirect_uri=https://iimad.com/oauth2/redirect&origin_site=${redirectUrl}`;
+    window.location.href = `https://api.imad.ncookie.net/oauth2/authorization/kakao?redirect_uri=https://iimad.com/oauth2/redirect&origin_site=${redirectUrl}`;
   };
 
   const onClickLoginGoogle = async () => {
-    window.location.href = `https://api.iimad.com/oauth2/authorization/google?redirect_uri=https://iimad.com/oauth2/redirect&origin_site=${redirectUrl}`;
+    window.location.href = `https://api.imad.ncookie.net/oauth2/authorization/google?redirect_uri=https://iimad.com/oauth2/redirect&origin_site=${redirectUrl}`;
   };
 
   const onClickLoginNaver = async () => {
-    window.location.href = `https://api.iimad.com/oauth2/authorization/naver?redirect_uri=https://iimad.com/oauth2/redirect&origin_site=${redirectUrl}`;
+    window.location.href = `https://api.imad.ncookie.net/oauth2/authorization/naver?redirect_uri=https://iimad.com/oauth2/redirect&origin_site=${redirectUrl}`;
   };
 
   const onClickLoginApple = async () => {
-    window.location.href = `https://api.iimad.com/oauth2/login/apple?redirect_uri=https://iimad.com/oauth2/redirect&origin_site=${redirectUrl}`;
+    window.location.href = `https://api.imad.ncookie.net/oauth2/login/apple?redirect_uri=https://iimad.com/oauth2/redirect&origin_site=${redirectUrl}`;
   };
 
   return (
