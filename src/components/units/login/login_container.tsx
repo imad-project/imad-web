@@ -84,7 +84,7 @@ export default function LoginContainer() {
     router.push("/signup");
   };
 
-  //소셜로그인 선택부
+  //소셜로그인 선택부d
   const onClickLoginKakao = async () => {
     window.location.href = `https://api.imad.ncookie.net/oauth2/authorization/kakao?redirect_uri=https://iimad.com/oauth2/redirect&origin_site=${redirectUrl}`;
   };
