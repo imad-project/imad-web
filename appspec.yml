@@ -32,6 +32,10 @@ permissions:
 ## runas (optional): 스크립트를 실행하는 사용자
 
 hooks:
+  BeforeInstall:
+    - location: scripts/clean.sh
+      timeout: 60
+      runas: ec2-user
   AfterInstall:
     - location: scripts/stop.sh
       timeout: 60
