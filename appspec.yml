@@ -15,7 +15,7 @@ files:
 ## object: 권한이 지정되는 파일 또는 디렉터리
 ## pattern (optional): 매칭되는 패턴에만 권한 부여
 ## owner (optional): object 의 소유자
-## group (optional): object 의 그룹 이름
+## group (optional): object 의 그룹 이름f
 
 permissions:
   - object: /
