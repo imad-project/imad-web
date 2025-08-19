@@ -41,7 +41,7 @@ export default function NavigationContainer(): JSX.Element {
       // 현재 페이지가 "/"라면 새로고침
       router.reload();
     } else {
-      // 다른 페이지에서는 "/"로 이동fff
+      // 다른 페이지에서는 "/"로 이동ffff
       await router.push("/");
     }
   };
